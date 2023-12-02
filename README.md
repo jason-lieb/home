@@ -1,4 +1,4 @@
-# Hhome
+# Home
 A central repo for all my dotfiles, install scripts, etc.
 
 # Use

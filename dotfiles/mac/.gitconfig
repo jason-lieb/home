@@ -1,7 +1,0 @@
-[user]
-	name = Jason Lieb
-	email = Jason.lieb@renaissance.com
-[pull]
-	rebase = false
-[init]
-	defaultBranch = main

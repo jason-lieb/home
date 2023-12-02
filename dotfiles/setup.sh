@@ -1,12 +1,13 @@
 #!/bin/bash
 
-git clone https://github.com/jason-lieb/.dotfiles.git ~/.dotfiles
+# Delete files if they already exist
+rm ~/.bashrc
+rm ~/.gitconfig
+rm ~/.config/Code/User/settings.json
 
-# Options for placing dotfiles in home directory
-# 1. Symlink: ln -sf ~/.dotfiles/.bashrc ~/.bashrc
-# 2. Copy Files: cp ~/.dotfiles/.bashrc ~/.bashrc
+# Create symlink and force overwrite
+ln -sf ~/home/dotfiles/.bashrc ~/.bashrc
+ln -sf ~/home/dotfiles/.gitconfig ~/.gitconfig
+ln -sf ~/home/dotfiles/vscode-settings.json ~/.config/Code/User/settings.json
 
-ln -sf ~/.dotfiles/.bashrc ~/.bashrc
-ln -sf ~/.dotfiles/.gitconfig ~/.gitconfig
-
-echo "Dotfiles setup complete."
+echo "Dotfiles updated."
