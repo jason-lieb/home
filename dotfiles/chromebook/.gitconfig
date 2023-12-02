@@ -1,0 +1,7 @@
+[user]
+	name = Jason Lieb
+	email = Jason.lieb@outlook.com
+[init]
+	defaultBranch = main
+[core]
+	editor = code --wait

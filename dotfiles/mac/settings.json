@@ -1,0 +1,38 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.startupEditor": "none",
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "prettier.enable": true,
+  "files.trimTrailingWhitespace": true,
+  "flow.enabled": false,
+  "haskell.trace.server": "messages",
+  "haskell.trace.client": "debug",
+  "haskell.checkProject": false,
+  "haskell.formattingProvider": "none",
+  "haskell.manageHLS": "GHCup",
+  "externalFormatters.languages": {
+    "haskell": {
+      "command": "stack",
+      "arguments": ["exec", "fourmolu", "--", "--stdin-input-file", "."]
+    }
+  },
+  "javascript.validate.enable": false,
+  "editor.accessibilitySupport": "off",
+  "githubPullRequests.pullBranch": "never",
+  "editor.parameterHints.enabled": false,
+  "indentRainbow.indicatorStyle": "light",
+  "indentRainbow.lightIndicatorStyleLineWidth": 4,
+  "window.openFoldersInNewWindow": "off",
+  "prettier.singleQuote": true,
+  "editor.minimap.enabled": false
+}
