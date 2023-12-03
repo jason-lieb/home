@@ -12,6 +12,7 @@ ln -sf ~/home/dotfiles/.bashrc ~/.bashrc
 ln -sf ~/home/dotfiles/config.fish ~/.config/fish/config.fish
 ln -sf ~/home/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/home/dotfiles/vscode-settings.json ~/.config/Code/User/settings.json
+mkdir ~/.config/nix
 ln -sf ~/home/dotfiles/nix.conf ~/.config/nix/nix.conf
 
 echo "Dotfiles updated."
