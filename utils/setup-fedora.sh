@@ -36,10 +36,6 @@ sudo dnf -y install\
 # kdeconnectd \
 # dnfdragora \
 
-# Set up git -> Will be handled by dotfiles
-# git config --global user.email "jason.lieb@outlook.com"
-# git config --global user.name "jason-lieb"
-
 # Boot to gnome
 sudo systemctl enable gdm
 sudo systemctl set-default graphical.target
