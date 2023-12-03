@@ -11,26 +11,26 @@ echo -e "fastestmirror=True\nmax_parallel_downloads=10\ndefaultyes=True\nkeepcac
 
 sudo dnf -y update
 
-sudo dnf -y install @gnome-desktop \
-  git \
-  vim \
-  neovim \
-  nano \
-  firefox \
-  alacritty \
-  fish \
-  htop \
-  neofetch \
-  tar \
-  gnome-tweaks \
-  chromium \
-  timeshift \
-  gnome-extensions-app \
-  steam \
-  docker
-# xclip \ # Need wayland alternative
-# kdeconnectd \
-# dnfdragora \
+sudo dnf -y install @gnome-desktop
+sudo dnf -y install git
+sudo dnf -y install vim
+sudo dnf -y install neovim
+sudo dnf -y install nano
+sudo dnf -y install firefox
+sudo dnf -y install alacritty
+sudo dnf -y install fish
+sudo dnf -y install htop
+sudo dnf -y install neofetch
+sudo dnf -y install tar
+sudo dnf -y install gnome-tweaks
+sudo dnf -y install chromium
+sudo dnf -y install timeshift
+sudo dnf -y install gnome-extensions-app
+sudo dnf -y install steam
+sudo dnf -y install docker
+# sudo dnf -y install xclip # Need wayland alternative
+# sudo dnf -y install kdeconnectd
+# sudo dnf -y install dnfdragora
 
 echo "Setting up docker..."
 sudo dnf -y install dnf-plugins-core
