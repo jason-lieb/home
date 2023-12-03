@@ -81,6 +81,8 @@ sudo dnf -y update
 sudo dnf -y autoremove
 sudo dnf clean packages
 
+echo "Install Completed Successfully. Rebooting..."
+
 reboot
 
 #
