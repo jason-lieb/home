@@ -15,7 +15,6 @@ sudo dnf -y update
 # Install software
 sudo dnf -y install \
   @gnome-desktop \
-  iwd \
   networkmanager \
   git \
   vim \
