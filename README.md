@@ -22,7 +22,7 @@ This will install everything, update the system, and reboot.
 From there, run:
 
 ```
-sudo bash -c "$(curl -fsSl https://raw.githubusercontent.com/jason-lieb/home/main/utils/setup-ssh-key.sh)"
+bash -c "$(curl -fsSl https://raw.githubusercontent.com/jason-lieb/home/main/utils/setup-ssh-key.sh)"
 ```
 
 to create an ssh key and either copy it to the clipboard or display it in the terminal.

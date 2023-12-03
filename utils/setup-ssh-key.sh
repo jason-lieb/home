@@ -15,6 +15,7 @@ if [ "$session_type" == "wayland" ]; then
 elif [ "$session_type" == "x11" ]; then
     # Copy to clipboard if using X11
     cat ~/.ssh/id_ed25519.pub | xclip
+    echo "Generated ssh key and copied to clipboard"
 else
     # Output ssh key to terminal
     cat ~/.ssh/id_ed25519.pub
