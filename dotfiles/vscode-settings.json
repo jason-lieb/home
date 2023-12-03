@@ -1,36 +1,37 @@
 {
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Default Dark+",
-  "workbench.startupEditor": "none",
-  "security.workspace.trust.untrustedFiles": "open",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "editor.tabSize": 2,
+  "editor.accessibilitySupport": "off",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[markdown]": {
-    "editor.formatOnSave": false
-  },
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.parameterHints.enabled": false,
+  "editor.tabSize": 2,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
-  "prettier.enable": true,
-  "files.trimTrailingWhitespace": true,
-  "haskell.trace.server": "messages",
-  "haskell.trace.client": "debug",
-  "haskell.checkProject": false,
-  "haskell.formattingProvider": "none",
-  "haskell.manageHLS": "GHCup",
   "externalFormatters.languages": {
     "haskell": {
       "command": "stack",
       "arguments": ["exec", "fourmolu", "--", "--stdin-input-file", "."]
     }
   },
-  "javascript.validate.enable": false,
-  "editor.accessibilitySupport": "off",
-  "editor.parameterHints.enabled": false,
+  "files.trimTrailingWhitespace": true,
+  "haskell.checkProject": false,
+  "haskell.formattingProvider": "none",
+  "haskell.manageHLS": "GHCup",
+  "haskell.trace.client": "debug",
+  "haskell.trace.server": "messages",
   "indentRainbow.indicatorStyle": "light",
   "indentRainbow.lightIndicatorStyleLineWidth": 4,
-  "window.openFoldersInNewWindow": "off",
+  "javascript.validate.enable": false,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "prettier.enable": true,
   "prettier.singleQuote": true,
-  "editor.minimap.enabled": false
+  "security.workspace.trust.untrustedFiles": "open",
+  "terminal.integrated.shell.linux": "/usr/bin/fish",
+  "window.openFoldersInNewWindow": "off",
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none"
 }
