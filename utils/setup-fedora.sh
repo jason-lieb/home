@@ -26,10 +26,15 @@ sudo dnf -y install @gnome-desktop \
   chromium \
   timeshift \
   gnome-extensions-app \
-  steam
+  steam \
+  docker
 # xclip \ # Need wayland alternative
 # kdeconnectd \
 # dnfdragora \
+
+echo "Setting up docker..."
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 
 echo "Enabling gnome..."
 sudo systemctl enable gdm
@@ -40,12 +45,15 @@ sudo hostnamectl set-hostname fedora
 
 echo "Adding rpm fusion..."
 sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+echo "Adding rpm fusion pt 2..."
 sudo dnf config-manager --enable fedora-cisco-openh264
-sudo dnf groupupdate core
+echo "Adding rpm fusion pt 3..."
+sudo dnf -y groupupdate core
 
 echo "Installing media drivers..."
-sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-sudo dnf groupupdate sound-and-video
+sudo dnf -y groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+echo "Installing media drivers pt 2..."
+sudo dnf -y groupupdate sound-and-video
 
 echo "Installing nix package manager..."
 bash -c "$(curl -fsSL https://nixos.org/nix/install)" --no-daemon # Single user ### investigate if multi-user install is possible with secure boot
