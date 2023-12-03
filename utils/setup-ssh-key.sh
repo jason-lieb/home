@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 yes | ssh-keygen -t ed25519 -C "jason.lieb@outlook.com"
 eval "$(ssh-agent -s)"

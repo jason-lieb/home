@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check if running as root
 if [[ $EUID -ne 0 ]]; then
@@ -13,24 +13,24 @@ echo -e "fastestmirror=True\nmax_parallel_downloads=10\ndefaultyes=True\nkeepcac
 sudo dnf -y update
 
 # Install software
-sudo dnf -y install\
-  @gnome-desktop\
-  iwd\
-  networkmanager\
-  git\
-  vim\
-  neovim\
-  nano\
-  firefox\
-  alacritty\
-  fish\
-  htop\
-  neofetch\
-  tar\
-  gnome-tweaks\
-  chromium\
-  timeshift\
-  gnome-extensions-app\
+sudo dnf -y install \
+  @gnome-desktop \
+  iwd \
+  networkmanager \
+  git \
+  vim \
+  neovim \
+  nano \
+  firefox \
+  alacritty \
+  fish \
+  htop \
+  neofetch \
+  tar \
+  gnome-tweaks \
+  chromium \
+  timeshift \
+  gnome-extensions-app \
   steam
 # xclip \ # Need wayland alternative
 # kdeconnectd \
@@ -80,6 +80,8 @@ chsh -s /usr/bin/fish
 sudo dnf -y update
 sudo dnf -y autoremove
 sudo dnf clean packages
+
+reboot
 
 #
 
