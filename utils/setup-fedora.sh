@@ -26,7 +26,6 @@ sudo dnf -y install gnome-tweaks
 sudo dnf -y install chromium
 sudo dnf -y install timeshift
 sudo dnf -y install gnome-extensions-app
-sudo dnf -y install steam
 sudo dnf -y install docker
 # sudo dnf -y install xclip # Need wayland alternative
 # sudo dnf -y install kdeconnectd
@@ -49,6 +48,9 @@ echo "Adding rpm fusion pt 2..."
 sudo dnf config-manager --enable fedora-cisco-openh264
 echo "Adding rpm fusion pt 3..."
 sudo dnf -y groupupdate core
+
+echo "Installing steam..."
+sudo dnf -y install steam
 
 echo "Installing media drivers..."
 sudo dnf -y groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
@@ -77,6 +79,7 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 echo "Installing preload for faster application startup..."
 sudo dnf copr enable elxreno/preload -y && sudo dnf -y install preload
 
+# Currently doesn't work
 echo "Changing default shell to fish..."
 chsh -s /usr/bin/fish
 
@@ -85,9 +88,7 @@ sudo dnf -y update
 sudo dnf -y autoremove
 sudo dnf clean packages
 
-echo "Install Completed Successfully. Rebooting..."
-
-reboot
+echo "Install Completed Successfully."
 
 #
 
