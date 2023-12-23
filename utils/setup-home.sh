@@ -5,6 +5,7 @@ cd ~
 git clone git@github.com:jason-lieb/home.git
 
 # Give scripts executable permissions
+cd home
 chmod +x ./utils/setup-dotfiles.sh
 chmod +x ./utils/setup-vscode-extensions.sh
 # chmod +x ./utils/setup-fedora-vm.sh
