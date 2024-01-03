@@ -21,6 +21,11 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+# Load nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 ###
 
 # Aliases
@@ -35,3 +40,4 @@ alias main='git checkout main'
 alias pull='git pull origin main'
 alias push='git push origin'
 alias run-qa="git commit --allow-empty -m '[qa]'"
+alias update="make update"

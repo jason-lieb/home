@@ -2,6 +2,10 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
+    set -x PATH "$HOME/.local/bin" "$HOME/bin" $PATH
+end
+
 ###
 
 # Aliases
@@ -16,3 +20,4 @@ alias main "git checkout main"
 alias pull "git pull origin main"
 alias push "git push origin"
 alias run-qa "git commit --allow-empty -m '[qa]'"
+alias update "make update"
