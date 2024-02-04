@@ -1,6 +1,9 @@
 {
   "editor.accessibilitySupport": "off",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[haskell]": {
+    "editor.defaultFormatter": "steefh.external-formatters"
+  },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.minimap.enabled": false,
@@ -16,7 +19,7 @@
   },
   "files.trimTrailingWhitespace": true,
   "haskell.checkProject": false,
-  "haskell.formattingProvider": "none",
+  "haskell.formattingProvider": "fourmolu",
   "haskell.manageHLS": "GHCup",
   "haskell.trace.client": "debug",
   "haskell.trace.server": "messages",
@@ -34,5 +37,5 @@
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "none",
-  "cloudcode.duetAI.project": "megarepo"
+  "editor.largeFileOptimizations": false
 }

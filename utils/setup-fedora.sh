@@ -42,6 +42,7 @@ sudo systemctl set-default graphical.target
 echo "Setting hostname..."
 sudo hostnamectl set-hostname fedora
 
+# Still needed now that I'm installing steam by flatpak?
 echo "Adding rpm fusion..."
 sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 echo "Adding rpm fusion pt 2..."
@@ -50,7 +51,9 @@ echo "Adding rpm fusion pt 3..."
 sudo dnf -y groupupdate core
 
 echo "Installing steam..."
-sudo dnf -y install steam
+# sudo dnf -y install steam
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak install flathub com.valvesoftware.Steam
 
 echo "Installing media drivers..."
 sudo dnf -y groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
