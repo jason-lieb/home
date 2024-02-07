@@ -1,5 +1,7 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
+# Load nvm
+set -gx NVM_DIR "$HOME/.nvm"
+if test -s "$NVM_DIR/nvm.sh"
+    source "$NVM_DIR/nvm.sh"  # This loads nvm
 end
 
 if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
@@ -27,6 +29,3 @@ alias pull "git pull origin main"
 alias push "git push origin"
 alias run-qa "git commit --allow-empty -m '[qa]'"
 alias update "make update"
-
-# Don't know if I need
-set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/jason/.ghcup/bin # ghcup-env

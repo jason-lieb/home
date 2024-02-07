@@ -3,6 +3,8 @@
 extensions=(
     "albert.TabOut"
     "esbenp.prettier-vscode"
+    "github.copilot"
+    "github.copilot-chat"
     "haskell.haskell"
     "justusadam.language-haskell"
     "mhutchie.git-graph"

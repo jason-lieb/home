@@ -7,10 +7,15 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 echo "Optimizing dnf settings..."
-echo -e "fastestmirror=True\nmax_parallel_downloads=10\ndefaultyes=True\nkeepcache=True" | sudo tee -a /etc/dnf/dnf.conf
+echo -e "fastestmirror=True\n\
+        max_parallel_downloads=10\n\
+        defaultyes=True\n\
+        keepcache=True" | sudo tee -a /etc/dnf/dnf.conf
 
+echo "Updating..."
 sudo dnf -y update
 
+echo "Installing software..."
 sudo dnf -y install @gnome-desktop
 sudo dnf -y install git
 sudo dnf -y install vim
@@ -51,7 +56,6 @@ echo "Adding rpm fusion pt 3..."
 sudo dnf -y groupupdate core
 
 echo "Installing steam..."
-# sudo dnf -y install steam
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo flatpak install flathub com.valvesoftware.Steam
 
@@ -60,9 +64,9 @@ sudo dnf -y groupupdate multimedia --setop="install_weak_deps=False" --exclude=P
 echo "Installing media drivers pt 2..."
 sudo dnf -y groupupdate sound-and-video
 
-echo "Installing nix package manager..."
-bash -c "$(curl -fsSL https://nixos.org/nix/install)" --no-daemon # Single user ### investigate if multi-user install is possible with secure boot
-. /home/jason/.nix-profile/etc/profile.d/nix.fish
+# echo "Installing nix package manager..."
+# bash -c "$(curl -fsSL https://nixos.org/nix/install)" --no-daemon # Single user ### investigate if multi-user install is possible with secure boot
+# . /home/jason/.nix-profile/etc/profile.d/nix.fish
 
 echo "Installing brave..."
 sudo dnf -y install dnf-plugins-core
