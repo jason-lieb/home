@@ -44,4 +44,5 @@ alias mon-tv='~/home/utils/switch-to-tv-monitor.sh'
 alias pull='git pull origin main'
 alias push='git push origin'
 alias run-qa="git commit --allow-empty -m '[qa]'"
+alias run-cy="git commit --allow-empty -m '[cy]'"
 alias update="make update"

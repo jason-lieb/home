@@ -37,5 +37,6 @@
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "none",
-  "editor.largeFileOptimizations": false
+  "editor.largeFileOptimizations": false,
+  "javascript.updateImportsOnFileMove.enabled": "always"
 }
