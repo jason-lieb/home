@@ -25,7 +25,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Add nix to PATH
-export PATH=$PATH:/nix/var/nix/profiles/default/bin
+# export PATH=$PATH:/nix/var/nix/profiles/default/bin
 
 ###
 

@@ -1,14 +1,16 @@
 # Load nvm
-# set -gx NVM_DIR "$HOME/.nvm"
-# if test -s "$NVM_DIR/nvm.sh"
-#     source "$NVM_DIR/nvm.sh"  # This loads nvm
-# end
+set -gx NVM_DIR "$HOME/.nvm"
+if test -e $NVM_DIR/nvm.sh
+    bass source $NVM_DIR/nvm.sh
+end
 
 if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
     set -x PATH "$HOME/.local/bin" "$HOME/bin" $PATH
 end
 
-set -gx PATH $PATH /nix/var/nix/profiles/default/bin
+zoxide init fish | source
+
+# set -gx PATH $PATH /nix/var/nix/profiles/default/bin
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/jason/.ghcup/bin
 
 ###

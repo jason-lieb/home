@@ -6,9 +6,14 @@
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
   "editor.minimap.enabled": false,
   "editor.parameterHints.enabled": false,
   "editor.tabSize": 2,
+  "editor.largeFileOptimizations": false,
+  "editor.stickyScroll.enabled": true,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "externalFormatters.languages": {
@@ -25,10 +30,8 @@
   "haskell.trace.server": "messages",
   "indentRainbow.indicatorStyle": "light",
   "indentRainbow.lightIndicatorStyleLineWidth": 4,
+  "javascript.updateImportsOnFileMove.enabled": "always",
   "javascript.validate.enable": false,
-  "[markdown]": {
-    "editor.formatOnSave": false
-  },
   "prettier.enable": true,
   "prettier.singleQuote": true,
   "security.workspace.trust.untrustedFiles": "open",
@@ -36,7 +39,5 @@
   "window.openFoldersInNewWindow": "off",
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.startupEditor": "none",
-  "editor.largeFileOptimizations": false,
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "workbench.startupEditor": "none"
 }

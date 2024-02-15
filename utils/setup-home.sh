@@ -7,6 +7,7 @@ git clone git@github.com:jason-lieb/home.git
 # Give scripts executable permissions
 chmod +x ~/home/utils/setup-dotfiles.sh
 chmod +x ~/home/utils/setup-vscode-extensions.sh
+chmod +x ~/home/utils/setup-gnome.sh
 chmod +x ~/home/utils/switch-to-desk-monitors.sh
 chmod +x ~/home/utils/switch-to-tv-monitor.sh
 # chmod +x ~/home/utils/setup-fedora-vm.sh
@@ -14,3 +15,4 @@ chmod +x ~/home/utils/switch-to-tv-monitor.sh
 # Run scripts to finish setup
 . ~/home/utils/setup-dotfiles.sh
 . ~/home/utils/setup-vscode-extensions.sh
+. ~/home/utils/setup-gnome.sh

@@ -32,9 +32,14 @@ sudo dnf -y install chromium
 sudo dnf -y install timeshift
 sudo dnf -y install gnome-extensions-app
 sudo dnf -y install docker
+sudo dnf -y install zoxide
 # sudo dnf -y install xclip # Need wayland alternative
 # sudo dnf -y install kdeconnectd
 # sudo dnf -y install dnfdragora
+
+echo "Installing bass for fish..."
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+fisher install edc/bass
 
 echo "Setting up docker..."
 sudo dnf -y install dnf-plugins-core
