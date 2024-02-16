@@ -60,9 +60,9 @@ sudo dnf config-manager --enable fedora-cisco-openh264
 echo "Adding rpm fusion pt 3..."
 sudo dnf -y groupupdate core
 
-echo "Installing steam..."
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-sudo flatpak install flathub com.valvesoftware.Steam
+# echo "Installing steam..."
+# sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# sudo flatpak install flathub com.valvesoftware.Steam
 
 echo "Installing media drivers..."
 sudo dnf -y groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin

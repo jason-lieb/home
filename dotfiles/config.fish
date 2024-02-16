@@ -16,13 +16,12 @@ set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; se
 ###
 
 # Aliases
-alias bran "git branch | tr '\\n' '\\n'"
 alias c "clear"
-alias dbran "git branch -D"
 alias g "git"
 alias gac "git add -A; git commit -m"
-alias ll "ls -l"
 alias la "ls -A"
+alias ll "ls -l"
+alias lr 'ls -R' # recursive ls
 alias m "make"
 alias mon-desk "~/home/utils/switch-to-desk-monitors.sh"
 alias mon-tv "~/home/utils/switch-to-tv-monitor.sh"
@@ -32,3 +31,13 @@ alias push "git push origin"
 alias run-qa "git commit --allow-empty -m '[qa]'"
 alias run-cy "git commit --allow-empty -m '[cy]'"
 alias up "make update"
+alias bran "git branch | tr '\\n' '\\n'"
+alias dbran "git branch -D"
+alias nbran "git checkout -b"
+alias sbran "git checkout"
+alias cd.. "cd .."
+alias .. "cd .."
+alias ... "cd ../.."
+alias .... "cd ../../.."
+alias ..... "cd ../../../.."
+alias suod 'sudo'
