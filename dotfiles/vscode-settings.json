@@ -46,5 +46,6 @@
   "window.openFoldersInNewWindow": "off",
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
+  "git.openRepositoryInParentFolders": "never"
 }

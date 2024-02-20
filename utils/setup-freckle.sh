@@ -45,6 +45,8 @@ touch ~/.aws/credentials
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+# fisher add brigand/fast-nvm-fish
+# set -U fish_user_paths
 
 # Set default npm version
 nvm alias default 16.20.0

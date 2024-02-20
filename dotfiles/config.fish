@@ -1,13 +1,16 @@
 # Load nvm
 set -gx NVM_DIR "$HOME/.nvm"
-if test -e $NVM_DIR/nvm.sh
-    bass source $NVM_DIR/nvm.sh
-end
+# if test -e $NVM_DIR/nvm.sh
+#     bass source $NVM_DIR/nvm.sh
+# end
+
+nvm use 20.11.0
 
 if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
     set -x PATH "$HOME/.local/bin" "$HOME/bin" $PATH
 end
 
+# Load zoxide
 zoxide init fish | source
 
 # set -gx PATH $PATH /nix/var/nix/profiles/default/bin
@@ -17,6 +20,7 @@ set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; se
 
 # Aliases
 alias c "clear"
+alias cd "z"
 alias g "git"
 alias gac "git add -A; git commit -m"
 alias la "ls -A"

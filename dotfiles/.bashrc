@@ -19,6 +19,9 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+# Load zoxide
+eval "$(zoxide init bash)"
+
 # Load nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -31,6 +34,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Aliases
 alias c='clear'
+alias cd="z"
 alias g='git'
 alias gac='git add -A && git commit -m'
 alias la='ls -A'

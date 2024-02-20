@@ -5,5 +5,17 @@
 	defaultBranch = main
 [core]
 	editor = code --wait
+[fetch]
+	prune = true
+# [merge]
+# 	ff = only
+# 	tool = nvimdiff
 [pull]
 	rebase = false
+	# ff = only
+[push]
+	default = current
+# [rebase]
+# 	autoSquash = true
+# 	autoStash = true
+# 	stat = true

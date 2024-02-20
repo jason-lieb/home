@@ -41,6 +41,8 @@ echo "Installing bass for fish..."
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 fisher install edc/bass
 
+echo "
+
 echo "Setting up docker..."
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
@@ -103,10 +105,6 @@ sudo dnf clean packages
 echo "Install Completed Successfully."
 
 #
-
-# Install librewolf
-# sudo dnf config-manager --add-repo https://rpm.librewolf.net/librewolf-repo.repo
-# sudo dnf -y install librewolf
 
 # Ssh connection
 # sudo systemctl start sshd # Start ssh server
