@@ -6,6 +6,9 @@
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
+  "[json]": {
+    "editor.formatOnSave": false
+  },
   "[markdown]": {
     "editor.formatOnSave": false
   },
@@ -47,5 +50,6 @@
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "none",
-  "git.openRepositoryInParentFolders": "never"
+  "git.openRepositoryInParentFolders": "never",
+  "diffEditor.ignoreTrimWhitespace": false
 }

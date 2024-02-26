@@ -1,10 +1,10 @@
 # Load nvm
-set -gx NVM_DIR "$HOME/.nvm"
+# set -gx NVM_DIR "$HOME/.nvm"
 # if test -e $NVM_DIR/nvm.sh
 #     bass source $NVM_DIR/nvm.sh
 # end
 
-nvm use 20.11.0
+# nvm use 20.11.0
 
 if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
     set -x PATH "$HOME/.local/bin" "$HOME/bin" $PATH
@@ -32,6 +32,7 @@ alias mon-tv "~/home/utils/switch-to-tv-monitor.sh"
 alias main "git checkout main"
 alias pull "git pull origin"
 alias push "git push origin"
+alias fpush "git push origin --force"
 alias run-qa "git commit --allow-empty -m '[qa]'"
 alias run-cy "git commit --allow-empty -m '[cy]'"
 alias up "make update"
@@ -45,3 +46,6 @@ alias ... "cd ../.."
 alias .... "cd ../../.."
 alias ..... "cd ../../../.."
 alias suod 'sudo'
+alias enter-db 'docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'
+alias format-backend-whole 'stack exec -- fourmolu -i .'
+alias format-backend 'git diff --name-only HEAD "*.hs" | xargs fourmolu -i'

@@ -41,8 +41,6 @@ echo "Installing bass for fish..."
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 fisher install edc/bass
 
-echo "
-
 echo "Setting up docker..."
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
@@ -63,7 +61,6 @@ echo "Adding rpm fusion pt 3..."
 sudo dnf -y groupupdate core
 
 # echo "Installing steam..."
-# sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # sudo flatpak install flathub com.valvesoftware.Steam
 
 echo "Installing media drivers..."
@@ -74,6 +71,8 @@ sudo dnf -y groupupdate sound-and-video
 # echo "Installing nix package manager..."
 # bash -c "$(curl -fsSL https://nixos.org/nix/install)" --no-daemon # Single user ### investigate if multi-user install is possible with secure boot
 # . /home/jason/.nix-profile/etc/profile.d/nix.fish
+
+# Install via from https://github.com/the-via/releases/releases
 
 echo "Installing brave..."
 sudo dnf -y install dnf-plugins-core
