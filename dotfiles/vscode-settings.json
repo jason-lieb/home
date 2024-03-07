@@ -6,9 +6,6 @@
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "[json]": {
-    "editor.formatOnSave": false
-  },
   "[markdown]": {
     "editor.formatOnSave": false
   },
@@ -22,7 +19,6 @@
   "editor.parameterHints.enabled": false,
   "editor.tabSize": 2,
   "editor.largeFileOptimizations": false,
-  "editor.stickyScroll.enabled": true,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "externalFormatters.languages": {
@@ -45,7 +41,6 @@
   "prettier.enable": true,
   "prettier.singleQuote": true,
   "security.workspace.trust.untrustedFiles": "open",
-  "terminal.integrated.shell.linux": "/usr/bin/fish",
   "window.openFoldersInNewWindow": "off",
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "material-icon-theme",

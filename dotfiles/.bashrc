@@ -33,6 +33,7 @@ export NVM_DIR="$HOME/.nvm"
 ###
 
 # Aliases
+alias f='fish'
 alias c='clear'
 alias cd="z"
 alias g='git'
@@ -63,3 +64,4 @@ alias suod='sudo'
 alias enter-db='docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'
 alias format-backend-whole='stack exec -- fourmolu -i .'
 alias format-backend='git diff --name-only HEAD "*.hs" | xargs fourmolu -i'
+alias rebase='git fetch origin main && git rebase origin/main'

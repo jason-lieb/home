@@ -1,10 +1,5 @@
-# Load nvm
-# set -gx NVM_DIR "$HOME/.nvm"
-# if test -e $NVM_DIR/nvm.sh
-#     bass source $NVM_DIR/nvm.sh
-# end
-
-# nvm use 20.11.0
+# Load node / yarn
+set -gx PATH ~/.nvm/versions/node/v16.20.0/bin $PATH
 
 if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
     set -x PATH "$HOME/.local/bin" "$HOME/bin" $PATH
@@ -19,6 +14,7 @@ set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; se
 ###
 
 # Aliases
+alias b "bash"
 alias c "clear"
 alias cd "z"
 alias g "git"
@@ -49,3 +45,4 @@ alias suod 'sudo'
 alias enter-db 'docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'
 alias format-backend-whole 'stack exec -- fourmolu -i .'
 alias format-backend 'git diff --name-only HEAD "*.hs" | xargs fourmolu -i'
+alias rebase 'git fetch origin main && git rebase origin/main'

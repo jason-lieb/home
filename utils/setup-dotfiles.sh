@@ -14,7 +14,8 @@ ln -sf ~/home/dotfiles/config.fish ~/.config/fish/config.fish
 ln -sf ~/home/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/home/dotfiles/vscode-settings.json ~/.config/Code/User/settings.json
 ln -sf ~/home/dotfiles/vscode-keybindings.json ~/.config/Code/User/keybindings.json
-mkdir ~/.config/nix
-ln -sf ~/home/dotfiles/nix.conf ~/.config/nix/nix.conf
+# mkdir ~/.config/nix
+# ln -sf ~/home/dotfiles/nix.conf ~/.config/nix/nix.conf
+ln -sf ~/home/dotfiles/.fourmolu.yaml ~/.fourmolu.yaml
 
 echo "Dotfiles updated."
