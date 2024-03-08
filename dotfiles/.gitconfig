@@ -7,12 +7,11 @@
 	editor = code --wait
 [fetch]
 	prune = true
-# [merge]
-# 	ff = only
+[merge]
+	ff = only
 # 	tool = nvimdiff
 [pull]
-	rebase = false
-	# ff = only
+	ff = only
 [push]
 	default = current
 # [rebase]

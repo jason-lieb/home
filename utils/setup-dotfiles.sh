@@ -16,6 +16,5 @@ ln -sf ~/home/dotfiles/vscode-settings.json ~/.config/Code/User/settings.json
 ln -sf ~/home/dotfiles/vscode-keybindings.json ~/.config/Code/User/keybindings.json
 # mkdir ~/.config/nix
 # ln -sf ~/home/dotfiles/nix.conf ~/.config/nix/nix.conf
-ln -sf ~/home/dotfiles/.fourmolu.yaml ~/.fourmolu.yaml
 
 echo "Dotfiles updated."

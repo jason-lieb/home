@@ -46,3 +46,4 @@ alias enter-db 'docker exec -it freckle-megarepo-postgres bash -c "psql -U postg
 alias format-backend-whole 'stack exec -- fourmolu -i .'
 alias format-backend 'git diff --name-only HEAD "*.hs" | xargs fourmolu -i'
 alias rebase 'git fetch origin main && git rebase origin/main'
+alias squash 'git rebase -i origin/main'

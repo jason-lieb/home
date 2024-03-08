@@ -2,7 +2,7 @@
   "editor.accessibilitySupport": "off",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[haskell]": {
-    "editor.defaultFormatter": "steefh.external-formatters"
+    "editor.defaultFormatter": "jkillian.custom-local-formatters"
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -21,17 +21,18 @@
   "editor.largeFileOptimizations": false,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
-  "externalFormatters.languages": {
-    "haskell": {
-      "command": "stack",
-      "arguments": ["exec", "fourmolu", "--", "--stdin-input-file", "."]
+  "customLocalFormatters.formatters": [
+    {
+      "command": "fourmolu --stdin-input-file ${file}",
+      "languages": ["haskell"]
     }
-  },
+  ],
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "haskell.checkProject": false,
   "haskell.formattingProvider": "fourmolu",
   "haskell.manageHLS": "GHCup",
+  "haskell.plugin.hlint.diagnosticsOn": true,
   "haskell.trace.client": "debug",
   "haskell.trace.server": "messages",
   "indentRainbow.indicatorStyle": "light",
