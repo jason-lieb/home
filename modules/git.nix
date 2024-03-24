@@ -18,19 +18,19 @@
         prune = true;
       };
       merge = {
-        ff = only;
+        ff = "only";
       };
       pull = {
-        ff = only;
+        ff = "only";
       };
       push = {
-        default = current;
+        default = "current";
       };
 
       # [rebase]
       # 	autoSquash = true
       # 	autoStash = true
       # 	stat = true
-    }
+    };
   };
 }

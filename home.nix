@@ -11,8 +11,8 @@
   };
 
   imports = [
-    ./git.nix
-    ./vscode.nix
-    ./fish.nix
-  ]
+    ./modules/git.nix
+    ./modules/vscode.nix
+    ./modules/fish.nix
+  ];
 }

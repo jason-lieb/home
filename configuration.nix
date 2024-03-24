@@ -45,9 +45,7 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  services.xserver.desktopManager.gnome3 = {
+  services.xserver.desktopManager.gnome = {
     enable = true;
     extraGSettingsOverrides = ''
       [org.gnome.desktop.wm.keybindings]
@@ -114,24 +112,23 @@
     zoxide
     htop
     neofetch
-    target
-    gnome-tweaks
-    gnome-extensions-app
+    #gnome-tweaks
+    #gnome-extensions-app
     docker
     wget
 
-    vscode-extensions.albert.TabOut
+    #vscode-extensions.albert.TabOut
     vscode-extensions.esbenp.prettier-vscode
     vscode-extensions.github.vscode-github-actions
     vscode-extensions.github.copilot
     vscode-extensions.github.copilot-chat
     vscode-extensions.haskell.haskell
+    vscode-extensions.jkillian.custom-local-formatters
     vscode-extensions.justusadam.language-haskell
     vscode-extensions.mhutchie.git-graph
     vscode-extensions.ms-vscode.makefile-tools
     vscode-extensions.oderwat.indent-rainbow
-    vscode-extensions.PKief.material-icon-theme
-    vscode-extensions.SteefH.external-formatters
+    vscode-extensions.pkief.material-icon-theme
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

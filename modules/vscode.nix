@@ -5,63 +5,63 @@
     enable = true;
 
     userSettings = {
-      "editor.accessibilitySupport": "off",
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "[haskell]": {
-        "editor.defaultFormatter": "jkillian.custom-local-formatters"
-      },
-      "editor.formatOnPaste": true,
-      "editor.formatOnSave": true,
-      "[markdown]": {
-        "editor.formatOnSave": false
-      },
-      "[yaml]": {
-        "editor.formatOnSave": false
-      },
-      "[yml]": {
-        "editor.formatOnSave": false
-      },
-      "editor.minimap.enabled": false,
-      "editor.parameterHints.enabled": false,
-      "editor.tabSize": 2,
-      "editor.largeFileOptimizations": false,
-      "explorer.confirmDelete": false,
-      "explorer.confirmDragAndDrop": false,
-      "customLocalFormatters.formatters": [
+      "editor.accessibilitySupport" = "off";
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      "[haskell]" = {
+        "editor.defaultFormatter" = "jkillian.custom-local-formatters";
+      };
+      "editor.formatOnPaste" = true;
+      "editor.formatOnSave" = true;
+      "[markdown]" = {
+        "editor.formatOnSave" = false;
+      };
+      "[yaml]" = {
+        "editor.formatOnSave" = false;
+      };
+      "[yml]" = {
+        "editor.formatOnSave" = false;
+      };
+      "editor.minimap.enabled" = false;
+      "editor.parameterHints.enabled" = false;
+      "editor.tabSize" = 2;
+      "editor.largeFileOptimizations" = false;
+      "explorer.confirmDelete" = false;
+      "explorer.confirmDragAndDrop" = false;
+      "customLocalFormatters.formatters" = [
         {
-          "command": "fourmolu --stdin-input-file ${file}",
-          "languages": ["haskell"]
+          command = "fourmolu --stdin-input-file $${file}";
+          languages = ["haskell"];
         }
-      ],
-      "files.insertFinalNewline": true,
-      "files.trimTrailingWhitespace": true,
-      "haskell.checkProject": false,
-      "haskell.formattingProvider": "fourmolu",
-      "haskell.manageHLS": "GHCup",
-      "haskell.plugin.hlint.diagnosticsOn": true,
-      "haskell.trace.client": "debug",
-      "haskell.trace.server": "messages",
-      "indentRainbow.indicatorStyle": "light",
-      "indentRainbow.lightIndicatorStyleLineWidth": 4,
-      "javascript.updateImportsOnFileMove.enabled": "always",
-      "javascript.validate.enable": false,
-      "prettier.enable": true,
-      "prettier.singleQuote": true,
-      "security.workspace.trust.untrustedFiles": "open",
-      "window.openFoldersInNewWindow": "off",
-      "workbench.colorTheme": "Default Dark+",
-      "workbench.iconTheme": "material-icon-theme",
-      "workbench.startupEditor": "none",
-      "git.openRepositoryInParentFolders": "never",
-      "diffEditor.ignoreTrimWhitespace": false,
-      "typescript.updateImportsOnFileMove.enabled": "always",
-      "eslint.workingDirectories": [
-        "~/megarepo/frontend/educator",
-        "~/megarepo/frontend/educator/classroom",
-        "~/megarepo/frontend/educator/school",
-        "~/megarepo/frontend/educator/entities",
+      ];
+      "files.insertFinalNewline" = true;
+      "files.trimTrailingWhitespace" = true;
+      "haskell.checkProject" = false;
+      "haskell.formattingProvider" = "fourmolu";
+      "haskell.manageHLS" = "GHCup";
+      "haskell.plugin.hlint.diagnosticsOn" = true;
+      "haskell.trace.client" = "debug";
+      "haskell.trace.server" = "messages";
+      "indentRainbow.indicatorStyle" = "light";
+      "indentRainbow.lightIndicatorStyleLineWidth" = 4;
+      "javascript.updateImportsOnFileMove.enabled" = "always";
+      "javascript.validate.enable" = false;
+      "prettier.enable" = true;
+      "prettier.singleQuote" = true;
+      "security.workspace.trust.untrustedFiles" = "open";
+      "window.openFoldersInNewWindow" = "off";
+      "workbench.colorTheme" = "Default Dark+";
+      "workbench.iconTheme" = "material-icon-theme";
+      "workbench.startupEditor" = "none";
+      "git.openRepositoryInParentFolders" = "never";
+      "diffEditor.ignoreTrimWhitespace" = false;
+      "typescript.updateImportsOnFileMove.enabled" = "always";
+      "eslint.workingDirectories" = [
+        "~/megarepo/frontend/educator"
+        "~/megarepo/frontend/educator/classroom"
+        "~/megarepo/frontend/educator/school"
+        "~/megarepo/frontend/educator/entities"
         "~/megarepo/frontend/educator/materials"
-      ]
+      ];
     };
 
     keybindings = [
