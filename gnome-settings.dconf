@@ -1,0 +1,287 @@
+[org/gnome/Connections]
+first-run=false
+
+[org/gnome/baobab/ui]
+is-maximized=false
+window-size=(960, 600)
+
+[org/gnome/boxes]
+first-run=false
+view='icon-view'
+window-maximized=true
+
+[org/gnome/calculator]
+accuracy=9
+angle-units='degrees'
+base=10
+button-mode='basic'
+number-format='automatic'
+show-thousands=false
+show-zeroes=false
+source-currency=''
+source-units='degree'
+target-currency=''
+target-units='radian'
+window-maximized=false
+window-size=(360, 504)
+word-size=64
+
+[org/gnome/calendar]
+active-view='month'
+window-maximized=true
+window-size=(768, 600)
+
+[org/gnome/control-center]
+last-panel='sound'
+window-state=(980, 640, false)
+
+[org/gnome/desktop/app-folders]
+folder-children=['Utilities', 'YaST', 'Pardus']
+
+[org/gnome/desktop/app-folders/folders/Pardus]
+categories=['X-Pardus-Apps']
+name='X-Pardus-Apps.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/Utilities]
+apps=['gnome-abrt.desktop', 'gnome-system-log.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Connections.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.Loupe.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'vinagre.desktop']
+categories=['X-GNOME-Utilities']
+name='X-GNOME-Utilities.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/YaST]
+categories=['X-SuSE-YaST']
+name='suse-yast.directory'
+translate=true
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'us')]
+
+[org/gnome/desktop/interface]
+clock-format='12h'
+color-scheme='prefer-dark'
+font-antialiasing='grayscale'
+font-hinting='slight'
+toolkit-accessibility=false
+
+[org/gnome/desktop/notifications]
+application-children=['gnome-power-panel', 'org-gnome-software', 'org-gnome-nautilus', 'gnome-network-panel', 'org-gnome-extensions-desktop', 'brave-browser', 'org-gnome-texteditor', 'code', 'org-gnome-evince']
+
+[org/gnome/desktop/notifications/application/brave-browser]
+application-id='brave-browser.desktop'
+
+[org/gnome/desktop/notifications/application/code]
+application-id='code.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-network-panel]
+application-id='gnome-network-panel.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-power-panel]
+application-id='gnome-power-panel.desktop'
+enable=false
+
+[org/gnome/desktop/notifications/application/org-gnome-evince]
+application-id='org.gnome.Evince.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-extensions-desktop]
+application-id='org.gnome.Extensions.desktop.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-nautilus]
+application-id='org.gnome.Nautilus.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-software]
+application-id='org.gnome.Software.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-texteditor]
+application-id='org.gnome.TextEditor.desktop'
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=true
+
+[org/gnome/desktop/peripherals/touchpad]
+two-finger-scrolling-enabled=true
+
+[org/gnome/desktop/privacy]
+old-files-age=uint32 30
+recent-files-max-age=-1
+
+[org/gnome/desktop/screensaver]
+lock-enabled=false
+
+[org/gnome/desktop/search-providers]
+enabled=['org.gnome.Weather.desktop']
+sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop']
+
+[org/gnome/desktop/session]
+idle-delay=uint32 900
+
+[org/gnome/desktop/wm/keybindings]
+switch-windows=['<Alt>Tab']
+
+[org/gnome/desktop/wm/preferences]
+auto-raise=false
+button-layout='appmenu:minimize,maximize,close'
+focus-mode='click'
+num-workspaces=5
+workspace-names=@as []
+
+[org/gnome/evince/default]
+continuous=true
+dual-page=false
+dual-page-odd-left=true
+enable-spellchecking=true
+fullscreen=false
+inverted-colors=false
+show-sidebar=true
+sidebar-page='thumbnails'
+sidebar-size=148
+sizing-mode='automatic'
+window-ratio=(0.99953779543119747, 0.75739758694899018)
+zoom=0.60915759802729397
+
+[org/gnome/evolution-data-server]
+migrated=true
+
+[org/gnome/gnome-system-monitor]
+current-tab='processes'
+maximized=false
+network-total-in-bits=false
+show-dependencies=false
+show-whose-processes='user'
+window-state=(1080, 500, 26, 23)
+
+[org/gnome/gnome-system-monitor/disktreenew]
+col-6-visible=true
+col-6-width=0
+
+[org/gnome/gnome-system-monitor/proctree]
+columns-order=[0, 1, 2, 3, 4, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+sort-col=15
+sort-order=0
+
+[org/gnome/login-screen]
+enable-fingerprint-authentication=false
+enable-password-authentication=true
+enable-smartcard-authentication=false
+
+[org/gnome/mutter]
+center-new-windows=true
+dynamic-workspaces=false
+workspaces-only-on-primary=true
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='list-view'
+migrated-gtk-settings=true
+search-filter-time-type='last_modified'
+
+[org/gnome/nautilus/window-state]
+initial-size=(1441, 798)
+
+[org/gnome/portal/filechooser/appimagekit_0b56db0119b83f933c2b047e38f0e5e1-Obsidian]
+last-folder-path='/home/jason/obsidian'
+
+[org/gnome/portal/filechooser/chromium-browser]
+last-folder-path='/home/jason/obsidian/Browser'
+
+[org/gnome/settings-daemon/plugins/color]
+night-light-enabled=true
+night-light-temperature=uint32 3700
+
+[org/gnome/settings-daemon/plugins/power]
+sleep-inactive-ac-timeout=3600
+sleep-inactive-ac-type='suspend'
+
+[org/gnome/shell]
+app-picker-layout=[{'org.gnome.Contacts.desktop': <{'position': <0>}>, 'org.gnome.Weather.desktop': <{'position': <1>}>, 'org.gnome.clocks.desktop': <{'position': <2>}>, 'org.gnome.Maps.desktop': <{'position': <3>}>, 'chromium-browser.desktop': <{'position': <4>}>, 'org.gnome.Totem.desktop': <{'position': <5>}>, 'org.gnome.Calculator.desktop': <{'position': <6>}>, 'org.gnome.Extensions.desktop': <{'position': <7>}>, 'simple-scan.desktop': <{'position': <8>}>, 'org.gnome.Settings.desktop': <{'position': <9>}>, 'gnome-system-monitor.desktop': <{'position': <10>}>, 'org.gnome.Boxes.desktop': <{'position': <11>}>, 'org.gnome.Terminal.desktop': <{'position': <12>}>, 'Utilities': <{'position': <13>}>, 'fish.desktop': <{'position': <14>}>, 'yelp.desktop': <{'position': <15>}>, 'htop.desktop': <{'position': <16>}>, 'org.gnome.Cheese.desktop': <{'position': <17>}>, 'nvim.desktop': <{'position': <18>}>, 'org.gnome.TextEditor.desktop': <{'position': <19>}>, 'timeshift-gtk.desktop': <{'position': <20>}>, 'org.gnome.Tour.desktop': <{'position': <21>}>}, {'org.gnome.Calendar.desktop': <{'position': <0>}>, 'io.github.thetumultuousunicornofdarkness.cpu-x.desktop': <{'position': <1>}>, 'firefox.desktop': <{'position': <2>}>, 'com.valvesoftware.Steam.desktop': <{'position': <3>}>, 'brave-cmkncekebbebpfilplodngbpllndjkfo-Default.desktop': <{'position': <4>}>, 'dosbox-staging.desktop': <{'position': <5>}>, 'wine-notepad.desktop': <{'position': <6>}>, 'virtualbox.desktop': <{'position': <7>}>, 'wine-Programs-RaceHub-RaceHub™.desktop': <{'position': <8>}>, 'wine-regedit.desktop': <{'position': <9>}>, 'dev.lizardbyte.app.Sunshine.desktop': <{'position': <10>}>, 'wine-wineboot.desktop': <{'position': <11>}>, 'wine-winecfg.desktop': <{'position': <12>}>, 'wine-winefile.desktop': <{'position': <13>}>, 'wine-winhelp.desktop': <{'position': <14>}>, 'wine-oleview.desktop': <{'position': <15>}>, 'wine-uninstaller.desktop': <{'position': <16>}>, 'wine-wordpad.desktop': <{'position': <17>}>, 'wine-winemine.desktop': <{'position': <18>}>}]
+command-history=['r']
+disable-user-extensions=false
+disabled-extensions=['wsmatrix@martin.zurowietz.de', 'window-list@gnome-shell-extensions.gcampax.github.com', 'space-bar@luchrioh']
+enabled-extensions=['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'caffeine@patapon.info', 'display-brightness-ddcutil@themightydeity.github.com', 'wsmatrix@martin.zurowietz.de']
+favorite-apps=['org.gnome.Nautilus.desktop', 'brave-browser.desktop', 'Alacritty.desktop', 'code.desktop', 'org.gnome.Software.desktop']
+last-selected-power-profile='performance'
+welcome-dialog-last-shown-version='45.2'
+
+[org/gnome/shell/app-switcher]
+current-workspace-only=true
+
+[org/gnome/shell/extensions/caffeine]
+duration-timer=2
+indicator-position-max=4
+screen-blank='always'
+show-notifications=false
+toggle-shortcut=['']
+
+[org/gnome/shell/extensions/display-brightness-ddcutil]
+ddcutil-binary-path='/usr/bin/ddcutil'
+ddcutil-queue-ms=130.0
+ddcutil-sleep-multiplier=40.0
+decrease-brightness-shortcut=['<Control>XF86MonBrightnessDown']
+increase-brightness-shortcut=['<Control>XF86MonBrightnessUp']
+only-all-slider=true
+position-system-menu=3.0
+show-all-slider=true
+step-change-keyboard=2.0
+
+[org/gnome/shell/extensions/space-bar/behavior]
+indicator-style='workspaces-bar'
+
+[org/gnome/shell/extensions/window-list]
+grouping-mode='auto'
+
+[org/gnome/shell/extensions/wsmatrix]
+enable-popup-workspace-hover=true
+multi-monitor=false
+num-columns=5
+num-rows=1
+popup-timeout=500
+scale=1.0
+show-thumbnails=true
+show-workspace-names=true
+wraparound-mode='next-previous'
+
+[org/gnome/shell/world-clocks]
+locations=@av []
+
+[org/gnome/software]
+check-timestamp=int64 1711218274
+first-run=false
+flatpak-purge-timestamp=int64 1711238680
+install-timestamp=int64 1709917147
+packagekit-historical-updates-timestamp=uint64 1709917147
+security-timestamp=int64 1711122283269173
+update-notification-timestamp=int64 1711122433
+
+[org/gnome/tweaks]
+show-extensions-notice=false
+
+[org/gtk/gtk4/settings/debug]
+inspector-warning=false
+
+[org/gtk/gtk4/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=true
+show-size-column=true
+show-type-column=true
+sidebar-width=140
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+view-type='list'
+window-size=(1571, 888)
+
+[org/gtk/settings/file-chooser]
+clock-format='12h'
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=157
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+window-position=(0, 775)
+window-size=(1203, 902)
