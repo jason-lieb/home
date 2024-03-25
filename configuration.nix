@@ -4,6 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./modules/gnome.nix
     ];
 
   nix = {
@@ -18,7 +19,6 @@
 
   networking.hostName = "nixos";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
@@ -27,7 +27,6 @@
   time.timeZone = "America/New_York";
 
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -43,40 +42,8 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome = {
-    enable = true;
-    extraGSettingsOverrides = ''
-      [org.gnome.desktop.wm.keybindings]
-      switch-windows=['<Alt>Tab']
-    '';
-  };
-
-  environment.gnome.excludePackages = with pkgs.gnome; [
-    baobab
-    cheese
-    eog
-    epiphany
-    gedit
-    simple-scan
-    totem
-    yelp
-    evince
-    file-roller
-    geary
-    seahorse
-
-    gnome-calendar
-    gnome-characters
-    gnome-clocks
-    gnome-contacts
-    gnome-font-viewer
-    gnome-logs
-    gnome-maps
-    gnome-music
-    gnome-screenshot
-    gnome-weather
-  ];
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "jason";
 
   # Configure keymap in X11
   services.xserver = {
@@ -106,14 +73,8 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "jason";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-
   nixpkgs.config.allowUnfree = true;
+
   services.flatpak.enable = true;
 
   environment.systemPackages = with pkgs; [
