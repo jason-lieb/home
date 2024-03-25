@@ -69,16 +69,16 @@
     (with pkgs; [
       home-manager
       alacritty
-      vscode
       brave
-      git
+      docker
       fish
-      neovim
-      zoxide
+      git
       htop
       neofetch
-      docker
+      neovim
+      vscode
       wget
+      zoxide
     ])
 
     ++

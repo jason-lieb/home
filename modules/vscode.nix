@@ -3,20 +3,20 @@
 {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs; [
-      #vscode-extensions.albert.TabOut
-      vscode-extensions.bbenoist.nix
-      vscode-extensions.esbenp.prettier-vscode
-      vscode-extensions.github.vscode-github-actions
-      vscode-extensions.github.copilot
-      vscode-extensions.github.copilot-chat
-      vscode-extensions.haskell.haskell
-      vscode-extensions.jkillian.custom-local-formatters
-      vscode-extensions.justusadam.language-haskell
-      vscode-extensions.mhutchie.git-graph
-      vscode-extensions.ms-vscode.makefile-tools
-      vscode-extensions.oderwat.indent-rainbow
-      vscode-extensions.pkief.material-icon-theme
+    extensions = with pkgs.vscode-extensions; [
+      #albert.TabOut
+      bbenoist.nix
+      esbenp.prettier-vscode
+      github.vscode-github-actions
+      github.copilot
+      github.copilot-chat
+      haskell.haskell
+      jkillian.custom-local-formatters
+      justusadam.language-haskell
+      mhutchie.git-graph
+      ms-vscode.makefile-tools
+      oderwat.indent-rainbow
+      pkief.material-icon-theme
     ];
 
     userSettings = {
