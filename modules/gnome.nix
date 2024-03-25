@@ -3,9 +3,12 @@
 {
   services.xserver.displayManager.gdm.enable = true;
 
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  environment.systemPackages = with pkgs; [
+    gnome.gnome-tweaks
+    gnome-extension-manager
+    gnomeExtensions.caffeine
+    gnomeExtensions.display-ddc-brightness-volume
+  ];
 
   environment.gnome.excludePackages = with pkgs.gnome; [
     baobab
@@ -33,8 +36,18 @@
     gnome-weather
   ];
 
+
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
+
   services.xserver.desktopManager.gnome = {
     enable = true;
+    # extensions = with pkgs; [
+    #   gnomeExtensions.caffeine
+    #   gnomeExtensions.display-ddc-brightness-volume
+    #   gnomeExtensions.launch-new-instance
+    # ];
     extraGSettingsOverrides = ''
       [org.gnome.desktop.wm.keybindings]
       switch-windows=['<Alt>Tab']
@@ -105,23 +118,6 @@
       show-all-slider=true
       step-change-keyboard=2.0
 
-      [org/gnome/shell/extensions/space-bar/behavior]
-      indicator-style='workspaces-bar'
-
-      [org/gnome/shell/extensions/window-list]
-      grouping-mode='auto'
-
-      [org/gnome/shell/extensions/wsmatrix]
-      enable-popup-workspace-hover=true
-      multi-monitor=false
-      num-columns=5
-      num-rows=1
-      popup-timeout=500
-      scale=1.0
-      show-thumbnails=true
-      show-workspace-names=true
-      wraparound-mode='next-previous'
-
       [org/gnome/tweaks]
       show-extensions-notice=false
 
@@ -154,9 +150,5 @@
       window-position=(0, 775)
       window-size=(1203, 902)
     '';
-
-    # [org/gnome/desktop/peripherals/touchpad]
-    # two-finger-scrolling-enabled=true
-
   };
 }

@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, lib, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
+      ./modules/x11.nix
       ./modules/gnome.nix
     ];
 
@@ -21,7 +22,6 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/New_York";
@@ -37,18 +37,6 @@
     LC_PAPER = "en_US.UTF-8";
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "jason";
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
   };
 
   services.printing.enable = true;
@@ -77,21 +65,30 @@
 
   services.flatpak.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    home-manager
-    alacritty
-    vscode
-    brave
-    git
-    fish
-    neovim
-    zoxide
-    htop
-    neofetch
-    #gnome-tweaks # option available in gnome config?
-    #gnome-extensions-app # option available in gnome config?
-    docker
-    wget
+  environment.systemPackages =
+    (with pkgs; [
+      home-manager
+      alacritty
+      vscode
+      brave
+      git
+      fish
+      neovim
+      zoxide
+      htop
+      neofetch
+      docker
+      wget
+    ])
+
+    ++
+
+    (with pkgs-unstable; [
+      obsidian
+    ]);
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
