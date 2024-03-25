@@ -4,11 +4,21 @@
   programs.fish = {
     enable = true;
 
+    interactiveShellInit = ''
+      set fish_greeting
+      source (zoxide init fish | psub)
+    '';
+
+    shellInit = ''
+      set fish_user_paths /home/jason/bin /home/jason/.local/bin /home/jason/.nix-profile/bin
+    '';
+
     shellAliases = {
       c = "clear";
       cd = "z";
       g = "git";
       gac = "git add -A; git commit -m";
+      ls = "ls";
       la = "ls -A";
       ll = "ls -l";
       lr = "ls -R"; # recursive ls
@@ -39,8 +49,7 @@
       squash = "git rebase -i origin/main";
       nb = "npm run build";
       gcp = "git cherry-pick";
-      nr = "sudo nixos-rebuild switch --flake /home/jason/home-nix";
-      hms = "home-manager switch";
+      rebuild = "sudo nixos-rebuild switch --flake /home/jason/home-nix";
     };
   };
 }

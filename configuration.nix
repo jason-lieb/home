@@ -16,7 +16,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -43,7 +43,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome = {
     enable = true;
@@ -66,7 +65,18 @@
     file-roller
     geary
     seahorse
-    ];
+
+    gnome-calendar
+    gnome-characters
+    gnome-clocks
+    gnome-contacts
+    gnome-font-viewer
+    gnome-logs
+    gnome-maps
+    gnome-music
+    gnome-screenshot
+    gnome-weather
+  ];
 
   # Configure keymap in X11
   services.xserver = {
@@ -85,6 +95,8 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  users.defaultUserShell = "/run/current-system/sw/bin/fish";
 
   users.users.jason = {
     isNormalUser = true;
@@ -112,23 +124,10 @@
     zoxide
     htop
     neofetch
-    #gnome-tweaks
-    #gnome-extensions-app
+    #gnome-tweaks # option available in gnome config?
+    #gnome-extensions-app # option available in gnome config?
     docker
     wget
-
-    #vscode-extensions.albert.TabOut
-    vscode-extensions.esbenp.prettier-vscode
-    vscode-extensions.github.vscode-github-actions
-    vscode-extensions.github.copilot
-    vscode-extensions.github.copilot-chat
-    vscode-extensions.haskell.haskell
-    vscode-extensions.jkillian.custom-local-formatters
-    vscode-extensions.justusadam.language-haskell
-    vscode-extensions.mhutchie.git-graph
-    vscode-extensions.ms-vscode.makefile-tools
-    vscode-extensions.oderwat.indent-rainbow
-    vscode-extensions.pkief.material-icon-theme
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -139,23 +138,7 @@
   #   enableSSHSupport = true;
   # };
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
-
+  system.stateVersion = "23.11";
 }
