@@ -104,6 +104,8 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "jason";
 
@@ -112,6 +114,7 @@
   systemd.services."autovt@tty1".enable = false;
 
   nixpkgs.config.allowUnfree = true;
+  services.flatpak.enable = true;
 
   environment.systemPackages = with pkgs; [
     home-manager
