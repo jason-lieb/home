@@ -1,5 +1,5 @@
 # Load node / yarn
-set -gx PATH ~/.nvm/versions/node/v16.20.0/bin $PATH
+set -gx PATH ~/.nvm/versions/node/v18.19.1/bin $PATH
 
 if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
     set -x PATH "$HOME/.local/bin" "$HOME/bin" $PATH
@@ -47,3 +47,5 @@ alias format-backend-whole 'stack exec -- fourmolu -i .'
 alias format-backend 'git diff --name-only HEAD "*.hs" | xargs fourmolu -i'
 alias rebase 'git fetch origin main && git rebase origin/main'
 alias squash 'git rebase -i origin/main'
+alias nb 'npm run build'
+alias gcp 'git cherry-pick'

@@ -47,5 +47,13 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "none",
   "git.openRepositoryInParentFolders": "never",
-  "diffEditor.ignoreTrimWhitespace": false
+  "diffEditor.ignoreTrimWhitespace": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "eslint.workingDirectories": [
+    "~/megarepo/frontend/educator",
+    "~/megarepo/frontend/educator/classroom",
+    "~/megarepo/frontend/educator/school",
+    "~/megarepo/frontend/educator/entities",
+    "~/megarepo/frontend/educator/materials"
+  ]
 }
