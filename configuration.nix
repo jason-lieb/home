@@ -4,7 +4,6 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./modules/x11.nix
       ./modules/gnome.nix
     ];
 
@@ -17,6 +16,18 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  services.xserver = {
+    enable = true;
+    displayManager.autoLogin = {
+      enable = true;
+      user = "jason";
+    };
+
+    # Configure keymap
+    layout = "us";
+    xkbVariant = "";
+  };
 
   networking.hostName = "nixos";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
