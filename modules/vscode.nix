@@ -14,7 +14,6 @@
       jkillian.custom-local-formatters
       justusadam.language-haskell
       mhutchie.git-graph
-      ms-vscode.makefile-tools
       oderwat.indent-rainbow
       pkief.material-icon-theme
     ];
