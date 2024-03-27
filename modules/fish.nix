@@ -52,6 +52,7 @@
       nb = "npm run build";
       gcp = "git cherry-pick";
       rebuild = "sudo nixos-rebuild switch --flake /home/jason/home-nix";
+      clean-nix = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
     };
   };
 }
