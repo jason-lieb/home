@@ -81,6 +81,8 @@
       home-manager
       alacritty
       brave
+      chromium
+      firefox
       docker
       fish
       git
