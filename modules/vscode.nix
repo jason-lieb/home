@@ -14,7 +14,6 @@
       jkillian.custom-local-formatters
       justusadam.language-haskell
       mhutchie.git-graph
-      ms-python.debugpy
       ms-python.python
       ms-python.vscode-pylance
       oderwat.indent-rainbow
