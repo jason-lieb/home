@@ -5,6 +5,7 @@
     [
       ./hardware-configuration.nix
       ./modules/gnome.nix
+      ./modules/keyd.nix
     ];
 
   nix = {
@@ -89,6 +90,8 @@
       htop
       neofetch
       neovim
+      python3
+      sof-firmware
       vscode
       wget
       zoxide

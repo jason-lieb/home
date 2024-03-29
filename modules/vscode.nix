@@ -14,6 +14,9 @@
       jkillian.custom-local-formatters
       justusadam.language-haskell
       mhutchie.git-graph
+      ms-python.debugpy
+      ms-python.python
+      ms-python.vscode-pylance
       oderwat.indent-rainbow
       pkief.material-icon-theme
     ];
@@ -69,6 +72,8 @@
       "git.openRepositoryInParentFolders" = "never";
       "diffEditor.ignoreTrimWhitespace" = false;
       "typescript.updateImportsOnFileMove.enabled" = "always";
+      "update.showNotifications" = false;
+      "update.mode" = "none";
       "eslint.workingDirectories" = [
         "~/megarepo/frontend/educator"
         "~/megarepo/frontend/educator/classroom"
