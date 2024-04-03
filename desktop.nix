@@ -1,4 +1,7 @@
-{ config, pkgs, pkgs-unstable, ... }: {
+{ config, pkgs, pkgs-unstable, ... }:
+
+{
   networking.hostName = "desktop";
-  imports = [ ./configuration.nix ];
+  imports =
+    [ ./configuration.nix ./modules/desktop/hardware-configuration.nix ];
 }

@@ -1,8 +1,7 @@
 { config, pkgs, pkgs-unstable, ... }:
 
 {
-  imports =
-    [ ./hardware-configuration.nix ./modules/gnome.nix ./modules/keyd.nix ];
+  imports = [ ./modules/gnome.nix ];
 
   nix = {
     package = pkgs.nixFlakes;
@@ -26,7 +25,6 @@
     xkbVariant = "";
   };
 
-  networking.hostName = "nixos";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";

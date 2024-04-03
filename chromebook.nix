@@ -1,4 +1,10 @@
-{ config, pkgs, pkgs-unstable, ... }: {
+{ config, pkgs, pkgs-unstable, ... }:
+
+{
   networking.hostName = "chromebook";
-  imports = [ ./configuration.nix ];
+  imports = [
+    ./configuration.nix
+    ./modules/chromebook/hardware-configuration.nix
+    ./modules/chromebook/keyd.nix
+  ];
 }

@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration";
+  description = "Jason's NixOS and Home Manager configurations";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
@@ -24,7 +24,7 @@
         desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./configuration.nix
+            ./desktop.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -37,7 +37,7 @@
         chromebook = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./configuration.nix
+            ./chromebook.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
