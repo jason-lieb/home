@@ -64,9 +64,7 @@
           f5 = "print";
           scale = "print";
         };
-        controlalt = {
-          backspace = "C-A-delete";
-        };
+        controlalt = { backspace = "C-A-delete"; };
       };
     };
   };

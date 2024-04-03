@@ -2,11 +2,7 @@
 
 {
   imports =
-    [
-      ./hardware-configuration.nix
-      ./modules/gnome.nix
-      ./modules/keyd.nix
-    ];
+    [ ./hardware-configuration.nix ./modules/gnome.nix ./modules/keyd.nix ];
 
   nix = {
     package = pkgs.nixFlakes;
@@ -77,35 +73,30 @@
 
   services.flatpak.enable = true;
 
-  environment.systemPackages =
-    (with pkgs; [
-      home-manager
-      alacritty
-      brave
-      chromium
-      firefox
-      docker
-      fish
-      git
-      htop
-      neofetch
-      neovim
-      python3
-      sof-firmware
-      vscode
-      wget
-      zoxide
-    ])
+  environment.systemPackages = (with pkgs; [
+    home-manager
+    alacritty
+    brave
+    chromium
+    firefox
+    docker
+    fish
+    git
+    htop
+    neofetch
+    neovim
+    nixfmt
+    python3
+    sof-firmware
+    wget
+    zoxide
+  ])
 
     ++
 
-    (with pkgs-unstable; [
-      obsidian
-    ]);
+    (with pkgs-unstable; [ obsidian vscode ]);
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-  ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

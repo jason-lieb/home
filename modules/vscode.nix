@@ -26,17 +26,14 @@
       "[haskell]" = {
         "editor.defaultFormatter" = "jkillian.custom-local-formatters";
       };
+      "[nix]" = {
+        "editor.defaultFormatter" = "jkillian.custom-local-formatters";
+      };
       "editor.formatOnPaste" = true;
       "editor.formatOnSave" = true;
-      "[markdown]" = {
-        "editor.formatOnSave" = false;
-      };
-      "[yaml]" = {
-        "editor.formatOnSave" = false;
-      };
-      "[yml]" = {
-        "editor.formatOnSave" = false;
-      };
+      "[markdown]" = { "editor.formatOnSave" = false; };
+      "[yaml]" = { "editor.formatOnSave" = false; };
+      "[yml]" = { "editor.formatOnSave" = false; };
       "editor.minimap.enabled" = false;
       "editor.parameterHints.enabled" = false;
       "editor.tabSize" = 2;
@@ -45,8 +42,12 @@
       "explorer.confirmDragAndDrop" = false;
       "customLocalFormatters.formatters" = [
         {
-          command = "fourmolu --stdin-input-file $${file}";
-          languages = ["haskell"];
+          command = "fourmolu --stdin-input-file $file";
+          languages = [ "haskell" ];
+        }
+        {
+          command = "nixfmt $file";
+          languages = [ "nix" ];
         }
       ];
       "files.insertFinalNewline" = true;
@@ -83,14 +84,46 @@
     };
 
     keybindings = [
-      { key = "shift+alt+down"; command = "-editor.action.insertCursorBelow"; when = "editorTextFocus"; }
-      { key = "shift+alt+up"; command = "-notebook.cell.copyUp"; when = "notebookEditorFocused && !inputFocus"; }
-      { key = "shift+alt+down"; command = "-notebook.cell.copyDown"; when = "notebookEditorFocused && !inputFocus"; }
-      { key = "shift+alt+down"; command = "editor.action.copyLinesDownAction"; when = "editorTextFocus && !editorReadonly"; }
-      { key = "ctrl+shift+alt+down"; command = "-editor.action.copyLinesDownAction"; when = "editorTextFocus && !editorReadonly"; }
-      { key = "shift+alt+up"; command = "-editor.action.insertCursorAbove"; when = "editorTextFocus"; }
-      { key = "shift+alt+up"; command = "editor.action.copyLinesUpAction"; when = "editorTextFocus && !editorReadonly"; }
-      { key = "ctrl+shift+alt+up"; command = "-editor.action.copyLinesUpAction"; when = "editorTextFocus && !editorReadonly"; }
-      ];
+      {
+        key = "shift+alt+down";
+        command = "-editor.action.insertCursorBelow";
+        when = "editorTextFocus";
+      }
+      {
+        key = "shift+alt+up";
+        command = "-notebook.cell.copyUp";
+        when = "notebookEditorFocused && !inputFocus";
+      }
+      {
+        key = "shift+alt+down";
+        command = "-notebook.cell.copyDown";
+        when = "notebookEditorFocused && !inputFocus";
+      }
+      {
+        key = "shift+alt+down";
+        command = "editor.action.copyLinesDownAction";
+        when = "editorTextFocus && !editorReadonly";
+      }
+      {
+        key = "ctrl+shift+alt+down";
+        command = "-editor.action.copyLinesDownAction";
+        when = "editorTextFocus && !editorReadonly";
+      }
+      {
+        key = "shift+alt+up";
+        command = "-editor.action.insertCursorAbove";
+        when = "editorTextFocus";
+      }
+      {
+        key = "shift+alt+up";
+        command = "editor.action.copyLinesUpAction";
+        when = "editorTextFocus && !editorReadonly";
+      }
+      {
+        key = "ctrl+shift+alt+up";
+        command = "-editor.action.copyLinesUpAction";
+        when = "editorTextFocus && !editorReadonly";
+      }
+    ];
   };
 }

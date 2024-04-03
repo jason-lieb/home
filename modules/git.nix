@@ -8,24 +8,12 @@
     userEmail = "Jason.lieb@outlook.com";
 
     extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
-      core = {
-        editor = "code --wait";
-      };
-      fetch = {
-        prune = true;
-      };
-      merge = {
-        ff = "only";
-      };
-      pull = {
-        ff = "only";
-      };
-      push = {
-        default = "current";
-      };
+      init.defaultBranch = "main";
+      core.editor = "code --wait";
+      fetch.prune = true;
+      merge.ff = "only";
+      pull.ff = "only";
+      push.default = "current";
 
       # [rebase]
       # 	autoSquash = true

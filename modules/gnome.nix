@@ -48,7 +48,7 @@
 
     profiles.user.databases = [{
       settings = with lib.gvariant; {
-        "org/gnome/desktop/wm/keybindings".switch-windows = ["<Alt>Tab"];
+        "org/gnome/desktop/wm/keybindings".switch-windows = [ "<Alt>Tab" ];
 
         "org/gnome/desktop/interface" = {
           clock-format = "12h";
@@ -116,8 +116,8 @@
           ddcutil-binary-path = "/usr/bin/ddcutil";
           ddcutil-queue-ms = 130.0;
           ddcutil-sleep-multiplier = 40.0;
-          decrease-brightness-shortcut = ["<Control>XF86MonBrightnessDown"];
-          increase-brightness-shortcut = ["<Control>XF86MonBrightnessUp"];
+          decrease-brightness-shortcut = [ "<Control>XF86MonBrightnessDown" ];
+          increase-brightness-shortcut = [ "<Control>XF86MonBrightnessUp" ];
           only-all-slider = true;
           position-system-menu = 3.0;
           show-all-slider = true;

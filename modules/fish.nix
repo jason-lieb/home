@@ -44,9 +44,11 @@
       "...." = "cd ../../..";
       "....." = "cd ../../../..";
       suod = "sudo";
-      "enter-db" = "docker exec -it freckle-megarepo-postgres bash -c \"psql -U postgres -d classroom_dev\"";
+      "enter-db" = ''
+        docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
       "format-backend-whole" = "stack exec -- fourmolu -i .";
-      "format-backend" = "git diff --name-only HEAD \"*.hs\" | xargs fourmolu -i";
+      "format-backend" =
+        ''git diff --name-only HEAD "*.hs" | xargs fourmolu -i'';
       rebase = "git fetch origin main && git rebase origin/main";
       squash = "git rebase -i origin/main";
       nb = "npm run build";
@@ -55,7 +57,8 @@
       rsu = "sudo nixos-rebuild switch --upgrade --flake /home/jason/home-nix";
       rb = "sudo nixos-rebuild boot --flake /home/jason/home-nix";
       rbu = "sudo nixos-rebuild boot --upgrade --flake /home/jason/home-nix";
-      clean-nix = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
+      clean-nix =
+        "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
     };
   };
 }
