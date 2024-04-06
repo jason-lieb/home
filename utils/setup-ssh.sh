@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+echo "Setting up ssh key..."
 cd ~
 mkdir .ssh
 yes '' | ssh-keygen -t ed25519 -C "jason.lieb@outlook.com"
@@ -9,16 +10,12 @@ ssh-add ~/.ssh/id_ed25519
 session_type=$(echo $XDG_SESSION_TYPE)
 
 if [ "$session_type" == "wayland" ]; then
-    # Copy to clipboard if using Wayland
-    # cat ~/.ssh/id_ed25519.pub | ???
-
-    # Output ssh key to terminal
-    cat ~/.ssh/id_ed25519.pub
+    cat ~/.ssh/id_ed25519.pub | wl-copy
+    echo "Generated ssh key and copied to clipboard"
 elif [ "$session_type" == "x11" ]; then
-    # Copy to clipboard if using X11
     cat ~/.ssh/id_ed25519.pub | xclip
     echo "Generated ssh key and copied to clipboard"
 else
-    # Output ssh key to terminal
+    echo "SSH Key:"
     cat ~/.ssh/id_ed25519.pub
 fi
