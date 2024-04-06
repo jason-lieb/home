@@ -12,14 +12,14 @@ cd ~
 mkdir -p .ssh
 sleep 3
 
-read -p "What is your email address?" email_address
+read -p "What is your email address? " email_address
 yes '' | ssh-keygen -t ed25519 -C $email_address
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 sleep 3
 
 echo "Setting up ssh key with Github..."
-read -p "What is the name of the ssh key?" ssh_key_name
+read -p "What is the name of the ssh key? " ssh_key_name
 sleep 3
 
 echo "Creating github cli shell and adding SSH key to GitHub..."
@@ -30,7 +30,7 @@ echo "Cloning nix configuration..."
 git clone git@github.com:jason-lieb/home-nix.git
 sleep 3
 
-read -p "What is the hostname of this computer?" hostname
+read -p "What is the hostname of this computer? " hostname
 sudo hostnamectl set-hostname $hostname
 sudo cp /etc/nixos/hardware-configuration.nix ./home-nix/$hostname/hardware-configuration.nix
 sleep 3
