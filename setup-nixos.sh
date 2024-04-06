@@ -24,5 +24,4 @@ mkdir -p $HOME/home-nix/modules/$hostname
 sudo cp /etc/nixos/hardware-configuration.nix $HOME/home-nix/modules/$hostname/hardware-configuration.nix
 
 printf "Setting up nix configuration...\n"
-echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
-sudo nixos-rebuild switch --flake $HOME/home-nix#$hostname
+nix-shell -p git --run "sudo nixos-rebuild switch --flake $HOME/home-nix#$hostname --impure"
