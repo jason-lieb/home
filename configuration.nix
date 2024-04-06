@@ -82,6 +82,7 @@
     gh
     git
     htop
+    make
     neofetch
     neovim
     nixfmt
