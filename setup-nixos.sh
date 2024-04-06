@@ -7,6 +7,7 @@ mkdir -p ~/.ssh
 
 printf "\nSetting up ssh key..."
 printf "\nWhat is your email address? "
+echo "TEST"
 read email_address
 yes '' | ssh-keygen -t ed25519 -C $email_address &> /dev/null
 eval "$(ssh-agent -s)" &> /dev/null
