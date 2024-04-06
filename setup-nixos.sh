@@ -20,6 +20,7 @@ nix-shell -p git --run "git clone git@github.com:jason-lieb/home-nix.git"
 printf "\nWhat is the hostname of this computer? "
 read hostname
 sudo hostname $hostname
+mkdir -p $HOME/home-nix/modules/$hostname
 sudo cp /etc/nixos/hardware-configuration.nix $HOME/home-nix/modules/$hostname/hardware-configuration.nix
 
 echo "Setting up nix configuration..."
