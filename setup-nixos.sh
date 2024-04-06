@@ -24,8 +24,8 @@ nix-shell -p git --run "git clone git@github.com:jason-lieb/home-nix.git"
 
 printf "\nWhat is the hostname of this computer? "
 read hostname
-hostname $hostname
-cp /etc/nixos/hardware-configuration.nix ~/home-nix/$hostname/hardware-configuration.nix
+sudo hostname $hostname
+sudo cp /etc/nixos/hardware-configuration.nix ~/home-nix/$hostname/hardware-configuration.nix
 
 echo "Setting up nix configuration..."
-nixos-rebuild switch --flake ~/home-nix#$hostname
+sudo nixos-rebuild switch --flake ~/home-nix#$hostname
