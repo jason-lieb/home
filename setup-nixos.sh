@@ -11,7 +11,8 @@ printf "\nSetting up ssh key..."
 cd ~
 mkdir -p .ssh
 
-read -p $"\nWhat is your email address? " email_address
+printf "\nWhat is your email address? "
+read email_address
 yes '' | ssh-keygen -t ed25519 -C $email_address > /dev/null
 eval "$(ssh-agent -s)" > /dev/null
 ssh-add ~/.ssh/id_ed25519
@@ -25,7 +26,8 @@ nix-shell -p gh --run "gh auth login; echo 'TEST1'; gh ssh-key add ~/.ssh/id_ed2
 printf "\nCloning nix configuration..."
 nix-shell -p git --run "git clone git@github.com:jason-lieb/home-nix.git"
 
-read -p $"\nWhat is the hostname of this computer? " hostname
+printf "\nWhat is the hostname of this computer? "
+read hostname
 sudo hostnamectl set-hostname $hostname
 sudo cp /etc/nixos/hardware-configuration.nix ./home-nix/$hostname/hardware-configuration.nix
 sleep 3
