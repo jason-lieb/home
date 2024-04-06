@@ -8,9 +8,6 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 printf "\nSetting up ssh key..."
-cd ~
-mkdir -p .ssh
-
 printf "\nWhat is your email address? "
 read email_address
 yes '' | ssh-keygen -t ed25519 -C $email_address > /dev/null
@@ -29,8 +26,7 @@ nix-shell -p git --run "git clone git@github.com:jason-lieb/home-nix.git"
 printf "\nWhat is the hostname of this computer? "
 read hostname
 sudo hostnamectl set-hostname $hostname
-sudo cp /etc/nixos/hardware-configuration.nix ./home-nix/$hostname/hardware-configuration.nix
-sleep 3
+sudo cp /etc/nixos/hardware-configuration.nix ~/home-nix/$hostname/hardware-configuration.nix
 
 echo "Setting up nix configuration..."
-sudo nixos-rebuild switch --flake ./home-nix#$hostname
+sudo nixos-rebuild switch --flake ~/home-nix#$hostname
