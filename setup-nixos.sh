@@ -23,5 +23,5 @@ sudo hostname $hostname
 mkdir -p $HOME/home-nix/modules/$hostname
 sudo cp /etc/nixos/hardware-configuration.nix $HOME/home-nix/modules/$hostname/hardware-configuration.nix
 
-echo "Setting up nix configuration..."
-sudo nixos-rebuild switch --flake $HOME/home-nix#$hostname
+printf "Setting up nix configuration...\n"
+sudo nixos-rebuild switch --flake $HOME/home-nix/flake.nix#$hostname
