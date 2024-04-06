@@ -13,15 +13,15 @@ mkdir -p .ssh
 
 printf "\nWhat is your email address? "
 read email_address
-yes '' | ssh-keygen -t ed25519 -C $email_address
-eval "$(ssh-agent -s)"
+yes '' | ssh-keygen -t ed25519 -C $email_address > /dev/null
+eval "$(ssh-agent -s)" > /dev/null
 ssh-add ~/.ssh/id_ed25519
 
-printf "\nSetting up ssh key with Github..."
+printf "\nSetting up ssh key with Github...\n"
 read -p "What is the name of the ssh key? " ssh_key_name
 
 printf "\nCreating github cli shell and adding SSH key to GitHub..."
-nix-shell -p gh --run "gh auth login; echo 'TEST1'; gh ssh-key add ~/.ssh/id_ed25519.pub -t $ssh_key_name"
+nix-shell -p gh --run "gh auth login; gh ssh-key add ~/.ssh/id_ed25519.pub -t '$ssh_key_name'"
 
 printf "\nCloning nix configuration..."
 nix-shell -p git --run "git clone git@github.com:jason-lieb/home-nix.git"
