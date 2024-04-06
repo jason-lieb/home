@@ -20,7 +20,7 @@ printf "\nSetting up ssh key with Github..."
 read -p "What is the name of the ssh key? " ssh_key_name
 
 printf "\nCreating github cli shell and adding SSH key to GitHub..."
-nix-shell -p gh --run "gh auth login; echo "TEST1"; gh ssh-key add ~/.ssh/id_ed25519.pub -t $ssh_key_name; echo "TEST2";exit"
+nix-shell -p gh --run "gh auth login; echo 'TEST1'; gh ssh-key add ~/.ssh/id_ed25519.pub -t $ssh_key_name"
 
 printf "\nCloning nix configuration..."
 nix-shell -p git --run "git clone git@github.com:jason-lieb/home-nix.git"
