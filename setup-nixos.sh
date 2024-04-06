@@ -2,11 +2,6 @@
 
 set -e
 
-if [[ $EUID -ne 0 ]]; then
-    echo "This script must be run as root."
-    exit 1
-fi
-
 printf "\nSetting up ssh key..."
 printf "\nWhat is your email address? "
 read email_address
