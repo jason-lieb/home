@@ -3,5 +3,5 @@
 {
   networking.hostName = "desktop";
   imports =
-    [ ./configuration.nix ./modules/desktop/hardware-configuration.nix ];
+    [ ./configuration.nix /etc/nixos/hardware-configuration.nix ];
 }
