@@ -7,6 +7,8 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+cd ~
+
 printf "\nSetting up ssh key..."
 printf "\nWhat is your email address? "
 read email_address
