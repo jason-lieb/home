@@ -10,7 +10,7 @@ printf "\nWhat is your email address? "
 read email_address
 yes '' | ssh-keygen -t ed25519 -C $email_address &> /dev/null
 eval "$(ssh-agent -s)" &> /dev/null
-ssh-add $HOME/.ssh/id_ed25519
+sudo ssh-add $HOME/.ssh/id_ed25519
 
 printf "\nSetting up ssh key with Github...\n"
 read -p "What is the name of the ssh key? " ssh_key_name
