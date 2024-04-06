@@ -79,6 +79,7 @@
     firefox
     docker
     fish
+    gh
     git
     htop
     neofetch
