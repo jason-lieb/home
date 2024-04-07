@@ -82,7 +82,7 @@
     gh
     git
     htop
-    make
+    gnumake
     neofetch
     neovim
     nixfmt

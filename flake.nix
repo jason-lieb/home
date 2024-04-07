@@ -29,7 +29,11 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.jason = import ./home.nix;
+              home-manager.users.jason = { config, pkgs, ... }: {
+                imports = [
+                  (import ./home.nix { inherit config pkgs pkgs-unstable; })
+                ];
+              };
             }
           ];
           specialArgs = { inherit pkgs-unstable; };
@@ -42,7 +46,11 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.jason = import ./home.nix;
+              home-manager.users.jason = { config, pkgs, ... }: {
+                imports = [
+                  (import ./home.nix { inherit config pkgs pkgs-unstable; })
+                ];
+              };
             }
           ];
           specialArgs = { inherit pkgs-unstable; };

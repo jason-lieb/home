@@ -14,7 +14,7 @@
     gnome.gnome-tweaks
     gnome-extension-manager
     gnomeExtensions.caffeine
-    gnomeExtensions.display-ddc-brightness-volume
+    gnomeExtensions.brightness-control-using-ddcutil
   ];
 
   environment.gnome.excludePackages = with pkgs.gnome; [
@@ -68,7 +68,8 @@
           auto-raise = false;
           button-layout = "appmenu:minimize,maximize,close";
           focus-mode = "click";
-          num-workspaces = 5.0;
+          num-workspace =
+            5.0; # Doesn't work, likely because can't set to 5 instead of 5.0
         };
 
         "org/gnome/mutter" = {
@@ -85,9 +86,11 @@
         "org/gnome/settings-daemon/plugins/power" = {
           sleep-inactive-ac-timeout = 3600.0;
           sleep-inactive-ac-type = "suspend";
+          power-mode = "performance";
         };
 
         "org/gnome/shell" = {
+          disable-user-extensions = false;
           enabled-extensions = [
             "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
             "caffeine@patapon.info"
@@ -100,7 +103,6 @@
             "code.desktop"
             "org.gnome.Software.desktop"
           ];
-          last-selected-power-profile = "performance";
         };
 
         "org/gnome/shell/app-switcher".current-workspace-only = true;
@@ -113,7 +115,7 @@
         };
 
         "org/gnome/shell/extensions/display-brightness-ddcutil" = {
-          ddcutil-binary-path = "/usr/bin/ddcutil";
+          ddcutil-binary-path = "/run/current-system/sw/bin/ddcutil";
           ddcutil-queue-ms = 130.0;
           ddcutil-sleep-multiplier = 40.0;
           decrease-brightness-shortcut = [ "<Control>XF86MonBrightnessDown" ];

@@ -53,16 +53,18 @@
       squash = "git rebase -i origin/main";
       nb = "npm run build";
       gcp = "git cherry-pick";
-      rs = "sudo nixos-rebuild switch --flake /home/jason/home-nix#${
+      rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home-nix#${
           builtins.getEnv "HOSTNAME"
         }";
-      rsu = "sudo nixos-rebuild switch --upgrade --flake /home/jason/home-nix#${
+      rsu =
+        "sudo nixos-rebuild switch --impure --upgrade --flake /home/jason/home-nix#${
           builtins.getEnv "HOSTNAME"
         }";
-      rb = "sudo nixos-rebuild boot --flake /home/jason/home-nix#${
+      rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home-nix#${
           builtins.getEnv "HOSTNAME"
         }";
-      rbu = "sudo nixos-rebuild boot --upgrade --flake /home/jason/home-nix#${
+      rbu =
+        "sudo nixos-rebuild boot --impure --upgrade --flake /home/jason/home-nix#${
           builtins.getEnv "HOSTNAME"
         }";
       clean-nix =
