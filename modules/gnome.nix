@@ -14,7 +14,6 @@
     gnome.gnome-tweaks
     gnome-extension-manager
     gnomeExtensions.caffeine
-    gnomeExtensions.brightness-control-using-ddcutil
   ];
 
   environment.gnome.excludePackages = with pkgs.gnome; [
@@ -98,7 +97,7 @@
           ];
           favorite-apps = [
             "org.gnome.Nautilus.desktop"
-            "brave-browser.desktop"
+            "firefox.desktop"
             "Alacritty.desktop"
             "code.desktop"
             "org.gnome.Software.desktop"

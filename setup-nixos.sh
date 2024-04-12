@@ -13,7 +13,7 @@ eval "$(ssh-agent -s)" &> /dev/null
 ssh-add $HOME/.ssh/id_ed25519
 
 printf "\nCreating github cli shell and adding SSH key to GitHub...\n"
-nix-shell -p gh --run "gh auth login"
+nix-shell -p gh --run "gh auth login -p ssh -w"
 printf "\n"
 nix-shell -p git --run "git clone git@github.com:jason-lieb/home-nix.git"
 

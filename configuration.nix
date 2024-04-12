@@ -1,7 +1,9 @@
 { config, pkgs, pkgs-unstable, ... }:
 
 {
-  imports = [ ./modules/gnome.nix ];
+  imports =
+    # [ inputs.freckle.nixosModules.docker-for-local-dev ./modules/gnome.nix ];
+    [ ./modules/gnome.nix ];
 
   nix = {
     package = pkgs.nixFlakes;
@@ -62,7 +64,7 @@
   users.users.jason = {
     isNormalUser = true;
     description = "Jason";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -74,7 +76,6 @@
   environment.systemPackages = (with pkgs; [
     home-manager
     alacritty
-    brave
     chromium
     firefox
     docker
@@ -94,7 +95,7 @@
 
     ++
 
-    (with pkgs-unstable; [ obsidian vscode ]);
+    (with pkgs-unstable; [ brave obsidian vscode ]);
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
 
