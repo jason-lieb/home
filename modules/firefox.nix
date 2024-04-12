@@ -80,9 +80,6 @@ in {
         id = 0;
         name = "default";
         isDefault = true;
-        extensions = {
-
-        };
         search = {
           force = true;
           default = "DuckDuckGo";
