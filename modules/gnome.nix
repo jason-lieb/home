@@ -59,6 +59,8 @@
           enable = false;
         };
 
+        "org/gnome/desktop/peripherals/touchpad".tap-to-click = true;
+
         "org/gnome/desktop/peripherals/keyboard".numlock-state = true;
 
         "org/gnome/desktop/screensaver".lock-enabled = false;

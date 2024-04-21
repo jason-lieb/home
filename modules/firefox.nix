@@ -73,6 +73,7 @@ in {
         "browser.newtabpage.activity-stream.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
+        "signon.rememberSignons" = lock-false;
       };
     };
     profiles = {
@@ -85,6 +86,13 @@ in {
           default = "DuckDuckGo";
           order = [ "DuckDuckGo" "Google" ];
           engines = {
+            "Amazon" = {
+              urls = [{
+                template =
+                  "https://www.amazon.com/s?k=test&crid=11GUETNPL7YS1&sprefix=%s%2Caps%2C77&ref=nb_sb_noss_2";
+              }];
+              definedAliases = [ ":a" ];
+            };
             "Google".metaData.alias = ":g";
             "Nix Packages" = {
               urls = [{

@@ -82,6 +82,7 @@
     fish
     gh
     git
+    github-copilot-cli
     htop
     gnumake
     neofetch
