@@ -5,6 +5,8 @@ if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
     set -x PATH "$HOME/.local/bin" "$HOME/bin" $PATH
 end
 
+set fish_greeting
+
 # Load zoxide
 zoxide init fish | source
 
@@ -14,11 +16,17 @@ set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; se
 ###
 
 # Aliases
-alias b "bash"
 alias c "clear"
 alias cd "z"
 alias g "git"
 alias gac "git add -A; git commit -m"
+alias gcp 'git cherry-pick'
+alias ghce "gh copilot explain"
+alias ghcs "gh copilot suggest"
+alias gs "git stash"
+alias gsd "git stash drop"
+alias gsl "git stash list"
+alias gsp "git stash pop"
 alias la "ls -A"
 alias ll "ls -l"
 alias lr 'ls -R' # recursive ls
@@ -31,11 +39,12 @@ alias push "git push origin"
 alias fpush "git push origin --force"
 alias run-qa "git commit --allow-empty -m '[qa]'"
 alias run-cy "git commit --allow-empty -m '[cy]'"
+alias run-eph "git commit --allow-empty -m '[ephemeral]'"
 alias up "make update"
-alias bran "git branch | tr '\\n' '\\n'"
-alias dbran "git branch -D"
-alias nbran "git checkout -b"
-alias sbran "git checkout"
+alias b "git branch | tr '\\n' '\\n'"
+alias db "git branch -D"
+alias nb "git checkout -b"
+alias sb "git checkout"
 alias cd.. "cd .."
 alias .. "cd .."
 alias ... "cd ../.."
@@ -47,5 +56,3 @@ alias format-backend-whole 'stack exec -- fourmolu -i .'
 alias format-backend 'git diff --name-only HEAD "*.hs" | xargs fourmolu -i'
 alias rebase 'git fetch origin main && git rebase origin/main'
 alias squash 'git rebase -i origin/main'
-alias nb 'npm run build'
-alias gcp 'git cherry-pick'

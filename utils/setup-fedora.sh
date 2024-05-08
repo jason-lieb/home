@@ -18,6 +18,7 @@ sudo dnf -y update
 echo "Installing software..."
 sudo dnf -y install @gnome-desktop
 sudo dnf -y install git
+sudo dnf -y install gh
 sudo dnf -y install vim
 sudo dnf -y install neovim
 sudo dnf -y install nano
@@ -36,6 +37,9 @@ sudo dnf -y install zoxide
 # sudo dnf -y install xclip # Need wayland alternative
 # sudo dnf -y install kdeconnectd
 # sudo dnf -y install dnfdragora
+
+echo "Installing Copilot Cli..."
+gh extension install github/gh-copilot
 
 echo "Installing bass for fish..."
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
@@ -91,6 +95,9 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 
 echo "Installing preload for faster application startup..."
 sudo dnf copr enable elxreno/preload -y && sudo dnf -y install preload
+
+echo "Enabling ssh..."
+systemctl enable sshd
 
 # Currently doesn't work
 echo "Changing default shell to fish..."
