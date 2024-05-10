@@ -31,6 +31,7 @@ alias la "ls -A"
 alias ll "ls -l"
 alias lr 'ls -R' # recursive ls
 alias m "make"
+alias y "yarn"
 alias mon-desk "~/home/utils/switch-to-desk-monitors.sh"
 alias mon-tv "~/home/utils/switch-to-tv-monitor.sh"
 alias main "git checkout main"
@@ -56,3 +57,4 @@ alias format-backend-whole 'stack exec -- fourmolu -i .'
 alias format-backend 'git diff --name-only HEAD "*.hs" | xargs fourmolu -i'
 alias rebase 'git fetch origin main && git rebase origin/main'
 alias squash 'git rebase -i origin/main'
+alias clear-docker-cache 'docker system prune -a'
