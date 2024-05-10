@@ -76,6 +76,7 @@
   environment.systemPackages = (with pkgs; [
     home-manager
     alacritty
+    bat
     chromium
     firefox
     docker
@@ -83,12 +84,14 @@
     gh
     git
     github-copilot-cli
+    gleam
     htop
     gnumake
     neofetch
     neovim
     nixfmt
     python3
+    ripgrep
     sof-firmware
     wget
     zoxide

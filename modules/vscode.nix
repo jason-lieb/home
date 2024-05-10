@@ -5,14 +5,17 @@
     enable = true;
     extensions = with pkgs.vscode-extensions; [
       #albert.TabOut
+      #tom-rijndorp.finditfaster
       bbenoist.nix
       esbenp.prettier-vscode
       github.vscode-github-actions
       github.copilot
       github.copilot-chat
+      gleam.gleam
       haskell.haskell
       jkillian.custom-local-formatters
       justusadam.language-haskell
+      mechatroner.rainbow-csv
       mhutchie.git-graph
       ms-python.python
       ms-python.vscode-pylance
