@@ -40,6 +40,7 @@ alias g "git"
 alias ga "git add"
 alias gap "git add -p"
 alias gc "git commit -m"
+alias gcs "git commit --squash=HEAD -m"
 alias gac "git add -A; git commit -m"
 alias gacs "git add -A; git commit --squash=HEAD -m"
 alias gcp 'git cherry-pick'
@@ -74,13 +75,11 @@ alias clear-docker-cache 'docker system prune -a'
 function st
     switch (count $argv)
         case 0
-            stack test --fast --file-watch --watch-all
+            stack test --fast --file-watch --watch-all fancy-api jobs
         case 1
-            # Argv is fancy-api, etc.
-            stack test --fast --file-watch --watch-all $argv
+            stack test --fast --file-watch --watch-all --ta '-m "'$argv[1]'"' fancy-api jobs
         case '*'
-            # Argv 1 is the text in the describe block, Argv 2 is the fancy-api, etc.
-            stack test --fast --file-watch --watch-all -ta '-m "'"$argv[1]"'"' $argv[2]
+            echo "Too many arguments"
     end
 end
 ## Reference
