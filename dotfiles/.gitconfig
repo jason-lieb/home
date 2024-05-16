@@ -12,9 +12,10 @@
 # 	tool = nvimdiff
 [pull]
 	ff = only
+	autostash = true
 [push]
 	default = current
-# [rebase]
-# 	autoSquash = true
-# 	autoStash = true
-# 	stat = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	stat = true

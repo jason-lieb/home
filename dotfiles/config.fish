@@ -1,60 +1,88 @@
-# Load node / yarn
-set -gx PATH ~/.nvm/versions/node/v18.19.1/bin $PATH
-
+# Adds bin to Path
 if not string match -q --regex "$PATH" "$HOME/.local/bin:$HOME/bin:"
     set -x PATH "$HOME/.local/bin" "$HOME/bin" $PATH
 end
 
+# Clear fish greeting
 set fish_greeting
+
+# Load node / yarn
+set -gx PATH ~/.nvm/versions/node/v18.19.1/bin $PATH
 
 # Load zoxide
 zoxide init fish | source
 
+# Add Nix to Path
 # set -gx PATH $PATH /nix/var/nix/profiles/default/bin
+
+# Add GHCUP to Path
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/jason/.ghcup/bin
 
-###
-
 # Aliases
+## General
 alias c "clear"
-alias cd "z"
-alias g "git"
-alias gac "git add -A; git commit -m"
-alias gcp 'git cherry-pick'
-alias ghce "gh copilot explain"
-alias ghcs "gh copilot suggest"
-alias gs "git stash"
-alias gsd "git stash drop"
-alias gsl "git stash list"
-alias gsp "git stash pop"
 alias la "ls -A"
 alias ll "ls -l"
-alias lr 'ls -R' # recursive ls
+alias lr 'ls -R'
 alias m "make"
-alias y "yarn"
-alias mon-desk "~/home/utils/switch-to-desk-monitors.sh"
-alias mon-tv "~/home/utils/switch-to-tv-monitor.sh"
-alias main "git checkout main"
-alias pull "git pull origin"
-alias push "git push origin"
-alias fpush "git push origin --force"
-alias run-qa "git commit --allow-empty -m '[qa]'"
-alias run-cy "git commit --allow-empty -m '[cy]'"
-alias run-eph "git commit --allow-empty -m '[ephemeral]'"
 alias up "make update"
-alias b "git branch | tr '\\n' '\\n'"
-alias db "git branch -D"
-alias nb "git checkout -b"
-alias sb "git checkout"
-alias cd.. "cd .."
+alias y "yarn"
+## Navigation
+alias cd "z"
 alias .. "cd .."
 alias ... "cd ../.."
 alias .... "cd ../../.."
 alias ..... "cd ../../../.."
-alias suod 'sudo'
+alias ...... "cd ../../../../.."
+## Git
+### Git Basics
+alias g "git"
+alias ga "git add"
+alias gap "git add -p"
+alias gc "git commit -m"
+alias gac "git add -A; git commit -m"
+alias gacs "git add -A; git commit --squash=HEAD -m"
+alias gcp 'git cherry-pick'
+alias main "git checkout main"
+alias pull "git pull origin"
+alias push "git push origin"
+alias fpush "git push origin --force"
+### Git Stash
+alias gs "git stash"
+alias gsd "git stash drop"
+alias gsl "git stash list"
+alias gsp "git stash pop"
+### Git Branch
+alias b "git branch | tr '\\n' '\\n'"
+alias db "git branch -D"
+alias nb "git checkout -b"
+alias sb "git checkout"
+alias re 'git fetch origin main && git rebase origin/main'
+alias sq 'git rebase -i origin/main'
+## Trigger Github Actions
+alias run-qa "git commit --allow-empty -m '[qa]'"
+alias run-cy "git commit --allow-empty -m '[cy]'"
+alias run-eph "git commit --allow-empty -m '[ephemeral]'"
+## Misc
+alias ghce "gh copilot explain"
+alias ghcs "gh copilot suggest"
+alias mon-desk "~/home/utils/switch-to-desk-monitors.sh"
+alias mon-tv "~/home/utils/switch-to-tv-monitor.sh"
 alias enter-db 'docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'
-alias format-backend-whole 'stack exec -- fourmolu -i .'
-alias format-backend 'git diff --name-only HEAD "*.hs" | xargs fourmolu -i'
-alias rebase 'git fetch origin main && git rebase origin/main'
-alias squash 'git rebase -i origin/main'
 alias clear-docker-cache 'docker system prune -a'
+## Functions
+function st
+    switch (count $argv)
+        case 0
+            stack test --fast --file-watch --watch-all
+        case 1
+            # Argv is fancy-api, etc.
+            stack test --fast --file-watch --watch-all $argv
+        case '*'
+            # Argv 1 is the text in the describe block, Argv 2 is the fancy-api, etc.
+            stack test --fast --file-watch --watch-all -ta '-m "'"$argv[1]"'"' $argv[2]
+    end
+end
+## Reference
+# alias format-backend-whole 'stack exec -- fourmolu -i .'
+# alias format-backend 'git diff --name-only HEAD "*.hs" | xargs fourmolu -i'
