@@ -41,6 +41,9 @@
   "javascript.validate.enable": false,
   "prettier.enable": true,
   "prettier.singleQuote": true,
+  "search.exclude": {
+    "**/node_modules": false
+  },
   "security.workspace.trust.untrustedFiles": "open",
   "window.openFoldersInNewWindow": "off",
   "workbench.colorTheme": "Default Dark+",

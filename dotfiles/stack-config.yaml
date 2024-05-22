@@ -1,0 +1,2 @@
+ghc-options:
+  "$everything": -fconstraint-solver-iterations=10 -O0 -fobject-code -j +RTS -A64m -n2m -RTS

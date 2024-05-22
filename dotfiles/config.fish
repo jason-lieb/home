@@ -24,9 +24,7 @@ alias c "clear"
 alias la "ls -A"
 alias ll "ls -l"
 alias lr 'ls -R'
-alias m "make"
 alias up "make update"
-alias y "yarn"
 ## Navigation
 alias cd "z"
 alias .. "cd .."
