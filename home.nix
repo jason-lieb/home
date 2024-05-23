@@ -16,7 +16,7 @@
 
   home.file = let
     autostartPrograms =
-      [ pkgs.firefox pkgs-unstable.obsidian pkgs-unstable.vscode ];
+      [ pkgs-unstable.brave pkgs-unstable.obsidian pkgs-unstable.vscode ];
   in builtins.listToAttrs (map (pkg: {
     name = ".config/autostart/" + pkg.pname + ".desktop";
     value = if pkg ? desktopItem then {
