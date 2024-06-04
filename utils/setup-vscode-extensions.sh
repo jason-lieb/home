@@ -13,6 +13,7 @@ extensions=(
     "oderwat.indent-rainbow"
     "PKief.material-icon-theme"
     "SteefH.external-formatters"
+    "YoavBls.pretty-ts-errors"
 )
 
 for extension in "${extensions[@]}"; do

@@ -58,5 +58,6 @@
     "~/megarepo/frontend/educator/school",
     "~/megarepo/frontend/educator/entities",
     "~/megarepo/frontend/educator/materials"
-  ]
+  ],
+  "github.copilot.editor.enableAutoCompletions": true
 }

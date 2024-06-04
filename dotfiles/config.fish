@@ -38,9 +38,10 @@ alias g "git"
 alias ga "git add"
 alias gap "git add -p"
 alias gc "git commit -m"
-alias gcs "git commit --squash=HEAD -m"
+alias gcs "git commit --squash=HEAD -m 'squash'"
 alias gac "git add -A; git commit -m"
-alias gacs "git add -A; git commit --squash=HEAD -m"
+alias gacs "git add -A; git commit --squash=HEAD -m 'squash'"
+# Look into using git commit --fixup
 alias gcp 'git cherry-pick'
 alias main "git checkout main"
 alias pull "git pull origin"
@@ -65,10 +66,14 @@ alias run-eph "git commit --allow-empty -m '[ephemeral]'"
 ## Misc
 alias ghce "gh copilot explain"
 alias ghcs "gh copilot suggest"
+alias ghcu "gh extension install github/gh-copilot --force"
 alias mon-desk "~/home/utils/switch-to-desk-monitors.sh"
 alias mon-tv "~/home/utils/switch-to-tv-monitor.sh"
 alias enter-db 'docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'
 alias clear-docker-cache 'docker system prune -a'
+alias mw "stack build --no-run-tests --fast --file-watch --watch-all fancy-api"
+alias stf "stack test --fast --file-watch --watch-all fancy-api"
+alias stj "stack test --fast --file-watch --watch-all jobs"
 ## Functions
 function st
     switch (count $argv)
