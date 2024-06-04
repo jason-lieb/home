@@ -84,7 +84,6 @@
     gh
     git
     github-copilot-cli
-    gleam
     htop
     gnumake
     neofetch

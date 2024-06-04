@@ -6,6 +6,7 @@
     extensions = with pkgs.vscode-extensions; [
       #albert.TabOut
       #tom-rijndorp.finditfaster
+      # yoavbls.pretty-ts-errors
       bbenoist.nix
       esbenp.prettier-vscode
       github.vscode-github-actions
