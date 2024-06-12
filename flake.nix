@@ -23,7 +23,7 @@
         in inputs.nixpkgs-stable.lib.nixosSystem {
           inherit system;
           modules = [
-            ./${hostname}.nix
+            ./${hostname}
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

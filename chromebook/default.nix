@@ -4,9 +4,9 @@
   networking.hostName = "chromebook";
 
   imports = [
-    ./configuration.nix
-    ./modules/chromebook/hardware-configuration.nix
-    ./modules/chromebook/keyd.nix
+    ../configuration.nix
+    ./modules/hardware-configuration.nix
+    ./modules/keyd.nix
   ];
 
   services.xserver.libinput = {
