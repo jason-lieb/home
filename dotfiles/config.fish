@@ -9,6 +9,9 @@ set fish_greeting
 # Load node / yarn
 set -gx PATH ~/.nvm/versions/node/v18.19.1/bin $PATH
 
+# Load Go
+set -gx PATH $PATH /usr/local/go/bin
+
 # Load zoxide
 zoxide init fish | source
 
@@ -24,7 +27,6 @@ alias c "clear"
 alias la "ls -A"
 alias ll "ls -l"
 alias lr 'ls -R'
-alias up "make update"
 ## Navigation
 alias cd "z"
 alias .. "cd .."
@@ -71,9 +73,11 @@ alias mon-desk "~/home/utils/switch-to-desk-monitors.sh"
 alias mon-tv "~/home/utils/switch-to-tv-monitor.sh"
 alias enter-db 'docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'
 alias clear-docker-cache 'docker system prune -a'
-alias mw "stack build --no-run-tests --fast --file-watch --watch-all fancy-api"
+alias mw "stack test --no-run-tests --fast --file-watch --watch-all fancy-api"
 alias stf "stack test --fast --file-watch --watch-all fancy-api"
 alias stj "stack test --fast --file-watch --watch-all jobs"
+alias up "make update"
+alias down 'pushd ~/megarepo/backend; and make services.stop; and popd'
 ## Functions
 function st
     switch (count $argv)

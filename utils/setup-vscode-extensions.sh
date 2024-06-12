@@ -6,6 +6,7 @@ extensions=(
     "github.vscode-github-actions"
     "github.copilot"
     "github.copilot-chat"
+    "go.dev"
     "haskell.haskell"
     "justusadam.language-haskell"
     "mhutchie.git-graph"
