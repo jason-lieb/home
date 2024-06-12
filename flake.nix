@@ -27,7 +27,6 @@
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
               home-manager.users.jason = { config, pkgs, ... }: {
                 imports = [
                   (import ./home.nix { inherit config pkgs pkgs-unstable; })
