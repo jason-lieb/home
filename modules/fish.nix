@@ -87,17 +87,10 @@
       rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home-nix#${
           builtins.getEnv "HOSTNAME"
         }";
-      rsu =
-        "sudo nixos-rebuild switch --impure --upgrade --flake /home/jason/home-nix#${
-          builtins.getEnv "HOSTNAME"
-        }";
       rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home-nix#${
           builtins.getEnv "HOSTNAME"
         }";
-      rbu =
-        "sudo nixos-rebuild boot --impure --upgrade --flake /home/jason/home-nix#${
-          builtins.getEnv "HOSTNAME"
-        }";
+      nix-update = "nix flake update";
       nix-clean =
         "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
     };
