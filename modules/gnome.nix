@@ -70,7 +70,7 @@
           button-layout = "appmenu:minimize,maximize,close";
           focus-mode = "click";
           num-workspace =
-            5.0; # Doesn't work, likely because can't set to 5 instead of 5.0
+            4.0; # Doesn't work, likely related to the fact I can't set it to 4 instead of 4.0
         };
 
         "org/gnome/mutter" = {
