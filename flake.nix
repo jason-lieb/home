@@ -2,60 +2,45 @@
   description = "Jason's NixOS and Home Manager configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-23.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # freckle.url = "github:freckle/flakes?dir=main";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
+    freckle.url = "github:freckle/flakes?dir=main";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
+      nixpkgsConfig = {
         inherit system;
-        config = { allowUnfree = true; };
+        config.allowUnfree = true;
       };
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config = { allowUnfree = true; };
-      };
+      mkNixos = hostname:
+        let
+          pkgs = import inputs.nixpkgs-stable nixpkgsConfig;
+          pkgs-unstable = import inputs.nixpkgs-unstable nixpkgsConfig;
+        in inputs.nixpkgs-stable.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./${hostname}.nix
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.jason = { config, pkgs, ... }: {
+                imports = [
+                  (import ./home.nix { inherit config pkgs pkgs-unstable; })
+                ];
+              };
+            }
+          ];
+          specialArgs = { inherit pkgs-unstable; };
+        };
     in {
       nixosConfigurations = {
-        desktop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./desktop.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.jason = { config, pkgs, ... }: {
-                imports = [
-                  (import ./home.nix { inherit config pkgs pkgs-unstable; })
-                ];
-              };
-            }
-          ];
-          specialArgs = { inherit pkgs-unstable; };
-        };
-        chromebook = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./chromebook.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.jason = { config, pkgs, ... }: {
-                imports = [
-                  (import ./home.nix { inherit config pkgs pkgs-unstable; })
-                ];
-              };
-            }
-          ];
-          specialArgs = { inherit pkgs-unstable; };
-        };
+        desktop = mkNixos "desktop";
+        chromebook = mkNixos "chromebook";
       };
     };
 }
