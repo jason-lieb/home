@@ -99,7 +99,7 @@
     cachix
     chromium
     firefox
-    docker
+    # docker
     fish
     gh
     git

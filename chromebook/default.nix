@@ -4,7 +4,7 @@
   networking.hostName = "chromebook";
 
   imports = [
-    ../configuration.nix
+    ../common/configuration.nix
     ./modules/hardware-configuration.nix
     ./modules/keyd.nix
   ];

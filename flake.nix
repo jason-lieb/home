@@ -29,7 +29,9 @@
               home-manager.useGlobalPkgs = true;
               home-manager.users.jason = { config, pkgs, ... }: {
                 imports = [
-                  (import ./home.nix { inherit config pkgs pkgs-unstable; })
+                  (import ./common/home.nix {
+                    inherit config pkgs pkgs-unstable;
+                  })
                 ];
               };
             }
