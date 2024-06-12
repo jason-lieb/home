@@ -3,51 +3,51 @@
 {
   programs.neovim = {
 
-    plugins = [
-      ## Treesitter
-      pkgs.vimPlugins.nvim-treesitter
-      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-      pkgs.vimPlugins.nvim-treesitter-textobjects
-      pkgs.vimPlugins.nvim-lspconfig
+    plugins = with pkgs.vimPlugins;
+      [
+        ## Treesitter
+        nvim-treesitter
+        nvim-treesitter.withAllGrammars
+        nvim-treesitter-textobjects
+        nvim-lspconfig
 
-      pkgs.vimPlugins.trouble-nvim
-      pkgs.vimPlugins.plenary-nvim
-      pkgs.vimPlugins.telescope-nvim
-      pkgs.vimPlugins.telescope-fzf-native-nvim
-      pkgs.vimPlugins.fidget-nvim
+        trouble-nvim
+        plenary-nvim
+        telescope-nvim
+        telescope-fzf-native-nvim
+        fidget-nvim
 
-      ## cmp
-      pkgs.vimPlugins.nvim-cmp
-      pkgs.vimPlugins.cmp-nvim-lsp
-      pkgs.vimPlugins.cmp-buffer
-      pkgs.vimPlugins.cmp-cmdline
+        ## cmp
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp-buffer
+        cmp-cmdline
 
-      pkgs.vimPlugins.clangd_extensions-nvim
-      pkgs.vimPlugins.luasnip
-      pkgs.vimPlugins.cmp_luasnip
-      pkgs.vimPlugins.lspkind-nvim
-      pkgs.vimPlugins.nvim-lint
-      pkgs.vimPlugins.vim-surround
-      pkgs.vimPlugins.vim-obsession
-      pkgs.vimPlugins.kommentary
-      pkgs.vimPlugins.neoformat
-      pkgs.vimPlugins.lazygit-nvim
-      pkgs.vimPlugins.gitsigns-nvim
-      pkgs.vimPlugins.rainbow
-      pkgs.vimPlugins.vim-sleuth
-      pkgs.vimPlugins.lualine-nvim
-      pkgs.vimPlugins.nvim-web-devicons
-      pkgs.vimPlugins.lightspeed-nvim
-      pkgs.vimPlugins.leap-nvim
-      pkgs.vimPlugins.vim-repeat
-      pkgs.vimPlugins.kanagawa-nvim
-      mrc.vimPlugins.no-neck-pain-nvim
+        clangd_extensions-nvim
+        luasnip
+        cmp_luasnip
+        lspkind-nvim
+        nvim-lint
+        vim-surround
+        vim-obsession
+        kommentary
+        neoformat
+        lazygit-nvim
+        gitsigns-nvim
+        rainbow
+        vim-sleuth
+        lualine-nvim
+        nvim-web-devicons
+        lightspeed-nvim
+        leap-nvim
+        vim-repeat
+        kanagawa-nvim
 
-      ## Debugging
-      pkgs.vimPlugins.nvim-dap
-      pkgs.vimPlugins.nvim-dap-ui
-      pkgs.vimPlugins.nvim-dap-virtual-text
-    ];
+        ## Debugging
+        nvim-dap
+        nvim-dap-ui
+        nvim-dap-virtual-text
+      ] ++ [ mrc.vimPlugins.no-neck-pain-nvim ];
 
     extraConfig = ''
       lua << EOF
