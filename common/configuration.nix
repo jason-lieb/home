@@ -1,11 +1,7 @@
 { config, pkgs, pkgs-unstable, inputs, ... }:
 
 {
-  imports = [
-    ./modules/gnome.nix
-    # inputs.freckle.nixosModules.docker-for-local-dev
-    # inputs.freckle.nixosModules.renaissance-vpn
-  ];
+  imports = [ ./modules/gnome.nix ];
 
   nix = {
     package = pkgs.nixFlakes;

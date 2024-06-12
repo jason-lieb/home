@@ -25,6 +25,8 @@
           modules = [
             ./${hostname}
             inputs.home-manager.nixosModules.home-manager
+            inputs.freckle.nixosModules.docker-for-local-dev
+            inputs.freckle.nixosModules.renaissance-vpn
             {
               home-manager.useGlobalPkgs = true;
               home-manager.users.jason = { config, pkgs, ... }: {
