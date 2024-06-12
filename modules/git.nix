@@ -12,13 +12,14 @@
       core.editor = "code --wait";
       fetch.prune = true;
       merge.ff = "only";
+      #merge.tool = "nvimdiff";
       pull.ff = "only";
+      pull.autostash = true;
       push.default = "current";
-
-      # [rebase]
-      # 	autoSquash = true
-      # 	autoStash = true
-      # 	stat = true
+      rebase.autoSquash = true;
+      rebase.autoStash = true;
+      rebase.stat = true;
+      rerere.enabled = true;
     };
   };
 }
