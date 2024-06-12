@@ -9,17 +9,17 @@
       # yoavbls.pretty-ts-errors
       bbenoist.nix
       esbenp.prettier-vscode
-      github.vscode-github-actions
+      # github.vscode-github-actions
       github.copilot
       github.copilot-chat
-      gleam.gleam
+      # gleam.gleam
       haskell.haskell
       jkillian.custom-local-formatters
       justusadam.language-haskell
       mechatroner.rainbow-csv
       mhutchie.git-graph
-      ms-python.python
-      ms-python.vscode-pylance
+      # ms-python.python
+      # ms-python.vscode-pylance
       oderwat.indent-rainbow
       pkief.material-icon-theme
     ];

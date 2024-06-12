@@ -9,6 +9,8 @@
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
+      auto-optimise-store = true
+      netrc-file = /home/jason/.config/nix/netrc
     '';
   };
 
@@ -77,6 +79,7 @@
     home-manager
     alacritty
     bat
+    cachix
     chromium
     firefox
     docker
