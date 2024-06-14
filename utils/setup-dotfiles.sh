@@ -8,6 +8,7 @@ rm ~/.config/Code/User/settings.json
 rm ~/.config/Code/User/keybindings.json
 rm ~/.config/nix/nix.conf
 rm ~/.stack/config.yaml
+rm ~/.config/helix/config.yaml
 
 # Create symlink and force overwrite
 ln -sf ~/home/dotfiles/.bashrc ~/.bashrc
@@ -17,6 +18,7 @@ ln -sf ~/home/dotfiles/vscode-settings.json ~/.config/Code/User/settings.json
 ln -sf ~/home/dotfiles/vscode-keybindings.json ~/.config/Code/User/keybindings.json
 mkdir -p ~/.stack
 ln -sf ~/home/dotfiles/stack-config.yaml ~/.stack/config.yaml
+ln -sf ~/home/dotfiles/helix-config.toml ~/.config/helix/config.toml
 # mkdir ~/.config/nix
 # ln -sf ~/home/dotfiles/nix.conf ~/.config/nix/nix.conf
 

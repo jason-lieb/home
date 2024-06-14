@@ -21,6 +21,7 @@ sudo dnf -y install git
 sudo dnf -y install gh
 sudo dnf -y install vim
 sudo dnf -y install neovim
+sudo dnf -y install helix
 sudo dnf -y install nano
 sudo dnf -y install firefox
 sudo dnf -y install alacritty
