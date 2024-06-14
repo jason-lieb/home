@@ -15,7 +15,8 @@
   ];
 
   home.file = let
-    autostartPrograms = [ pkgs-unstable.obsidian pkgs-unstable.vscode ];
+    autostartPrograms =
+      [ pkgs.alacritty pkgs-unstable.obsidian pkgs-unstable.vscode ];
     # pkgs-unstable.brave
     # removed brave because it doesn't use dark mode when autostarted
 
@@ -33,6 +34,9 @@
       }) envLines);
 
   in builtins.listToAttrs ([{
+    name = ".config/helix/config.toml";
+    value = { text = ''theme = "onedark"''; };
+  }] ++ [{
     name = ".config/nix/netrc";
     value = {
       text = "machine freckle-private.cachix.org password ${env.TOKEN}";
