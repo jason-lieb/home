@@ -14,14 +14,10 @@
       trusted-users = [ "@wheel" ];
       max-jobs = 8;
       build-cores = 0;
-      substituters = [
-        "https://freckle.cachix.org"
-        "https://freckle-flakes.cachix.org"
-        "https://freckle-private.cachix.org"
-      ];
+      substituters =
+        [ "https://freckle.cachix.org" "https://freckle-private.cachix.org" ];
       trusted-public-keys = [
         "freckle.cachix.org-1:WnI1pZdwLf2vnP9Fx7OGbVSREqqi4HM2OhNjYmZ7odo="
-        "freckle-flakes.cachix.org-1:d+zszsfs+gamqZPjsGQPtDvpDNhE6pLSmtZDQHYTUDo="
         "freckle-private.cachix.org-1:zbTfpeeq5YBCPOjheu0gLyVPVeM6K2dc1e8ei8fE0AI="
       ];
     };
@@ -49,17 +45,9 @@
 
   time.timeZone = "America/New_York";
 
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    supportedLocales = [ "en_US.UTF-8/UTF-8" ];
   };
 
   services.printing.enable = true;
@@ -100,6 +88,7 @@
     gh
     git
     github-copilot-cli
+    helix
     htop
     gnumake
     neofetch
