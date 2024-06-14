@@ -47,6 +47,12 @@
 
     profiles.user.databases = [{
       settings = with lib.gvariant; {
+        "org/gnome/desktop/background" = {
+          color-shading-type = "solid";
+          picture-options = "zoom";
+          picture-uri = "file://" + ../wallpaper.png;
+        };
+
         "org/gnome/desktop/wm/keybindings".switch-windows = [ "<Alt>Tab" ];
 
         "org/gnome/desktop/interface" = {
@@ -59,6 +65,8 @@
           enable = false;
         };
 
+        "/org/gnome/mutter/edge-tiling" = true;
+
         "org/gnome/desktop/peripherals/touchpad".tap-to-click = true;
 
         "org/gnome/desktop/peripherals/keyboard".numlock-state = true;
@@ -69,8 +77,7 @@
           auto-raise = false;
           button-layout = "appmenu:minimize,maximize,close";
           focus-mode = "click";
-          num-workspace =
-            4.0; # Doesn't work, likely related to the fact I can't set it to 4 instead of 4.0
+          num-workspace = 4.0; # Doesn't work
         };
 
         "org/gnome/mutter" = {
@@ -100,6 +107,7 @@
           favorite-apps = [
             "org.gnome.Nautilus.desktop"
             "brave-browser.desktop"
+            "obsidian.desktop"
             "Alacritty.desktop"
             "code.desktop"
             "org.gnome.Software.desktop"

@@ -15,8 +15,9 @@
   ];
 
   home.file = let
-    autostartPrograms =
-      [ pkgs-unstable.brave pkgs-unstable.obsidian pkgs-unstable.vscode ];
+    autostartPrograms = [ pkgs-unstable.obsidian pkgs-unstable.vscode ];
+    # pkgs-unstable.brave
+    # removed brave because it doesn't use dark mode when autostarted
 
     envFile = builtins.readFile "/home/jason/home-nix/.env";
     envLines = builtins.filter (line: line != "" && line != [ ])
@@ -62,6 +63,7 @@
         nix: { enable: false }
         system-ghc: true
         recommend-stack-upgrade: false
+        notify-if-nix-on-path: false
         ghc-options:
           "$everything": -fconstraint-solver-iterations=10 -O0 -fobject-code -j +RTS -A64m -n2m -RTS
       '';
