@@ -65,8 +65,6 @@
           enable = false;
         };
 
-        "/org/gnome/mutter/edge-tiling" = true;
-
         "org/gnome/desktop/peripherals/touchpad".tap-to-click = true;
 
         "org/gnome/desktop/peripherals/keyboard".numlock-state = true;
@@ -81,6 +79,7 @@
         };
 
         "org/gnome/mutter" = {
+          edge-tiling = true;
           center-new-windows = true;
           dynamic-workspaces = false;
           workspaces-only-on-primary = true;
