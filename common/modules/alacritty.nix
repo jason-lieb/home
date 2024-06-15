@@ -1,16 +1,16 @@
 {
-  name = ".alacritty.toml";
+  name = ".config/alacritty/alacritty.toml";
   value = {
     text = ''
       # Default colors
       [colors.primary]
-      background = '#292C3E'
-      foreground = '#EBEBEB'
+      background = '#1e1e1e'
+      foreground = '#d4d4d4'
 
       # Cursor colors
       [colors.cursor]
-      text = '#EBEBEB'
-      cursor = '#FF261E'
+      text = '#d4d4d4'
+      cursor = '#a6a6a6'
 
       # Normal colors
       [colors.normal]

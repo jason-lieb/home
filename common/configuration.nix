@@ -78,7 +78,6 @@
 
   environment.systemPackages = (with pkgs; [
     home-manager
-    alacritty
     bat
     cachix
     chromium
@@ -99,11 +98,7 @@
     sof-firmware
     wget
     zoxide
-  ])
-
-    ++
-
-    (with pkgs-unstable; [ brave obsidian vscode ]);
+  ]) ++ (with pkgs-unstable; [ alacritty brave obsidian vscode ]);
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
 
