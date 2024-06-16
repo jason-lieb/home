@@ -82,7 +82,6 @@
     cachix
     chromium
     firefox
-    # docker
     fish
     gh
     git
@@ -90,14 +89,24 @@
     helix
     htop
     gnumake
+    lf
     neofetch
     neovim
+    nil
     nixfmt
+    ollama
     python3
     ripgrep
     sof-firmware
     wget
     zoxide
+    # Language servers for Helix
+    nodePackages.bash-language-server
+    dockerfile-language-server-nodejs
+    gopls
+    haskell-language-server
+    nodePackages.typescript-language-server
+    yaml-language-server
   ]) ++ (with pkgs-unstable; [ alacritty brave obsidian vscode ]);
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];

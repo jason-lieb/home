@@ -20,8 +20,10 @@
         let
           pkgs = import inputs.nixpkgs-stable nixpkgsConfig;
           pkgs-unstable = import inputs.nixpkgs-unstable nixpkgsConfig;
+          specialArgs = { inherit pkgs-unstable; };
         in inputs.nixpkgs-stable.lib.nixosSystem {
           inherit system;
+          inherit specialArgs;
           modules = [
             ./${hostname}
             inputs.home-manager.nixosModules.home-manager
@@ -38,7 +40,6 @@
               };
             }
           ];
-          specialArgs = { inherit pkgs-unstable; };
         };
     in {
       nixosConfigurations = {

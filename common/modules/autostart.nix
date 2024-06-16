@@ -11,6 +11,8 @@ in map (pkg: {
   } else {
     source = if pkg.pname == "brave" then
       (pkg + "/share/applications/brave-browser.desktop")
+    else if pkg.pname == "alacritty" then
+      (pkg + "/share/applications/Alacritty.desktop")
     else
       (pkg + "/share/applications/" + pkg.pname + ".desktop");
   };

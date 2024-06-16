@@ -66,6 +66,8 @@
       "indentRainbow.lightIndicatorStyleLineWidth" = 4;
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "javascript.validate.enable" = false;
+      "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "nil";
       "prettier.enable" = true;
       "prettier.singleQuote" = true;
       "security.workspace.trust.untrustedFiles" = "open";

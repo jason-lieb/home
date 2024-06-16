@@ -1,11 +1,11 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   home.username = "jason";
   home.homeDirectory = "/home/jason";
   home.stateVersion = "23.11";
 
-  home.sessionVariables.EDITOR = "vscode";
+  home.sessionVariables.EDITOR = "hx";
 
   imports = [
     ./modules/firefox.nix
