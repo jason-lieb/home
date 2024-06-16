@@ -98,6 +98,7 @@
     python3
     ripgrep
     sof-firmware
+    tmux
     vscode
     wget
     zoxide
