@@ -98,6 +98,7 @@
     python3
     ripgrep
     sof-firmware
+    vscode
     wget
     zoxide
     # Language servers for Helix
@@ -107,7 +108,7 @@
     haskell-language-server
     nodePackages.typescript-language-server
     yaml-language-server
-  ]) ++ (with pkgs-unstable; [ alacritty brave obsidian vscode ]);
+  ]) ++ (with pkgs-unstable; [ alacritty brave obsidian ]);
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
 
