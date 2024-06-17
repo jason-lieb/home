@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   services.xserver = {
@@ -54,6 +54,8 @@
         };
 
         "org/gnome/desktop/wm/keybindings".switch-windows = [ "<Alt>Tab" ];
+        "org/gnome/desktop/wm/keybindings".switch-windows-backwards =
+          [ "<Shift><Alt>Tab" ];
 
         "org/gnome/desktop/interface" = {
           clock-format = "12h";

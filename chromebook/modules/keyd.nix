@@ -4,7 +4,6 @@
   services.keyd = {
     enable = true;
     keyboards.internal = {
-      ids = [ "0001:0001" ];
       settings = {
         main = {
           f1 = "back";

@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, inputs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   imports = [ ./modules/gnome.nix ];
@@ -28,10 +28,9 @@
 
   services.xserver = {
     enable = true;
-    displayManager.autoLogin = {
-      enable = true;
-      user = "jason";
-    };
+    # displayManager.autoLogin = {
+    #   user = "jason";
+    # };
 
     # Configure keymap
     layout = "us";
