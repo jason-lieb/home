@@ -32,7 +32,6 @@
       ll = "ls -l";
       lr = "ls -R"; # recursive ls
       # Navigation
-      cd = "z";
       ".." = "cd ..";
       "..." = "cd ../..";
       "...." = "cd ../../..";
