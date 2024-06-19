@@ -14,14 +14,24 @@
     ./modules/vscode.nix
   ];
 
-  home.file = let
-    env = import ./modules/env.nix;
-    alacritty = import ./modules/alacritty.nix;
-    helix = import ./modules/helix.nix;
-    nix-cache = import ./modules/nix-cache.nix { inherit env; };
-    aws = import ./modules/aws.nix;
-    stack = import ./modules/stack.nix;
-    autostart = import ./modules/autostart.nix { inherit pkgs pkgs-unstable; };
-  in builtins.listToAttrs
-  ([ alacritty helix nix-cache aws stack ] ++ autostart);
+  home.file =
+    let
+      env = import ./modules/env.nix;
+      alacritty = import ./modules/alacritty.nix;
+      helix = import ./modules/helix.nix;
+      nix-cache = import ./modules/nix-cache.nix { inherit env; };
+      aws = import ./modules/aws.nix;
+      stack = import ./modules/stack.nix;
+      autostart = import ./modules/autostart.nix { inherit pkgs pkgs-unstable; };
+    in
+    builtins.listToAttrs (
+      [
+        alacritty
+        helix
+        nix-cache
+        aws
+        stack
+      ]
+      ++ autostart
+    );
 }

@@ -7,7 +7,8 @@ let
     rev = "master"; # replace with the desired branch or commit
     sha256 = "0"; # replace with the correct hash
   };
-in pkgs.stdenv.mkDerivation rec {
+in
+pkgs.stdenv.mkDerivation rec {
   pname = "chromebook-ucm-conf";
   version = "1.0.0"; # replace with the actual version
 

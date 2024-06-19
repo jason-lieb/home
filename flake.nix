@@ -9,19 +9,24 @@
     freckle.url = "github:freckle/flakes?dir=main";
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     let
       system = "x86_64-linux";
       nixpkgsConfig = {
         inherit system;
         config.allowUnfree = true;
       };
-      mkNixos = hostname:
+      mkNixos =
+        hostname:
         let
           pkgs = import inputs.nixpkgs-stable nixpkgsConfig;
           pkgs-unstable = import inputs.nixpkgs-unstable nixpkgsConfig;
-          specialArgs = { inherit pkgs-unstable; };
-        in inputs.nixpkgs-stable.lib.nixosSystem {
+          specialArgs = {
+            inherit pkgs-unstable;
+          };
+        in
+        inputs.nixpkgs-stable.lib.nixosSystem {
           inherit system;
           inherit specialArgs;
           modules = [
@@ -31,17 +36,16 @@
             inputs.freckle.nixosModules.renaissance-vpn
             {
               home-manager.useGlobalPkgs = true;
-              home-manager.users.jason = { config, pkgs, ... }: {
-                imports = [
-                  (import ./common/home.nix {
-                    inherit config pkgs pkgs-unstable;
-                  })
-                ];
-              };
+              home-manager.users.jason =
+                { config, pkgs, ... }:
+                {
+                  imports = [ (import ./common/home.nix { inherit config pkgs pkgs-unstable; }) ];
+                };
             }
           ];
         };
-    in {
+    in
+    {
       nixosConfigurations = {
         desktop = mkNixos "desktop";
         chromebook = mkNixos "chromebook";

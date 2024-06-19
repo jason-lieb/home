@@ -79,25 +79,18 @@
       ghcu = "gh extension install github/gh-copilot --force";
       mon-desk = "~/home/utils/switch-to-desk-monitors.sh";
       mon-tv = "~/home/utils/switch-to-tv-monitor.sh";
-      "enter-db" = ''
-        docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
+      "enter-db" = ''docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
       clear-docker-cache = "docker system prune -a";
-      mw =
-        "stack test --no-run-tests --fast --file-watch --watch-all fancy-api";
+      mw = "stack test --no-run-tests --fast --file-watch --watch-all fancy-api";
       stf = "stack test --fast --file-watch --watch-all fancy-api";
       stj = "stack test --fast --file-watch --watch-all jobs";
       up = "make update";
       down = "pushd ~/megarepo/backend; and make services.stop; and popd";
       # Nix
-      rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home-nix#${
-          builtins.getEnv "HOSTNAME"
-        }";
-      rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home-nix#${
-          builtins.getEnv "HOSTNAME"
-        }";
+      rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
+      rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
       nix-update = "nix flake update";
-      nix-clean =
-        "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
+      nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
     };
     # Not Currently Needed
     # "format-backend-whole" = "stack exec -- fourmolu -i .";

@@ -35,9 +35,15 @@
       };
       "editor.formatOnPaste" = true;
       "editor.formatOnSave" = true;
-      "[markdown]" = { "editor.formatOnSave" = false; };
-      "[yaml]" = { "editor.formatOnSave" = false; };
-      "[yml]" = { "editor.formatOnSave" = false; };
+      "[markdown]" = {
+        "editor.formatOnSave" = false;
+      };
+      "[yaml]" = {
+        "editor.formatOnSave" = false;
+      };
+      "[yml]" = {
+        "editor.formatOnSave" = false;
+      };
       "editor.minimap.enabled" = false;
       "editor.parameterHints.enabled" = false;
       "editor.tabSize" = 2;

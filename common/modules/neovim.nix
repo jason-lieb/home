@@ -1,9 +1,15 @@
-{ config, pkgs, mrc, ... }:
+{
+  config,
+  pkgs,
+  mrc,
+  ...
+}:
 
 {
   programs.neovim = {
 
-    plugins = with pkgs.vimPlugins;
+    plugins =
+      with pkgs.vimPlugins;
       [
         ## Treesitter
         nvim-treesitter
@@ -47,7 +53,8 @@
         nvim-dap
         nvim-dap-ui
         nvim-dap-virtual-text
-      ] ++ [ mrc.vimPlugins.no-neck-pain-nvim ];
+      ]
+      ++ [ mrc.vimPlugins.no-neck-pain-nvim ];
 
     extraConfig = ''
       lua << EOF
@@ -73,4 +80,3 @@
     vimAlias = true;
   };
 }
-

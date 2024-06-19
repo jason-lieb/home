@@ -1,18 +1,25 @@
-{ config, pkgs, pkgs-unstable, lib, ... }:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  lib,
+  ...
+}:
 
 {
   networking.hostName = "desktop";
-  imports =
-    [ ../common/configuration.nix /etc/nixos/hardware-configuration.nix ];
+  imports = [
+    ../common/configuration.nix
+    /etc/nixos/hardware-configuration.nix
+  ];
 
-  environment.systemPackages = with pkgs;
-    [ gnomeExtensions.brightness-control-using-ddcutil ];
+  environment.systemPackages = with pkgs; [ gnomeExtensions.brightness-control-using-ddcutil ];
 
-  programs.dconf.profiles.user.databases = [{
-    settings = with lib.gvariant; {
-      "org/gnome/shell".enabled-extensions =
-        [ "display-brightness-ddcutil@themightydeity.github.com" ];
-    };
-  }];
-
+  programs.dconf.profiles.user.databases = [
+    {
+      settings = with lib.gvariant; {
+        "org/gnome/shell".enabled-extensions = [ "display-brightness-ddcutil@themightydeity.github.com" ];
+      };
+    }
+  ];
 }
