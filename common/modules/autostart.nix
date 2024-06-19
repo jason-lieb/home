@@ -1,13 +1,13 @@
 { pkgs, pkgs-unstable }:
 let
   autostartPrograms = [
-    pkgs-unstable.alacritty
     pkgs-unstable.obsidian
     pkgs-unstable.vscode
   ];
 in
+# pkgs-unstable.alacritty
 # pkgs-unstable.brave
-# removed brave because it doesn't use dark mode when autostarted
+# removed because they don't use dark mode when autostarted
 map (pkg: {
   name = ".config/autostart/" + pkg.pname + ".desktop";
   value =
