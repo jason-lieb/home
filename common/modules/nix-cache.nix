@@ -1,4 +1,5 @@
 { env }:
+
 {
   name = ".config/nix/netrc";
   value = {

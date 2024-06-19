@@ -4,6 +4,7 @@
   pkgs-unstable,
   ...
 }:
+
 {
   networking.hostName = "chromebook";
 
