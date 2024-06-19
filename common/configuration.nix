@@ -14,8 +14,10 @@
       trusted-users = [ "@wheel" ];
       max-jobs = 8;
       build-cores = 0;
-      substituters =
-        [ "https://freckle.cachix.org" "https://freckle-private.cachix.org" ];
+      substituters = [
+        "https://freckle.cachix.org"
+        "https://freckle-private.cachix.org"
+      ];
       trusted-public-keys = [
         "freckle.cachix.org-1:WnI1pZdwLf2vnP9Fx7OGbVSREqqi4HM2OhNjYmZ7odo="
         "freckle-private.cachix.org-1:zbTfpeeq5YBCPOjheu0gLyVPVeM6K2dc1e8ei8fE0AI="
@@ -26,16 +28,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  services.xserver = {
-    enable = true;
-    # displayManager.autoLogin = {
-    #   user = "jason";
-    # };
-
-    # Configure keymap
-    layout = "us";
-    xkbVariant = "";
-  };
+  services.xserver.enable = true;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -76,7 +69,11 @@
   users.users.jason = {
     isNormalUser = true;
     description = "Jason";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -85,44 +82,48 @@
 
   services.flatpak.enable = true;
 
-  environment.systemPackages = (with pkgs; [
-    home-manager
-    bat
-    cachix
-    chromium
-    firefox
-    fish
-    gh
-    git
-    github-copilot-cli
-    helix
-    htop
-    gnumake
-    lf
-    neofetch
-    neovim
-    nil
-    nixfmt
-    ollama
-    python3
-    ripgrep
-    sof-firmware
-    tmux
-    vscode
-    wget
-    zoxide
-    # Language servers for Helix
-    nodePackages.bash-language-server
-    dockerfile-language-server-nodejs
-    gopls
-    haskell-language-server
-    nodePackages.typescript-language-server
-    nodePackages.vscode-css-languageserver-bin
-    nodePackages.vscode-json-languageserver
-    yaml-language-server
-  ]) ++ (with pkgs-unstable; [ alacritty brave obsidian ]);
-
-  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
+  environment.systemPackages =
+    (with pkgs; [
+      home-manager
+      bat
+      cachix
+      chromium
+      firefox
+      fish
+      gh
+      git
+      github-copilot-cli
+      helix
+      htop
+      gnumake
+      lf
+      neofetch
+      neovim
+      nil
+      nixfmt-rfc-style
+      ollama
+      python3
+      ripgrep
+      sof-firmware
+      tmux
+      vscode
+      wget
+      zoxide
+      # Language servers for Helix
+      nodePackages.bash-language-server
+      dockerfile-language-server-nodejs
+      gopls
+      haskell-language-server
+      nodePackages.typescript-language-server
+      nodePackages.vscode-css-languageserver-bin
+      nodePackages.vscode-json-languageserver
+      yaml-language-server
+    ])
+    ++ (with pkgs-unstable; [
+      alacritty
+      brave
+      obsidian
+    ]);
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -134,5 +135,5 @@
 
   # services.openssh.enable = true;
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }

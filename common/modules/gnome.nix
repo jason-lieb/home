@@ -21,7 +21,6 @@
     cheese
     eog
     epiphany
-    gedit
     simple-scan
     totem
     yelp

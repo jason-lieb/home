@@ -3,7 +3,7 @@
 {
   home.username = "jason";
   home.homeDirectory = "/home/jason";
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
 
   home.sessionVariables.EDITOR = "hx";
 
