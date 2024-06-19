@@ -105,9 +105,9 @@
       python3
       ripgrep
       sof-firmware
-      tmux
       vscode
       wget
+      zellij
       zoxide
       # Language servers for Helix
       nodePackages.bash-language-server
