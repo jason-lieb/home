@@ -48,6 +48,7 @@
     {
       nixosConfigurations = {
         desktop = mkNixos "desktop";
+        laptop = mkNixos "laptop";
         chromebook = mkNixos "chromebook";
       };
     };
