@@ -36,6 +36,7 @@
             inputs.freckle.nixosModules.renaissance-vpn
             {
               home-manager.useGlobalPkgs = true;
+              home-manager.backupFileExtension = ".backup";
               home-manager.users.jason =
                 { config, pkgs, ... }:
                 {

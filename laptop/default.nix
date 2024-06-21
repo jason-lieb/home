@@ -10,6 +10,6 @@
   networking.hostName = "laptop";
   imports = [
     ../common/configuration.nix
-    ../modules/hardware-configuration.nix
+    ./hardware-configuration.nix
   ];
 }
