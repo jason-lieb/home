@@ -53,6 +53,9 @@
             picture-uri = "file://" + ../wallpaper.png;
           };
 
+          "org/gnome/mutter".experimental-features =
+            if builtins.getEnv "HOSTNAME" == "laptop" then [ "scale-monitor-framebuffer" ] else [ ];
+
           "org/gnome/desktop/wm/keybindings".switch-windows = [ "<Alt>Tab" ];
           "org/gnome/desktop/wm/keybindings".switch-windows-backwards = [ "<Shift><Alt>Tab" ];
 
