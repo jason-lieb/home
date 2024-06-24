@@ -21,6 +21,7 @@
       helix = import ./modules/helix.nix;
       nix-cache = import ./modules/nix-cache.nix { inherit env; };
       aws = import ./modules/aws.nix;
+      aws-credentials = import ./modules/aws-credentials.nix;
       stack = import ./modules/stack.nix;
       autostart = import ./modules/autostart.nix { inherit pkgs pkgs-unstable; };
     in
@@ -30,6 +31,7 @@
         helix
         nix-cache
         aws
+        aws-credentials
         stack
       ]
       ++ autostart
