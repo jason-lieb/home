@@ -85,6 +85,7 @@
   environment.systemPackages =
     (with pkgs; [
       home-manager
+      alacritty
       bat
       cachix
       chromium
@@ -120,7 +121,6 @@
       yaml-language-server
     ])
     ++ (with pkgs-unstable; [
-      alacritty
       brave
       obsidian
     ]);
