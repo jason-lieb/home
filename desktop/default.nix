@@ -14,12 +14,4 @@
   ];
 
   environment.systemPackages = with pkgs; [ gnomeExtensions.brightness-control-using-ddcutil ];
-
-  programs.dconf.profiles.user.databases = [
-    {
-      settings = with lib.gvariant; {
-        "org/gnome/shell".enabled-extensions = [ "display-brightness-ddcutil@themightydeity.github.com" ];
-      };
-    }
-  ];
 }

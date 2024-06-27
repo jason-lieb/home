@@ -106,7 +106,6 @@
                 disable-user-extensions = false;
                 enabled-extensions = [
                   "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
-                  "caffeine@patapon.info"
                   "display-brightness-ddcutil@themightydeity.github.com"
                 ];
                 favorite-apps = [
@@ -120,13 +119,6 @@
               };
 
               "org/gnome/shell/app-switcher".current-workspace-only = true;
-
-              "org/gnome/shell/extensions/caffeine" = {
-                duration-timer = 2.0;
-                indicator-position-max = 4.0;
-                screen-blank = "always";
-                show-notifications = false;
-              };
 
               "org/gnome/shell/extensions/display-brightness-ddcutil" = {
                 ddcutil-binary-path = "/run/current-system/sw/bin/ddcutil";
