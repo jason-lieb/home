@@ -87,6 +87,7 @@
       home-manager
       alacritty
       bat
+      brave
       cachix
       chromium
       firefox
@@ -102,6 +103,7 @@
       neovim
       nil
       nixfmt-rfc-style
+      obsidian
       ollama
       python3
       ripgrep
@@ -120,10 +122,7 @@
       nodePackages.vscode-json-languageserver
       yaml-language-server
     ])
-    ++ (with pkgs-unstable; [
-      brave
-      obsidian
-    ]);
+    ++ (with pkgs-unstable; [ ]);
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
