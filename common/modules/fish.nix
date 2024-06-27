@@ -52,7 +52,7 @@
       push = "git push origin";
       fpush = "git push origin --force";
       # Git Stash
-      gs = "git stash";
+      gs = "git stash push";
       gsd = "git stash drop";
       gsl = "git stash list";
       gsp = "git stash pop";
@@ -63,6 +63,9 @@
       sb = "git checkout";
       re = "git fetch origin main && git rebase origin/main";
       sq = "git rebase -i origin/main";
+      # Github Cli
+      pr = "gh pr create";
+      prd = "gh pr create --draft";
       # Trigger Github Actions
       "run-qa" = "git commit --allow-empty -m '[qa]'";
       "run-cy" = "git commit --allow-empty -m '[cy]'";
