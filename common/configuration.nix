@@ -110,6 +110,7 @@
       sof-firmware
       vscode
       wget
+      yazi
       zellij
       zoxide
       # Language servers for Helix
