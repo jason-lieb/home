@@ -5,7 +5,7 @@
   home.homeDirectory = "/home/jason";
   home.stateVersion = "24.05";
 
-  home.sessionVariables.EDITOR = "hx";
+  home.sessionVariables.EDITOR = "code";
 
   imports = [
     ./modules/firefox.nix

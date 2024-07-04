@@ -32,7 +32,7 @@
 
   services.xserver.enable = true;
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   networking.networkmanager.enable = true;
@@ -127,8 +127,18 @@
     ])
     ++ (with pkgs-unstable; [ ]);
 
+  xdg.mime = {
+    enable = true;
+    defaultApplications = {
+      "application/zip" = "org.gnome.Nautilus.desktop";
+      "text/html" = "brave-browser.desktop";
+      "image/jpeg" = "org.gnome.Loupe.desktop"; # Loupe = Image Viewer
+      "image/png" = "org.gnome.Loupe.desktop";
+    };
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
+  # started in user sessions
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
   #   enable = true;
