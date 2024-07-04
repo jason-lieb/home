@@ -112,6 +112,7 @@
       sof-firmware
       vscode
       wget
+      wl-clipboard
       yazi
       zellij
       zoxide
