@@ -81,7 +81,7 @@
       ghcu = "gh extension install github/gh-copilot --force";
       mon-desk = "~/home/utils/switch-to-desk-monitors.sh";
       mon-tv = "~/home/utils/switch-to-tv-monitor.sh";
-      "enter-db" = ''docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
+      enter-db = ''docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
       clear-docker-cache = "docker system prune -a";
       mw = "stack test --no-run-tests --fast --file-watch --watch-all fancy-api";
       stf = "stack test --fast --file-watch --watch-all fancy-api";
@@ -95,8 +95,8 @@
       nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
     };
     # Not Currently Needed
-    # "format-backend-whole" = "stack exec -- fourmolu -i .";
-    # "format-backend" =
+    # format-backend-whole = "stack exec -- fourmolu -i .";
+    # format-backend =
     #   ''git diff --name-only HEAD "*.hs" | xargs fourmolu -i'';
   };
 }
