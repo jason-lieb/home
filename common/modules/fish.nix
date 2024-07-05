@@ -45,6 +45,7 @@
       gcs = "git commit --squash=HEAD -m 'squash'";
       gac = "git add -A; git commit -m";
       gacs = "git add -A; git commit --squash=HEAD -m 'squash'";
+      gd = "git checkout -- ."; # Drops changes
       # Look into using git commit --fixup
       gcp = "git cherry-pick";
       main = "git checkout main";
@@ -64,8 +65,8 @@
       re = "git fetch origin main && git rebase origin/main";
       sq = "git rebase -i origin/main";
       # Github Cli
-      pr = "gh pr create";
-      prd = "gh pr create --draft";
+      pr = "gh pr create -t";
+      prd = "gh pr create --draft -t";
       # Trigger Github Actions
       run-qa = "git commit --allow-empty -m '[qa]'";
       run-cy = "git commit --allow-empty -m '[cy]'";
