@@ -18,7 +18,6 @@
     let
       env = import ./modules/env.nix;
       alacritty = import ./modules/alacritty.nix;
-      helix = import ./modules/helix.nix;
       nix-cache = import ./modules/nix-cache.nix { inherit env; };
       aws = import ./modules/aws.nix;
       aws-credentials = import ./modules/aws-credentials.nix;
@@ -28,7 +27,6 @@
     builtins.listToAttrs (
       [
         alacritty
-        helix
         nix-cache
         aws
         aws-credentials

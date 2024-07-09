@@ -115,15 +115,6 @@
       yazi
       zellij
       zoxide
-      # Language servers for Helix
-      nodePackages.bash-language-server
-      dockerfile-language-server-nodejs
-      gopls
-      haskell-language-server
-      nodePackages.typescript-language-server
-      nodePackages.vscode-css-languageserver-bin
-      nodePackages.vscode-json-languageserver
-      yaml-language-server
     ])
     ++ (with pkgs-unstable; [ ]);
 
