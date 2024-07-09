@@ -97,7 +97,6 @@
       gh
       git
       github-copilot-cli
-      helix
       htop
       gnumake
       lf
