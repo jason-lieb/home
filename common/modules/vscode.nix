@@ -73,7 +73,7 @@
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "javascript.validate.enable" = false;
       "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "nil";
+      "nix.serverPath" = "${pkgs.nil}/bin/nil";
       "prettier.enable" = true;
       "prettier.singleQuote" = true;
       "security.workspace.trust.untrustedFiles" = "open";
