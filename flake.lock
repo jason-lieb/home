@@ -25,6 +25,7 @@
         "nixpkgs-22-11": "nixpkgs-22-11",
         "nixpkgs-23-05": "nixpkgs-23-05",
         "nixpkgs-23-11": "nixpkgs-23-11",
+        "nixpkgs-24-05": "nixpkgs-24-05",
         "nixpkgs-haskell-updates": "nixpkgs-haskell-updates",
         "nixpkgs-master-2023-05-06": "nixpkgs-master-2023-05-06",
         "nixpkgs-master-2023-07-18": "nixpkgs-master-2023-07-18",
@@ -39,11 +40,11 @@
       },
       "locked": {
         "dir": "main",
-        "lastModified": 1718218384,
-        "narHash": "sha256-StD3zlD6oxf49XbU8H9iDWSkID3/4fAsU5GTJvkIkIQ=",
+        "lastModified": 1720478099,
+        "narHash": "sha256-itMq3IvwpbnCls8sYYkjkc9OWawgvqaqdja0bH7BQJA=",
         "owner": "freckle",
         "repo": "flakes",
-        "rev": "668c7a82b5654dc4031737743b3a3acec55b51b4",
+        "rev": "d0ba4d1a07e035dd6ddcde10b9bc5b47857a1f84",
         "type": "github"
       },
       "original": {
@@ -139,6 +140,22 @@
       "original": {
         "owner": "nixos",
         "ref": "nixos-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-24-05": {
+      "locked": {
+        "lastModified": 1720553833,
+        "narHash": "sha256-IXMiHQMtdShDXcBW95ctA+m5Oq2kLxnBt7WlMxvDQXA=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "249fbde2a178a2ea2638b65b9ecebd531b338cf9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
