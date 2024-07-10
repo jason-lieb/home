@@ -10,14 +10,22 @@
       set fish_greeting
       source (zoxide init fish | psub)
       function st
-          switch (count $argv)
-              case 0
-                  stack test --fast --file-watch --watch-all fancy-api jobs
-              case 1
-                  stack test --fast --file-watch --watch-all --ta '-m "'$argv[1]'"' fancy-api jobs
-              case '*'
-                  echo "Too many arguments"
-          end
+        switch (count $argv)
+          case 0
+            stack test --fast --file-watch --watch-all fancy-api jobs
+          case 1
+            stack test --fast --file-watch --watch-all --ta '-m "'$argv[1]'"' fancy-api jobs
+          case '*'
+            echo "Too many arguments"
+        end
+      end
+      function grf
+        if test (count $argv) -eq 1
+          git branch -D $argv
+          git fetch origin $argv
+        else
+          echo "Invalid number of arguments"
+        end
       end
     '';
 
@@ -45,8 +53,7 @@
       gcs = "git commit --squash=HEAD -m 'squash'";
       gac = "git add -A; git commit -m";
       gacs = "git add -A; git commit --squash=HEAD -m 'squash'";
-      gd = "git checkout -- ."; # Drops changes
-      # Look into using git commit --fixup
+      gd = "git checkout -- ."; # Drops current uncommitted changes
       gcp = "git cherry-pick";
       main = "git checkout main";
       pull = "git pull origin";
@@ -54,6 +61,7 @@
       fpush = "git push origin --force";
       # Git Stash
       gs = "git stash push";
+      gsm = "git stash push -m";
       gsd = "git stash drop";
       gsl = "git stash list";
       gsp = "git stash pop";
