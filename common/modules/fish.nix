@@ -23,6 +23,7 @@
         if test (count $argv) -eq 1
           git branch -D $argv
           git fetch origin $argv
+          git checkout $argv
         else
           echo "Invalid number of arguments"
         end
@@ -54,6 +55,7 @@
       gac = "git add -A; git commit -m";
       gacs = "git add -A; git commit --squash=HEAD -m 'squash'";
       gd = "git checkout -- ."; # Drops current uncommitted changes
+      gl = "git log --oneline --graph";
       gcp = "git cherry-pick";
       main = "git checkout main";
       pull = "git pull origin";
