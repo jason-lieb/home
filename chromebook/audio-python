@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+
+# import argparse
+# import json
+# import os
+# import sys
+# import re
+# import subprocess as sp
+# from urllib.request import urlopen, urlretrieve
+# from functions import *
+
+# deb_kernel_url="https://nightly.link/chrultrabook/debian-kernel/workflows/build/main/debian-kernel.zip"
+
+# # parse arguments from the cli. Only for testing/advanced use.
+# def process_args():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument("-b", dest="board_name", type=str, nargs=1, default=[""],
+#                         help="Override board name.")
+#     parser.add_argument("--enable-debug", action='store_const', const="Enabling", dest="debug",
+#                         help="Enable audio debugging.")
+#     parser.add_argument("--disable-debug", action='store_const', const="Disabling", dest="debug",
+#                         help="Disable audio debugging.")
+#     parser.add_argument("--force-avs-install", action="store_true", dest="force_avs_install", default=False,
+#                         help="DANGEROUS: Force enable AVS install. MIGHT CAUSE PERMANENT DAMAGE TO SPEAKERS!")
+#     parser.add_argument("--branch", dest="branch_name", type=str, nargs=1, default=["main"],
+#                         help="Use a different branch when cloning ucm. FOR DEVS AND TESTERS ONLY!")
+#     return parser.parse_args()
+
+# def install_ucm():
+#     print_status("Installing UCM configuration")
+#     try:
+#         bash("rm -rf /tmp/chromebook-ucm-conf")
+#         bash(f"git clone https://github.com/WeirdTreeThing/chromebook-ucm-conf -b {args.branch_name[0]} /tmp/chromebook-ucm-conf")
+#     except:
+#         print_error("Error: Failed to clone UCM repo")
+#         exit(1)
+
+#     for platform in ["adl", "apl", "avs", "cezanne", "cml", "glk", "jsl", "mendocino", "mt8183", "picasso", "stoney"]:
+#         cpdir(f"/tmp/chromebook-ucm-conf/{platform}", "/usr/share/alsa/ucm2/conf.d")
+
+#     cpdir("/tmp/chromebook-ucm-conf/common", "/usr/share/alsa/ucm2/common")
+#     cpdir("/tmp/chromebook-ucm-conf/codecs", "/usr/share/alsa/ucm2/codecs")
+#     cpdir("/tmp/chromebook-ucm-conf/platforms", "/usr/share/alsa/ucm2/platforms")
+#     cpdir("/tmp/chromebook-ucm-conf/sof-rt5682", "/usr/share/alsa/ucm2/conf.d/sof-rt5682")
+#     cpdir("/tmp/chromebook-ucm-conf/sof-cs42l42", "/usr/share/alsa/ucm2/conf.d/sof-cs42l42")
+
+# def sof_audio(platform):
+#     # Install sof firmware
+#     if not path_exists("/lib/firmware/intel/sof"):
+#         print_status("Installing SOF firmware")
+#         install_package("sof-firmware", "firmware-sof-signed", "alsa-sof-firmware", "sof-firmware", "sof-firmware")
+
+#     # JSL needs tplg build from upstream which have not been shipped in distros yet
+#     cpdir("conf/sof/tplg", "/lib/firmware/intel/sof-tplg")
+
+# if __name__ == "__main__":
+#     args = process_args()
+
+#     # Restart script as root
+#     if os.geteuid() != 0:
+#         # make the two people that use doas happy
+#         if path_exists("/usr/bin/doas"):
+#             doas_args = ['doas', sys.executable] + sys.argv + [os.environ]
+#             os.execlpe('doas', *doas_args)
+#         # other 99 percent of linux users
+#         sudo_args = ['sudo', sys.executable] + sys.argv + [os.environ]
+#         os.execlpe('sudo', *sudo_args)
+
+    # # Some distros (Solus) don't have /etc/modprobe.d/ for some reason
+    # mkdir("/etc/modprobe.d", create_parents=True)
+
+    # # Install wireplumber config to increase headroom
+    # # fixes instability and crashes on various devices
+    # if path_exists("/usr/bin/wireplumber"):
+    #   print_status("Increasing alsa headroom (fixes instability)")
+
+    #   # This is needed since newer wireplumber versions 0.5+ use a different configuration format
+    #   if "0.4" in sp.check_output("wireplumber -v", shell=True, text=True).strip():
+    #       mkdir("/etc/wireplumber/main.lua.d/", create_parents=True)
+    #       cpfile("conf/common/51-increase-headroom.lua", "/etc/wireplumber/main.lua.d/51-increase-headroom.lua")
+    #   else:
+    #      mkdir("/etc/wireplumber/wireplumber.conf.d/", create_parents=True)
+    #      cpfile("conf/common/51-increase-headroom.conf", "/etc/wireplumber/wireplumber.conf.d/51-increase-headroom.conf")

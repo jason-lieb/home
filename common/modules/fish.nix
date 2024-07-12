@@ -93,7 +93,7 @@
       mon-desk = "~/home/utils/switch-to-desk-monitors.sh";
       mon-tv = "~/home/utils/switch-to-tv-monitor.sh";
       enter-db = ''docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
-      clear-docker-cache = "docker system prune -a";
+      docker-clean = "docker system prune -a";
       mw = "stack test --no-run-tests --fast --file-watch --watch-all fancy-api";
       stf = "stack test --fast --file-watch --watch-all fancy-api";
       stj = "stack test --fast --file-watch --watch-all jobs";

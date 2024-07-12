@@ -99,6 +99,7 @@
       github-copilot-cli
       htop
       gnumake
+      gparted
       lf
       neofetch
       neovim
