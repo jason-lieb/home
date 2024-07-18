@@ -52,10 +52,12 @@
       gap = "git add -p";
       gc = "git commit -m";
       gcs = "git commit --squash=HEAD -m 'squash'";
+      gf = "git commit --fixup";
       gac = "git add -A; git commit -m";
       gacs = "git add -A; git commit --squash=HEAD -m 'squash'";
       gd = "git checkout -- ."; # Drops current uncommitted changes
-      gl = "git log --oneline --graph";
+      gr = "git reset HEAD^";
+      gl = "git log --oneline";
       gcp = "git cherry-pick";
       main = "git checkout main";
       pull = "git pull origin";
