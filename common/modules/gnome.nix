@@ -23,7 +23,6 @@
     simple-scan
     totem
     yelp
-    evince
     file-roller
     geary
     seahorse

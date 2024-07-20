@@ -44,6 +44,7 @@
     enable = true;
     defaultApplications = {
       "application/zip" = "org.gnome.Nautilus.desktop";
+      "application/pdf" = "org.gnome.Evince.desktop";
       "text/html" = "brave-browser.desktop";
       "video/mp4" = "brave-browser.desktop";
       "image/jpeg" = "org.gnome.Loupe.desktop"; # Loupe = Image Viewer
