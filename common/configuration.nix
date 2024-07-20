@@ -84,51 +84,10 @@
 
   services.flatpak.enable = true;
 
-  environment.systemPackages =
-    (with pkgs; [
-      home-manager
-      alacritty
-      bat
-      brave
-      cachix
-      chromium
-      firefox
-      fish
-      gh
-      git
-      github-copilot-cli
-      htop
-      gnumake
-      gparted
-      lf
-      neofetch
-      neovim
-      nil
-      nixfmt-rfc-style
-      obsidian
-      ollama
-      python3
-      ripgrep
-      sof-firmware
-      vscode
-      wget
-      wl-clipboard
-      yazi
-      zellij
-      zoxide
-    ])
-    ++ (with pkgs-unstable; [ ]);
-
-  xdg.mime = {
-    enable = true;
-    defaultApplications = {
-      "application/zip" = "org.gnome.Nautilus.desktop";
-      "text/html" = "brave-browser.desktop";
-      "video/mp4" = "brave-browser.desktop";
-      "image/jpeg" = "org.gnome.Loupe.desktop"; # Loupe = Image Viewer
-      "image/png" = "org.gnome.Loupe.desktop";
-    };
-  };
+  environment.systemPackages = with pkgs; [
+    home-manager
+    cachix
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions

@@ -14,6 +14,43 @@
     ./modules/vscode.nix
   ];
 
+  home.packages = with pkgs; [
+    alacritty
+    bat
+    brave
+    chromium
+    gh
+    github-copilot-cli
+    htop
+    gnumake
+    gparted
+    lf
+    neofetch
+    neovim
+    nil
+    nixfmt-rfc-style
+    obsidian
+    ollama
+    python3
+    ripgrep
+    wget
+    wl-clipboard
+    yazi
+    zellij
+    zoxide
+  ];
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/zip" = "org.gnome.Nautilus.desktop";
+      "text/html" = "brave-browser.desktop";
+      "video/mp4" = "brave-browser.desktop";
+      "image/jpeg" = "org.gnome.Loupe.desktop"; # Loupe = Image Viewer
+      "image/png" = "org.gnome.Loupe.desktop";
+    };
+  };
+
   home.file =
     let
       env = import ./modules/env.nix;
