@@ -113,6 +113,7 @@
               "code.desktop"
               "org.gnome.Software.desktop"
             ];
+            last-selected-power-profile = "performance";
           };
 
           "org/gnome/shell/app-switcher".current-workspace-only = true;
