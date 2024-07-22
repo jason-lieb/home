@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+    # nixos-cosmic = {
+    #   url = "github:lilyinstarlight/nixos-cosmic";
+    #   inputs.nixpkgs.follows = "nixpkgs-stable";
+    # };
     freckle.url = "github:freckle/flakes?dir=main";
   };
 
@@ -33,6 +37,7 @@
           inherit specialArgs;
           modules = [
             ./nixos/${hostname}
+            # inputs.nixos-cosmic.nixosModules.default
             inputs.freckle.nixosModules.docker-for-local-dev
             inputs.freckle.nixosModules.renaissance-vpn
             inputs.home-manager.nixosModules.home-manager
