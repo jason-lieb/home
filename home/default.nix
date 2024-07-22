@@ -25,7 +25,6 @@
     gparted
     lf
     neofetch
-    neovim
     nil
     nixfmt-rfc-style
     obsidian
