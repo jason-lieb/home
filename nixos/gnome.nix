@@ -2,12 +2,11 @@
 
 {
   services.xserver = {
+    desktopManager.gnome.enable = true;
     displayManager.gdm = {
       enable = true;
-      wayland = true; # Comment out to switch to X11
+      wayland = true;
     };
-
-    desktopManager.gnome.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
