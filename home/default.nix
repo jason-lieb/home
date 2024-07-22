@@ -8,7 +8,6 @@
   home.sessionVariables.EDITOR = "code";
 
   imports = [
-    ./firefox.nix
     ./fish.nix
     ./git.nix
     ./vscode.nix
