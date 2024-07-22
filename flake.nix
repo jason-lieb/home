@@ -4,8 +4,10 @@
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     freckle.url = "github:freckle/flakes?dir=main";
   };
 
@@ -31,9 +33,9 @@
           inherit specialArgs;
           modules = [
             ./nixos/${hostname}
-            inputs.home-manager.nixosModules.home-manager
             inputs.freckle.nixosModules.docker-for-local-dev
             inputs.freckle.nixosModules.renaissance-vpn
+            inputs.home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.backupFileExtension = ".backup";
