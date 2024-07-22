@@ -53,6 +53,7 @@
       gc = "git commit -m";
       gcs = "git commit --squash=HEAD -m 'squash'";
       gf = "git commit --fixup";
+      gfh = "git commit --fixup HEAD";
       gac = "git add -A; git commit -m";
       gacs = "git add -A; git commit --squash=HEAD -m 'squash'";
       gd = "git checkout -- ."; # Drops current uncommitted changes
@@ -101,6 +102,7 @@
       stj = "stack test --fast --file-watch --watch-all jobs";
       up = "make update";
       down = "pushd ~/megarepo/backend; and make services.stop; and popd";
+      ze = "zellij";
       # Nix
       rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
       rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
