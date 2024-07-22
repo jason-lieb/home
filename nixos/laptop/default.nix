@@ -8,8 +8,5 @@
 
 {
   networking.hostName = "laptop";
-  imports = [
-    ../configuration.nix
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware.nix ];
 }

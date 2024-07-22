@@ -10,8 +10,7 @@
   networking.hostName = "chromebook";
 
   imports = [
-    ../configuration.nix
-    ./hardware-configuration.nix
+    ./hardware.nix
     ./keyd.nix
   ];
 

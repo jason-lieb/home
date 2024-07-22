@@ -36,7 +36,7 @@
           inherit system;
           inherit specialArgs;
           modules = [
-            ./nixos/${hostname}
+            (import ./nixos { inherit pkgs hostname; })
             # inputs.nixos-cosmic.nixosModules.default
             inputs.freckle.nixosModules.docker-for-local-dev
             inputs.freckle.nixosModules.renaissance-vpn

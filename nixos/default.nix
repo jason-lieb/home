@@ -1,7 +1,10 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, hostname, ... }:
 
 {
-  imports = [ ./gnome.nix ];
+  imports = [
+    ./${hostname}
+    ./gnome.nix
+  ];
 
   nix = {
     package = pkgs.nixFlakes;
