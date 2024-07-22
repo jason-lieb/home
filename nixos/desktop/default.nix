@@ -9,7 +9,7 @@
 {
   networking.hostName = "desktop";
   imports = [
-    ../common/configuration.nix
+    ../configuration.nix
     /etc/nixos/hardware-configuration.nix
   ];
 

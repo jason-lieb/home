@@ -1,7 +1,7 @@
 { pkgs, pkgs-unstable, ... }:
 
 {
-  imports = [ ./modules/gnome.nix ];
+  imports = [ ./gnome.nix ];
 
   nix = {
     package = pkgs.nixFlakes;

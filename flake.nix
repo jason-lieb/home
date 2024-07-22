@@ -30,7 +30,7 @@
           inherit system;
           inherit specialArgs;
           modules = [
-            ./${hostname}
+            ./nixos/${hostname}
             inputs.home-manager.nixosModules.home-manager
             inputs.freckle.nixosModules.docker-for-local-dev
             inputs.freckle.nixosModules.renaissance-vpn
@@ -40,7 +40,7 @@
               home-manager.users.jason =
                 { config, pkgs, ... }:
                 {
-                  imports = [ (import ./common/home.nix { inherit config pkgs pkgs-unstable; }) ];
+                  imports = [ (import ./home { inherit config pkgs pkgs-unstable; }) ];
                 };
             }
           ];

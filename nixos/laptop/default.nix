@@ -9,7 +9,7 @@
 {
   networking.hostName = "laptop";
   imports = [
-    ../common/configuration.nix
+    ../configuration.nix
     ./hardware-configuration.nix
   ];
 }

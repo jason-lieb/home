@@ -8,10 +8,10 @@
   home.sessionVariables.EDITOR = "code";
 
   imports = [
-    ./modules/firefox.nix
-    ./modules/fish.nix
-    ./modules/git.nix
-    ./modules/vscode.nix
+    ./firefox.nix
+    ./fish.nix
+    ./git.nix
+    ./vscode.nix
   ];
 
   home.packages = with pkgs; [
@@ -54,13 +54,13 @@
 
   home.file =
     let
-      env = import ./modules/env.nix;
-      alacritty = import ./modules/alacritty.nix;
-      nix-cache = import ./modules/nix-cache.nix { inherit env; };
-      aws = import ./modules/aws.nix;
-      aws-credentials = import ./modules/aws-credentials.nix;
-      stack = import ./modules/stack.nix;
-      autostart = import ./modules/autostart.nix { inherit pkgs pkgs-unstable; };
+      env = import ./env.nix;
+      alacritty = import ./alacritty.nix;
+      nix-cache = import ./nix-cache.nix { inherit env; };
+      aws = import ./aws.nix;
+      aws-credentials = import ./aws-credentials.nix;
+      stack = import ./stack.nix;
+      autostart = import ./autostart.nix { inherit pkgs pkgs-unstable; };
     in
     builtins.listToAttrs (
       [
