@@ -1,18 +1,9 @@
 { pkgs, pkgs-unstable }:
 let
-  hostname = builtins.getEnv "HOSTNAME";
-  autostartPrograms = builtins.getAttr hostname {
-    desktop = [
-      pkgs.obsidian
-      pkgs.vscode
-    ];
-    laptop = [
-      pkgs.obsidian
-      pkgs.vscode
-    ];
-    chromebook = [ pkgs.vscode ];
-    "" = [ pkgs.vscode ];
-  };
+  autostartPrograms = [
+    pkgs.obsidian
+    pkgs.vscode
+  ];
 in
 map (pkg: {
   name = ".config/autostart/" + pkg.pname + ".desktop";
