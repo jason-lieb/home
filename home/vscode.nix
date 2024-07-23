@@ -81,6 +81,7 @@
       "workbench.startupEditor" = "none";
       "git.openRepositoryInParentFolders" = "never";
       "diffEditor.ignoreTrimWhitespace" = false;
+      "stylelint.validate" = [ "scss" ];
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "update.showNotifications" = false;
       "update.mode" = "none";

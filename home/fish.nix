@@ -108,9 +108,9 @@
       rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
       nix-update = "nix flake update";
       nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
+      format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
     };
     # Not Currently Needed
-    # format-backend-whole = "stack exec -- fourmolu -i .";
     # format-backend =
     #   ''git diff --name-only HEAD "*.hs" | xargs fourmolu -i'';
   };
