@@ -92,6 +92,7 @@
   environment.systemPackages = with pkgs; [
     home-manager
     cachix
+    alacritty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

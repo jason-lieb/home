@@ -1,4 +1,5 @@
-{ pkgs, pkgs-unstable }:
+{ pkgs }:
+
 let
   autostartPrograms = [
     pkgs.obsidian

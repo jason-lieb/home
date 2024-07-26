@@ -1,5 +1,13 @@
-{ pkgs, pkgs-unstable, ... }:
+{
+  pkgs,
+  config,
+  vscode-extensions,
+  ...
+}:
 
+let
+  importWithArgs = file: import file { inherit config pkgs vscode-extensions; };
+in
 {
   home.username = "jason";
   home.homeDirectory = "/home/jason";
@@ -10,11 +18,11 @@
   imports = [
     ./fish.nix
     ./git.nix
-    ./vscode.nix
+    (importWithArgs ./vscode.nix)
   ];
 
   home.packages = with pkgs; [
-    alacritty
+    # alacritty
     bat
     brave
     chromium
@@ -58,7 +66,7 @@
       aws = import ./aws.nix;
       aws-credentials = import ./aws-credentials.nix;
       stack = import ./stack.nix;
-      autostart = import ./autostart.nix { inherit pkgs pkgs-unstable; };
+      autostart = import ./autostart.nix { inherit pkgs; };
     in
     builtins.listToAttrs (
       [

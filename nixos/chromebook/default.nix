@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  pkgs-unstable,
-  lib,
-  ...
-}:
+{ ... }:
 
 {
   networking.hostName = "chromebook";

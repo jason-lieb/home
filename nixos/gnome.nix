@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   services.xserver = {
@@ -44,7 +44,7 @@
 
     profiles.user.databases = [
       {
-        settings = with lib.gvariant; {
+        settings = {
           "org/gnome/desktop/background" = {
             color-shading-type = "solid";
             picture-options = "zoom";

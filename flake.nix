@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -28,6 +29,7 @@
         let
           pkgs = import inputs.nixpkgs-stable nixpkgsConfig;
           pkgs-unstable = import inputs.nixpkgs-unstable nixpkgsConfig;
+          vscode-extensions = inputs.nix-vscode-extensions.extensions.x86_64-linux;
           specialArgs = {
             inherit pkgs-unstable;
           };
@@ -47,7 +49,16 @@
               home-manager.users.jason =
                 { config, pkgs, ... }:
                 {
-                  imports = [ (import ./home { inherit config pkgs pkgs-unstable; }) ];
+                  imports = [
+                    (import ./home {
+                      inherit
+                        config
+                        pkgs
+                        pkgs-unstable
+                        vscode-extensions
+                        ;
+                    })
+                  ];
                 };
             }
           ];

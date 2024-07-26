@@ -1,26 +1,27 @@
-{ config, pkgs, ... }:
+{ pkgs, vscode-extensions, ... }:
 
 {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      # albert.TabOut
-      # tom-rijndorp.finditfaster
-      # yoavbls.pretty-ts-errors
-      bbenoist.nix
-      esbenp.prettier-vscode
-      github.copilot
-      github.copilot-chat
-      haskell.haskell
-      jkillian.custom-local-formatters
-      justusadam.language-haskell
-      mechatroner.rainbow-csv
-      mhutchie.git-graph
-      # ms-python.python
-      # ms-python.vscode-pylance
-      oderwat.indent-rainbow
-      pkief.material-icon-theme
-    ];
+    extensions =
+      (with vscode-extensions.vscode-marketplace; [
+        esbenp.prettier-vscode
+        haskell.haskell
+        jkillian.custom-local-formatters
+        jnoortheen.nix-ide
+        justusadam.language-haskell
+        mechatroner.rainbow-csv
+        mhutchie.git-graph
+        oderwat.indent-rainbow
+        pkief.material-icon-theme
+        stylelint.vscode-stylelint
+        tomrijndorp.find-it-faster
+        yoavbls.pretty-ts-errors
+      ])
+      ++ (with vscode-extensions.vscode-marketplace-release; [
+        github.copilot
+        github.copilot-chat
+      ]);
 
     userSettings = {
       "editor.accessibilitySupport" = "off";
@@ -79,11 +80,11 @@
       "workbench.colorTheme" = "Default Dark+";
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.startupEditor" = "none";
+      "workbench.panel.defaultLocation" = "right";
       "git.openRepositoryInParentFolders" = "never";
       "diffEditor.ignoreTrimWhitespace" = false;
       "stylelint.validate" = [ "scss" ];
       "typescript.updateImportsOnFileMove.enabled" = "always";
-      "update.showNotifications" = false;
       "update.mode" = "none";
       "eslint.workingDirectories" = [
         "~/megarepo/frontend/educator"
