@@ -86,6 +86,7 @@
       "stylelint.validate" = [ "scss" ];
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "update.mode" = "none";
+      "window.menuBarVisibility" = "toggle";
       "eslint.workingDirectories" = [
         "~/megarepo/frontend/educator"
         "~/megarepo/frontend/educator/classroom"
