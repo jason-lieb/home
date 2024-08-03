@@ -51,22 +51,21 @@
       "explorer.confirmDragAndDrop" = false;
       "customLocalFormatters.formatters" = [
         {
-          command = "fourmolu --stdin-input-file $file";
+          command = "fourmolu --stdin-input-file \${file}";
           languages = [ "haskell" ];
         }
         {
-          command = "nixfmt $file";
+          command = "nixfmt";
           languages = [ "nix" ];
         }
       ];
       "files.insertFinalNewline" = true;
       "files.trimTrailingWhitespace" = true;
       "haskell.checkProject" = false;
-      "haskell.formattingProvider" = "fourmolu";
-      "haskell.manageHLS" = "GHCup";
       "haskell.plugin.hlint.diagnosticsOn" = true;
       "haskell.trace.client" = "debug";
       "haskell.trace.server" = "messages";
+      "haskell.manageHLS" = "PATH";
       "indentRainbow.indicatorStyle" = "light";
       "indentRainbow.lightIndicatorStyleLineWidth" = 4;
       "javascript.updateImportsOnFileMove.enabled" = "always";
