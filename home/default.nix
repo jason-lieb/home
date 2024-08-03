@@ -22,7 +22,7 @@ in
   ];
 
   home.packages = with pkgs; [
-    # alacritty
+    alacritty
     bat
     brave
     chromium
