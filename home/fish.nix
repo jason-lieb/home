@@ -50,12 +50,12 @@
       g = "git";
       ga = "git add";
       gap = "git add -p";
-      gc = "git commit -m";
-      gcs = "git commit --squash=HEAD -m 'squash'";
       gf = "git commit --fixup";
+      gaf = "git add -A; git commit --fixup";
       gfh = "git commit --fixup HEAD";
+      gafh = "git add -A; git commit --fixup HEAD";
+      gc = "git commit -m";
       gac = "git add -A; git commit -m";
-      gacs = "git add -A; git commit --squash=HEAD -m 'squash'";
       gd = "git checkout -- ."; # Drops current uncommitted changes
       gr = "git reset HEAD^";
       gl = "git log --oneline";
@@ -75,7 +75,9 @@
       db = "git branch -D";
       nb = "git checkout -b";
       sb = "git checkout";
-      re = "git fetch origin main && git rebase origin/main";
+      fe = "git fetch origin main";
+      re = "git rebase origin/main";
+      fr = "git fetch origin main && git rebase origin/main";
       sq = "git rebase -i origin/main";
       # Github Cli
       pr = "gh pr create -t";
