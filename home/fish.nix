@@ -78,6 +78,7 @@
       fe = "git fetch origin main";
       re = "git rebase origin/main";
       fr = "git fetch origin main && git rebase origin/main";
+      rei = "git rebase -i origin/main";
       sq = "git rebase -i origin/main";
       # Github Cli
       pr = "gh pr create -t";
