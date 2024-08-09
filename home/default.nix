@@ -39,6 +39,7 @@ in
     ollama
     python3
     ripgrep
+    sqlitebrowser
     wget
     wl-clipboard
     yazi
