@@ -107,6 +107,7 @@
       down = "pushd ~/megarepo/backend; and make services.stop; and popd";
       ze = "zellij";
       # Nix
+      hs = "home-manager switch --impure --flake /home/jason/home-nix#jason.${builtins.getEnv "HOSTNAME"}";
       rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
       rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
       nix-update = "nix flake update";
