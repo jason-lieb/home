@@ -17,58 +17,72 @@
   };
 
   outputs =
-    inputs:
+    {
+      self,
+      nixpkgs-stable,
+      nixpkgs-unstable,
+      nix-vscode-extensions,
+      home-manager,
+      freckle,
+    }:
     let
       system = "x86_64-linux";
       nixpkgsConfig = {
         inherit system;
         config.allowUnfree = true;
       };
+      vscode-extensions = nix-vscode-extensions.extensions.x86_64-linux;
+      pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
+      homeManagerConfig = {
+        home-manager.useGlobalPkgs = true;
+        # home-manager.useUserPackages = true;
+        # home-manager.extraSpecialArgs = {inherit pkgs-stable;};
+        home-manager.backupFileExtension = ".backup";
+        home-manager.users.jason =
+          { config, pkgs, ... }:
+          {
+            imports = [
+              (import ./home {
+                inherit
+                  config
+                  pkgs
+                  pkgs-unstable
+                  vscode-extensions
+                  ;
+              })
+            ];
+          };
+      };
       mkNixos =
         hostname:
         let
-          pkgs = import inputs.nixpkgs-stable nixpkgsConfig;
-          pkgs-unstable = import inputs.nixpkgs-unstable nixpkgsConfig;
-          vscode-extensions = inputs.nix-vscode-extensions.extensions.x86_64-linux;
+          pkgs = import nixpkgs-stable nixpkgsConfig;
           specialArgs = {
             inherit pkgs-unstable;
           };
         in
-        inputs.nixpkgs-stable.lib.nixosSystem {
+        nixpkgs-stable.lib.nixosSystem {
           inherit system;
           inherit specialArgs;
           modules = [
             (import ./nixos { inherit pkgs hostname; })
-            # inputs.nixos-cosmic.nixosModules.default
-            inputs.freckle.nixosModules.docker-for-local-dev
-            inputs.freckle.nixosModules.renaissance-vpn
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.backupFileExtension = ".backup";
-              home-manager.users.jason =
-                { config, pkgs, ... }:
-                {
-                  imports = [
-                    (import ./home {
-                      inherit
-                        config
-                        pkgs
-                        pkgs-unstable
-                        vscode-extensions
-                        ;
-                    })
-                  ];
-                };
-            }
+            # nixos-cosmic.nixosModules.default
+            freckle.nixosModules.docker-for-local-dev
+            freckle.nixosModules.renaissance-vpn
+            home-manager.nixosModules.home-manager
+            homeManagerConfig
           ];
         };
+      mkHome = hostname: home-manager.lib.homeManagerConfiguration { inherit system; };
     in
     {
       nixosConfigurations = {
         desktop = mkNixos "desktop";
         laptop = mkNixos "laptop";
         chromebook = mkNixos "chromebook";
+      };
+      homeConfigurations = {
+        "jason@debian" = mkHome;
       };
     };
 }
