@@ -44,6 +44,7 @@
             imports = [ (import ./home { inherit pkgs pkgs-unstable vscode-extensions; }) ];
           };
       };
+
       mkNixos =
         hostname:
         let
@@ -57,13 +58,13 @@
           inherit specialArgs;
           modules = [
             (import ./nixos { inherit pkgs hostname; })
+            (home-manager.nixosModules.home-manager homeManagerConfig)
             # nixos-cosmic.nixosModules.default
             freckle.nixosModules.docker-for-local-dev
             freckle.nixosModules.renaissance-vpn
-            home-manager.nixosModules.home-manager
-            homeManagerConfig
           ];
         };
+
       mkHome =
         let
           pkgs = import nixpkgs-stable nixpkgsConfig;
