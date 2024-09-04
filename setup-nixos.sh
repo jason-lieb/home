@@ -14,7 +14,7 @@ ssh-add $HOME/.ssh/id_ed25519
 
 printf "\nCreating github cli shell and adding SSH key to GitHub...\n"
 nix-shell -p gh --run "gh auth login -p ssh -w"
-printf "\n"
+printf "\nCloning home repo...\n"
 nix-shell -p git --run "git clone git@github.com:jason-lieb/home.git"
 
 printf "\nWhat is the hostname of this computer? "

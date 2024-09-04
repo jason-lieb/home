@@ -73,7 +73,14 @@
             homeManagerConfig
           ];
         };
-      mkHome = hostname: home-manager.lib.homeManagerConfiguration { inherit system; };
+      mkHome =
+        hostname:
+        home-manager.lib.homeManagerConfiguration {
+          inherit system;
+          username = "jason";
+          homeDirectory = "/home/jason";
+          configuration = import ./home.nix;
+        };
     in
     {
       nixosConfigurations = {
