@@ -69,7 +69,6 @@
           pkgs = import nixpkgs-stable nixpkgsConfig;
         in
         home-manager.lib.homeManagerConfiguration {
-          inherit system;
           inherit pkgs;
           modules = [ (import ./home { inherit pkgs vscode-extensions; }) ];
         };
