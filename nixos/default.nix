@@ -4,6 +4,7 @@
   imports = [
     ./${hostname}
     ./gnome.nix
+    # ./maintenance.nix
   ];
 
   nix = {
