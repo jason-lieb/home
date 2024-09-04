@@ -19,6 +19,7 @@
   outputs =
     {
       self,
+      config,
       nixpkgs-stable,
       nixpkgs-unstable,
       nix-vscode-extensions,
@@ -73,10 +74,15 @@
             homeManagerConfig
           ];
         };
-      mkHome = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs-stable nixpkgsConfig;
-        modules = [ (import ./home { inherit vscode-extensions; }) ];
-      };
+      mkHome =
+        let
+          pkgs = import nixpkgs-stable nixpkgsConfig;
+        in
+        home-manager.lib.homeManagerConfiguration {
+          inherit system;
+          inherit pkgs;
+          modules = [ (import ./home { inherit config pkgs vscode-extensions; }) ];
+        };
     in
     {
       nixosConfigurations = {
