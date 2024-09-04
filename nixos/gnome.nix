@@ -59,6 +59,8 @@
             color-scheme = "prefer-dark";
           };
 
+          "org/gnome/desktop/datetime".automatic-timezone = true;
+
           "org/gnome/desktop/notifications/application/gnome-power-panel" = {
             application-id = "gnome-power-panel.desktop";
             enable = false;
