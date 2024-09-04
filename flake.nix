@@ -19,7 +19,6 @@
   outputs =
     {
       self,
-      config,
       nixpkgs-stable,
       nixpkgs-unstable,
       nix-vscode-extensions,
@@ -75,6 +74,7 @@
           ];
         };
       mkHome =
+        { config, ... }:
         let
           pkgs = import nixpkgs-stable nixpkgsConfig;
         in
