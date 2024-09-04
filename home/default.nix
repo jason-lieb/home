@@ -1,12 +1,7 @@
-{
-  pkgs,
-  config,
-  vscode-extensions,
-  ...
-}:
+{ pkgs, vscode-extensions, ... }:
 
 let
-  importWithArgs = file: import file { inherit config pkgs vscode-extensions; };
+  importWithArgs = file: import file { inherit pkgs vscode-extensions; };
 in
 {
   home.username = "jason";

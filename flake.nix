@@ -39,18 +39,9 @@
         # home-manager.extraSpecialArgs = {inherit pkgs-stable;};
         home-manager.backupFileExtension = ".backup";
         home-manager.users.jason =
-          { config, pkgs, ... }:
+          { pkgs, ... }:
           {
-            imports = [
-              (import ./home {
-                inherit
-                  config
-                  pkgs
-                  pkgs-unstable
-                  vscode-extensions
-                  ;
-              })
-            ];
+            imports = [ (import ./home { inherit pkgs pkgs-unstable vscode-extensions; }) ];
           };
       };
       mkNixos =
@@ -74,14 +65,13 @@
           ];
         };
       mkHome =
-        { config, ... }:
         let
           pkgs = import nixpkgs-stable nixpkgsConfig;
         in
         home-manager.lib.homeManagerConfiguration {
           inherit system;
           inherit pkgs;
-          modules = [ (import ./home { inherit config pkgs vscode-extensions; }) ];
+          modules = [ (import ./home { inherit pkgs vscode-extensions; }) ];
         };
     in
     {
