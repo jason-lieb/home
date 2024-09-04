@@ -75,7 +75,7 @@
         };
       mkHome = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs-stable nixpkgsConfig;
-        modules = [ ./home ];
+        modules = [ (import ./home { inherit vscode-extensions; }) ];
       };
     in
     {
