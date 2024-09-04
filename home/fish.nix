@@ -107,9 +107,9 @@
       down = "pushd ~/megarepo/backend; and make services.stop; and popd";
       ze = "zellij";
       # Nix
-      hs = "home-manager switch --impure --flake /home/jason/home-nix#jason.${builtins.getEnv "HOSTNAME"}";
-      rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
-      rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home-nix#${builtins.getEnv "HOSTNAME"}";
+      hs = "home-manager switch --impure --flake /home/jason/home#jason.${builtins.getEnv "HOSTNAME"}";
+      rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
+      rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
       nix-update = "nix flake update";
       nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
       format-backend = "stack exec -- fourmolu -i ."; # Format entire backend

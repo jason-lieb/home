@@ -1,5 +1,5 @@
 let
-  envFile = builtins.readFile "/home/jason/home-nix/.env";
+  envFile = builtins.readFile "/home/jason/home/.env";
   envLines = builtins.filter (line: line != "" && line != [ ]) (builtins.split "\n" envFile);
 in
 builtins.listToAttrs (

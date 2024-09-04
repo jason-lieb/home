@@ -15,13 +15,13 @@ ssh-add $HOME/.ssh/id_ed25519
 printf "\nCreating github cli shell and adding SSH key to GitHub...\n"
 nix-shell -p gh --run "gh auth login -p ssh -w"
 printf "\n"
-nix-shell -p git --run "git clone git@github.com:jason-lieb/home-nix.git"
+nix-shell -p git --run "git clone git@github.com:jason-lieb/home.git"
 
 printf "\nWhat is the hostname of this computer? "
 read hostname
 sudo hostname $hostname
-mkdir -p $HOME/home-nix/$hostname
-sudo cp /etc/nixos/hardware-configuration.nix $HOME/home-nix/$hostname/hardware-configuration.nix
+mkdir -p $HOME/home/$hostname
+sudo cp /etc/nixos/hardware-configuration.nix $HOME/home/$hostname/hardware-configuration.nix
 
 printf "Setting up nix configuration...\n"
-nix-shell -p git --run "sudo nixos-rebuild switch --flake $HOME/home-nix#$hostname --impure"
+nix-shell -p git --run "sudo nixos-rebuild switch --flake $HOME/home#$hostname --impure"
