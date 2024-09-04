@@ -78,7 +78,7 @@
         pkgs = import nixpkgs-stable nixpkgsConfig;
         username = "jason";
         homeDirectory = "/home/jason";
-        configuration = import ./home.nix;
+        configuration = import ./home;
       };
     in
     {
