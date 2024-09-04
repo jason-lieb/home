@@ -74,11 +74,8 @@
           ];
         };
       mkHome = home-manager.lib.homeManagerConfiguration {
-        inherit system;
         pkgs = import nixpkgs-stable nixpkgsConfig;
-        username = "jason";
-        homeDirectory = "/home/jason";
-        configuration = import ./home;
+        modules = [ ./home ];
       };
     in
     {
