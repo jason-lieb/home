@@ -86,13 +86,7 @@
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "update.mode" = "none";
       "window.menuBarVisibility" = "toggle";
-      "eslint.workingDirectories" = [
-        "~/megarepo/frontend/educator"
-        "~/megarepo/frontend/educator/classroom"
-        "~/megarepo/frontend/educator/school"
-        "~/megarepo/frontend/educator/entities"
-        "~/megarepo/frontend/educator/materials"
-      ];
+      "extensions.ignoreRecommendations" = true;
     };
 
     keybindings = [
