@@ -41,7 +41,16 @@
         home-manager.users.jason =
           { pkgs, ... }:
           {
-            imports = [ (import ./home { inherit pkgs pkgs-unstable vscode-extensions; }) ];
+            imports = [
+              (import ./home {
+                inherit
+                  system
+                  pkgs
+                  freckle
+                  vscode-extensions
+                  ;
+              })
+            ];
           };
       };
 
@@ -71,7 +80,7 @@
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ (import ./home { inherit pkgs vscode-extensions; }) ];
+          modules = [ (import ./home { inherit pkgs freckle vscode-extensions; }) ];
         };
     in
     {
