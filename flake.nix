@@ -67,7 +67,8 @@
           inherit specialArgs;
           modules = [
             (import ./nixos { inherit pkgs hostname; })
-            (home-manager.nixosModules.home-manager homeManagerConfig)
+            home-manager.nixosModules.home-manager
+            homeManagerConfig
             # nixos-cosmic.nixosModules.default
             freckle.nixosModules.docker-for-local-dev
             freckle.nixosModules.renaissance-vpn
