@@ -49,6 +49,7 @@
       # Git Basics
       g = "git";
       ga = "git add";
+      gaa = "git add -A";
       gap = "git add -p";
       gf = "git commit --fixup";
       gaf = "git add -A; git commit --fixup";
@@ -106,13 +107,15 @@
       up = "make update";
       down = "pushd ~/megarepo/backend; and make services.stop; and popd";
       ze = "zellij";
+      mega = "code ~/megarepo";
+      format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
       # Nix
       hs = "home-manager switch --impure --flake /home/jason/home#jason@debian";
       rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
       rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
       nix-update = "nix flake update";
       nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
-      format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
+      dev = "nix develop -c fish";
     };
     # Not Currently Needed
     # format-backend =

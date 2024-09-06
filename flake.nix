@@ -56,17 +56,16 @@
 
       mkNixos =
         hostname:
-        let
-          pkgs = import nixpkgs-stable nixpkgsConfig;
+        nixpkgs-stable.lib.nixosSystem {
+          inherit system;
           specialArgs = {
             inherit pkgs-unstable;
           };
-        in
-        nixpkgs-stable.lib.nixosSystem {
-          inherit system;
-          inherit specialArgs;
           modules = [
-            (import ./nixos { inherit pkgs hostname; })
+            (import ./nixos {
+              inherit hostname;
+              pkgs = import nixpkgs-stable nixpkgsConfig;
+            })
             home-manager.nixosModules.home-manager
             homeManagerConfig
             # nixos-cosmic.nixosModules.default
@@ -75,14 +74,10 @@
           ];
         };
 
-      mkHome =
-        let
-          pkgs = import nixpkgs-stable nixpkgsConfig;
-        in
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ (import ./home { inherit pkgs freckle vscode-extensions; }) ];
-        };
+      mkHome = home-manager.lib.homeManagerConfiguration rec {
+        pkgs = import nixpkgs-stable nixpkgsConfig;
+        modules = [ (import ./home { inherit pkgs freckle vscode-extensions; }) ];
+      };
     in
     {
       nixosConfigurations = {

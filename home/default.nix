@@ -31,6 +31,8 @@ in
       gh
       github-copilot-cli
       htop
+      just
+      jq
       gnumake
       gparted
       lf
