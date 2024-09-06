@@ -14,5 +14,9 @@ nix-channel --update
 nix-shell '<home-manager>' -A install
 printf "\nHome-manager installed successfully.\n"
 
-printf "Setting up nix configuration...\n"
+printf "\nSetting up nix configuration...\n"
 nix-shell -p git --run "home-manager switch --impure --flake /home/jason/home#jason@debian --extra-experimental-features 'nix-command flakes'"
+
+printf "\nSetting up fish shell...\n"
+echo "/home/jason/.nix-profile/bin/fish" | sudo tee -a /etc/shells
+chsh -s /home/jason/.nix-profile/bin/fish
