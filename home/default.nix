@@ -95,7 +95,6 @@
     builtins.listToAttrs (
       [
         alacritty
-        nix-conf
         nix-cache
         aws
         aws-credentials

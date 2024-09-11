@@ -110,7 +110,7 @@
       mega = "code ~/megarepo";
       format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
       # Nix
-      hs = "home-manager -b bak switch --impure --flake /home/jason/home#jason@debian";
+      hs = "sudo home-manager -b bak switch --impure --flake /home/jason/home#jason@debian";
       rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
       rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
       nix-update = "nix flake update";

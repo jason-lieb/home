@@ -1,6 +1,4 @@
 {
   name = ".aws/credentials";
-  value = {
-    text = "";
-  };
+  value.text = "";
 }
