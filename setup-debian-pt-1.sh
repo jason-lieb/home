@@ -18,6 +18,9 @@ yes '' | ssh-keygen -t ed25519 -C $email_address &> /dev/null
 eval "$(ssh-agent -s)" &> /dev/null
 ssh-add $HOME/.ssh/id_ed25519
 
+sudo groupadd wheel
+sudo usermod -aG wheel jason
+
 printf "Installing Nix..."
 sh <(curl -L https://nixos.org/nix/install) --daemon
 
