@@ -87,6 +87,7 @@
       alacritty = import ./alacritty.nix;
       nix-conf = import ./nix-conf.nix;
       nix-cache = import ./nix-cache.nix { inherit env; };
+      desktop-apps = import ./desktop-apps.nix { inherit pkgs; };
       aws = import ./aws.nix;
       aws-credentials = import ./aws-credentials.nix;
       stack = import ./stack.nix;
@@ -101,6 +102,6 @@
         stack
       ]
       ++ autostart
-      ++ (if is-home-manager then [ nix-conf ] else [ ])
+      ++ (if is-home-manager then [ nix-conf ] ++ desktop-apps else [ ])
     );
 }

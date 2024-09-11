@@ -5,7 +5,6 @@
     auto-optimise-store = true
     netrc-file = /home/jason/.config/nix/netrc
 
-    trusted-users = @wheel
     max-jobs = 8
     build-cores = 0
     substituters = "https://freckle.cachix.org" "https://freckle-private.cachix.org" "https://yazi.cachix.org" "https://cosmic.cachix.org/"
