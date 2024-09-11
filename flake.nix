@@ -31,28 +31,9 @@
         inherit system;
         config.allowUnfree = true;
       };
-      vscode-extensions = nix-vscode-extensions.extensions.x86_64-linux;
+      vscode-extensions = nix-vscode-extensions.extensions.${system};
+      pkgs = import nixpkgs-stable nixpkgsConfig;
       pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
-      homeManagerConfig = {
-        home-manager.useGlobalPkgs = true;
-        # home-manager.useUserPackages = true;
-        # home-manager.extraSpecialArgs = {inherit pkgs-stable;};
-        home-manager.backupFileExtension = ".backup";
-        home-manager.users.jason =
-          { pkgs, ... }:
-          {
-            imports = [
-              (import ./home {
-                inherit
-                  system
-                  pkgs
-                  freckle
-                  vscode-extensions
-                  ;
-              })
-            ];
-          };
-      };
 
       mkNixos =
         hostname:
@@ -62,21 +43,41 @@
             inherit pkgs-unstable;
           };
           modules = [
-            (import ./nixos {
-              inherit hostname;
-              pkgs = import nixpkgs-stable nixpkgsConfig;
-            })
+            (import ./nixos { inherit hostname pkgs; })
             home-manager.nixosModules.home-manager
-            homeManagerConfig
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.backupFileExtension = ".backup";
+              home-manager.users.jason =
+                { pkgs, ... }:
+                {
+                  imports = [
+                    (import ./home {
+                      inherit
+                        system
+                        pkgs
+                        freckle
+                        vscode-extensions
+                        ;
+                      home-manager = false;
+                    })
+                  ];
+                };
+            }
             # nixos-cosmic.nixosModules.default
             freckle.nixosModules.docker-for-local-dev
             freckle.nixosModules.renaissance-vpn
           ];
         };
 
-      mkHome = home-manager.lib.homeManagerConfiguration rec {
-        pkgs = import nixpkgs-stable nixpkgsConfig;
-        modules = [ (import ./home { inherit pkgs freckle vscode-extensions; }) ];
+      mkHome = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          (import ./home {
+            inherit pkgs freckle vscode-extensions;
+            home-manager = true;
+          })
+        ];
       };
     in
     {

@@ -31,7 +31,7 @@
     '';
 
     shellInit = ''
-      set fish_user_paths /home/jason/bin /home/jason/.local/bin /home/jason/.nix-profile/bin
+      set fish_user_paths /home/jason/bin /home/jason/.local/bin /home/jason/.nix-profile/bin /nix/var/nix/profiles/default/bin
     '';
 
     shellAliases = {

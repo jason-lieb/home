@@ -1,6 +1,7 @@
 {
   pkgs,
   system,
+  home-manager,
   freckle,
   vscode-extensions,
   ...
@@ -50,6 +51,7 @@ in
       zellij
       zoxide
     ])
+    ++ (if home-manager then [ pkgs.home-manager ] else [ ])
     ++ (with freckle.packages.${system}; [
       prettier-default
       fourmolu-0-13-x
