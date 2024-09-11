@@ -3,13 +3,13 @@
 {
   nix.gc = {
     automatic = true;
-    dates = "06:00";
+    dates = "weekly";
     options = "--delete-older-than 10d";
   };
 
   nix.optimise = {
     automatic = true;
-    dates = [ "06:05" ];
+    dates = [ "21:00" ];
   };
 
   system.autoUpgrade = {
@@ -20,7 +20,6 @@
       "nixpkgs"
       "-L" # print build logs
     ];
-    dates = "06:10";
-    # randomizedDelaySec = "30min";
+    dates = "20:30";
   };
 }
