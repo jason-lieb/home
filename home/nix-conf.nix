@@ -1,12 +1,14 @@
 { home-manager }:
 {
-  home.file.".config/nix/nix.conf".text =
+  home.file =
     if home-manager then
-      ''
-        experimental-features = nix-command flakes
-        auto-optimise-store = true
-        netrc-file = /home/jason/.config/nix/netrc
-      ''
+      {
+        ".config/nix/nix.conf".text = ''
+          experimental-features = nix-command flakes
+          auto-optimise-store = true
+          netrc-file = /home/jason/.config/nix/netrc
+        '';
+      }
     else
-      "";
+      { };
 }
