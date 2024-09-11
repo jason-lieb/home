@@ -59,7 +59,7 @@
       gac = "git add -A; git commit -m";
       gd = "git checkout -- ."; # Drops current uncommitted changes
       gr = "git reset HEAD^";
-      gl = "git log --oneline";
+      gl = "git log --oneline --ancestry-path origin/main^..HEAD";
       gcp = "git cherry-pick";
       main = "git checkout main";
       pull = "git pull origin";
