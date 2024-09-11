@@ -7,9 +7,6 @@
   ...
 }:
 
-let
-  importWithArgs = file: import file { inherit pkgs vscode-extensions; };
-in
 {
   home.username = "jason";
   home.homeDirectory = "/home/jason";
@@ -20,7 +17,14 @@ in
   imports = [
     ./fish.nix
     ./git.nix
-    (importWithArgs ./vscode.nix)
+
+    import
+    ./vscode.nix
+    { inherit pkgs vscode-extensions; }
+
+    import
+    ./nix-conf.nix
+    { inherit home-manager; }
   ];
 
   home.packages =
@@ -51,7 +55,15 @@ in
       zellij
       zoxide
     ])
-    ++ (if home-manager then [ pkgs.home-manager ] else [ ])
+    ++ (
+      if home-manager then
+        (with pkgs; [
+          home-manager
+          nixFlakes
+        ])
+      else
+        [ ]
+    )
     ++ (with freckle.packages.${system}; [
       prettier-default
       fourmolu-0-13-x
