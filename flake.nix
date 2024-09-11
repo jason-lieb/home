@@ -9,6 +9,21 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+    # nix-darwin.url = "github:LnL7/nix-darwin";
+    # nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    # nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    # homebrew-bundle = {
+    #   url = "github:homebrew/homebrew-bundle";
+    #   flake = false;
+    # };
+    # homebrew-core = {
+    #   url = "github:homebrew/homebrew-core";
+    #   flake = false;
+    # };
+    # homebrew-cask = {
+    #   url = "github:homebrew/homebrew-cask";
+    #   flake = false;
+    # };
     # nixos-cosmic = {
     #   url = "github:lilyinstarlight/nixos-cosmic";
     #   inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -70,6 +85,32 @@
           ];
         };
 
+      # mkDarwin =
+      #   hostname:
+      #   nix-darwin.lib.darwinSystem {
+      #     specialArgs = {
+      #       inherit self keys username;
+      #     };
+      #     modules = [
+      #       home-manager.darwinModules.home-manager
+      #       homeManagerConfig
+      #       nix-homebrew.darwinModules.nix-homebrew
+      #       {
+      #         nix-homebrew = {
+      #           enable = true;
+      #           enableRosetta = false;
+      #           user = username;
+      #           taps = {
+      #             "homebrew/homebrew-bundle" = homebrew-bundle;
+      #             "homebrew/homebrew-core" = homebrew-core;
+      #             "homebrew/homebrew-cask" = homebrew-cask;
+      #           };
+      #           mutableTaps = false;
+      #         };
+      #       }
+      #     ];
+      #   };
+
       mkHome = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
@@ -94,5 +135,8 @@
       homeConfigurations = {
         "jason@debian" = mkHome;
       };
+      # darwinConfigurations = {
+      #   mac = mkDarwin "JLIEB0523-MB";
+      # };
     };
 }
