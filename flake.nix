@@ -31,9 +31,9 @@
         inherit system;
         config.allowUnfree = true;
       };
-      vscode-extensions = nix-vscode-extensions.extensions.${system};
       pkgs = import nixpkgs-stable nixpkgsConfig;
       pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
+      vscode-extensions = nix-vscode-extensions.extensions.${system};
 
       mkNixos =
         hostname:
@@ -47,19 +47,19 @@
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
-              home-manager.backupFileExtension = ".backup";
+              home-manager.backupFileExtension = ".bak";
               home-manager.users.jason =
                 { pkgs, ... }:
                 {
                   imports = [
                     (import ./home {
+                      home-manager = false;
                       inherit
                         system
                         pkgs
                         freckle
                         vscode-extensions
                         ;
-                      home-manager = false;
                     })
                   ];
                 };
@@ -74,8 +74,13 @@
         inherit pkgs;
         modules = [
           (import ./home {
-            inherit pkgs freckle vscode-extensions;
             home-manager = true;
+            inherit
+              system
+              pkgs
+              freckle
+              vscode-extensions
+              ;
           })
         ];
       };
