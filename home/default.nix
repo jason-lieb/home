@@ -1,7 +1,7 @@
 {
   pkgs,
   system,
-  home-manager,
+  is-home-manager,
   freckle,
   vscode-extensions,
   ...
@@ -15,16 +15,10 @@
   home.sessionVariables.EDITOR = "code";
 
   imports = [
+    # ./nix-conf.nix
     ./fish.nix
     ./git.nix
-
-    import
-    ./vscode.nix
-    { inherit pkgs vscode-extensions; }
-
-    import
-    ./nix-conf.nix
-    { inherit home-manager; }
+    (import ./vscode.nix { inherit pkgs vscode-extensions; })
   ];
 
   home.packages =
@@ -56,11 +50,12 @@
       zoxide
     ])
     ++ (
-      if home-manager then
-        (with pkgs; [
+      if is-home-manager then
+        with pkgs;
+        [
           home-manager
           nixFlakes
-        ])
+        ]
       else
         [ ]
     )

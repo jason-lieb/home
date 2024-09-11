@@ -53,7 +53,7 @@
                 {
                   imports = [
                     (import ./home {
-                      home-manager = false;
+                      is-home-manager = false;
                       inherit
                         system
                         pkgs
@@ -74,7 +74,7 @@
         inherit pkgs;
         modules = [
           (import ./home {
-            home-manager = true;
+            is-home-manager = true;
             inherit
               system
               pkgs
