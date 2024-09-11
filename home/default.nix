@@ -15,7 +15,6 @@
   home.sessionVariables.EDITOR = "code";
 
   imports = [
-    # ./nix-conf.nix
     ./fish.nix
     ./git.nix
     (import ./vscode.nix { inherit pkgs vscode-extensions; })
@@ -86,6 +85,7 @@
     let
       env = import ./env.nix;
       alacritty = import ./alacritty.nix;
+      nix-conf = import ./nix-conf.nix;
       nix-cache = import ./nix-cache.nix { inherit env; };
       aws = import ./aws.nix;
       aws-credentials = import ./aws-credentials.nix;
@@ -95,11 +95,13 @@
     builtins.listToAttrs (
       [
         alacritty
+        nix-conf
         nix-cache
         aws
         aws-credentials
         stack
       ]
       ++ autostart
+      ++ (if is-home-manager then [ nix-conf ] else [ ])
     );
 }
