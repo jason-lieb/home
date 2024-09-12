@@ -14,6 +14,12 @@
       experimental-features = nix-command flakes
       netrc-file = /home/jason/.config/nix/netrc
     '';
+    optimise.automatic = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 10d";
+    };
   };
 
   boot.loader.systemd-boot.enable = true;
