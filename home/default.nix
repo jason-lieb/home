@@ -1,7 +1,7 @@
 {
   pkgs,
   system,
-  is-home-manager,
+  is-not-nixos,
   freckle,
   vscode-extensions,
   ...
@@ -49,7 +49,7 @@
       zoxide
     ])
     ++ (
-      if is-home-manager then
+      if is-not-nixos then
         with pkgs;
         [
           home-manager
@@ -102,6 +102,6 @@
         stack
       ]
       ++ autostart
-      ++ (if is-home-manager then [ nix-conf ] ++ desktop-apps else [ ])
+      ++ (if is-not-nixos then [ nix-conf ] ++ desktop-apps else [ ])
     );
 }

@@ -73,7 +73,7 @@
                 {
                   imports = [
                     (import ./home {
-                      is-home-manager = false;
+                      is-not-nixos = false;
                       inherit
                         system
                         pkgs
@@ -120,7 +120,7 @@
         inherit pkgs;
         modules = [
           (import ./home {
-            is-home-manager = true;
+            is-not-nixos = true;
             inherit
               system
               pkgs
