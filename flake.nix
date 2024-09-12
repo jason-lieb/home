@@ -9,9 +9,6 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    # flake-utils.url = "github:numtide/flake-utils";
-    # nix-github-actions.url = "github:nix-community/nix-github-actions";
-    # nix-github-actions.inputs.nixpkgs.follows = "nixpkgs-stable";
     # nix-darwin.url = "github:LnL7/nix-darwin";
     # nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     # nix-homebrew.url = "github:zhaofengli/nix-homebrew";
@@ -40,8 +37,6 @@
       nixpkgs-stable,
       nixpkgs-unstable,
       nix-vscode-extensions,
-      # flake-utils,
-      # nix-github-actions,
       home-manager,
       freckle,
     }:
@@ -144,16 +139,6 @@
 
       # darwinConfigurations = {
       #   mac = mkDarwin "JLIEB0523-MB";
-      # };
-
-      # githubActions = flake-utils.lib.eachSystem [ system ] (system: { }) // {
-      #   githubActions = nix-github-actions.lib.mkGithubMatrix {
-      #     checks = nixpkgs-stable.lib.getAttrs [ system ] self.checks;
-      #     platforms = {
-      #       "x86_64-linux" = "ubuntu-22.04";
-      #       # "aarch64-darwin" = "macos-14";
-      #     };
-      #   };
       # };
 
       nixConfig = {
