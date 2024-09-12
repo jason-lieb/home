@@ -1,10 +1,15 @@
-{ pkgs, hostname, ... }:
+{
+  self,
+  pkgs,
+  hostname,
+  ...
+}:
 
 {
   imports = [
     ./${hostname}
     ./gnome.nix
-    ./maintenance.nix
+    (import ./maintenance.nix { inherit self; })
   ];
 
   nix = {

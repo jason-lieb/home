@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ self, ... }:
 
 {
   nix.gc = {
@@ -14,7 +14,7 @@
 
   system.autoUpgrade = {
     enable = true;
-    flake = inputs.self.outPath;
+    flake = self.outPath;
     flags = [
       "--update-input"
       "nixpkgs"
