@@ -63,7 +63,7 @@
             inherit pkgs-unstable;
           };
           modules = [
-            (import ./nixos { inherit self hostname pkgs; })
+            (import ./nixos { inherit hostname pkgs; })
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
