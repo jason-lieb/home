@@ -5,6 +5,7 @@
     enable = true;
     extensions =
       (with vscode-extensions.vscode-marketplace; [
+        continue.dev
         esbenp.prettier-vscode
         haskell.haskell
         jkillian.custom-local-formatters
@@ -15,6 +16,7 @@
         oderwat.indent-rainbow
         pkief.material-icon-theme
         stylelint.vscode-stylelint
+        supermaven.supermaven
         tomrijndorp.find-it-faster
         yoavbls.pretty-ts-errors
       ])

@@ -37,48 +37,65 @@
       nixpkgs-stable,
       nixpkgs-unstable,
       nix-vscode-extensions,
+      nix-darwin,
+      nix-homebrew,
+      homebrew-bundle,
+      homebrew-core,
+      homebrew-cask,
       home-manager,
       freckle,
     }:
     let
-      system = "x86_64-linux";
-      nixpkgsConfig = {
-        inherit system;
-        config.allowUnfree = true;
+
+      mkPackages = system: rec {
+        nixpkgsConfig = {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        pkgs = import nixpkgs-stable nixpkgsConfig;
+        pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
+        vscode-extensions = nix-vscode-extensions.extensions.${system};
       };
-      pkgs = import nixpkgs-stable nixpkgsConfig;
-      pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
-      vscode-extensions = nix-vscode-extensions.extensions.${system};
+
+      mkHomeManagerConfig =
+        system:
+        let
+          packages = mkPackages system;
+          vscode-extensions = packages.vscode-extensions;
+        in
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.backupFileExtension = ".bak";
+          home-manager.users.jason =
+            { pkgs, ... }:
+            {
+              imports = [
+                (import ./home {
+                  is-not-nixos = false;
+                  inherit
+                    system
+                    pkgs
+                    freckle
+                    vscode-extensions
+                    ;
+                })
+              ];
+            };
+        };
 
       mkNixos =
         hostname:
+        let
+          system = "x86_64-linux";
+          packages = mkPackages system;
+          pkgs = packages.pkgs;
+        in
         nixpkgs-stable.lib.nixosSystem {
           inherit system;
-          specialArgs = {
-            inherit pkgs-unstable;
-          };
           modules = [
             (import ./nixos { inherit hostname pkgs; })
             home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.backupFileExtension = ".bak";
-              home-manager.users.jason =
-                { pkgs, ... }:
-                {
-                  imports = [
-                    (import ./home {
-                      is-not-nixos = false;
-                      inherit
-                        system
-                        pkgs
-                        freckle
-                        vscode-extensions
-                        ;
-                    })
-                  ];
-                };
-            }
+            (mkHomeManagerConfig system)
             # nixos-cosmic.nixosModules.default
             freckle.nixosModules.docker-for-local-dev
             freckle.nixosModules.renaissance-vpn
@@ -87,38 +104,20 @@
 
       mkDarwin =
         hostname:
+        let
+          system = "aarch64-darwin";
+        in
         nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit self keys username;
-          };
           modules = [
             ./macbook
             home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.backupFileExtension = ".bak";
-              home-manager.users.jason =
-                { pkgs, ... }:
-                {
-                  imports = [
-                    (import ./home {
-                      is-not-nixos = true;
-                      inherit
-                        system
-                        pkgs
-                        freckle
-                        vscode-extensions
-                        ;
-                    })
-                  ];
-                };
-            }
+            (mkHomeManagerConfig system)
             nix-homebrew.darwinModules.nix-homebrew
             {
               nix-homebrew = {
                 enable = true;
                 enableRosetta = false;
-                user = username;
+                user = "jason.lieb";
                 taps = {
                   "homebrew/homebrew-bundle" = homebrew-bundle;
                   "homebrew/homebrew-core" = homebrew-core;
@@ -130,20 +129,27 @@
           ];
         };
 
-      mkHome = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          (import ./home {
-            is-not-nixos = true;
-            inherit
-              system
-              pkgs
-              freckle
-              vscode-extensions
-              ;
-          })
-        ];
-      };
+      mkHome =
+        let
+          system = "x86_64-linux";
+          packages = mkPackages system;
+          pkgs = packages.pkgs;
+          vscode-extensions = packages.vscode-extensions;
+        in
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            (import ./home {
+              is-not-nixos = true;
+              inherit
+                system
+                pkgs
+                freckle
+                vscode-extensions
+                ;
+            })
+          ];
+        };
     in
     {
       nixosConfigurations = {
@@ -157,9 +163,9 @@
       };
 
       darwinConfigurations = {
-        macbook = mkDarwin "JLIEB0523-MB";
+        macbook = mkDarwin;
       };
-      darwinPackages = self.darwinConfigurations."JLIEB0523-MB".pkgs;
+      darwinPackages = self.darwinConfigurations.macbook.pkgs;
 
       nixConfig = {
         substituters = [
