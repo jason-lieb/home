@@ -1,9 +1,9 @@
 name: Update flake inputs
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * 0'
 
 defaults:
   run:
