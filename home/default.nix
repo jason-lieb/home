@@ -14,6 +14,8 @@
 
   home.sessionVariables.EDITOR = "code";
 
+  targets.genericLinux.enable = is-not-nixos;
+
   imports = [
     ./fish.nix
     ./git.nix
