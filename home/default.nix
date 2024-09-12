@@ -40,8 +40,6 @@
       nil
       nixfmt-rfc-style
       obsidian
-      ollama
-      python3
       ripgrep
       sqlitebrowser
       wget
