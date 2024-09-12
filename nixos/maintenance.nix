@@ -7,10 +7,7 @@
     options = "--delete-older-than 10d";
   };
 
-  nix.optimise = {
-    automatic = true;
-    dates = [ "21:00" ];
-  };
+  nix.optimise.automatic = true;
 
   system.autoUpgrade = {
     enable = true;
@@ -20,6 +17,5 @@
       "nixpkgs"
       "-L" # print build logs
     ];
-    dates = "20:30";
   };
 }
