@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
@@ -61,26 +61,25 @@
         system:
         let
           packages = mkPackages system;
+          pkgs = packages.pkgs;
           vscode-extensions = packages.vscode-extensions;
         in
         {
           home-manager.useGlobalPkgs = true;
           home-manager.backupFileExtension = ".bak";
-          home-manager.users.jason =
-            { pkgs, ... }:
-            {
-              imports = [
-                (import ./home {
-                  is-not-nixos = false;
-                  inherit
-                    system
-                    pkgs
-                    freckle
-                    vscode-extensions
-                    ;
-                })
-              ];
-            };
+          home-manager.users.jason = {
+            imports = [
+              (import ./home {
+                is-not-nixos = false;
+                inherit
+                  system
+                  pkgs
+                  freckle
+                  vscode-extensions
+                  ;
+              })
+            ];
+          };
         };
 
       mkNixos =
@@ -102,32 +101,27 @@
           ];
         };
 
-      mkDarwin =
-        hostname:
-        let
-          system = "aarch64-darwin";
-        in
-        nix-darwin.lib.darwinSystem {
-          modules = [
-            ./macbook
-            home-manager.darwinModules.home-manager
-            (mkHomeManagerConfig system)
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                enableRosetta = false;
-                user = "jason.lieb";
-                taps = {
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                };
-                mutableTaps = false;
+      mkDarwin = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./macbook
+          home-manager.darwinModules.home-manager
+          (mkHomeManagerConfig "aarch64-darwin")
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = false;
+              user = "jason.lieb";
+              taps = {
+                "homebrew/homebrew-bundle" = homebrew-bundle;
+                "homebrew/homebrew-core" = homebrew-core;
+                "homebrew/homebrew-cask" = homebrew-cask;
               };
-            }
-          ];
-        };
+              mutableTaps = false;
+            };
+          }
+        ];
+      };
 
       mkHome =
         let

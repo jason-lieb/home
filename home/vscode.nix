@@ -5,7 +5,7 @@
     enable = true;
     extensions =
       (with vscode-extensions.vscode-marketplace; [
-        continue.dev
+        # continue.dev
         esbenp.prettier-vscode
         haskell.haskell
         jkillian.custom-local-formatters

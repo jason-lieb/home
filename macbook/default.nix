@@ -1,8 +1,12 @@
 { self, ... }:
 
 {
+  users.users.davish = {
+    name = "jason.lieb";
+    home = "/Users/jason.lieb";
+  };
+
   services.nix-daemon.enable = true;
-  nix.settings.experimental-features = "nix-command flakes";
 
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
