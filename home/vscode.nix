@@ -16,7 +16,7 @@
         oderwat.indent-rainbow
         pkief.material-icon-theme
         stylelint.vscode-stylelint
-        supermaven.supermaven
+        # supermaven.supermaven
         tomrijndorp.find-it-faster
         yoavbls.pretty-ts-errors
       ])
