@@ -1,20 +1,22 @@
 {
   pkgs,
   system,
-  is-not-nixos,
+  platform,
   freckle,
   vscode-extensions,
   ...
 }:
 
 {
-  home.username = "jason";
-  home.homeDirectory = "/home/jason";
-  home.stateVersion = "24.05";
+  home = {
+    username = pkgs.lib.optionalAttrs (platform == "nixos" || platform == "home") "jason";
+    homeDirectory = pkgs.lib.optionalAttrs (platform == "nixos" || platform == "home") "/home/jason";
+    stateVersion = pkgs.lib.optionalAttrs (platform == "nixos" || platform == "home") "24.05";
+  };
 
   home.sessionVariables.EDITOR = "code";
 
-  targets.genericLinux.enable = is-not-nixos;
+  targets.genericLinux.enable = if platform == "home" then true else false;
 
   imports = [
     ./fish.nix
@@ -49,7 +51,7 @@
       zoxide
     ])
     ++ (
-      if is-not-nixos then
+      if platform == "darwin" || platform == "home" then
         with pkgs;
         [
           home-manager
@@ -102,6 +104,6 @@
         stack
       ]
       ++ autostart
-      ++ (if is-not-nixos then [ nix-conf ] ++ desktop-apps else [ ])
+      ++ (if platform == "darwin" || platform == "home" then [ nix-conf ] ++ desktop-apps else [ ])
     );
 }

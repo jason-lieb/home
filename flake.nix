@@ -58,7 +58,7 @@
       };
 
       mkHomeManagerConfig =
-        system:
+        system: platform:
         let
           packages = mkPackages system;
           pkgs = packages.pkgs;
@@ -70,10 +70,10 @@
           home-manager.users.jason = {
             imports = [
               (import ./home {
-                is-not-nixos = false;
                 inherit
                   system
                   pkgs
+                  platform
                   freckle
                   vscode-extensions
                   ;
@@ -94,7 +94,7 @@
           modules = [
             (import ./nixos { inherit hostname pkgs; })
             home-manager.nixosModules.home-manager
-            (mkHomeManagerConfig system)
+            (mkHomeManagerConfig system "nixos")
             # nixos-cosmic.nixosModules.default
             freckle.nixosModules.docker-for-local-dev
             freckle.nixosModules.renaissance-vpn
@@ -105,7 +105,7 @@
         modules = [
           ./macbook
           home-manager.darwinModules.home-manager
-          (mkHomeManagerConfig "aarch64-darwin")
+          (mkHomeManagerConfig "aarch64-darwin" "darwin")
           nix-homebrew.darwinModules.nix-homebrew
           {
             nix-homebrew = {
@@ -134,7 +134,7 @@
           inherit pkgs;
           modules = [
             (import ./home {
-              is-not-nixos = true;
+              platform = "home";
               inherit
                 system
                 pkgs
