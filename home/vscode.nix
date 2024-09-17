@@ -19,6 +19,7 @@
         stylelint.vscode-stylelint
         # supermaven.supermaven
         tomrijndorp.find-it-faster
+        # vscodevim.vim
         yoavbls.pretty-ts-errors
       ])
       ++ (with vscode-extensions.vscode-marketplace-release; [
@@ -96,8 +97,52 @@
       "update.mode" = "none";
       "window.menuBarVisibility" = "toggle";
       "extensions.ignoreRecommendations" = true;
-    };
+      # "vim.easymotion" = true;
+      # "vim.incsearch" = true;
+      # "vim.useSystemClipboard" = true;
+      # "vim.useCtrlKeys" = true;
+      # "vim.hlsearch" = true;
+      # "vim.insertModeKeyBindings" = [
+      #   {
+      #     "before" = [
+      #       "j"
+      #       "j"
+      #     ];
+      #     "after" = [ "<Esc>" ];
+      #   }
+      # ];
+      # "vim.normalModeKeyBindingsNonRecursive" = [
+      #   {
+      #     "before" = [
+      #       "<leader>"
+      #       "d"
+      #     ];
+      #     "after" = [
+      #       "d"
+      #       "d"
+      #     ];
+      #   }
+      #   {
+      #     "before" = [ "<C-n>" ];
+      #     "commands" = [ "=nohl" ];
+      #   }
+      #   {
+      #     "before" = [ "K" ];
+      #     "commands" = [ "lineBreakInsert" ];
+      #     "silent" = true;
+      #   }
+      # ];
+      # "vim.leader" = "<space>";
 
+      # Prevent vim from handling certain keybindings
+      # "vim.handleKeys" = {
+      #   "<C-a>" = false;
+      #   "<C-f>" = false;
+      # };
+      # "extensions.experimental.affinity" = {
+      #   "vscodevim.vim" = 1;
+      # };
+    };
     keybindings = [
       {
         key = "shift+alt+down";
