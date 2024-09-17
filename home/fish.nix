@@ -58,6 +58,8 @@
       gc = "git commit -m";
       gac = "git add -A; git commit -m";
       gd = "git checkout -- ."; # Drops current uncommitted changes
+      gdiff = "git diff";
+      gdiffs = "git diff --staged";
       gr = "git reset HEAD^";
       gl = "git log --oneline --ancestry-path origin/main^..HEAD";
       gcp = "git cherry-pick";
@@ -105,6 +107,7 @@
       stf = "stack test --fast --file-watch --watch-all fancy-api";
       stj = "stack test --fast --file-watch --watch-all jobs";
       up = "make update";
+      msr = "make services.restart";
       down = "pushd ~/megarepo/backend; and make services.stop; and popd";
       ze = "zellij";
       mega = "code ~/megarepo";
