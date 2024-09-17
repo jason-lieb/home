@@ -9,6 +9,39 @@
     interactiveShellInit = ''
       set fish_greeting
       source (zoxide init fish | psub)
+
+      function fish_prompt
+        # jason
+        set_color $fish_color_cwd
+        echo -n (whoami)
+
+        # @debian
+        set_color normal
+        echo -n "@"(hostname)" "
+
+        # ~/home
+        set_color $fish_color_cwd
+        echo -n (prompt_pwd)
+
+        # (main)
+        set_color normal
+        if type -q __fish_git_prompt
+          __fish_git_prompt
+        end
+
+        # (nix: educator)
+        set_color $fish_color_cwd
+        if test -n "$IN_NIX_SHELL"
+          if not set -q FLAKE_DIR
+            set -gx FLAKE_DIR (basename (pwd))
+          end
+          echo -n " (nix: $FLAKE_DIR)"
+        end
+
+        set_color normal
+        echo -n "> "
+      end
+
       function st
         switch (count $argv)
           case 0
@@ -19,6 +52,7 @@
             echo "Too many arguments"
         end
       end
+
       function grf
         if test (count $argv) -eq 1
           git branch -D $argv
