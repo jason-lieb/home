@@ -5,8 +5,9 @@
     enable = true;
     extensions =
       (with vscode-extensions.vscode-marketplace; [
-        # continue.dev
+        # continue.continue
         esbenp.prettier-vscode
+        golang.go
         haskell.haskell
         jkillian.custom-local-formatters
         jnoortheen.nix-ide
@@ -63,6 +64,12 @@
       ];
       "files.insertFinalNewline" = true;
       "files.trimTrailingWhitespace" = true;
+      "go.alternateTools" = {
+        "go" = "${pkgs.go}/bin/go";
+      };
+      "[go]" = {
+        "editor.defaultFormatter" = "golang.go";
+      };
       "haskell.checkProject" = false;
       "haskell.plugin.hlint.diagnosticsOn" = true;
       "haskell.trace.client" = "debug";
