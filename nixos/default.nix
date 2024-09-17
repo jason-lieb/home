@@ -80,19 +80,19 @@
 
   services.ollama.enable = true;
 
-  virtualisation.oci-containers = {
-    backend = "docker";
+  # virtualisation.oci-containers = {
+  #   backend = "docker";
 
-    containers = {
-      open-webui = import ./open-webui.nix;
-    };
-  };
+  #   containers = {
+  #     open-webui = import ./open-webui.nix;
+  #   };
+  # };
 
   environment.systemPackages = with pkgs; [
     home-manager
     cachix
-    open-webui
-    oterm
+    # open-webui
+    # oterm
   ];
 
   # services.openssh.enable = true;
