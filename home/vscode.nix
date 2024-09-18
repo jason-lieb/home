@@ -38,7 +38,7 @@
       ]);
 
     userSettings = {
-      "settingsSync.enabled" = false;
+      "diffEditor.maxComputationTime" = 0;
       "editor.accessibilitySupport" = "off";
       "editor.defaultFormatter" = "esbenp.prettier-vscode";
       "[haskell]" = {
