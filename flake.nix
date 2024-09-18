@@ -90,8 +90,11 @@
         in
         nixpkgs-stable.lib.nixosSystem {
           inherit system;
+          specialArgs = {
+            inherit hostname pkgs;
+          };
           modules = [
-            (import ./nixos { inherit hostname pkgs; })
+            ./nixos
             home-manager.nixosModules.home-manager
             (mkHomeManagerConfig system "nixos")
             # nixos-cosmic.nixosModules.default
