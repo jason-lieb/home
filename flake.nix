@@ -62,23 +62,22 @@
         let
           packages = mkPackages system;
           pkgs = packages.pkgs;
+          pkgs-unstable = packages.pkgs-unstable;
           vscode-extensions = packages.vscode-extensions;
         in
         {
           home-manager.useGlobalPkgs = true;
           home-manager.backupFileExtension = ".bak";
-          home-manager.users.jason = {
-            imports = [
-              (import ./home {
-                inherit
-                  system
-                  pkgs
-                  platform
-                  freckle
-                  vscode-extensions
-                  ;
-              })
-            ];
+          home-manager.users.jason.imports = [ ./home ];
+          home-manager.extraSpecialArgs = {
+            inherit
+              system
+              platform
+              pkgs
+              pkgs-unstable
+              vscode-extensions
+              freckle
+              ;
           };
         };
 

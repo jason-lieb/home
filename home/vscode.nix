@@ -1,11 +1,20 @@
-{ pkgs, vscode-extensions, ... }:
+{
+  pkgs,
+  pkgs-unstable,
+  vscode-extensions,
+  ...
+}:
 
 {
   programs.vscode = {
     enable = true;
+    enableUpdateCheck = false;
+    mutableExtensionsDir = false;
+    package = pkgs-unstable.vscode;
+
     extensions =
       (with vscode-extensions.vscode-marketplace; [
-        asvetliakov.vscode-neovim
+        # asvetliakov.vscode-neovim
         # continue.continue
         esbenp.prettier-vscode
         golang.go
@@ -29,6 +38,7 @@
       ]);
 
     userSettings = {
+      "settingsSync.enabled" = false;
       "editor.accessibilitySupport" = "off";
       "editor.defaultFormatter" = "esbenp.prettier-vscode";
       "[haskell]" = {

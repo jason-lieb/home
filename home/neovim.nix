@@ -5,6 +5,7 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+    # package = pkgs-unstable.neovim;
     # defaultEditor = true;
 
     # plugins = [

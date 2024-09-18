@@ -3,7 +3,6 @@
   system,
   platform,
   freckle,
-  vscode-extensions,
   ...
 }:
 
@@ -22,7 +21,7 @@
     ./fish.nix
     ./git.nix
     ./neovim.nix
-    (import ./vscode.nix { inherit pkgs vscode-extensions; })
+    ./vscode.nix
   ];
 
   # programs.direnv = {
