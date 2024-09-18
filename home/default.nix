@@ -21,6 +21,7 @@
   imports = [
     ./fish.nix
     ./git.nix
+    ./neovim.nix
     (import ./vscode.nix { inherit pkgs vscode-extensions; })
   ];
 

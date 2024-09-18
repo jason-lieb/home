@@ -5,6 +5,7 @@
     enable = true;
     extensions =
       (with vscode-extensions.vscode-marketplace; [
+        asvetliakov.vscode-neovim
         # continue.continue
         esbenp.prettier-vscode
         golang.go
@@ -97,6 +98,7 @@
       "update.mode" = "none";
       "window.menuBarVisibility" = "toggle";
       "extensions.ignoreRecommendations" = true;
+      "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
       # "vim.easymotion" = true;
       # "vim.incsearch" = true;
       # "vim.useSystemClipboard" = true;
@@ -142,6 +144,60 @@
       # "extensions.experimental.affinity" = {
       #   "vscodevim.vim" = 1;
       # };
+
+      #     "vim.easymotion": true,
+      # "vim.incsearch": true,
+      # "vim.useSystemClipboard": true,
+      # "vim.hlsearch": true,
+      # "vim.insertModeKeyBindings": [
+      #   {
+      #     "before": ["j", "j"],
+      #     "after": ["<Esc>"]
+      #   }
+      # ],
+      # "vim.leader": "<space>",
+      # "vim.handleKeys": {
+      #   "<C-a>": false,
+      #   "<C-f>": false
+      # },
+      # "vim.normalModeKeyBindingsNonRecursive": [
+      #   {
+      #     "before": [":"],
+      #     "commands": ["workbench.action.showCommands"]
+      #   }
+      # ],
+      # "vim.visualModeKeyBindingsNonRecursive": [
+      #   {
+      #     "before": [">"],
+      #     "commands": ["editor.action.indentLines"]
+      #   },
+      #   {
+      #     "before": ["<"],
+      #     "commands": ["editor.action.outdentLines"]
+      #   },
+      #   {
+      #     "before": ["p"],
+      #     "after": ["p", "g", "v", "y"]
+      #   }
+      # ],
+      # "vim.statusBarColorControl": true,
+      # "vim.statusBarColors.normal": ["#8FBCBB", "#000"],
+      # "vim.statusBarColors.insert": ["#BF616A", "#000"],
+      # "vim.statusBarColors.visual": ["#B48EAD", "#000"],
+      # "vim.statusBarColors.visualline": ["#B48EAD", "#000"],
+      # "vim.statusBarColors.visualblock": ["#A3BE8C", "#000"],
+      # "vim.statusBarColors.replace": "#D08770",
+      # "vim.statusBarColors.commandlineinprogress": "#007ACC",
+      # "vim.statusBarColors.searchinprogressmode": "#007ACC",
+      # "vim.statusBarColors.easymotionmode": "#007ACC",
+      # "vim.statusBarColors.easymotioninputmode": "#007ACC",
+      # "vim.statusBarColors.surroundinputmode": "#007ACC",
+      # "workbench.colorCustomizations": {
+      #   "statusBar.background": "#B48EAD",
+      #   "statusBar.noFolderBackground": "#B48EAD",
+      #   "statusBar.debuggingBackground": "#B48EAD",
+      #   "statusBar.foreground": "#000"
+      # }
     };
     keybindings = [
       {
