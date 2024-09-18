@@ -21,6 +21,32 @@
     };
   };
 
+  systemd.timers."clear-nix-store" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "weekly";
+      Persistent = true;
+    };
+  };
+
+  systemd.services."clear-nix-store" = {
+    script = ''
+      set -eu
+      LOGFILE=/var/log/clear-nix-store.log
+      {
+      echo "Starting garbage collection: $(date)"
+      ${pkgs.nix}/bin/nix-collect-garbage --delete-older-than 7d
+      echo "Garbage collection completed: $(date)"
+      /run/current-system/bin/switch-to-configuration boot
+      echo "Switched to new configuration: $(date)"
+      } >> $LOGFILE 2>&1
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
