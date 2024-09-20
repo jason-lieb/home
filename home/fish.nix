@@ -124,6 +124,7 @@
       run-qa = "git commit --allow-empty -m '[qa]'";
       run-cy = "git commit --allow-empty -m '[cy]'";
       run-eph = "git commit --allow-empty -m '[ephemeral]'";
+      run-dev = "git commit --allow-empty -m '[dev]'";
       # Gnome
       fix-gnome-settings = ''
         gsettings set org.gnome.shell enabled-extensions "['display-brightness-ddcutil@themightydeity.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'caffeine@patapon.info']"
