@@ -17,17 +17,17 @@
 
   targets.genericLinux.enable = if platform == "home" then true else false;
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
   imports = [
     ./fish.nix
     ./git.nix
     ./neovim.nix
     ./vscode.nix
   ];
-
-  # programs.direnv = {
-  #   enable = true;
-  #   nix-direnv.enable = true;
-  # };
 
   home.packages =
     (with pkgs; [
