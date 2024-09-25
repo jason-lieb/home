@@ -62,6 +62,7 @@
       "editor.parameterHints.enabled" = false;
       "editor.tabSize" = 2;
       "editor.largeFileOptimizations" = false;
+      "explorer.sortOrder" = "mixed";
       "explorer.confirmDelete" = false;
       "explorer.confirmDragAndDrop" = false;
       "customLocalFormatters.formatters" = [
