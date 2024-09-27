@@ -26,6 +26,7 @@
         mhutchie.git-graph
         oderwat.indent-rainbow
         pkief.material-icon-theme
+        ritwickdey.liveserver
         stylelint.vscode-stylelint
         # supermaven.supermaven
         tomrijndorp.find-it-faster
@@ -91,6 +92,7 @@
       "indentRainbow.lightIndicatorStyleLineWidth" = 4;
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "javascript.validate.enable" = false;
+      "liveServer.settings.donotShowInfoMsg" = true;
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "${pkgs.nil}/bin/nil";
       "prettier.enable" = true;
