@@ -24,4 +24,4 @@ mkdir -p $HOME/home/$hostname
 sudo cp /etc/nixos/hardware-configuration.nix $HOME/home/$hostname/hardware-configuration.nix
 
 printf "Setting up nix configuration...\n"
-nix-shell -p git --run "sudo nixos-rebuild switch --flake $HOME/home#$hostname --impure"
+nix-shell -p git --run "sudo nixos-rebuild boot --flake $HOME/home#$hostname --impure"
