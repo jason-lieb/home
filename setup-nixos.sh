@@ -23,5 +23,7 @@ sudo hostname $hostname
 mkdir -p $HOME/home/$hostname
 sudo cp /etc/nixos/hardware-configuration.nix $HOME/home/$hostname/hardware-configuration.nix
 
-printf "Setting up nix configuration...\n"
-nix-shell -p git --run "sudo nixos-rebuild boot --flake $HOME/home#$hostname --impure"
+printf "Setup .env file and then run the following command:\n"
+printf 'nix-shell -p git --run "sudo nixos-rebuild boot --flake home/jason/home#{hostname} --impure"\n'
+printf "where {hostname} is "
+printf $hostname
