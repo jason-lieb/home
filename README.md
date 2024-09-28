@@ -2,11 +2,12 @@
 
 ## NixOs Setup
 
+- Create and fill out the .env file first
+- Then run the below command
+
 ```
 bash -c "$(curl -fsSl https://raw.githubusercontent.com/jason-lieb/home/main/setup-nixos.sh)"
 ```
-
-- Create and fill out the .env file
 
 ## Debian Setup
 
