@@ -20,10 +20,10 @@ nix-shell -p git --run "git clone git@github.com:jason-lieb/home.git"
 printf "\nWhat is the hostname of this computer? "
 read hostname
 sudo hostname $hostname
-mkdir -p $HOME/home/$hostname
-sudo cp /etc/nixos/hardware-configuration.nix $HOME/home/$hostname/hardware-configuration.nix
+mkdir -p $HOME/home/nixos/$hostname
+sudo cp /etc/nixos/hardware-configuration.nix $HOME/home/nixos/$hostname/hardware.nix
 
-printf "Setup .env file and then run the following command:\n"
-printf 'nix-shell -p git --run "sudo nixos-rebuild boot --flake /home/jason/home#{hostname} --impure"\n'
+printf "Setup .env file and then run the following command (including the ending \")\":\n"
+printf 'nix-shell -p git --run "sudo nixos-rebuild boot --impure --flake /home/jason/home#{hostname}"\n'
 printf "where {hostname} is "
 printf $hostname
