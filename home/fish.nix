@@ -156,6 +156,8 @@
       nix-update = "nix flake update";
       nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
       dev = "nix develop -c fish";
+      # dev = "git stash; and git checkout main; and nix develop -c fish; and git checkout -; and git stash pop";
+      # dev = "set stashed 0; git stash | grep -q 'No local changes to save' || set stashed 1; and git checkout main; and nix develop -c fish; and git checkout -; and test $stashed -eq 1; and git stash pop";
     };
     # Not Currently Needed
     # format-backend =
