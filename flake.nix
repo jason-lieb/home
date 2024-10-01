@@ -42,6 +42,7 @@
       homebrew-bundle,
       homebrew-core,
       homebrew-cask,
+      # nixos-cosmic,
       home-manager,
       freckle,
     }:
