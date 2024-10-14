@@ -40,17 +40,6 @@
         echo -n "> "
       end
 
-      function st
-        switch (count $argv)
-          case 0
-            stack test --fast --file-watch --watch-all fancy-api jobs
-          case 1
-            stack test --fast --file-watch --watch-all --ta '-m "'$argv[1]'"' fancy-api jobs
-          case '*'
-            echo "Too many arguments"
-        end
-      end
-
       function grf
         if test (count $argv) -eq 1
           git branch -D $argv
@@ -59,6 +48,16 @@
         else
           echo "Invalid number of arguments"
         end
+      end
+
+      function dev
+        if test (git rev-parse --abbrev-ref HEAD) = "main"
+          git stash
+        else
+          git stash; and git checkout main
+        end
+
+        nix develop -c fish
       end
     '';
 
@@ -136,16 +135,23 @@
       mon-tv = "~/home/utils/switch-to-tv-monitor.sh";
       enter-db = ''docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
       docker-clean = "docker system prune -a";
-      mw = "stack test --no-run-tests --fast --file-watch --watch-all fancy-api";
+      mw = "stack test --no-run-tests --fast --file-watch --watch-all fancy-api jobs";
+      mwf = "stack test --no-run-tests --fast --file-watch --watch-all fancy-api";
+      mwj = "stack test --no-run-tests --fast --file-watch --watch-all jobs";
+      st = "stack test --fast --file-watch --watch-all fancy-api jobs";
       stf = "stack test --fast --file-watch --watch-all fancy-api";
       stj = "stack test --fast --file-watch --watch-all jobs";
+      # st-suite = "stack test --fast --file-watch --watch-all --ta '-m `'$argv[1]'`' fancy-api jobs;";
+      kill-backend = "sudo pkill -x fancy-api; sudo pkill -x jobs";
       up = "make update";
       msr = "make services.restart";
       down = "pushd ~/megarepo/backend; and make services.stop; and popd";
       ze = "zellij";
+      home = "cd ~/home";
       mega = "code ~/megarepo";
       format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
       # Nix
+      shell = "nix-shell -p";
       hs = "home-manager -b bak switch --impure --flake /home/jason/home#jason@debian";
       rd = "darwin-rebuild switch --impure --flake /Users/jason.lieb/home#macbook";
       rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
@@ -153,9 +159,6 @@
       install-darwin = "nix run nix-darwin -- switch --flake /Users/jason.lieb/home#macbook";
       nix-update = "nix flake update";
       nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
-      dev = "nix develop -c fish";
-      # dev = "git stash; and git checkout main; and nix develop -c fish; and git checkout -; and git stash pop";
-      # dev = "set stashed 0; git stash | grep -q 'No local changes to save' || set stashed 1; and git checkout main; and nix develop -c fish; and git checkout -; and test $stashed -eq 1; and git stash pop";
     };
     # Not Currently Needed
     # format-backend =
