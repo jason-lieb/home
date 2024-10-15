@@ -110,7 +110,7 @@
       "update.mode" = "none";
       "window.menuBarVisibility" = "toggle";
       "extensions.ignoreRecommendations" = true;
-      "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
+      # "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
       # "vim.easymotion" = true;
       # "vim.incsearch" = true;
       # "vim.useSystemClipboard" = true;
