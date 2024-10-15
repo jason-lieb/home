@@ -100,7 +100,9 @@
             power-mode = "performance";
           };
 
-          "org/gnome/desktop/session/idle-delay" = "uint32 900";
+          "org/gnome/desktop/session" = {
+            idle-delay = "uint32 900";
+          };
 
           "org/gnome/shell" = {
             disable-user-extensions = false;
