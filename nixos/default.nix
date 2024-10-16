@@ -7,7 +7,22 @@
   ];
 
   nix = {
-    settings.trusted-users = [ "@wheel" ];
+    settings = {
+      trusted-users = [ "@wheel" ];
+      substituters = [
+        "https://freckle.cachix.org"
+        "https://freckle-private.cachix.org"
+        "https://yazi.cachix.org"
+        "https://cosmic.cachix.org/"
+      ];
+      trusted-public-keys = [
+        "freckle.cachix.org-1:WnI1pZdwLf2vnP9Fx7OGbVSREqqi4HM2OhNjYmZ7odo="
+        "freckle-private.cachix.org-1:zbTfpeeq5YBCPOjheu0gLyVPVeM6K2dc1e8ei8fE0AI="
+        "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
+        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+      ];
+
+    };
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
