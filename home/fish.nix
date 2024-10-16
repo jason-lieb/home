@@ -27,8 +27,13 @@
           __fish_git_prompt
         end
 
-        # (nix: educator)
+        # (docker)
         set_color $fish_color_cwd
+        if test -n "$DOCKER_RUNNING"
+          echo -n " (docker)"
+        end
+
+        # (nix: educator)
         if test -n "$IN_NIX_SHELL"
           if not set -q FLAKE_DIR
             set -gx FLAKE_DIR (basename (pwd))
@@ -143,9 +148,9 @@
       stj = "stack test --fast --file-watch --watch-all jobs";
       # st-suite = "stack test --fast --file-watch --watch-all --ta '-m `'$argv[1]'`' fancy-api jobs;";
       kill-backend = "sudo pkill -x fancy-api; sudo pkill -x jobs";
-      up = "make update";
-      msr = "make services.restart";
-      down = "pushd ~/megarepo/backend; and make services.stop; and popd";
+      up = "set -gx DOCKER_RUNNING 1; and make update";
+      down = "set -e DOCKER_RUNNING; and pushd ~/megarepo/backend; and make services.stop; and popd";
+      msr = "set -gx DOCKER_RUNNING 1; and make services.restart";
       ze = "zellij";
       home = "cd ~/home";
       mega = "code ~/megarepo";
