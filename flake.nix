@@ -9,21 +9,6 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
     # nixos-cosmic = {
     #   url = "github:lilyinstarlight/nixos-cosmic";
     #   inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -37,11 +22,6 @@
       nixpkgs-stable,
       nixpkgs-unstable,
       nix-vscode-extensions,
-      nix-darwin,
-      nix-homebrew,
-      homebrew-bundle,
-      homebrew-core,
-      homebrew-cask,
       # nixos-cosmic,
       home-manager,
       freckle,
@@ -104,29 +84,6 @@
           ];
         };
 
-      mkDarwin = nix-darwin.lib.darwinSystem {
-        specialArgs = {inherit self;};
-        modules = [
-          ./macbook
-          home-manager.darwinModules.home-manager
-          (mkHomeManagerConfig "aarch64-darwin" "darwin")
-          nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              enable = true;
-              enableRosetta = false;
-              user = "jason.lieb";
-              taps = {
-                "homebrew/homebrew-bundle" = homebrew-bundle;
-                "homebrew/homebrew-core" = homebrew-core;
-                "homebrew/homebrew-cask" = homebrew-cask;
-              };
-              mutableTaps = false;
-            };
-          }
-        ];
-      };
-
       mkHome =
         let
           system = "x86_64-linux";
@@ -159,11 +116,6 @@
       homeConfigurations = {
         "jason@debian" = mkHome;
       };
-
-      darwinConfigurations = {
-        macbook = mkDarwin;
-      };
-      darwinPackages = self.darwinConfigurations.macbook.pkgs;
 
       nixConfig = {
         substituters = [

@@ -56,7 +56,7 @@
       zoxide
     ])
     ++ (
-      if platform == "darwin" || platform == "home" then
+      if platform == "home" then
         with pkgs;
         [
           home-manager
@@ -109,6 +109,6 @@
         stack
       ]
       ++ autostart
-      ++ (if platform == "darwin" || platform == "home" then [ nix-conf ] ++ desktop-apps else [ ])
+      ++ (if platform == "home" then [ nix-conf ] ++ desktop-apps else [ ])
     );
 }

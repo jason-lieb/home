@@ -153,10 +153,8 @@
       # Nix
       shell = "nix-shell -p";
       hs = "home-manager -b bak switch --impure --flake /home/jason/home#jason@debian";
-      rd = "darwin-rebuild switch --impure --flake /Users/jason.lieb/home#macbook";
       rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
       rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
-      install-darwin = "nix run nix-darwin -- switch --flake /Users/jason.lieb/home#macbook";
       nix-update = "nix flake update";
       nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
     };
