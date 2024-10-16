@@ -28,12 +28,10 @@
     }:
     let
       system = "x86_64-linux";
-      nixpkgsConfig = {
+      pkgs-unstable = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
       };
-      pkgs = import nixpkgs-stable nixpkgsConfig;
-      pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
       vscode-extensions = nix-vscode-extensions.extensions.${system};
 
       mkNixos =
@@ -41,7 +39,7 @@
         nixpkgs-stable.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit hostname pkgs;
+            inherit hostname;
           };
           modules = [
             ./nixos
