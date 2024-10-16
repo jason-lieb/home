@@ -27,48 +27,31 @@
       freckle,
     }:
     let
-
-      mkPackages = system: rec {
-        nixpkgsConfig = {
-          inherit system;
-          config.allowUnfree = true;
-        };
-        pkgs = import nixpkgs-stable nixpkgsConfig;
-        pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
-        vscode-extensions = nix-vscode-extensions.extensions.${system};
+      system = "x86_64-linux";
+      nixpkgsConfig = {
+        inherit system;
+        config.allowUnfree = true;
       };
+      pkgs = import nixpkgs-stable nixpkgsConfig;
+      pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
+      vscode-extensions = nix-vscode-extensions.extensions.${system};
 
-      mkHomeManagerConfig =
-        system: platform:
-        let
-          packages = mkPackages system;
-          pkgs = packages.pkgs;
-          pkgs-unstable = packages.pkgs-unstable;
-          vscode-extensions = packages.vscode-extensions;
-        in
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.backupFileExtension = ".bak";
-          home-manager.users.jason.imports = [ ./home ];
-          home-manager.extraSpecialArgs = {
-            inherit
-              system
-              platform
-              pkgs
-              pkgs-unstable
-              vscode-extensions
-              freckle
-              ;
-          };
+      homeManagerConfig = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.backupFileExtension = ".bak";
+        home-manager.users.jason.imports = [ ./home ];
+        home-manager.extraSpecialArgs = {
+          inherit
+            system
+            pkgs-unstable
+            vscode-extensions
+            freckle
+            ;
         };
+      };
 
       mkNixos =
         hostname:
-        let
-          system = "x86_64-linux";
-          packages = mkPackages system;
-          pkgs = packages.pkgs;
-        in
         nixpkgs-stable.lib.nixosSystem {
           inherit system;
           specialArgs = {
@@ -77,44 +60,18 @@
           modules = [
             ./nixos
             home-manager.nixosModules.home-manager
-            (mkHomeManagerConfig system "nixos")
+            homeManagerConfig
             # nixos-cosmic.nixosModules.default
             freckle.nixosModules.docker-for-local-dev
             freckle.nixosModules.renaissance-vpn
           ];
         };
 
-      mkHome =
-        let
-          system = "x86_64-linux";
-          packages = mkPackages system;
-          pkgs = packages.pkgs;
-          vscode-extensions = packages.vscode-extensions;
-        in
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            (import ./home {
-              platform = "home";
-              inherit
-                system
-                pkgs
-                freckle
-                vscode-extensions
-                ;
-            })
-          ];
-        };
     in
     {
       nixosConfigurations = {
         desktop = mkNixos "desktop";
         laptop = mkNixos "laptop";
-        chromebook = mkNixos "chromebook";
-      };
-
-      homeConfigurations = {
-        "jason@debian" = mkHome;
       };
 
       nixConfig = {

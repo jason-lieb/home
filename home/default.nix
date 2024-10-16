@@ -1,21 +1,18 @@
 {
   pkgs,
   system,
-  platform,
   freckle,
   ...
 }:
 
 {
   home = {
-    username = pkgs.lib.optionalAttrs (platform == "nixos" || platform == "home") "jason";
-    homeDirectory = pkgs.lib.optionalAttrs (platform == "nixos" || platform == "home") "/home/jason";
-    stateVersion = pkgs.lib.optionalAttrs (platform == "nixos" || platform == "home") "24.05";
+    username = "jason";
+    homeDirectory = "/home/jason";
+    stateVersion = "24.05";
   };
 
   home.sessionVariables.EDITOR = "code";
-
-  targets.genericLinux.enable = if platform == "home" then true else false;
 
   programs.direnv = {
     enable = true;
@@ -55,16 +52,6 @@
       zellij
       zoxide
     ])
-    ++ (
-      if platform == "home" then
-        with pkgs;
-        [
-          home-manager
-          nixFlakes
-        ]
-      else
-        [ ]
-    )
     ++ (with freckle.packages.${system}; [
       prettier-default
       fourmolu-0-13-x
@@ -92,9 +79,7 @@
     let
       env = import ./env.nix;
       alacritty = import ./alacritty.nix;
-      nix-conf = import ./nix-conf.nix;
       nix-cache = import ./nix-cache.nix { inherit env; };
-      desktop-apps = import ./desktop-apps.nix { inherit pkgs; };
       aws = import ./aws.nix;
       aws-credentials = import ./aws-credentials.nix;
       stack = import ./stack.nix;
@@ -109,6 +94,5 @@
         stack
       ]
       ++ autostart
-      ++ (if platform == "home" then [ nix-conf ] ++ desktop-apps else [ ])
     );
 }
