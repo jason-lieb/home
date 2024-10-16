@@ -36,20 +36,6 @@
       pkgs-unstable = import nixpkgs-unstable nixpkgsConfig;
       vscode-extensions = nix-vscode-extensions.extensions.${system};
 
-      homeManagerConfig = {
-        home-manager.useGlobalPkgs = true;
-        home-manager.backupFileExtension = ".bak";
-        home-manager.users.jason.imports = [ ./home ];
-        home-manager.extraSpecialArgs = {
-          inherit
-            system
-            pkgs-unstable
-            vscode-extensions
-            freckle
-            ;
-        };
-      };
-
       mkNixos =
         hostname:
         nixpkgs-stable.lib.nixosSystem {
@@ -59,11 +45,23 @@
           };
           modules = [
             ./nixos
-            home-manager.nixosModules.home-manager
-            homeManagerConfig
-            # nixos-cosmic.nixosModules.default
             freckle.nixosModules.docker-for-local-dev
             freckle.nixosModules.renaissance-vpn
+            # nixos-cosmic.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.backupFileExtension = ".bak";
+              home-manager.users.jason.imports = [ ./home ];
+              home-manager.extraSpecialArgs = {
+                inherit
+                  system
+                  pkgs-unstable
+                  vscode-extensions
+                  freckle
+                  ;
+              };
+            }
           ];
         };
 
