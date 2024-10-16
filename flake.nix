@@ -105,6 +105,7 @@
         };
 
       mkDarwin = nix-darwin.lib.darwinSystem {
+        specialArgs = {inherit self;};
         modules = [
           ./macbook
           home-manager.darwinModules.home-manager

@@ -1,0 +1,1 @@
+nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --impure --flake /Users/jason.lieb/home#macbook

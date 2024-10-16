@@ -1,7 +1,7 @@
 { self, config, ... }:
 
 {
-  users.users.davish = {
+  users.users.jason = {
     name = "jason.lieb";
     home = "/Users/jason.lieb";
   };
