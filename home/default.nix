@@ -80,7 +80,7 @@
       env = import ./env.nix;
       alacritty = import ./alacritty.nix;
       nix-cache = import ./nix-cache.nix { inherit env; };
-      aws = import ./aws.nix;
+      aws = import ./aws.nix { inherit env; };
       aws-credentials = import ./aws-credentials.nix;
       stack = import ./stack.nix;
       autostart = import ./autostart.nix { inherit pkgs; };
