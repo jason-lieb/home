@@ -45,7 +45,7 @@
     profiles.user.databases = [
       {
         settings = {
-          "/org/gtk/gtk4/settings/file-chooser" = {
+          "org/gtk/gtk4/settings/file-chooser" = {
             show-hidden = true;
           };
 
