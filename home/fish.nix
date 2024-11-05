@@ -29,7 +29,7 @@
 
         # (docker)
         set_color $fish_color_cwd
-        if test -n "$DOCKER_RUNNING"
+        if docker ps -q | grep -q .
           echo -n " (docker)"
         end
 
@@ -159,9 +159,9 @@
       sttjf = "stack test --fast --file-watch --watch-all fancy-api jobs";
       # st-suite = "stack test --fast --file-watch --watch-all --ta '-m `'$argv[1]'`' fancy-api jobs;";
       kill-backend = "sudo pkill -x fancy-api; sudo pkill -x jobs";
-      up = "set -gx DOCKER_RUNNING 1; and make update";
-      down = "set -e DOCKER_RUNNING; and pushd ~/megarepo/backend; and make services.stop; and popd";
-      msr = "set -gx DOCKER_RUNNING 1; and make services.restart";
+      up = "make update";
+      down = "pushd ~/megarepo/backend; and make services.stop; and popd";
+      msr = "make services.restart";
       ze = "zellij";
       home = "cd ~/home";
       mega = "code ~/megarepo";
