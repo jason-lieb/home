@@ -55,6 +55,14 @@
         end
       end
 
+      function fr
+        if test (git rev-parse --abbrev-ref HEAD) != "main"
+          git checkout main
+        end
+
+        git fetch origin main && git rebase origin/main
+      end
+
       function dev
         if test (git rev-parse --abbrev-ref HEAD) = "main"
           git stash
@@ -116,7 +124,6 @@
       sb = "git checkout";
       fe = "git fetch origin main";
       re = "git rebase origin/main";
-      fr = "git fetch origin main && git rebase origin/main";
       rei = "git rebase -i origin/main";
       sq = "git rebase -i origin/main";
       # Github Cli
