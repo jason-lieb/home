@@ -40,6 +40,7 @@
       gnumake
       gparted
       lf
+      lsof
       neofetch
       nil
       nixfmt-rfc-style
