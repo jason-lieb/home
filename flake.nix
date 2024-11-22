@@ -33,7 +33,6 @@
         config.allowUnfree = true;
       };
       vscode-extensions = nix-vscode-extensions.extensions.${system};
-
       mkNixos =
         hostname:
         nixpkgs-stable.lib.nixosSystem {
@@ -62,7 +61,6 @@
             }
           ];
         };
-
     in
     {
       nixosConfigurations = {
