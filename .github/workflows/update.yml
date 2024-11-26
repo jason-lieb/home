@@ -19,6 +19,7 @@ jobs:
         run: nix flake update
 
       - uses: peter-evans/create-pull-request@v6
+        id: pr
         with:
           branch: gh/update
           title: Update flake inputs
@@ -26,6 +27,6 @@ jobs:
             Automatic run of `nix flake update`.
 
       - name: Enable Pull Request Automerge
-        run: gh pr merge --merge --auto "1"
+        run: gh pr merge --merge --auto ${{ steps.pr.outputs.pull-request-number }}
         env:
           GH_TOKEN: ${{ secrets.PAT }}
