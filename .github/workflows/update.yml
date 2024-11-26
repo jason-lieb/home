@@ -24,3 +24,6 @@ jobs:
           title: Update flake inputs
           body: |
             Automatic run of `nix flake update`.
+
+      - name: Enable Pull Request Automerge
+        run: gh pr merge --merge --auto "1"
