@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 5 * * 0'
 
+permissions:
+  contents: write
+  pull-requests: write
+
 defaults:
   run:
     working-directory: .
@@ -26,7 +30,7 @@ jobs:
           body: |
             Automatic run of `nix flake update`.
 
-      - name: Enable Pull Request Automerge
+      - name: Merge pull request
         run: gh pr merge --merge --auto ${{ steps.pr.outputs.pull-request-number }}
         env:
           GH_TOKEN: ${{ secrets.PAT }}
