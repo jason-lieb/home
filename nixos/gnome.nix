@@ -12,7 +12,6 @@
   environment.systemPackages = with pkgs; [
     gnome.gnome-tweaks
     gnome-extension-manager
-    gnomeExtensions.brightness-control-using-ddcutil
   ];
 
   environment.gnome.excludePackages = with pkgs.gnome; [
