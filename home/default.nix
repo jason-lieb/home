@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   system,
   freckle,
   ...
@@ -52,6 +53,7 @@
       zellij
       zoxide
     ])
+    ++ (with pkgs-unstable; [ code-cursor ])
     ++ (with freckle.packages.${system}; [
       prettier-default
       fourmolu-0-13-x

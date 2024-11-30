@@ -119,6 +119,7 @@
               "obsidian.desktop"
               "Alacritty.desktop"
               "code.desktop"
+              "code-cursor.desktop"
               "org.gnome.Software.desktop"
             ];
             last-selected-power-profile = "performance";
