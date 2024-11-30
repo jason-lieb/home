@@ -42,7 +42,6 @@
       lf
       lsof
       neofetch
-      nil
       nixfmt-rfc-style
       obsidian
       ripgrep
