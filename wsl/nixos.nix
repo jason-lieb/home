@@ -2,13 +2,19 @@
 
 {
   nixpkgs.config.allowUnfree = true;
-  networking.hostName = "jason";
+  networking.hostName = "wsl";
   time.timeZone = "America/New_York";
+  #nix = {
+  #  settings = {
+  #    trusted-users = ["jason"];
+  #  };
+  #  extraOptions = ''experimental-features = flakes nix-command'';
+  #};
 
-  users.defaultUserShell = "/run/current-system/sw/bin/fish";
-  users.users.jason = {
+  #users.defaultUserShell = "/run/current-system/sw/bin/fish";
+  users.users.nixos = {
     isNormalUser = true;
-    description = "Jason";
+    description = "nixos";
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -17,7 +23,10 @@
   };
 
   environment.systemPackages = with pkgs; [
+    vscode
+    git
+    fish
     home-manager
-    cachix
+   # cachix
   ];
 }
