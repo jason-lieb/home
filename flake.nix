@@ -13,7 +13,6 @@
     #   url = "github:lilyinstarlight/nixos-cosmic";
     #   inputs.nixpkgs.follows = "nixpkgs-stable";
     # };
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     freckle.url = "github:freckle/flakes?dir=main";
   };
 
@@ -25,7 +24,6 @@
       nix-vscode-extensions,
       # nixos-cosmic,
       home-manager,
-      nixos-wsl,
       freckle,
     }:
     let
@@ -63,36 +61,11 @@
             }
           ];
         };
-      mkWSL =
-        nixpkgs-stable.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./wsl/nixos.nix
-            nixos-wsl.nixosModules.default
-            {
-              system.stateVersion = "24.05";
-              wsl.enable = true;
-              wsl.defaultUser = "nixos";
-            }
-            # freckle.nixosModules.docker-for-local-dev
-            # freckle.nixosModules.renaissance-vpn
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.backupFileExtension = ".bak";
-              home-manager.users.nixos.imports = [ ./wsl/home ];
-              home-manager.extraSpecialArgs = {
-                inherit system;
-              };
-            }
-          ];
-        };
     in
     {
       nixosConfigurations = {
         desktop = mkNixos "desktop";
         laptop = mkNixos "laptop";
-        wsl = mkWSL;
       };
     };
 }
