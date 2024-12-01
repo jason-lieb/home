@@ -95,11 +95,11 @@
       "liveServer.settings.donotShowInfoMsg" = true;
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nixd";
-      # "nixpkgs.expr" = "import (builtins.getFlake \"/home/jason/home").inputs.nixpkgs { }";
-      # "options" = {
-      #   "nixos.expr" = "builtins.getFlake \"/home/jason/home".nixosConfigurations.desktop.options";
-      #   "home_manager.expr" = "builtins.getFlake \"/home/jason/home".homeConfigurations.desktop.options";
-      # }
+      "nixpkgs.expr" = "import (builtins.getFlake \"/home/jason/home\").inputs.nixpkgs { }";
+      "options" = {
+        "nixos.expr" = "builtins.getFlake \"/home/jason/home\".nixosConfigurations.desktop.options";
+        "home_manager.expr" = "builtins.getFlake \"/home/jason/home\".homeConfigurations.default.options";
+      };
       "prettier.enable" = true;
       "prettier.singleQuote" = true;
       "security.workspace.trust.untrustedFiles" = "open";
