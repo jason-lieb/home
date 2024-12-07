@@ -43,6 +43,7 @@
       lf
       lsof
       neofetch
+      nixd
       nixfmt-rfc-style
       obsidian
       ripgrep

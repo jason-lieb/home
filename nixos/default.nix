@@ -23,7 +23,7 @@
       ];
 
     };
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
       netrc-file = /home/jason/.config/nix/netrc
@@ -91,7 +91,6 @@
 
   services.printing.enable = true;
 
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
