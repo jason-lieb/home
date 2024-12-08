@@ -94,7 +94,7 @@
       "javascript.validate.enable" = false;
       "liveServer.settings.donotShowInfoMsg" = true;
       "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "nixd";
+      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
       "nixpkgs.expr" = "import (builtins.getFlake \"/home/jason/home\").inputs.nixpkgs { }";
       "options" = {
         "nixos.expr" = "builtins.getFlake \"/home/jason/home\".nixosConfigurations.desktop.options";
