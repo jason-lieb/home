@@ -6,6 +6,9 @@
   ...
 }:
 
+let
+  env = import ./env.nix;
+in
 {
   home = {
     username = "jason";
@@ -80,20 +83,21 @@
 
   home.file =
     let
-      env = import ./env.nix;
       alacritty = import ./alacritty.nix;
-      nix-cache = import ./nix-cache.nix { inherit env; };
       aws = import ./aws.nix { inherit env; };
       aws-credentials = import ./aws-credentials.nix;
+      nix-cache = import ./nix-cache.nix { inherit env; };
+      nix-conf = import ./nix-conf.nix { inherit env; };
       stack = import ./stack.nix;
       autostart = import ./autostart.nix { inherit pkgs; };
     in
     builtins.listToAttrs (
       [
         alacritty
-        nix-cache
         aws
         aws-credentials
+        nix-cache
+        nix-conf
         stack
       ]
       ++ autostart
