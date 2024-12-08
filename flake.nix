@@ -67,5 +67,16 @@
         desktop = mkNixos "desktop";
         laptop = mkNixos "laptop";
       };
+
+      nixConfig = {
+        extra-substituters = [
+          "https://yazi.cachix.org"
+          "https://cosmic.cachix.org/"
+        ];
+        extra-trusted-public-keys = [
+          "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
+          "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+        ];
+      };
     };
 }
