@@ -66,6 +66,7 @@
       nixosConfigurations = {
         desktop = mkNixos "desktop";
         laptop = mkNixos "laptop";
+        z560 = mkNixos "z560";
       };
 
       nixConfig = {
