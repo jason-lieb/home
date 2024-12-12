@@ -24,6 +24,7 @@ in
   };
 
   imports = [
+    ./bash.nix
     ./fish.nix
     ./git.nix
     ./neovim.nix
@@ -48,6 +49,7 @@ in
       neofetch
       nixd
       nixfmt-rfc-style
+      # nodePackages.prettier
       obsidian
       ripgrep
       sqlitebrowser
