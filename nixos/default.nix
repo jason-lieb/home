@@ -47,9 +47,6 @@
     };
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   services.xserver.enable = true;
 
   networking.networkmanager.enable = true;
@@ -79,8 +76,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  users.defaultUserShell = "/run/current-system/sw/bin/fish";
 
   users.users.jason = {
     isNormalUser = true;
