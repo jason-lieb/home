@@ -1,3 +1,6 @@
 [submodule "shell"]
 	path = shell
 	url = git@github.com:jason-lieb/shell.git
+[submodule "profiles"]
+	path = profiles
+	url = git@github.com:jason-lieb/profiles.git
