@@ -84,12 +84,14 @@
       la = "ls -A";
       ll = "ls -l";
       lr = "ls -R"; # recursive ls
+
       # Navigation
       ".." = "cd ..";
       "..." = "cd ../..";
       "...." = "cd ../../..";
       "....." = "cd ../../../..";
       "......" = "cd ../../../../..";
+
       # Git Basics
       g = "git";
       ga = "git add";
@@ -111,12 +113,14 @@
       pull = "git pull origin";
       push = "git push origin";
       fpush = "git push origin --force";
+
       # Git Stash
       gs = "git stash push";
       gsm = "git stash push -m";
       gsd = "git stash drop";
       gsl = "git stash list";
       gsp = "git stash pop";
+
       # Git Branch
       b = "git branch | tr '\\n' '\\n'";
       db = "git branch -D";
@@ -126,19 +130,23 @@
       re = "git rebase origin/main";
       rei = "git rebase -i origin/main";
       sq = "git rebase -i origin/main";
+
       # Github Cli
       pr = "gh pr create -t";
       prd = "gh pr create --draft -t";
+
       # Trigger Github Actions
       run-qa = "git commit --allow-empty -m '[qa]'";
       run-cy = "git commit --allow-empty -m '[cy]'";
       run-eph = "git commit --allow-empty -m '[ephemeral]'";
       run-dev = "git commit --allow-empty -m '[dev]'";
+
       # Gnome
       fix-gnome-settings = ''
         gsettings set org.gnome.shell enabled-extensions "['display-brightness-ddcutil@themightydeity.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'caffeine@patapon.info']"
         gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
       '';
+
       # Misc
       ghce = "gh copilot explain";
       ghcs = "gh copilot suggest";
@@ -166,6 +174,7 @@
       home = "cd ~/home";
       mega = "code ~/megarepo";
       format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
+
       # Nix
       shell = "nix-shell -p";
       rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
