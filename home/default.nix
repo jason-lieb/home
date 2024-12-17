@@ -24,7 +24,6 @@ in
   imports = [
     ./shells.nix
     ./git.nix
-    ./neovim.nix
     ./vscode.nix
   ];
 
