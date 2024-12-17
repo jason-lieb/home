@@ -59,16 +59,8 @@ in
       zellij
       zoxide
     ])
-    ++ (with pkgs-unstable; [ code-cursor ])
-    ++ (with freckle.packages.${system}; [
-      prettier-default
-      fourmolu-0-13-x
-    ])
-    ++ (with freckle.lib.${system}; [
-      (haskellBundle {
-        ghcVersion = "ghc-9-2-8";
-        enableHLS = true;
-      })
+    ++ (with pkgs-unstable; [
+      code-cursor
     ]);
 
   xdg.mimeApps = {
