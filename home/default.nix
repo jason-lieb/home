@@ -22,8 +22,7 @@ rec {
   };
 
   imports = [
-    ./bash.nix
-    ./fish.nix
+    ./shells.nix
     ./git.nix
     ./neovim.nix
     ./vscode.nix
