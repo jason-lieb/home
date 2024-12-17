@@ -42,7 +42,6 @@ in
       nixd
       nixfmt-rfc-style
       obsidian
-      sqlitebrowser
       wget
       wl-clipboard
       yazi
