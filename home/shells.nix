@@ -1,21 +1,6 @@
 { ... }:
 
-rec {
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = fishPrompt;
-    shellInit = ''
-      set fish_user_paths /home/jason/bin /home/jason/.local/bin /home/jason/.nix-profile/bin /nix/var/nix/profiles/default/bin
-    '';
-    inherit shellAliases;
-  };
-
-  programs.bash = {
-    enable = true;
-    bashrcExtra = bashPrompt;
-    inherit shellAliases;
-  };
-
+let
   shellAliases = {
     # General
     c = "clear";
@@ -174,31 +159,28 @@ rec {
   bashPrompt = ''
     eval "$(zoxide init bash)"
 
-    # Fix line wrapping
     shopt -s checkwinsize   # Update LINES and COLUMNS after each command
     bind "set enable-bracketed-paste on"  # Better paste handling
     bind "set horizontal-scroll-mode off" # Wrap lines instead of scrolling
-    bind "set editing-mode emacs"        # Standard line editing
     bind "set show-all-if-ambiguous on"  # Better completion
 
-    # Custom prompt
     PS1_DIR='\[\033[1;34m\]'    # blue directory
     PS1_GIT='\[\033[0;36m\]'    # cyan git
     PS1_DOCKER='\[\033[0;32m\]' # green docker
     PS1_NIX='\[\033[0;33m\]'    # yellow nix
     PS1_RESET='\[\033[0m\]'     # reset color
 
-    function git_branch {
+    git_branch() {
       git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
     }
 
-    function docker_status {
+    docker_status() {
       if docker ps -q | grep -q .; then
         echo " (docker)"
       fi
     }
 
-    function nix_shell_info {
+    nix_shell_info() {
       if [ -n "$IN_NIX_SHELL" ]; then
         if [ -z "$FLAKE_DIR" ]; then
           export FLAKE_DIR=$(basename $(pwd))
@@ -209,7 +191,6 @@ rec {
 
     PS1="\[$PS1_DIR\]\u@\h \w\[$PS1_GIT\]\$(git_branch)\[$PS1_DOCKER\]\$(docker_status)\[$PS1_NIX\]\$(nix_shell_info)\[$PS1_RESET\]> "
 
-    # Custom functions
     grf() {
       if [ $# -eq 1 ]; then
         git branch -D $1
@@ -227,4 +208,21 @@ rec {
       git fetch origin main && git rebase origin/main
     }
   '';
+in
+{
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = fishPrompt;
+    shellInit = ''
+      set fish_user_paths /home/jason/bin /home/jason/.local/bin /home/jason/.nix-profile/bin /nix/var/nix/profiles/default/bin
+    '';
+    inherit shellAliases;
+  };
+
+  programs.bash = {
+    enable = true;
+    bashrcExtra = bashPrompt;
+    inherit shellAliases;
+  };
+
 }

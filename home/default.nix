@@ -7,7 +7,7 @@
 let
   env = import ./env.nix;
 in
-rec {
+{
   home = {
     username = "jason";
     homeDirectory = "/home/jason";
@@ -67,41 +67,44 @@ rec {
     };
   };
 
-  home.file = awsConfig // nixConfig // stackConfig;
+  home.file =
+    let
+      awsConfig = {
+        ".aws/config".text = ''
+          [profile freckle]
+          sso_start_url = ${env.AWS_SSO_URL}
+          sso_region = us-east-1
+          sso_account_id = ${env.AWS_ACCOUNT_ID_PROD}
+          sso_role_name = Freckle-Prod-Engineers
+          region = us-east-1
 
-  awsConfig = {
-    ".aws/config".text = ''
-      [profile freckle]
-      sso_start_url = ${env.AWS_SSO_URL}
-      sso_region = us-east-1
-      sso_account_id = ${env.AWS_ACCOUNT_ID_PROD}
-      sso_role_name = Freckle-Prod-Engineers
-      region = us-east-1
+          [profile freckle-dev]
+          sso_start_url = ${env.AWS_SSO_URL}
+          sso_region = us-east-1
+          sso_account_id = ${env.AWS_ACCOUNT_ID_DEV}
+          sso_role_name = Freckle-Dev-Engineers
+          region = us-east-1
 
-      [profile freckle-dev]
-      sso_start_url = ${env.AWS_SSO_URL}
-      sso_region = us-east-1
-      sso_account_id = ${env.AWS_ACCOUNT_ID_DEV}
-      sso_role_name = Freckle-Dev-Engineers
-      region = us-east-1
+        '';
+        ".aws/credentials".text = "";
+      };
 
-    '';
-    ".aws/credentials".text = "";
-  };
+      nixConfig = {
+        ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
+        ".config/nix/nix.conf".text = "access-tokens = github.com=${env.GITHUB_TOKEN}";
+      };
 
-  nixConfig = {
-    ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
-    ".config/nix/nix.conf".text = "access-tokens = github.com=${env.GITHUB_TOKEN}";
-  };
+      stackConfig = {
+        ".stack/config.yaml".text = ''
+          nix: { enable: false }
+          system-ghc: true
+          recommend-stack-upgrade: false
+          notify-if-nix-on-path: false
+          ghc-options:
+            "$everything": -fconstraint-solver-iterations=10 -O0 -fobject-code -j +RTS -A64m -n2m -RTS
+        '';
+      };
+    in
+    awsConfig // nixConfig // stackConfig;
 
-  stackConfig = {
-    ".stack/config.yaml".text = ''
-      nix: { enable: false }
-      system-ghc: true
-      recommend-stack-upgrade: false
-      notify-if-nix-on-path: false
-      ghc-options:
-        "$everything": -fconstraint-solver-iterations=10 -O0 -fobject-code -j +RTS -A64m -n2m -RTS
-    '';
-  };
 }
