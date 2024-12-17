@@ -15,7 +15,6 @@
     extensions =
       (with vscode-extensions.vscode-marketplace; [
         # asvetliakov.vscode-neovim
-        # continue.continue
         esbenp.prettier-vscode
         golang.go
         haskell.haskell
@@ -28,7 +27,6 @@
         pkief.material-icon-theme
         ritwickdey.liveserver
         stylelint.vscode-stylelint
-        # supermaven.supermaven
         tomrijndorp.find-it-faster
         # vscodevim.vim
         yoavbls.pretty-ts-errors

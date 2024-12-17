@@ -44,8 +44,6 @@ in
       obsidian
       wget
       wl-clipboard
-      yazi
-      zellij
       zoxide
     ])
     ++ (with pkgs-unstable; [
