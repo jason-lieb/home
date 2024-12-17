@@ -30,7 +30,6 @@ in
   home.packages =
     (with pkgs; [
       brave
-      chromium
       gh
       htop
       just
