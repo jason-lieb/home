@@ -1,15 +1,13 @@
 {
   pkgs,
   pkgs-unstable,
-  system,
-  freckle,
   ...
 }:
 
 let
   env = import ./env.nix;
 in
-{
+rec {
   home = {
     username = "jason";
     homeDirectory = "/home/jason";
@@ -33,12 +31,9 @@ in
 
   home.packages =
     (with pkgs; [
-      alacritty
-      bat
       brave
       chromium
       gh
-      github-copilot-cli
       htop
       just
       jq
@@ -49,9 +44,7 @@ in
       neofetch
       nixd
       nixfmt-rfc-style
-      # nodePackages.prettier
       obsidian
-      ripgrep
       sqlitebrowser
       wget
       wl-clipboard
@@ -75,25 +68,41 @@ in
     };
   };
 
-  home.file =
-    let
-      alacritty = import ./alacritty.nix;
-      aws = import ./aws.nix { inherit env; };
-      aws-credentials = import ./aws-credentials.nix;
-      nix-cache = import ./nix-cache.nix { inherit env; };
-      nix-conf = import ./nix-conf.nix { inherit env; };
-      stack = import ./stack.nix;
-      autostart = import ./autostart.nix { inherit pkgs; };
-    in
-    builtins.listToAttrs (
-      [
-        alacritty
-        aws
-        aws-credentials
-        nix-cache
-        nix-conf
-        stack
-      ]
-      ++ autostart
-    );
+  home.file = awsConfig // nixConfig // stackConfig;
+
+  awsConfig = {
+    ".aws/config".text = ''
+      [profile freckle]
+      sso_start_url = ${env.AWS_SSO_URL}
+      sso_region = us-east-1
+      sso_account_id = ${env.AWS_ACCOUNT_ID_PROD}
+      sso_role_name = Freckle-Prod-Engineers
+      region = us-east-1
+
+      [profile freckle-dev]
+      sso_start_url = ${env.AWS_SSO_URL}
+      sso_region = us-east-1
+      sso_account_id = ${env.AWS_ACCOUNT_ID_DEV}
+      sso_role_name = Freckle-Dev-Engineers
+      region = us-east-1
+
+    '';
+    ".aws/credentials".text = "";
+  };
+
+  nixConfig = {
+    ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
+    ".config/nix/nix.conf".text = "access-tokens = github.com=${env.GITHUB_TOKEN}";
+  };
+
+  stackConfig = {
+    ".stack/config.yaml".text = ''
+      nix: { enable: false }
+      system-ghc: true
+      recommend-stack-upgrade: false
+      notify-if-nix-on-path: false
+      ghc-options:
+        "$everything": -fconstraint-solver-iterations=10 -O0 -fobject-code -j +RTS -A64m -n2m -RTS
+    '';
+  };
 }
