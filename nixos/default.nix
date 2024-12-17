@@ -93,21 +93,9 @@
 
   services.flatpak.enable = true;
 
-  services.ollama.enable = true;
-
-  # virtualisation.oci-containers = {
-  #   backend = "docker";
-
-  #   containers = {
-  #     open-webui = import ./open-webui.nix;
-  #   };
-  # };
-
   environment.systemPackages = with pkgs; [
     home-manager
     cachix
-    # open-webui
-    # oterm
   ];
 
   system.stateVersion = "24.05";
