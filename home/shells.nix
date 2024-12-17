@@ -89,10 +89,9 @@ let
 
     # Nix
     shell = "nix-shell -p";
-    dev = "pushd ~/home/shell; nix develop -c fish";
+    dev = "pushd ~/home/shells; nix develop -c fish";
     rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
     rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
-    nix-update = "nix flake update";
     nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
   };
 
