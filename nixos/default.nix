@@ -96,6 +96,13 @@
 
   services.flatpak.enable = true;
 
+  # networking.firewall.allowedTCPPorts = [ 3000 ];
+
+  # virtualisation.docker = {
+  #   enable = true;
+  #   package = pkgs.docker;
+  # };
+
   environment.systemPackages = with pkgs; [
     home-manager
     cachix

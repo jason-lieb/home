@@ -43,7 +43,6 @@
           modules = [
             ./nixos
             freckle.nixosModules.docker-for-local-dev
-            freckle.nixosModules.renaissance-vpn
             # nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
