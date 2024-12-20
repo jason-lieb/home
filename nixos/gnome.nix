@@ -107,6 +107,10 @@
             idle-delay = "uint32 900";
           };
 
+          "org/gnome/Console/audible-bell" = {
+            enabled = false;
+          };
+
           "org/gnome/shell" = {
             disable-user-extensions = false;
             enabled-extensions = [
