@@ -1,8 +1,4 @@
-{
-  pkgs,
-  pkgs-unstable,
-  ...
-}:
+{ pkgs, pkgs-unstable, ... }:
 
 let
   env = import ./env.nix;
@@ -46,9 +42,7 @@ in
       wl-clipboard
       zoxide
     ])
-    ++ (with pkgs-unstable; [
-      code-cursor
-    ]);
+    ++ (with pkgs-unstable; [ code-cursor ]);
 
   xdg.mimeApps = {
     enable = true;
@@ -85,7 +79,6 @@ in
       };
 
       nixConfig = {
-        ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
         ".config/nix/nix.conf".text = "access-tokens = github.com=${env.GITHUB_TOKEN}";
       };
 
