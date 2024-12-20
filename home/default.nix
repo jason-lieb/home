@@ -81,6 +81,7 @@ in
       };
 
       nixConfig = {
+        ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
         ".config/nix/nix.conf".text = "access-tokens = github.com=${env.GITHUB_TOKEN}";
       };
 
