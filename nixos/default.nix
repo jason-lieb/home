@@ -77,9 +77,12 @@
     pulse.enable = true;
   };
 
+  programs.fish.enable = true;
+
   users.users.jason = {
     isNormalUser = true;
     description = "Jason";
+    shell = pkgs.fish;
     extraGroups = [
       "networkmanager"
       "wheel"
