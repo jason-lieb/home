@@ -42,7 +42,9 @@ in
       wl-clipboard
       zoxide
     ])
-    ++ (with pkgs-unstable; [ code-cursor ]);
+    ++ (with pkgs-unstable; [
+      code-cursor
+    ]);
 
   xdg.mimeApps = {
     enable = true;
@@ -94,5 +96,4 @@ in
       };
     in
     awsConfig // nixConfig // stackConfig;
-
 }

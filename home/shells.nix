@@ -92,7 +92,7 @@ let
     dev = "pushd ~/home/shells; nix develop -c fish";
     rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
     rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
-    nix-clean = "sudo nix-collect-garbage --delete-older-than 3d && sudo /run/current-system/bin/switch-to-configuration boot";
+    nix-clean = "sudo nix-collect-garbage --delete-older-than 7d && sudo /run/current-system/bin/switch-to-configuration boot";
   };
 
   fishPrompt = ''
@@ -104,7 +104,7 @@ let
       set_color $fish_color_cwd
       echo -n (whoami)
 
-      # @debian
+      # @hostname
       set_color normal
       echo -n "@"(hostname)" "
 
