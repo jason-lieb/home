@@ -15,6 +15,9 @@ let
     "....." = "cd ../../../..";
     "......" = "cd ../../../../..";
 
+    # Shells
+    f = "fish";
+
     # Git Basics
     g = "git";
     ga = "git add";
