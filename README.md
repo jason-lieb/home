@@ -8,6 +8,12 @@ bash -c "$(curl -fsSl https://raw.githubusercontent.com/jason-lieb/home/main/set
 
 ## Nix Profiles Use
 
+### Install
 ```
 nix profile install ./profiles#backend
+```
+
+### Update
+```
+nix profile upgrade ./profiles#backend
 ```
