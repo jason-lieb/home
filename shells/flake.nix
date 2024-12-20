@@ -11,7 +11,6 @@
 
   outputs =
     {
-      self,
       flake-utils,
       nixpkgs,
       educator,
