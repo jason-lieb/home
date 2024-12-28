@@ -81,6 +81,15 @@ in
         ".aws/credentials".text = "";
       };
 
+      ghosttyConfig = {
+        ".config/ghostty/config".text = ''
+          theme = Bright Lights
+          font-feature = -calt
+          font-feature = -liga
+          font-feature = -dlig
+        '';
+      };
+
       nixConfig = {
         ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
       };
@@ -96,5 +105,5 @@ in
         '';
       };
     in
-    awsConfig // nixConfig // stackConfig;
+    awsConfig // ghosttyConfig // nixConfig // stackConfig;
 }
