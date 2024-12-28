@@ -17,3 +17,8 @@ nix profile install ./profiles#backend
 ```
 nix profile upgrade ./profiles#backend
 ```
+
+### Initialize cache example
+```
+nix build --no-link --print-out-paths github:ghostty-org/ghostty#default
+```

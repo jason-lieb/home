@@ -121,7 +121,7 @@
               "org.gnome.Nautilus.desktop"
               "brave-browser.desktop"
               "obsidian.desktop"
-              "Alacritty.desktop"
+              "ghostty.desktop"
               "code.desktop"
               "code-cursor.desktop"
               "org.gnome.Software.desktop"

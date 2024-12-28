@@ -14,6 +14,7 @@
     #   inputs.nixpkgs.follows = "nixpkgs-stable";
     # };
     freckle.url = "github:freckle/flakes?dir=main";
+    ghostty.url = "github:ghostty-org/ghostty";
   };
 
   outputs =
@@ -25,6 +26,7 @@
       # nixos-cosmic,
       home-manager,
       freckle,
+      ghostty,
     }:
     let
       system = "x86_64-linux";
@@ -38,7 +40,11 @@
         nixpkgs-stable.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit hostname;
+            inherit
+              self
+              hostname
+              ghostty
+              ;
           };
           modules = [
             ./nixos
@@ -70,9 +76,11 @@
 
       nixConfig = {
         extra-substituters = [
+          "https://ghostty.cachix.org"
           # "https://cosmic.cachix.org/"
         ];
         extra-trusted-public-keys = [
+          "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
           # "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
         ];
       };

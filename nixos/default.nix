@@ -1,4 +1,9 @@
-{ pkgs, hostname, ... }:
+{
+  pkgs,
+  hostname,
+  ghostty,
+  ...
+}:
 
 {
   imports = [
@@ -106,6 +111,7 @@
   environment.systemPackages = with pkgs; [
     home-manager
     cachix
+    ghostty.packages.${system}.default
   ];
 
   system.stateVersion = "24.05";
