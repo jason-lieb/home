@@ -92,7 +92,7 @@ let
 
     # Nix
     shell = "nix-shell -p";
-    dev = "pushd ~/home/shells; nix develop -c fish";
+    dev = "nix develop -c fish";
     rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
     rsp = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"} --profile-name";
     rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
