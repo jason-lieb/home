@@ -80,7 +80,7 @@ let
     sttj = "stack test --fast --file-watch --watch-all jobs";
     sttfj = "stack test --fast --file-watch --watch-all fancy-api jobs";
     sttjf = "stack test --fast --file-watch --watch-all fancy-api jobs";
-    # st-suite = "stack test --fast --file-watch --watch-all --ta '-m `'$argv[1]'`' fancy-api jobs;";
+    stack-clean = "find ~/.stack -mindepth 1 -not -name 'config.yaml' -exec rm -rf {} + 2>/dev/null";
     kill-backend = "sudo pkill -x fancy-api; sudo pkill -x jobs";
     up = "make update";
     down = "pushd ~/megarepo/backend; make services.stop; popd";
