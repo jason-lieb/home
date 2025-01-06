@@ -17,8 +17,8 @@ jobs:
       - uses: cachix/install-nix-action@v26
       - name: Update
         run: |
-          nix flake update --accept-flake-config
-          cd profiles && nix flake update --accept-flake-config
+          nix flake update
+          cd profiles && nix flake update
 
       - uses: peter-evans/create-pull-request@v6
         id: pr
