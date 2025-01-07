@@ -101,6 +101,12 @@
       "prettier.enable" = true;
       "prettier.singleQuote" = true;
       "security.workspace.trust.untrustedFiles" = "open";
+      "search.exclude" = {
+        "node_modules" = true;
+        "build" = true;
+        "dist" = true;
+        ".direnv" = true;
+      };
       "window.openFoldersInNewWindow" = "off";
       "workbench.colorTheme" = "Default Dark+";
       "workbench.iconTheme" = "material-icon-theme";
