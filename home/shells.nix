@@ -129,9 +129,11 @@ let
         echo -n " (docker)"
       end
 
-      # (nix: educator)
+      # (nix: flake-name)
       if test -n "$IN_NIX_SHELL"
-        if not set -q FLAKE_DIR
+        if test -n "$DIRENV_DIR"
+          set -gx FLAKE_DIR (basename (string sub -s 2 -- "$DIRENV_DIR"))
+        else if not set -q FLAKE_DIR
           set -gx FLAKE_DIR (basename (pwd))
         end
         echo -n " (nix: $FLAKE_DIR)"
