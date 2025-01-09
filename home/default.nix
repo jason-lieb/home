@@ -87,6 +87,10 @@ in
           font-feature = -calt
           font-feature = -liga
           font-feature = -dlig
+
+          keybind = ctrl+c=copy_to_clipboard
+          keybind = ctrl+shift+c=text:\x03
+          keybind = ctrl+v=paste_from_clipboard
         '';
       };
 

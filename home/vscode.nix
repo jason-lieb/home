@@ -161,6 +161,16 @@
         command = "-editor.action.copyLinesUpAction";
         when = "editorTextFocus && !editorReadonly";
       }
+      {
+        key = "ctrl+c";
+        command = "workbench.action.terminal.copySelection";
+        when = "terminalFocus && terminalTextSelected";
+      }
+      {
+        key = "ctrl+v";
+        command = "workbench.action.terminal.paste";
+        when = "terminalFocus";
+      }
     ];
   };
 }
