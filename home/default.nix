@@ -67,6 +67,7 @@ in
     extraConfig = {
       init.defaultBranch = "main";
       core.editor = "code --wait";
+      core.excludesFile = "~/.gitignore";
       fetch.prune = true;
       merge.ff = "only";
       #merge.tool = "nvimdiff";
@@ -118,7 +119,6 @@ in
       gitConfig = {
         ".gitignore".text = ''
           .direnv
-          .envrc
         '';
       };
 
