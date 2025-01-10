@@ -115,6 +115,13 @@ in
         '';
       };
 
+      gitConfig = {
+        ".gitignore".text = ''
+          .direnv
+          .envrc
+        '';
+      };
+
       nixConfig = {
         ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
         ".config/nix/nix.conf".text = "nar-buffer-size = 256M";
@@ -131,5 +138,5 @@ in
         '';
       };
     in
-    awsConfig // ghosttyConfig // nixConfig // stackConfig;
+    awsConfig // ghosttyConfig // gitConfig // nixConfig // stackConfig;
 }
