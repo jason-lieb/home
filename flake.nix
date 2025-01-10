@@ -53,7 +53,7 @@
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
-              home-manager.backupFileExtension = ".bak";
+              home-manager.backupFileExtension = "bak";
               home-manager.users.jason.imports = [ ./home ];
               home-manager.extraSpecialArgs = {
                 inherit
