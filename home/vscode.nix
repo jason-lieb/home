@@ -93,11 +93,6 @@
       "liveServer.settings.donotShowInfoMsg" = true;
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
-      "nixpkgs.expr" = "import (builtins.getFlake \"/home/jason/home\").inputs.nixpkgs { }";
-      "options" = {
-        "nixos.expr" = "builtins.getFlake \"/home/jason/home\".nixosConfigurations.desktop.options";
-        "home_manager.expr" = "builtins.getFlake \"/home/jason/home\".homeConfigurations.default.options";
-      };
       "prettier.enable" = true;
       "prettier.singleQuote" = true;
       "security.workspace.trust.untrustedFiles" = "open";
@@ -110,7 +105,6 @@
       "window.openFoldersInNewWindow" = "off";
       "workbench.colorTheme" = "Default Dark+";
       "workbench.iconTheme" = "material-icon-theme";
-      "workbench.startupEditor" = "none";
       "workbench.panel.defaultLocation" = "right";
       "git.openRepositoryInParentFolders" = "never";
       "diffEditor.ignoreTrimWhitespace" = false;
