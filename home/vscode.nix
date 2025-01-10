@@ -101,6 +101,7 @@
         "build" = true;
         "dist" = true;
         ".direnv" = true;
+        "tsconfig.tsbuildinfo" = true;
       };
       "window.openFoldersInNewWindow" = "off";
       "workbench.colorTheme" = "Default Dark+";
