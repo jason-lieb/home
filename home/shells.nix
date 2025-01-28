@@ -38,7 +38,7 @@ let
     main = "git checkout main";
     pull = "git pull origin";
     push = "git push origin";
-    fpush = "git push origin --force";
+    fpush = "git push origin --force-with-lease";
 
     # Git Stash
     gs = "git stash push";
