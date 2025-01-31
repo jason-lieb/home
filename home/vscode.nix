@@ -97,11 +97,11 @@
       "prettier.singleQuote" = true;
       "security.workspace.trust.untrustedFiles" = "open";
       "search.exclude" = {
-        "node_modules" = true;
-        "build" = true;
-        "dist" = true;
-        ".direnv" = true;
-        "tsconfig.tsbuildinfo" = true;
+        "**/node_modules" = true;
+        "**/build" = true;
+        "**/dist" = true;
+        "**/.direnv" = true;
+        "**/*.tsbuildinfo" = true;
       };
       "window.openFoldersInNewWindow" = "off";
       "workbench.colorTheme" = "Default Dark+";
