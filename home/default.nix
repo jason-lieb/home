@@ -124,7 +124,7 @@ in
 
       nixConfig = {
         ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
-        ".config/nix/nix.conf".text = "nar-buffer-size = 256M";
+        ".config/nix/nix.conf".text = "nar-buffer-size = 512M";
       };
 
       stackConfig = {
