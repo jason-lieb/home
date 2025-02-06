@@ -26,6 +26,7 @@ in
   home.packages =
     (with pkgs; [
       brave
+      google-chrome
       gh
       htop
       just
