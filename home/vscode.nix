@@ -12,8 +12,9 @@
     mutableExtensionsDir = false;
     package = pkgs-unstable.vscode;
 
-    extensions =
-      (with vscode-extensions.vscode-marketplace; [
+    extensions = (
+      with vscode-extensions.vscode-marketplace;
+      [
         # asvetliakov.vscode-neovim
         esbenp.prettier-vscode
         golang.go
@@ -30,11 +31,12 @@
         tomrijndorp.find-it-faster
         # vscodevim.vim
         yoavbls.pretty-ts-errors
-      ])
-      ++ (with vscode-extensions.vscode-marketplace-release; [
-        github.copilot
-        github.copilot-chat
-      ]);
+      ]
+    );
+    # ++ (with vscode-extensions.vscode-marketplace-release; [
+    # github.copilot
+    # github.copilot-chat
+    # ]);
 
     userSettings = {
       "diffEditor.maxComputationTime" = 0;
