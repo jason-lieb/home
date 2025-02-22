@@ -7,6 +7,7 @@ let
     la = "ls -A";
     ll = "ls -l";
     lr = "ls -R"; # recursive ls
+    cat = "bat";
 
     # Navigation
     ".." = "cd ..";
