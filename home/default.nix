@@ -76,6 +76,7 @@ in
       pull.ff = "only";
       pull.autostash = true;
       push.default = "current";
+      push.autoSetupRemote = true;
       rebase.autoSquash = true;
       rebase.autoStash = true;
       rebase.stat = true;
