@@ -48,7 +48,6 @@
           };
           modules = [
             ./nixos
-            freckle.nixosModules.docker-for-local-dev
             # nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
