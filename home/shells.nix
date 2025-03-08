@@ -87,6 +87,7 @@ let
     down = "pushd ~/megarepo/backend; make services.stop; popd";
     msr = "make services.restart";
     ze = "zellij";
+    p = "pnpm";
     home = "cd ~/home";
     mega = "code ~/megarepo";
     format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
