@@ -23,7 +23,7 @@
         jnoortheen.nix-ide
         justusadam.language-haskell
         mechatroner.rainbow-csv
-        mhutchie.git-graph
+        # mhutchie.git-graph
         oderwat.indent-rainbow
         pkief.material-icon-theme
         ritwickdey.liveserver
