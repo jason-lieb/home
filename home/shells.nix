@@ -83,7 +83,9 @@ let
     sttjf = "stack test --fast --file-watch --watch-all fancy-api jobs";
     stack-clean = "find ~/.stack -mindepth 1 -not -name 'config.yaml' -exec rm -rf {} + 2>/dev/null";
     kill-backend = "sudo pkill -x fancy-api; sudo pkill -x jobs";
-    up = "make update";
+    up = "make services.restart";
+    upd = "make update";
+    w = "yarn watch";
     down = "pushd ~/megarepo/backend; make services.stop; popd";
     msr = "make services.restart";
     ze = "zellij";
