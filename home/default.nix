@@ -140,6 +140,28 @@ in
             "$everything": -fconstraint-solver-iterations=10 -O0 -fobject-code -j +RTS -A64m -n2m -RTS
         '';
       };
+
+      snippets = ''
+        {
+          "console.log": {
+            "prefix": "cl",
+            "body": "console.log($1);$0",
+            "description": "Console log"
+          }
+        }
+      '';
+
+      vscodeSnippets = {
+        ".config/Cursor/User/snippets/typescript.json".text = snippets;
+        ".config/Cursor/User/snippets/typescriptreact.json".text = snippets;
+        ".config/Cursor/User/snippets/javascript.json".text = snippets;
+        ".config/Cursor/User/snippets/javascriptreact.json".text = snippets;
+
+        ".config/Code/User/snippets/typescript.json".text = snippets;
+        ".config/Code/User/snippets/typescriptreact.json".text = snippets;
+        ".config/Code/User/snippets/javascript.json".text = snippets;
+        ".config/Code/User/snippets/javascriptreact.json".text = snippets;
+      };
     in
-    awsConfig // ghosttyConfig // gitConfig // nixConfig // stackConfig;
+    awsConfig // ghosttyConfig // gitConfig // nixConfig // stackConfig // vscodeSnippets;
 }
