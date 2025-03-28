@@ -69,6 +69,7 @@ let
     run-dev = "git commit --allow-empty -m '[dev]'";
 
     # Misc
+    code = "cursor";
     enter-db = ''docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
     docker-clean = "docker system prune -a";
     stb = "stack test --no-run-tests --fast --file-watch --watch-all";
