@@ -145,7 +145,7 @@ in
         {
           "console.log": {
             "prefix": "cl",
-            "body": "console.log($1);$0",
+            "body": "console.log($1)$0",
             "description": "Console log"
           }
         }
