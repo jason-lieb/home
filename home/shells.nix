@@ -91,6 +91,7 @@ let
     msr = "make services.restart";
     ze = "zellij";
     p = "pnpm";
+    y = "yarn";
     home = "cd ~/home";
     mega = "code ~/megarepo";
     format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
