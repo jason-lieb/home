@@ -168,6 +168,10 @@
         command = "workbench.action.terminal.paste";
         when = "terminalFocus";
       }
+      {
+        key = "ctrl+i";
+        command = "composerMode.agent";
+      }
     ];
   };
 }
