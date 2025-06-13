@@ -27,6 +27,7 @@ in
     (with pkgs; [
       bat
       brave
+      firefox
       google-chrome
       gh
       htop
