@@ -7,7 +7,7 @@ in
   home = {
     username = "jason";
     homeDirectory = "/home/jason";
-    stateVersion = "24.05";
+    stateVersion = "25.05";
   };
 
   home.sessionVariables.EDITOR = "code";

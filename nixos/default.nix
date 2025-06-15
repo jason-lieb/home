@@ -47,7 +47,7 @@
     };
   };
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -103,5 +103,5 @@
     ghostty.packages.${system}.default
   ];
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }
