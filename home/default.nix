@@ -27,6 +27,7 @@ in
     (with pkgs; [
       bat
       brave
+      claude-code
       firefox
       google-chrome
       gh
