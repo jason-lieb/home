@@ -101,7 +101,6 @@
         "security.workspace.trust.untrustedFiles" = "open";
         "search.exclude" = {
           "**/node_modules" = true;
-          "**/build" = true;
           "**/dist" = true;
           "**/.direnv" = true;
           "**/*.tsbuildinfo" = true;
