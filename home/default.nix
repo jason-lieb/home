@@ -83,6 +83,7 @@ in
       rebase.autoStash = true;
       rebase.stat = true;
       rerere.enabled = true;
+      advice.skippedCherryPicks = false;
     };
   };
 
