@@ -101,7 +101,16 @@
     home-manager
     cachix
     ghostty.packages.${system}.default
+    nodejs
   ];
+
+  environment.sessionVariables = {
+    NPM_CONFIG_PREFIX = "/home/jason/.npm-packages";
+  };
+
+  environment.shellInit = ''
+    export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
+  '';
 
   system.stateVersion = "25.05";
 }
