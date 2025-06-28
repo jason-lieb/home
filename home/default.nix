@@ -130,7 +130,11 @@ in
 
       nixConfig = {
         ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
-        ".config/nix/nix.conf".text = "download-buffer-size = 512M";
+        ".config/nix/nix.conf".text = "download-buffer-size = 1024M";
+      };
+
+      npmConfig = {
+        ".npmrc".text = "prefix=/home/jason/.npm-packages";
       };
 
       stackConfig = {
@@ -166,5 +170,5 @@ in
         ".config/Code/User/snippets/javascriptreact.json".text = snippets;
       };
     in
-    awsConfig // ghosttyConfig // gitConfig // nixConfig // stackConfig // vscodeSnippets;
+    awsConfig // ghosttyConfig // gitConfig // nixConfig // npmConfig // stackConfig // vscodeSnippets;
 }
