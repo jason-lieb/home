@@ -77,6 +77,9 @@
 
   networking.firewall.allowedTCPPorts = [
     3000
+    8081
+    19000
+    19001
   ];
 
   networking.extraHosts = ''
