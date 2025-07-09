@@ -34,6 +34,7 @@ in
       htop
       just
       jq
+      github-desktop
       gnumake
       gparted
       lf
@@ -130,7 +131,7 @@ in
 
       nixConfig = {
         ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
-        ".config/nix/nix.conf".text = "download-buffer-size = 1024M";
+        ".config/nix/nix.conf".text = "download-buffer-size = 2048M";
       };
 
       npmConfig = {
