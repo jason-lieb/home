@@ -37,7 +37,7 @@ let
     gl = "git log --oneline --ancestry-path origin/main^..HEAD";
     gcp = "git cherry-pick";
     main = "git checkout main";
-    pull = "git pull origin";
+    pull = "git pull --rebase origin";
     push = "git push origin";
     fpush = "git push origin --force-with-lease";
 
