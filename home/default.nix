@@ -96,14 +96,14 @@ in
           sso_start_url = ${env.AWS_SSO_URL}
           sso_region = us-east-1
           sso_account_id = ${env.AWS_ACCOUNT_ID_PROD}
-          sso_role_name = Freckle-Prod-Engineers
+          sso_role_name = ${env.AWS_SSO_ROLE_NAME_PROD}
           region = us-east-1
 
           [profile freckle-dev]
           sso_start_url = ${env.AWS_SSO_URL}
           sso_region = us-east-1
           sso_account_id = ${env.AWS_ACCOUNT_ID_DEV}
-          sso_role_name = Freckle-Dev-Engineers
+          sso_role_name = ${env.AWS_SSO_ROLE_NAME_DEV}
           region = us-east-1
 
         '';
