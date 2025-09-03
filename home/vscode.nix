@@ -17,6 +17,7 @@
         with vscode-extensions.vscode-marketplace;
         [
           # asvetliakov.vscode-neovim
+          # effectful-tech.effect-vscode
           esbenp.prettier-vscode
           golang.go
           haskell.haskell
