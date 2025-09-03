@@ -25,27 +25,36 @@ in
 
   home.packages =
     (with pkgs; [
+      # Nix
+      nixd
+      nixfmt-rfc-style
+
+      # Utilities
       bat
-      brave
-      claude-code
-      firefox
-      google-chrome
       gh
+      gnumake
+      gparted
       htop
       just
       jq
-      github-desktop
-      gnumake
-      gparted
       lf
       lsof
       neofetch
-      nixd
-      nixfmt-rfc-style
-      obsidian
+      tokei
       wget
       wl-clipboard
       zoxide
+
+      # Browsers
+      brave
+      firefox
+      google-chrome
+      microsoft-edge
+
+      # Programs
+      claude-code
+      github-desktop
+      obsidian
     ])
     ++ (with pkgs-unstable; [
       code-cursor
