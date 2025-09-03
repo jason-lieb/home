@@ -11,6 +11,15 @@
     ./gnome.nix
   ];
 
+  # programs.hyprland.enable = true;
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  #   config = {
+  #     common.default = "*";
+  #   };
+  # };
+
   nix = {
     settings.trusted-users = [ "@wheel" ];
     package = pkgs.nixVersions.stable;

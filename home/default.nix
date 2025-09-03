@@ -10,6 +10,12 @@ in
     stateVersion = "25.05";
   };
 
+  # programs.kitty.enable = true;
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   settings = { };
+  # };
+
   home.sessionVariables.EDITOR = "code";
 
   programs.direnv = {
