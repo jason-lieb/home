@@ -31,6 +31,7 @@ in
 
       # Utilities
       bat
+      ffmpeg
       gh
       gnumake
       gparted
