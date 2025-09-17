@@ -85,7 +85,10 @@
 
   networking.firewall.allowedTCPPorts = [
     3000
+    5432
+    5434
     8081
+    9094
     19000
     19001
   ];
