@@ -49,7 +49,7 @@ in
       brave
       firefox
       google-chrome
-      microsoft-edge
+      vivaldi
 
       # Programs
       claude-code
