@@ -40,6 +40,7 @@ let
     pull = "git pull --rebase origin";
     push = "git push origin";
     fpush = "git push origin --force-with-lease";
+    fetch = "git fetch origin";
 
     # Git Stash
     gs = "git stash push";
