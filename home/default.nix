@@ -68,6 +68,8 @@ in
       "application/pdf" = "org.gnome.Evince.desktop";
       "text/html" = "vivaldi-stable.desktop";
       "video/mp4" = "vivaldi-stable.desktop";
+      "x-scheme-handler/http" = "vivaldi-stable.desktop";
+      "x-scheme-handler/https" = "vivaldi-stable.desktop";
       "image/jpeg" = "org.gnome.Loupe.desktop"; # Loupe = Image Viewer
       "image/png" = "org.gnome.Loupe.desktop";
     };
