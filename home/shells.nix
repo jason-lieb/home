@@ -43,8 +43,8 @@ let
     fetch = "git fetch origin";
 
     # Git Stash
-    gs = "git stash push";
-    gsm = "git stash push -m";
+    gs = "git stash push -u";
+    gsm = "git stash push -u -m";
     gsd = "git stash drop";
     gsl = "git stash list";
     gsp = "git stash pop";
