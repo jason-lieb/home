@@ -21,7 +21,6 @@
           esbenp.prettier-vscode
           golang.go
           haskell.haskell
-          jkillian.custom-local-formatters
           jnoortheen.nix-ide
           justusadam.language-haskell
           mechatroner.rainbow-csv
@@ -30,10 +29,12 @@
           pkief.material-icon-theme
           ritwickdey.liveserver
           stylelint.vscode-stylelint
-          tomrijndorp.find-it-faster
           # vscodevim.vim
           yoavbls.pretty-ts-errors
         ]
+        ++ (with pkgs.vscode-extensions; [
+          jkillian.custom-local-formatters
+        ])
       );
       # ++ (with vscode-extensions.vscode-marketplace-release; [
       # github.copilot
