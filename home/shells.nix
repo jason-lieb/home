@@ -173,9 +173,13 @@ let
     eval "$(zoxide init bash)"
 
     shopt -s checkwinsize   # Update LINES and COLUMNS after each command
-    bind "set enable-bracketed-paste on"  # Better paste handling
-    bind "set horizontal-scroll-mode off" # Wrap lines instead of scrolling
-    bind "set show-all-if-ambiguous on"  # Better completion
+
+    # Only set bind options in interactive mode
+    if [[ $- == *i* ]]; then
+      bind "set enable-bracketed-paste on"  # Better paste handling
+      bind "set horizontal-scroll-mode off" # Wrap lines instead of scrolling
+      bind "set show-all-if-ambiguous on"  # Better completion
+    fi
 
     PS1_DIR='\[\033[1;34m\]'    # blue directory
     PS1_GIT='\[\033[0;36m\]'    # cyan git
