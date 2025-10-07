@@ -122,6 +122,26 @@ in
         ".aws/credentials".text = "";
       };
 
+      claudeConfig = {
+        ".claude/settings.json".text = ''
+          {
+            "awsAuthRefresh": "aws sso login --profile freckle-dev",
+            "env": {
+              "CLAUDE_CODE_USE_BEDROCK": "1",
+              "AWS_REGION": "us-east-1",
+              "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "64000",
+              "MAX_THINKING_TOKENS": "4096",
+              "ANTHROPIC_MODEL": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+              "ANTHROPIC_DEFAULT_HAIKU_MODEL": "us.anthropic.claude-3-5-haiku-20241022-v1:0",
+              "ANTHROPIC_DEFAULT_SONNET_MODEL": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+              "AWS_PROFILE": "freckle-dev"
+            },
+            "model": "us.anthropic.claude-sonnet-4-20250514-v1:0",
+            "alwaysThinkingEnabled": false
+          }
+        '';
+      };
+
       ghosttyConfig = {
         ".config/ghostty/config".text = ''
           theme = Bright Lights
@@ -183,5 +203,12 @@ in
         ".config/Code/User/snippets/javascriptreact.json".text = snippets;
       };
     in
-    awsConfig // ghosttyConfig // gitConfig // nixConfig // npmConfig // stackConfig // vscodeSnippets;
+    awsConfig
+    // claudeConfig
+    // ghosttyConfig
+    // gitConfig
+    // nixConfig
+    // npmConfig
+    // stackConfig
+    // vscodeSnippets;
 }
