@@ -100,6 +100,21 @@ in
     };
   };
 
+  # Sync Cursor settings with VSCode settings using a simple activation script
+  home.activation.syncCursorSettings = ''
+    # Ensure Cursor User directory exists
+    mkdir -p ~/.config/Cursor/User
+    
+    # Create symlinks for settings and keybindings if VSCode config exists
+    if [ -f ~/.config/Code/User/settings.json ] && [ ! -e ~/.config/Cursor/User/settings.json ]; then
+      ln -sf ~/.config/Code/User/settings.json ~/.config/Cursor/User/settings.json
+    fi
+    
+    if [ -f ~/.config/Code/User/keybindings.json ] && [ ! -e ~/.config/Cursor/User/keybindings.json ]; then
+      ln -sf ~/.config/Code/User/keybindings.json ~/.config/Cursor/User/keybindings.json
+    fi
+  '';
+
   home.file =
     let
       awsConfig = {
