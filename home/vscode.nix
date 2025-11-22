@@ -21,6 +21,7 @@
           esbenp.prettier-vscode
           golang.go
           haskell.haskell
+          hashicorp.hcl
           hashicorp.terraform
           jnoortheen.nix-ide
           justusadam.language-haskell
@@ -56,6 +57,10 @@
           "editor.defaultFormatter" = "jkillian.custom-local-formatters";
           "prettier.enable" = false;
         };
+        "[hcl]" = {
+          "editor.defaultFormatter" = "jkillian.custom-local-formatters";
+          "prettier.enable" = false;
+        };
         "editor.formatOnPaste" = true;
         "editor.formatOnSave" = true;
         "[markdown]" = {
@@ -84,14 +89,17 @@
           }
           {
             command = "terraform fmt -";
-            languages = [ "terraform" ];
+            languages = [
+              "terraform"
+              "hcl"
+            ];
           }
         ];
         "files.associations" = {
           "*.tf" = "terraform";
-          "*.tfvars" = "terraform";
-          "*.tfvars.*" = "terraform";
-          "*.hcl" = "terraform";
+          "*.tfvars" = "hcl";
+          "*.tfvars.*" = "hcl";
+          "*.hcl" = "hcl";
         };
         "files.insertFinalNewline" = true;
         "files.trimTrailingWhitespace" = true;
