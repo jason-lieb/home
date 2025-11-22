@@ -21,6 +21,7 @@
           esbenp.prettier-vscode
           golang.go
           haskell.haskell
+          hashicorp.terraform
           jnoortheen.nix-ide
           justusadam.language-haskell
           mechatroner.rainbow-csv
@@ -51,6 +52,10 @@
         "[nix]" = {
           "editor.defaultFormatter" = "jkillian.custom-local-formatters";
         };
+        "[terraform]" = {
+          "editor.defaultFormatter" = "jkillian.custom-local-formatters";
+          "prettier.enable" = false;
+        };
         "editor.formatOnPaste" = true;
         "editor.formatOnSave" = true;
         "[markdown]" = {
@@ -77,7 +82,17 @@
             command = "nixfmt";
             languages = [ "nix" ];
           }
+          {
+            command = "terraform fmt -";
+            languages = [ "terraform" ];
+          }
         ];
+        "files.associations" = {
+          "*.tf" = "terraform";
+          "*.tfvars" = "terraform";
+          "*.tfvars.*" = "terraform";
+          "*.hcl" = "terraform";
+        };
         "files.insertFinalNewline" = true;
         "files.trimTrailingWhitespace" = true;
         "go.alternateTools" = {
