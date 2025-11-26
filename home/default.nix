@@ -104,12 +104,12 @@ in
   home.activation.syncCursorSettings = ''
     # Ensure Cursor User directory exists
     mkdir -p ~/.config/Cursor/User
-    
+
     # Create symlinks for settings and keybindings if VSCode config exists
     if [ -f ~/.config/Code/User/settings.json ] && [ ! -e ~/.config/Cursor/User/settings.json ]; then
       ln -sf ~/.config/Code/User/settings.json ~/.config/Cursor/User/settings.json
     fi
-    
+
     if [ -f ~/.config/Code/User/keybindings.json ] && [ ! -e ~/.config/Cursor/User/keybindings.json ]; then
       ln -sf ~/.config/Code/User/keybindings.json ~/.config/Cursor/User/keybindings.json
     fi
@@ -133,6 +133,26 @@ in
           sso_role_name = ${env.AWS_SSO_ROLE_NAME_DEV}
           region = us-east-1
 
+          [profile student-journey-dev-01]
+          sso_start_url = ${env.ILLUMINATE_AWS_SSO_URL}
+          sso_region = us-west-2
+          sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_DEV}
+          sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
+          region = us-west-2
+
+          [profile student-journey-prod-01]
+          sso_start_url = ${env.ILLUMINATE_AWS_SSO_URL}
+          sso_region = us-west-2
+          sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_PROD}
+          sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
+          region = us-west-2
+
+          [profile student-journey-stage-01]
+          sso_start_url = ${env.ILLUMINATE_AWS_SSO_URL}
+          sso_region = us-west-2
+          sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_STAGE}
+          sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
+          region = us-west-2
         '';
         ".aws/credentials".text = "";
       };
