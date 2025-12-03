@@ -193,6 +193,7 @@ in
 
   home.packages = with pkgs.kdePackages; [
     bluedevil # Bluetooth manager
+    bluez-qt # Bluetooth QML bindings
     filelight # Disk usage analyzer
     kcalc
     kcolorchooser # Color picker
