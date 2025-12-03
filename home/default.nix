@@ -32,6 +32,7 @@ in
 
       # Utilities
       bat
+      eyedropper
       ffmpeg
       gh
       gnumake

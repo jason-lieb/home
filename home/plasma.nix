@@ -83,9 +83,15 @@ in
     configFile = {
       "dolphinrc"."General"."ShowHiddenFiles" = true;
 
+      # Disable splash screen
       "ksplashrc"."KSplash"."Engine" = "none";
       "ksplashrc"."KSplash"."Theme" = "none";
 
+      # Disable login/logout sounds
+      "plasma_workspace.notifyrc"."Event/startkde"."Action" = "";
+      "plasma_workspace.notifyrc"."Event/exitkde"."Action" = "";
+
+      # Fix vivaldi session restoration
       "ksmserverrc"."General"."loginMode" = "emptySession";
       "ksmserverrc"."General"."excludeApps" = "vivaldi";
 
@@ -103,11 +109,6 @@ in
       # NEEDED?
       # KDE Connect for mobile integration (optional but useful)
       "kdeconnect"."General"."Enabled" = true;
-
-      # KRUNNER MIGHT NEED
-      # Set Ghostty as default terminal
-      # "kdeglobals"."General"."TerminalApplication" = "ghostty --gtk-single-instance=true";
-      # "kdeglobals"."General"."TerminalService" = "com.mitchellh.ghostty.desktop";
     };
 
     input = {
