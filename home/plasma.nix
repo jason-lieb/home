@@ -183,6 +183,12 @@ in
     kcalc
     kcolorchooser # Color picker
     krdc # Remote desktop client
+    ksshaskpass # SSH passphrase dialog for KDE Wallet
     plasma-browser-integration # WHY ISN'T THIS WORKING
   ];
+
+  home.sessionVariables = {
+    SSH_ASKPASS = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+    SSH_ASKPASS_REQUIRE = "prefer";
+  };
 }
