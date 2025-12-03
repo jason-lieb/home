@@ -21,6 +21,7 @@ in
   imports = [
     ./shells.nix
     ./vscode.nix
+    ./plasma.nix
   ];
 
   home.packages =

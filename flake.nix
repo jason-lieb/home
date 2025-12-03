@@ -9,6 +9,11 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.home-manager.follows = "home-manager";
+    };
     # nixos-cosmic = {
     #   url = "github:lilyinstarlight/nixos-cosmic";
     #   inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -25,6 +30,7 @@
       nix-vscode-extensions,
       # nixos-cosmic,
       home-manager,
+      plasma-manager,
       freckle,
       ghostty,
     }:
@@ -53,10 +59,14 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.backupFileExtension = "bak";
-              home-manager.users.jason.imports = [ ./home ];
+              home-manager.users.jason.imports = [
+                ./home
+                plasma-manager.homeModules.plasma-manager
+              ];
               home-manager.extraSpecialArgs = {
                 inherit
                   system
+                  hostname
                   pkgs-unstable
                   vscode-extensions
                   freckle

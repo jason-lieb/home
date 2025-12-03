@@ -8,7 +8,7 @@
 {
   imports = [
     ./${hostname}
-    ./gnome.nix
+    ./plasma.nix
   ];
 
   nix = {
@@ -84,6 +84,11 @@
   nixpkgs.config.allowUnfree = true;
 
   services.flatpak.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+    config.common.default = [ "kde" ];
+  };
 
   networking.firewall.allowedTCPPorts = [
     3000
