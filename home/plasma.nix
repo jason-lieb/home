@@ -192,6 +192,7 @@ in
   };
 
   home.packages = with pkgs.kdePackages; [
+    bluedevil # Bluetooth manager
     filelight # Disk usage analyzer
     kcalc
     kcolorchooser # Color picker
