@@ -186,4 +186,12 @@ in
     SSH_ASKPASS = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
     SSH_ASKPASS_REQUIRE = "prefer";
   };
+
+  home.file.".config/vivaldi/NativeMessagingHosts/org.kde.plasma.browser_integration.json".text = builtins.toJSON {
+    name = "org.kde.plasma.browser_integration";
+    description = "Native connector for KDE Plasma Browser Integration";
+    path = "${pkgs.kdePackages.plasma-browser-integration}/bin/plasma-browser-integration-host";
+    type = "stdio";
+    allowed_origins = [ "chrome-extension://cimiefiiaegbelhefglklhhakcgmhkai/" ];
+  };
 }
