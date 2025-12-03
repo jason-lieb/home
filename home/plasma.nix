@@ -87,13 +87,11 @@ in
       "ksplashrc"."KSplash"."Engine" = "none";
       "ksplashrc"."KSplash"."Theme" = "none";
 
-      # Disable login/logout sounds
-      "plasma_workspace.notifyrc"."Event/startkde"."Action" = "";
-      "plasma_workspace.notifyrc"."Event/exitkde"."Action" = "";
-
       # Fix vivaldi session restoration
       "ksmserverrc"."General"."loginMode" = "emptySession";
       "ksmserverrc"."General"."excludeApps" = "vivaldi";
+
+      "kdeconnect"."General"."Enabled" = true;
 
       "kdeglobals"."KDE"."AnimationDurationFactor" = 0;
       "kdeglobals"."General"."BellVisible" = false;
@@ -105,10 +103,6 @@ in
         MorningBeginFixed = 700;
         NightTemperature = 2800;
       };
-
-      # NEEDED?
-      # KDE Connect for mobile integration (optional but useful)
-      "kdeconnect"."General"."Enabled" = true;
     };
 
     input = {
