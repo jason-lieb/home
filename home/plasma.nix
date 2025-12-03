@@ -179,7 +179,7 @@ in
     kcolorchooser # Color picker
     krdc # Remote desktop client
     ksshaskpass # SSH passphrase dialog for KDE Wallet
-    plasma-browser-integration # WHY ISN'T THIS WORKING
+    plasma-browser-integration
   ];
 
   home.sessionVariables = {
@@ -187,11 +187,13 @@ in
     SSH_ASKPASS_REQUIRE = "prefer";
   };
 
-  home.file.".config/vivaldi/NativeMessagingHosts/org.kde.plasma.browser_integration.json".text = builtins.toJSON {
-    name = "org.kde.plasma.browser_integration";
-    description = "Native connector for KDE Plasma Browser Integration";
-    path = "${pkgs.kdePackages.plasma-browser-integration}/bin/plasma-browser-integration-host";
-    type = "stdio";
-    allowed_origins = [ "chrome-extension://cimiefiiaegbelhefglklhhakcgmhkai/" ];
-  };
+  home.file.".config/vivaldi/NativeMessagingHosts/org.kde.plasma.browser_integration.json".text =
+    builtins.toJSON
+      {
+        name = "org.kde.plasma.browser_integration";
+        description = "Native connector for KDE Plasma Browser Integration";
+        path = "${pkgs.kdePackages.plasma-browser-integration}/bin/plasma-browser-integration-host";
+        type = "stdio";
+        allowed_origins = [ "chrome-extension://cimiefiiaegbelhefglklhhakcgmhkai/" ];
+      };
 }
