@@ -73,6 +73,8 @@
 
   programs.nix-ld.enable = true;
 
+  programs.ssh.startAgent = true;
+
   users.users.jason = {
     isNormalUser = true;
     description = "Jason";
