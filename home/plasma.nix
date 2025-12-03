@@ -47,6 +47,7 @@ in
     panels = [
       {
         location = "bottom";
+        screen = 0;
         floating = true;
         lengthMode = "fit";
         hiding = "autohide";
@@ -74,6 +75,7 @@ in
       }
       {
         location = "top";
+        screen = 0;
         floating = false;
         lengthMode = "fit";
         hiding = "autohide";
@@ -89,6 +91,8 @@ in
 
       "ksplashrc"."KSplash"."Engine" = "none";
       "ksplashrc"."KSplash"."Theme" = "none";
+
+      "ksmserverrc"."General"."loginMode" = "emptySession";
 
       "kdeglobals"."KDE"."AnimationDurationFactor" = 0;
       "kdeglobals"."General"."BellVisible" = false;
@@ -109,24 +113,10 @@ in
       # Set Ghostty as default terminal
       # "kdeglobals"."General"."TerminalApplication" = "ghostty --gtk-single-instance=true";
       # "kdeglobals"."General"."TerminalService" = "com.mitchellh.ghostty.desktop";
-
-      # CHECK ON DESKTOP
-      # Multi-monitor workspace behavior (matching workspaces-only-on-primary)
-      # "kwinrc"."Windows"."SeparateScreenFocus" = false;
-      # "kwinrc"."Plugins"."separate-screen-focus" = false;
-      # "kwinrc"."Plugins"."fadedesktopEnabled" = false;
-      # "kwinrc"."Plugins"."slideEnabled" = true;
-
-      # CHECK ON DESKTOP
-      # Click to focus (matching your GNOME focus-mode)
-      # "kwinrc"."Windows"."FocusPolicy" = "ClickToFocus";
-      # "kwinrc"."Windows"."AutoRaise" = false;
     };
 
     input = {
-      # CHECK IF THIS IS NEEDED
-      # keyboard.numlockOnStartup = "on";
-
+      keyboard.numlockOnStartup = "on";
       touchpads =
         if isLaptop then
           [

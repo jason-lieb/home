@@ -38,6 +38,11 @@
 
   networking.networkmanager.enable = true;
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
   time.timeZone = "America/New_York";
 
   i18n = {
