@@ -28,7 +28,11 @@ in
 
     kscreenlocker.autoLock = false;
 
+    krunner.position = "center";
+
     shortcuts = {
+      "org.kde.krunner.desktop"._launch = "Meta";
+
       kwin = {
         "Window Quick Tile Left" = "Meta+Left";
         "Window Quick Tile Right" = "Meta+Right";
@@ -52,16 +56,6 @@ in
         lengthMode = "fit";
         hiding = "autohide";
         widgets = [
-          {
-            kicker = {
-              icon = "nix-snowflake-white";
-              search.expandSearchResults = false;
-              categories.show = {
-                recentApplications = false;
-                recentFiles = false;
-              };
-            };
-          }
           {
             iconTasks.launchers = [
               "applications:org.kde.dolphin.desktop"
@@ -93,6 +87,7 @@ in
       "ksplashrc"."KSplash"."Theme" = "none";
 
       "ksmserverrc"."General"."loginMode" = "emptySession";
+      "ksmserverrc"."General"."excludeApps" = "vivaldi";
 
       "kdeglobals"."KDE"."AnimationDurationFactor" = 0;
       "kdeglobals"."General"."BellVisible" = false;
@@ -190,33 +185,4 @@ in
     krdc # Remote desktop client
     plasma-browser-integration # WHY ISN'T THIS WORKING
   ];
-
-  # Fix Cursor taskbar grouping: upstream desktop file has StartupWMClass=cursor (lowercase)
-  # but the actual window class is "Cursor" (uppercase). KDE uses case-sensitive matching.
-  xdg.desktopEntries.cursor = {
-    name = "Cursor";
-    comment = "Code Editing. Redefined.";
-    exec = "cursor %F";
-    icon = "cursor";
-    terminal = false;
-    type = "Application";
-    categories = [
-      "Utility"
-      "TextEditor"
-      "Development"
-      "IDE"
-    ];
-    startupNotify = true;
-    settings = {
-      StartupWMClass = "Cursor";
-      Keywords = "vscode";
-    };
-    actions = {
-      new-empty-window = {
-        name = "New Empty Window";
-        exec = "cursor --new-window %F";
-        icon = "cursor";
-      };
-    };
-  };
 }
