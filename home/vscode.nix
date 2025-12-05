@@ -19,6 +19,8 @@
           # asvetliakov.vscode-neovim
           # effectful-tech.effect-vscode
           esbenp.prettier-vscode
+          github.vscode-github-actions
+          github.vscode-pull-request-github
           golang.go
           haskell.haskell
           hashicorp.hcl

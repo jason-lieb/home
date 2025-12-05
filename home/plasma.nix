@@ -2,6 +2,24 @@
 
 let
   isLaptop = hostname == "laptop";
+
+  maximize = windowClass: {
+    description = "Maximize ${windowClass}";
+    match.window-class = {
+      value = windowClass;
+      type = "substring";
+    };
+    apply = {
+      maximizehoriz = {
+        value = true;
+        apply = "initially";
+      };
+      maximizevert = {
+        value = true;
+        apply = "initially";
+      };
+    };
+  };
 in
 {
   programs.plasma = {
@@ -26,6 +44,17 @@ in
       };
     };
 
+    window-rules =
+      if isLaptop then
+        map maximize [
+          "vivaldi"
+          "Cursor"
+          "Code"
+          "obsidian"
+        ]
+      else
+        [ ];
+
     kscreenlocker.autoLock = false;
 
     krunner.position = "center";
@@ -41,8 +70,8 @@ in
 
         "Switch One Desktop to the Left" = "Ctrl+Alt+Left";
         "Switch One Desktop to the Right" = "Ctrl+Alt+Right";
-        "Window One Desktop to the Left" = "Ctrl+Alt+Shift+Left";
-        "Window One Desktop to the Right" = "Ctrl+Alt+Shift+Right";
+        # "Window One Desktop to the Left" = "Ctrl+Alt+Shift+Left";
+        # "Window One Desktop to the Right" = "Ctrl+Alt+Shift+Right";
 
         "Overview" = "Ctrl+Meta";
       };
@@ -103,6 +132,8 @@ in
         MorningBeginFixed = 700;
         NightTemperature = 2800;
       };
+
+      "kwinrc"."Plugins"."movewindownoswitchEnabled" = true;
     };
 
     input = {
@@ -196,4 +227,50 @@ in
         type = "stdio";
         allowed_origins = [ "chrome-extension://cimiefiiaegbelhefglklhhakcgmhkai/" ];
       };
+
+  home.file.".local/share/kwin/scripts/movewindownoswitch/metadata.json".text = builtins.toJSON {
+    KPackageStructure = "KWin/Script";
+    "X-Plasma-API" = "javascript";
+    "X-Plasma-MainScript" = "code/main.js";
+    KPlugin = {
+      Name = "Move Window Without Switching";
+      Description = "Move windows between desktops without switching focus";
+      Icon = "preferences-system-windows-move";
+      Id = "movewindownoswitch";
+    };
+  };
+
+  home.file.".local/share/kwin/scripts/movewindownoswitch/contents/code/main.js".text = ''
+    registerShortcut(
+      "Move Window to Next Desktop (No Switch)",
+      "Move Window to Next Desktop (No Switch)",
+      "Ctrl+Alt+Shift+Right",
+      function() {
+        var win = workspace.activeWindow;
+        if (!win || win.desktops.length === 0) return;
+
+        var allDesktops = workspace.desktops;
+        var currentIndex = allDesktops.indexOf(win.desktops[0]);
+        var nextIndex = (currentIndex + 1) % allDesktops.length;
+
+        win.desktops = [allDesktops[nextIndex]];
+      }
+    );
+
+    registerShortcut(
+      "Move Window to Previous Desktop (No Switch)",
+      "Move Window to Previous Desktop (No Switch)",
+      "Ctrl+Alt+Shift+Left",
+      function() {
+        var win = workspace.activeWindow;
+        if (!win || win.desktops.length === 0) return;
+
+        var allDesktops = workspace.desktops;
+        var currentIndex = allDesktops.indexOf(win.desktops[0]);
+        var prevIndex = (currentIndex - 1 + allDesktops.length) % allDesktops.length;
+
+        win.desktops = [allDesktops[prevIndex]];
+      }
+    );
+  '';
 }

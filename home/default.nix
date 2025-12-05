@@ -40,6 +40,7 @@ in
       htop
       just
       jq
+      lazygit
       lf
       lsof
       neofetch
