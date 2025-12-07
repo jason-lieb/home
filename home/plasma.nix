@@ -2,24 +2,12 @@
 
 let
   isLaptop = hostname == "laptop";
+  isDesktop = hostname == "desktop";
 
-  maximize = windowClass: {
-    description = "Maximize ${windowClass}";
-    match.window-class = {
-      value = windowClass;
-      type = "substring";
-    };
-    apply = {
-      maximizehoriz = {
-        value = true;
-        apply = "initially";
-      };
-      maximizevert = {
-        value = true;
-        apply = "initially";
-      };
-    };
-  };
+  inherit (import ./utils/window-rules.nix)
+    maximize
+    maximizeOnSidewaysScreen
+    ;
 in
 {
   programs.plasma = {
@@ -46,16 +34,28 @@ in
 
     window-rules =
       if isLaptop then
-        map maximize [
+        maximize [
           "vivaldi"
           "Cursor"
           "Code"
           "obsidian"
         ]
+      else if isDesktop then
+        maximize [
+          "vivaldi"
+          "Cursor"
+          "Code"
+        ]
+        ++ [
+          (maximizeOnSidewaysScreen "obsidian")
+        ]
       else
         [ ];
 
-    kscreenlocker.autoLock = false;
+    kscreenlocker = {
+      autoLock = false; # Don't lock on idle timeout
+      lockOnResume = true; # Lock when waking from sleep
+    };
 
     krunner.position = "center";
 
@@ -116,6 +116,9 @@ in
       "ksplashrc"."KSplash"."Engine" = "none";
       "ksplashrc"."KSplash"."Theme" = "none";
 
+      # Disable bouncing cursor on app launch
+      "klaunchrc"."FeedbackStyle"."BusyCursor" = false;
+
       # Fix vivaldi session restoration
       "ksmserverrc"."General"."loginMode" = "emptySession";
       "ksmserverrc"."General"."excludeApps" = "vivaldi";
@@ -160,45 +163,67 @@ in
       if isLaptop then
         {
           AC = {
-            autoSuspend = {
-              action = "sleep";
-              idleTimeout = 3600; # 1 hour
-            };
             dimDisplay = {
               enable = true;
               idleTimeout = 600; # 10 minutes
             };
             turnOffDisplay = {
               idleTimeout = 900; # 15 minutes
+              idleTimeoutWhenLocked = 60;
+            };
+            autoSuspend = {
+              action = "sleep";
+              idleTimeout = 3600; # 1 hour
             };
             powerProfile = "performance";
           };
 
           battery = {
+            dimDisplay = {
+              enable = true;
+              idleTimeout = 300; # 5 minutes
+            };
+            turnOffDisplay = {
+              idleTimeout = 600; # 10 minutes
+              idleTimeoutWhenLocked = 60;
+            };
             autoSuspend = {
               action = "sleep";
               idleTimeout = 1200; # 20 minutes
-            };
-            dimDisplay = {
-              enable = true;
-              idleTimeout = 180; # 3 minutes
-            };
-            turnOffDisplay = {
-              idleTimeout = 300; # 5 minutes
             };
             powerProfile = "balanced";
           };
 
           lowBattery = {
+            turnOffDisplay = {
+              idleTimeout = 180; # 3 minutes
+              idleTimeoutWhenLocked = 30;
+            };
             autoSuspend = {
               action = "sleep";
-              idleTimeout = 300;
+              idleTimeout = 300; # 5 minutes
             };
             powerProfile = "powerSaving";
           };
         }
       else
-        { };
+        {
+          AC = {
+            dimDisplay = {
+              enable = true;
+              idleTimeout = 600; # 10 min
+            };
+            turnOffDisplay = {
+              idleTimeout = 1200; # 20 min
+              idleTimeoutWhenLocked = 180;
+            };
+            autoSuspend = {
+              action = "sleep";
+              idleTimeout = 3600; # 1 hour
+            };
+            powerProfile = "performance";
+          };
+        };
 
   };
 
