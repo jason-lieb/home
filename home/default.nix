@@ -34,7 +34,6 @@ in
       bat
       eyedropper
       ffmpeg
-      gh
       gnumake
       gparted
       htop
@@ -108,6 +107,14 @@ in
       rebase.stat = true;
       rerere.enabled = true;
       advice.skippedCherryPicks = false;
+    };
+  };
+
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "https";
+      prompt = "enabled";
     };
   };
 
