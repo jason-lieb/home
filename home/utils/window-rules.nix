@@ -1,7 +1,12 @@
 rec {
-  trueInitial = {
-    value = true;
+  applyInitial = value: {
+    inherit value;
     apply = "initially";
+  };
+
+  applyForce = value: {
+    inherit value;
+    apply = "force";
   };
 
   matchWindowClass = windowClass: {
@@ -9,25 +14,38 @@ rec {
     type = "substring";
   };
 
-  maxBoth = {
-    maximizehoriz = trueInitial;
-    maximizevert = trueInitial;
+  matchWindowTitle = title: {
+    value = title;
+    type = "substring";
   };
 
   maximize = map (windowClass: {
     description = "Maximize ${windowClass}";
     match.window-class = matchWindowClass windowClass;
-    apply = maxBoth;
+    apply = {
+      maximizehoriz = applyInitial true;
+      maximizevert = applyInitial true;
+    };
   });
 
-  maximizeOnSidewaysScreen = windowClass: {
-    description = "Maximize ${windowClass} on sideways screen";
-    match.window-class = matchWindowClass windowClass;
-    apply = maxBoth // {
-      screen = {
-        value = 1;
-        apply = "initially";
+  moveToSidewaysScreen = map (
+    windowClass:
+    let
+      title = if windowClass == "vivaldi" then "Home - Vivaldi" else null;
+      apply = if windowClass == "vivaldi" then applyForce else applyInitial;
+    in
+    {
+      description = "Move ${windowClass}${
+        if title != null then " (${title})" else ""
+      } to sideways screen";
+      match = {
+        window-class = matchWindowClass windowClass;
+      }
+      // (if title != null then { title = matchWindowTitle title; } else { });
+      apply = {
+        screen = apply 1;
+        desktops = apply ""; # All desktops
       };
-    };
-  };
+    }
+  );
 }

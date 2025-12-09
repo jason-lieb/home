@@ -6,7 +6,7 @@ let
 
   inherit (import ./utils/window-rules.nix)
     maximize
-    maximizeOnSidewaysScreen
+    moveToSidewaysScreen
     ;
 in
 {
@@ -33,24 +33,21 @@ in
     };
 
     window-rules =
-      if isLaptop then
-        maximize [
-          "vivaldi"
-          "Cursor"
-          "Code"
-          "obsidian"
-        ]
-      else if isDesktop then
-        maximize [
-          "vivaldi"
-          "Cursor"
-          "Code"
-        ]
-        ++ [
-          (maximizeOnSidewaysScreen "obsidian")
-        ]
-      else
-        [ ];
+      maximize [
+        "vivaldi"
+        "Cursor"
+        "Code"
+        "obsidian"
+      ]
+      ++ (
+        if isDesktop then
+          moveToSidewaysScreen [
+            "obsidian"
+            "vivaldi"
+          ]
+        else
+          [ ]
+      );
 
     kscreenlocker = {
       autoLock = false; # Don't lock on idle timeout
@@ -243,6 +240,18 @@ in
     SSH_ASKPASS_REQUIRE = "prefer";
   };
 
+  # Custom desktop entry for quick restart access in KRunner
+  home.file.".local/share/applications/restart.desktop".text = ''
+    [Desktop Entry]
+    Name=Restart
+    Comment=Restart the computer
+    Exec=/run/current-system/sw/bin/qdbus org.kde.LogoutPrompt /LogoutPrompt promptReboot
+    Icon=system-reboot
+    Type=Application
+    Categories=System;
+    Keywords=reboot;restart;
+  '';
+
   home.file.".config/vivaldi/NativeMessagingHosts/org.kde.plasma.browser_integration.json".text =
     builtins.toJSON
       {
@@ -259,13 +268,27 @@ in
     "X-Plasma-MainScript" = "code/main.js";
     KPlugin = {
       Name = "Move Window Without Switching";
-      Description = "Move windows between desktops without switching focus";
+      Description = "Move windows between desktops without switching desktop";
       Icon = "preferences-system-windows-move";
       Id = "movewindownoswitch";
     };
   };
 
   home.file.".local/share/kwin/scripts/movewindownoswitch/contents/code/main.js".text = ''
+    function focusTopmostWindow(excludeWin, desktop) {
+      var stackingOrder = workspace.stackingOrder;
+      var targetOutput = excludeWin.output;
+      for (var i = stackingOrder.length - 1; i >= 0; i--) {
+        var w = stackingOrder[i];
+        var onDesktop = w.desktops.length === 0 || w.desktops.indexOf(desktop) !== -1;
+        var onSameOutput = w.output === targetOutput;
+        if (w !== excludeWin && onDesktop && onSameOutput && !w.skipTaskbar && !w.minimized) {
+          workspace.activeWindow = w;
+          return;
+        }
+      }
+    }
+
     registerShortcut(
       "Move Window to Next Desktop (No Switch)",
       "Move Window to Next Desktop (No Switch)",
@@ -275,10 +298,12 @@ in
         if (!win || win.desktops.length === 0) return;
 
         var allDesktops = workspace.desktops;
-        var currentIndex = allDesktops.indexOf(win.desktops[0]);
+        var currentDesktop = win.desktops[0];
+        var currentIndex = allDesktops.indexOf(currentDesktop);
         var nextIndex = (currentIndex + 1) % allDesktops.length;
 
         win.desktops = [allDesktops[nextIndex]];
+        focusTopmostWindow(win, currentDesktop);
       }
     );
 
@@ -291,10 +316,12 @@ in
         if (!win || win.desktops.length === 0) return;
 
         var allDesktops = workspace.desktops;
-        var currentIndex = allDesktops.indexOf(win.desktops[0]);
+        var currentDesktop = win.desktops[0];
+        var currentIndex = allDesktops.indexOf(currentDesktop);
         var prevIndex = (currentIndex - 1 + allDesktops.length) % allDesktops.length;
 
         win.desktops = [allDesktops[prevIndex]];
+        focusTopmostWindow(win, currentDesktop);
       }
     );
   '';
