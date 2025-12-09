@@ -16,7 +16,7 @@ rec {
 
   matchWindowTitle = title: {
     value = title;
-    type = "substring";
+    type = "exact";
   };
 
   maximize = map (windowClass: {
