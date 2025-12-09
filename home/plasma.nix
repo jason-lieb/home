@@ -38,6 +38,7 @@ in
         "Cursor"
         "Code"
         "obsidian"
+        "github-desktop"
       ]
       ++ (
         if isDesktop then
