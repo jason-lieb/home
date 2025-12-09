@@ -67,14 +67,14 @@ in
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "application/zip" = "org.gnome.Nautilus.desktop";
-      "application/pdf" = "org.gnome.Evince.desktop";
+      "application/zip" = "org.kde.dolphin.desktop";
+      "application/pdf" = "org.kde.okular.desktop";
       "text/html" = "vivaldi-stable.desktop";
       "video/mp4" = "vivaldi-stable.desktop";
       "x-scheme-handler/http" = "vivaldi-stable.desktop";
       "x-scheme-handler/https" = "vivaldi-stable.desktop";
-      "image/jpeg" = "org.gnome.Loupe.desktop"; # Loupe = Image Viewer
-      "image/png" = "org.gnome.Loupe.desktop";
+      "image/jpeg" = "org.kde.gwenview.desktop";
+      "image/png" = "org.kde.gwenview.desktop";
     };
   };
 
