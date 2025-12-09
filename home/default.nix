@@ -58,6 +58,7 @@ in
       claude-code
       github-desktop
       obsidian
+      opencode
     ])
     ++ (with pkgs-unstable; [
       code-cursor
