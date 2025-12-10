@@ -7,6 +7,7 @@ let
   inherit (import ./utils/window-rules.nix)
     maximize
     moveToSidewaysScreen
+    defaultSize
     ;
 in
 {
@@ -42,7 +43,8 @@ in
       ]
       ++ (
         if isDesktop then
-          moveToSidewaysScreen [
+          defaultSize
+          ++ moveToSidewaysScreen [
             "obsidian"
             "vivaldi"
           ]

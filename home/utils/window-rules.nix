@@ -48,4 +48,17 @@ rec {
       };
     }
   );
+
+  defaultSize =
+    (width: height: [
+      {
+        description = "Default window size ${toString width}x${toString height}";
+        match.window-types = [ "normal" ];
+        apply = {
+          size = applyInitial "${toString width},${toString height}";
+        };
+      }
+    ])
+      1600
+      1000;
 }
