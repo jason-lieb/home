@@ -153,21 +153,21 @@ in
           region = us-east-1
 
           [profile student-journey-dev-01]
-          sso_start_url = ${env.ILLUMINATE_AWS_SSO_URL}
+          sso_start_url = ${env.REN_SWISS_AWS_SSO_URL}
           sso_region = us-west-2
           sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_DEV}
           sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
           region = us-west-2
 
           [profile student-journey-prod-01]
-          sso_start_url = ${env.ILLUMINATE_AWS_SSO_URL}
+          sso_start_url = ${env.REN_SWISS_AWS_SSO_URL}
           sso_region = us-west-2
           sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_PROD}
           sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
           region = us-west-2
 
           [profile student-journey-stage-01]
-          sso_start_url = ${env.ILLUMINATE_AWS_SSO_URL}
+          sso_start_url = ${env.REN_SWISS_AWS_SSO_URL}
           sso_region = us-west-2
           sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_STAGE}
           sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
