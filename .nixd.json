@@ -1,0 +1,10 @@
+{
+  "nixpkgs": {
+    "expr": "import <nixpkgs> { }"
+  },
+  "options": {
+    "nixos": {
+      "expr": "(builtins.getFlake \"/home/jason/home\").nixosConfigurations.desktop.options"
+    }
+  }
+}
