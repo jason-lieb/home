@@ -94,7 +94,6 @@ let
     p = "pnpm";
     y = "yarn";
     home = "cd ~/home";
-    mega = "code ~/megarepo";
     format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
     bluetooth = "bluetoothctl power on";
 
