@@ -43,6 +43,20 @@
     powerOnBoot = true;
   };
 
+  # Hack to power on bluetooth adapter on boot
+  systemd.services.bluetooth-power-on = {
+    description = "Power on bluetooth adapter";
+    after = [ "bluetooth.service" ];
+    wants = [ "bluetooth.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = false;
+      TimeoutStartSec = "120s";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'while [ $(${pkgs.systemd}/bin/journalctl -k -b | ${pkgs.gnugrep}/bin/grep -c \"hci0: Device setup\") -lt 2 ]; do ${pkgs.coreutils}/bin/sleep 2; done; ${pkgs.coreutils}/bin/sleep 2; ${pkgs.bluez}/bin/bluetoothctl power on'";
+    };
+  };
+
   time.timeZone = "America/New_York";
 
   i18n = {
