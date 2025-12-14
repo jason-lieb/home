@@ -21,7 +21,13 @@ rec {
 
   maximize = map (windowClass: {
     description = "Maximize ${windowClass}";
-    match.window-class = matchWindowClass windowClass;
+    match = {
+      window-class = matchWindowClass windowClass;
+      title = {
+        value = "^(?!Bitwarden - Vivaldi$).*";
+        type = "regex";
+      };
+    };
     apply = {
       maximizehoriz = applyInitial true;
       maximizevert = applyInitial true;
