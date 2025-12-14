@@ -123,8 +123,6 @@ in
       "ksmserverrc"."General"."loginMode" = "emptySession";
       "ksmserverrc"."General"."excludeApps" = "vivaldi";
 
-      "kdeconnect"."General"."Enabled" = true;
-
       "kdeglobals"."KDE"."AnimationDurationFactor" = 0;
       "kdeglobals"."General"."BellVisible" = false;
 
