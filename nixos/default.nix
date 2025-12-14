@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   hostname,
   ghostty,
@@ -144,7 +145,15 @@
     cachix
     ghostty.packages.${system}.default
     nodejs
+    dolphin-emu
   ];
+
+  # Dolphin emulator udev rules for controller support
+  services.udev.packages = [ pkgs.dolphin-emu ];
+
+  # GCC adapter overclocking for improved polling rates
+  boot.extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
+  boot.kernelModules = [ "gcadapter_oc" ];
 
   environment.sessionVariables = {
     NPM_CONFIG_PREFIX = "/home/jason/.npm-packages";
