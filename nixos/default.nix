@@ -146,14 +146,18 @@
     ghostty.packages.${system}.default
     nodejs
     dolphin-emu
+    usbutils
   ];
 
-  # Dolphin emulator udev rules for controller support
+  # Dolphin emulator: udev rules + GCC adapter overclocking
   services.udev.packages = [ pkgs.dolphin-emu ];
-
-  # GCC adapter overclocking for improved polling rates
   boot.extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
   boot.kernelModules = [ "gcadapter_oc" ];
+
+  # Prevent HID driver from claiming GCC adapter (Dolphin needs raw USB access)
+  boot.extraModprobeConfig = ''
+    options usbhid quirks=0x057e:0x0337:0x0004
+  '';
 
   environment.sessionVariables = {
     NPM_CONFIG_PREFIX = "/home/jason/.npm-packages";
