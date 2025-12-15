@@ -253,6 +253,18 @@ in
     Keywords=reboot;restart;
   '';
 
+  # Custom desktop entry for quick shutdown access in KRunner
+  home.file.".local/share/applications/shutdown.desktop".text = ''
+    [Desktop Entry]
+    Name=Shut Down
+    Comment=Shut down the computer
+    Exec=/run/current-system/sw/bin/qdbus org.kde.LogoutPrompt /LogoutPrompt promptShutDown
+    Icon=system-shutdown
+    Type=Application
+    Categories=System;
+    Keywords=shutdown;power off;halt;
+  '';
+
   home.file.".config/vivaldi/NativeMessagingHosts/org.kde.plasma.browser_integration.json".text =
     builtins.toJSON
       {
