@@ -37,7 +37,7 @@ rec {
   moveToSidewaysScreen = map (
     windowClass:
     let
-      title = if windowClass == "vivaldi" then "Home - Vivaldi" else null;
+      title = if windowClass == "vivaldi" then "Notion Home - Vivaldi" else null;
       apply = if windowClass == "vivaldi" then applyForce else applyInitial;
     in
     {
