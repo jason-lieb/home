@@ -31,6 +31,7 @@ in
       nixfmt-rfc-style
 
       # Utilities
+      awscli2
       bat
       eyedropper
       ffmpeg
