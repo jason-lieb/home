@@ -160,12 +160,13 @@
   services.syncthing = {
     enable = true;
     user = "jason";
+    dataDir = "/home/jason";
     overrideDevices = true;
     overrideFolders = true;
     settings = {
       devices = {
         "desktop" = {
-          id = "";
+          id = "GG5CDXT-TMWP6RL-GX4TH5J-6Z5KCXH-PJEFVJB-4IURKFV-ZWN65NO-P4NJNQE";
         };
         "laptop" = {
           id = "";
@@ -193,6 +194,13 @@
             "laptop"
           ];
         };
+        "dolphin-profiles" = {
+          path = "/home/jason/.config/dolphin-emu/Profiles";
+          devices = [
+            "desktop"
+            "laptop"
+          ];
+        };
       };
     };
   };
@@ -201,11 +209,6 @@
   services.udev.packages = [ pkgs.dolphin-emu ];
   boot.extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
   boot.kernelModules = [ "gcadapter_oc" ];
-
-  # Prevent HID driver from claiming GCC adapter (Dolphin needs raw USB access)
-  boot.extraModprobeConfig = ''
-    options usbhid quirks=0x057e:0x0337:0x0004
-  '';
 
   environment.sessionVariables = {
     NPM_CONFIG_PREFIX = "/home/jason/.npm-packages";
