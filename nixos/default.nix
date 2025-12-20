@@ -114,12 +114,19 @@
 
   networking.firewall.allowedTCPPorts = [
     3000
-    5432
-    5434
+    5432 # PostgreSQL
+    5434 # PostgreSQL
     8081
+    8384 # Syncthing web UI
     9094
-    19000
-    19001
+    19000 # React Native Metro bundler
+    19001 # React Native packager
+    22000 # Syncthing
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    22000 # Syncthing
+    21027 # Syncthing
   ];
 
   networking.extraHosts = ''
@@ -148,6 +155,46 @@
     dolphin-emu
     usbutils
   ];
+
+  services.syncthing = {
+    enable = true;
+    user = "jason";
+    overrideDevices = true;
+    overrideFolders = true;
+    settings = {
+      devices = {
+        "desktop" = {
+          id = "";
+        };
+        "laptop" = {
+          id = "";
+        };
+      };
+      folders = {
+        "dolphin-gc" = {
+          path = "/home/jason/.local/share/dolphin-emu/GC";
+          devices = [
+            "desktop"
+            "laptop"
+          ];
+        };
+        "dolphin-wii" = {
+          path = "/home/jason/.local/share/dolphin-emu/Wii";
+          devices = [
+            "desktop"
+            "laptop"
+          ];
+        };
+        "dolphin-states" = {
+          path = "/home/jason/.local/share/dolphin-emu/StateSaves";
+          devices = [
+            "desktop"
+            "laptop"
+          ];
+        };
+      };
+    };
+  };
 
   # Dolphin emulator: udev rules + GCC adapter overclocking
   services.udev.packages = [ pkgs.dolphin-emu ];
