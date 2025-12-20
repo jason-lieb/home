@@ -154,6 +154,7 @@
     nodejs
     dolphin-emu
     usbutils
+    appimage-run
   ];
 
   services.syncthing = {
