@@ -160,7 +160,7 @@
   services.syncthing = {
     enable = true;
     user = "jason";
-    dataDir = "/home/jason";
+    dataDir = "/home/jason/.local/share/syncthing";
     overrideDevices = true;
     overrideFolders = true;
     settings = {
@@ -169,7 +169,7 @@
           id = "GG5CDXT-TMWP6RL-GX4TH5J-6Z5KCXH-PJEFVJB-4IURKFV-ZWN65NO-P4NJNQE";
         };
         "laptop" = {
-          id = "";
+          id = "YF3JY6L-ROFLTUQ-FILOP5E-QK4UOOU-6UR5YQN-RCMBL6V-277SHEA-CO35SAJ";
         };
       };
       folders = {
