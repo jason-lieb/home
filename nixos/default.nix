@@ -201,6 +201,13 @@
             "laptop"
           ];
         };
+        "dolphin-roms" = {
+          path = "/home/jason/Documents/dolphin";
+          devices = [
+            "desktop"
+            "laptop"
+          ];
+        };
       };
     };
   };
