@@ -166,7 +166,7 @@
     settings = {
       devices = {
         "desktop" = {
-          id = "GG5CDXT-TMWP6RL-GX4TH5J-6Z5KCXH-PJEFVJB-4IURKFV-ZWN65NO-P4NJNQE";
+          id = "6VW6XO3-4NY4ING-SUYWZIO-ULIVMZ7-ROFUS2F-6ZJE6ZX-X4KXIYY-Z6I43QC";
         };
         "laptop" = {
           id = "E44XEWP-DHRVVXR-3WSATAY-XL2G6L6-XAQIXEI-VPNNDPM-66CZKN3-ALG3XQA";
