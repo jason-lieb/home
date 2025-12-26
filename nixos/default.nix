@@ -154,8 +154,9 @@
     nodejs
     dolphin-emu
     usbutils
-    appimage-run
   ];
+
+  programs.appimage.enable = true;
 
   services.syncthing = {
     enable = true;
