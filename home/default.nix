@@ -90,10 +90,9 @@ in
   programs.git = {
     enable = true;
 
-    userName = "Jason Lieb";
-    userEmail = "Jason.lieb@outlook.com";
-
-    extraConfig = {
+    settings = {
+      user.name = "Jason Lieb";
+      user.email = "Jason.lieb@outlook.com";
       init.defaultBranch = "main";
       core.editor = "code --wait";
       core.excludesFile = "~/.gitignore";

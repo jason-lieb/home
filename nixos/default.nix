@@ -44,6 +44,17 @@
     powerOnBoot = true;
   };
 
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+      libva-vdpau-driver
+      libvdpau-va-gl
+    ];
+  };
+
   # Hack to power on bluetooth adapter on boot
   systemd.services.bluetooth-power-on = {
     description = "Power on bluetooth adapter";
@@ -150,7 +161,7 @@
   environment.systemPackages = with pkgs; [
     home-manager
     cachix
-    ghostty.packages.${system}.default
+    ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
     nodejs
     dolphin-emu
     usbutils
@@ -163,6 +174,9 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    extraPackages = with pkgs; [
+      pkgsi686Linux.gperftools
+    ];
   };
 
   services.syncthing = {

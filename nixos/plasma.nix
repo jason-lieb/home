@@ -17,6 +17,5 @@
     kate # Advanced text editor
     khelpcenter # Help documentation
     konsole # Terminal emulator
-    xwaylandvideobridge # Screen capture for X11 apps
   ];
 }
