@@ -215,7 +215,6 @@ in
 
           keybind = ctrl+shift+enter=new_split:right
           keybind = ctrl+shift+d=new_split:down
-          keybind = ctrl+shift+x=close_split
           keybind = ctrl+shift+h=goto_split:left
           keybind = ctrl+shift+l=goto_split:right
           keybind = ctrl+shift+k=goto_split:up
