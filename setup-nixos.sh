@@ -2,28 +2,37 @@
 
 set -e
 
-cd $HOME
-mkdir -p ~/.ssh
+printf "\nWhat is your email address?"
+read -r email_address
+printf "\nWhat is the hostname of this computer? "
+read -r hostname
 
 printf "\nSetting up ssh key..."
-printf "\nWhat is your email address?\n(Note: After this, you are going to have to enter your password 3 times)\n"
-read email_address
-yes '' | ssh-keygen -t ed25519 -C $email_address &> /dev/null
+mkdir -p "$HOME/.ssh"
+ssh-keygen -t ed25519 -C "$email_address" -N "" -f "$HOME/.ssh/id_ed25519"
 eval "$(ssh-agent -s)" &> /dev/null
-ssh-add $HOME/.ssh/id_ed25519
+ssh-add "$HOME/.ssh/id_ed25519"
 
 printf "\nCreating github cli shell and adding SSH key to GitHub...\n"
 nix-shell -p gh --run "gh auth login -p ssh -w"
 printf "\nCloning home repo...\n"
 nix-shell -p git --run "git clone git@github.com:jason-lieb/home.git"
 
-printf "\nWhat is the hostname of this computer? "
-read hostname
-sudo hostname $hostname
-mkdir -p $HOME/home/nixos/$hostname
-sudo cp /etc/nixos/hardware-configuration.nix $HOME/home/nixos/$hostname/hardware.nix
+HOST_DIR="$HOME/home/nixos/$hostname"
+mkdir -p "$HOST_DIR"
+sudo cp /etc/nixos/hardware-configuration.nix "$HOST_DIR/hardware.nix"
+sed -i "/nixosConfigurations = {/a\\        $hostname = mkNixos \"$hostname\";" "$HOME/home/flake.nix"
+cat > "$HOST_DIR/default.nix" << EOF
+{ ... }:
+
+{
+  networking.hostName = "$hostname";
+  imports = [ ./hardware.nix ];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+}
+EOF
 
 printf "Setup .env file and then run the following command (including the ending \" )\n"
-printf 'nix-shell -p git --run "sudo nixos-rebuild boot --impure --flake /home/jason/home#{hostname}"\n'
-printf "where {hostname} is "
-printf $hostname
+printf 'nix-shell -p git --run "sudo nixos-rebuild boot --impure --flake /home/jason/home#%s"' "$hostname"
