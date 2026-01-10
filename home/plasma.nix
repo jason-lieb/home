@@ -175,6 +175,7 @@ in
               idleTimeout = 3600; # 1 hour
             };
             powerProfile = "performance";
+            keyboardBrightness = 100;
           };
 
           battery = {
@@ -191,6 +192,7 @@ in
               idleTimeout = 1200; # 20 minutes
             };
             powerProfile = "balanced";
+            keyboardBrightness = 100;
           };
 
           lowBattery = {
@@ -203,6 +205,7 @@ in
               idleTimeout = 300; # 5 minutes
             };
             powerProfile = "powerSaving";
+            keyboardBrightness = 25;
           };
         }
       else if isMini then
