@@ -14,10 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
       inputs.home-manager.follows = "home-manager";
     };
-    # nixos-cosmic = {
-    #   url = "github:lilyinstarlight/nixos-cosmic";
-    #   inputs.nixpkgs.follows = "nixpkgs-stable";
-    # };
     freckle.url = "github:freckle/flakes?dir=main";
     ghostty.url = "github:ghostty-org/ghostty";
   };
@@ -28,7 +24,6 @@
       nixpkgs-stable,
       nixpkgs-unstable,
       nix-vscode-extensions,
-      # nixos-cosmic,
       home-manager,
       plasma-manager,
       freckle,
@@ -54,7 +49,6 @@
           };
           modules = [
             ./nixos
-            # nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -84,14 +78,8 @@
       };
 
       nixConfig = {
-        extra-substituters = [
-          "https://ghostty.cachix.org"
-          # "https://cosmic.cachix.org/"
-        ];
-        extra-trusted-public-keys = [
-          "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
-          # "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-        ];
+        extra-substituters = [ "https://ghostty.cachix.org" ];
+        extra-trusted-public-keys = [ "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns=" ];
       };
     };
 }
