@@ -3,6 +3,7 @@
 let
   isLaptop = hostname == "laptop";
   isDesktop = hostname == "desktop";
+  isMini = hostname == "mini";
 
   inherit (import ./utils/window-rules.nix)
     maximize
@@ -139,6 +140,7 @@ in
 
     input = {
       keyboard.numlockOnStartup = "on";
+      #@host
       touchpads =
         if isLaptop then
           [
@@ -202,6 +204,15 @@ in
               idleTimeout = 300; # 5 minutes
             };
             powerProfile = "powerSaving";
+          };
+        }
+      else if isMini then
+        {
+          AC = {
+            dimDisplay.enable = false;
+            turnOffDisplay.idleTimeout = null;
+            autoSuspend.action = "nothing";
+            powerProfile = "performance";
           };
         }
       else
