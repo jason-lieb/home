@@ -140,7 +140,6 @@ in
 
     input = {
       keyboard.numlockOnStartup = "on";
-      #@host
       touchpads =
         if isLaptop then
           [
