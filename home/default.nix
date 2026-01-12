@@ -1,7 +1,13 @@
-{ pkgs, pkgs-unstable, ... }:
+{
+  pkgs,
+  pkgs-unstable,
+  hostname,
+  ...
+}:
 
 let
   env = import ./env.nix;
+  isMini = hostname == "mini";
 in
 {
   home = {
@@ -82,10 +88,17 @@ in
   xdg.configFile = {
     "autostart/vivaldi-stable.desktop".source =
       "${pkgs.vivaldi}/share/applications/vivaldi-stable.desktop";
-    "autostart/obsidian.desktop".source = "${pkgs.obsidian}/share/applications/obsidian.desktop";
-    "autostart/cursor.desktop".source =
-      "${pkgs-unstable.code-cursor}/share/applications/cursor.desktop";
-  };
+  }
+  // (
+    if isMini then
+      { }
+    else
+      {
+        "autostart/obsidian.desktop".source = "${pkgs.obsidian}/share/applications/obsidian.desktop";
+        "autostart/cursor.desktop".source =
+          "${pkgs-unstable.code-cursor}/share/applications/cursor.desktop";
+      }
+  );
 
   programs.git = {
     enable = true;
