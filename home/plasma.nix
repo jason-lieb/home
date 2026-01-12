@@ -211,8 +211,14 @@ in
       else if isMini then
         {
           AC = {
-            dimDisplay.enable = false;
-            turnOffDisplay.idleTimeout = null;
+            dimDisplay = {
+              enable = true;
+              idleTimeout = 600; # 10 min
+            };
+            turnOffDisplay = {
+              idleTimeout = 1200; # 20 min
+              idleTimeoutWhenLocked = 180;
+            };
             autoSuspend.action = "nothing";
             powerProfile = "performance";
           };
