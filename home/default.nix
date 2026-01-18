@@ -85,20 +85,19 @@ in
     };
   };
 
-  xdg.configFile = {
-    "autostart/vivaldi-stable.desktop".source =
-      "${pkgs.vivaldi}/share/applications/vivaldi-stable.desktop";
-  }
-  // (
+  xdg.configFile =
     if isMini then
-      { }
+      {
+        "autostart/brave-browser.desktop".source = "${pkgs.brave}/share/applications/brave-browser.desktop";
+      }
     else
       {
+        "autostart/vivaldi-stable.desktop".source =
+          "${pkgs.vivaldi}/share/applications/vivaldi-stable.desktop";
         "autostart/obsidian.desktop".source = "${pkgs.obsidian}/share/applications/obsidian.desktop";
         "autostart/cursor.desktop".source =
           "${pkgs-unstable.code-cursor}/share/applications/cursor.desktop";
-      }
-  );
+      };
 
   programs.git = {
     enable = true;
