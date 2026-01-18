@@ -64,6 +64,7 @@ in
       # Programs
       claude-code
       github-desktop
+      mgba
       obsidian
       opencode
     ])
