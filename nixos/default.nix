@@ -6,6 +6,13 @@
   ...
 }:
 
+let
+  devices = [
+    "desktop"
+    "laptop"
+    "mini"
+  ];
+in
 {
   imports = [
     ./${hostname}
@@ -182,6 +189,8 @@
   services.syncthing = {
     enable = true;
     user = "jason";
+    # Need to run the following command to get the device ID because of the data dir:
+    # syncthing --home=/home/jason/.local/share/syncthing/.config/syncthing device-id
     dataDir = "/home/jason/.local/share/syncthing";
     overrideDevices = true;
     overrideFolders = true;
@@ -193,42 +202,38 @@
         "laptop" = {
           id = "E44XEWP-DHRVVXR-3WSATAY-XL2G6L6-XAQIXEI-VPNNDPM-66CZKN3-ALG3XQA";
         };
+        "mini" = {
+          id = "ZGTQSNB-CS4454Y-THQKHL3-FNZWSLT-62GC7PG-SR6C4W4-AUFD3P2-3D2AFAA";
+        };
       };
       folders = {
         "dolphin-gc" = {
           path = "/home/jason/.local/share/dolphin-emu/GC";
-          devices = [
-            "desktop"
-            "laptop"
-          ];
+          inherit devices;
         };
         "dolphin-wii" = {
           path = "/home/jason/.local/share/dolphin-emu/Wii";
-          devices = [
-            "desktop"
-            "laptop"
-          ];
+          inherit devices;
         };
         "dolphin-states" = {
           path = "/home/jason/.local/share/dolphin-emu/StateSaves";
-          devices = [
-            "desktop"
-            "laptop"
-          ];
+          inherit devices;
         };
         "dolphin-profiles" = {
           path = "/home/jason/.config/dolphin-emu/Profiles";
-          devices = [
-            "desktop"
-            "laptop"
-          ];
+          inherit devices;
         };
         "dolphin-roms" = {
           path = "/home/jason/Documents/dolphin";
-          devices = [
-            "desktop"
-            "laptop"
-          ];
+          inherit devices;
+        };
+        "mgba-saves" = {
+          path = "/home/jason/.local/share/mgba/saves";
+          inherit devices;
+        };
+        "mgba-roms" = {
+          path = "/home/jason/Documents/mgba";
+          inherit devices;
         };
       };
     };
