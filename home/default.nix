@@ -72,19 +72,23 @@ in
       code-cursor
     ]);
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "application/zip" = "org.kde.dolphin.desktop";
-      "application/pdf" = "org.kde.okular.desktop";
-      "text/html" = "vivaldi-stable.desktop";
-      "video/mp4" = "vivaldi-stable.desktop";
-      "x-scheme-handler/http" = "vivaldi-stable.desktop";
-      "x-scheme-handler/https" = "vivaldi-stable.desktop";
-      "image/jpeg" = "org.kde.gwenview.desktop";
-      "image/png" = "org.kde.gwenview.desktop";
+  xdg.mimeApps =
+    let
+      defaultBrowser = if isMini then "brave-browser.desktop" else "vivaldi-stable.desktop";
+    in
+    {
+      enable = true;
+      defaultApplications = {
+        "application/zip" = "org.kde.dolphin.desktop";
+        "application/pdf" = "org.kde.okular.desktop";
+        "text/html" = defaultBrowser;
+        "video/mp4" = defaultBrowser;
+        "x-scheme-handler/http" = defaultBrowser;
+        "x-scheme-handler/https" = defaultBrowser;
+        "image/jpeg" = "org.kde.gwenview.desktop";
+        "image/png" = "org.kde.gwenview.desktop";
+      };
     };
-  };
 
   xdg.configFile =
     if isMini then
