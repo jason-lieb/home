@@ -171,6 +171,7 @@ in
     ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
     nodejs
     dolphin-emu
+    dolphin-emu-primehack
     usbutils
   ];
 
@@ -225,10 +226,6 @@ in
         };
         "dolphin-roms" = {
           path = "/home/jason/Documents/dolphin";
-          inherit devices;
-        };
-        "mgba-saves" = {
-          path = "/home/jason/.local/share/mgba/saves";
           inherit devices;
         };
         "mgba-roms" = {
