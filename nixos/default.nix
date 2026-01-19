@@ -219,10 +219,6 @@ in
           path = "/home/jason/.local/share/dolphin-emu/Wii";
           inherit devices;
         };
-        "dolphin-states" = {
-          path = "/home/jason/.local/share/dolphin-emu/StateSaves";
-          inherit devices;
-        };
         "dolphin-profiles" = {
           path = "/home/jason/.config/dolphin-emu/Profiles";
           inherit devices;
@@ -233,6 +229,18 @@ in
         };
         "mgba-roms" = {
           path = "/home/jason/Documents/mgba";
+          inherit devices;
+        };
+        "primehack-gc" = {
+          path = "/home/jason/.local/share/primehack/GC";
+          inherit devices;
+        };
+        "primehack-wii" = {
+          path = "/home/jason/.local/share/primehack/Wii";
+          inherit devices;
+        };
+        "primehack-profiles" = {
+          path = "/home/jason/.local/share/primehack/Config/Profiles";
           inherit devices;
         };
       };

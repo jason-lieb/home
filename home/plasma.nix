@@ -284,6 +284,18 @@ in
     Keywords=shutdown;power off;halt;
   '';
 
+  # Custom desktop entry for PrimeHack (Metroid Prime Dolphin fork)
+  home.file.".local/share/applications/primehack.desktop".text = ''
+    [Desktop Entry]
+    Name=PrimeHack
+    Comment=Metroid Prime emulator (Dolphin fork)
+    Exec=primehack
+    Icon=dolphin-emu
+    Type=Application
+    Categories=Game;Emulator;
+    Keywords=metroid;prime;dolphin;emulator;gamecube;wii;
+  '';
+
   home.file.".config/vivaldi/NativeMessagingHosts/org.kde.plasma.browser_integration.json".text =
     builtins.toJSON
       {
