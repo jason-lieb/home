@@ -175,6 +175,7 @@ in
     (writeShellScriptBin "primehack" ''
       exec ${dolphin-emu-primehack}/bin/dolphin-emu-primehack -u "$HOME/.local/share/primehack" "$@"
     '')
+    am2rlauncher
     usbutils
   ];
 
@@ -248,7 +249,10 @@ in
   };
 
   # Dolphin emulator: udev rules + GCC adapter overclocking
-  services.udev.packages = with pkgs; [ dolphin-emu dolphin-emu-primehack ];
+  services.udev.packages = with pkgs; [
+    dolphin-emu
+    dolphin-emu-primehack
+  ];
   boot.extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
   boot.kernelModules = [ "gcadapter_oc" ];
 
