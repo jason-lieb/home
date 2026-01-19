@@ -248,7 +248,7 @@ in
   };
 
   # Dolphin emulator: udev rules + GCC adapter overclocking
-  services.udev.packages = [ pkgs.dolphin-emu ];
+  services.udev.packages = with pkgs; [ dolphin-emu dolphin-emu-primehack ];
   boot.extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
   boot.kernelModules = [ "gcadapter_oc" ];
 
