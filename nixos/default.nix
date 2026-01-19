@@ -244,6 +244,10 @@ in
           path = "/home/jason/.local/share/primehack/Config/Profiles";
           inherit devices;
         };
+        "am2r" = {
+          path = "/home/jason/Documents/am2r";
+          inherit devices;
+        };
       };
     };
   };
