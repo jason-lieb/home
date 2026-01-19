@@ -171,7 +171,10 @@ in
     ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
     nodejs
     dolphin-emu
-    dolphin-emu-primehack
+    # PrimeHack with separate user directory (portable mode)
+    (writeShellScriptBin "primehack" ''
+      exec ${dolphin-emu-primehack}/bin/dolphin-emu-primehack -u "$HOME/.local/share/primehack" "$@"
+    '')
     usbutils
   ];
 
