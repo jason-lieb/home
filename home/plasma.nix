@@ -289,7 +289,7 @@ in
     [Desktop Entry]
     Name=PrimeHack
     Comment=Metroid Prime emulator (Dolphin fork)
-    Exec=primehack
+    Exec=/run/current-system/sw/bin/primehack
     Icon=dolphin-emu
     Type=Application
     Categories=Game;Emulator;
