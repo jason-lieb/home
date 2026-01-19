@@ -175,7 +175,6 @@ in
     (writeShellScriptBin "primehack" ''
       exec ${dolphin-emu-primehack}/bin/dolphin-emu-primehack -u "$HOME/.local/share/primehack" "$@"
     '')
-    am2rlauncher
     usbutils
   ];
 

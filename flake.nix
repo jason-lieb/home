@@ -14,6 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
       inputs.home-manager.follows = "home-manager";
     };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
     freckle.url = "github:freckle/flakes?dir=main";
     ghostty.url = "github:ghostty-org/ghostty";
   };
@@ -26,6 +27,7 @@
       nix-vscode-extensions,
       home-manager,
       plasma-manager,
+      nix-flatpak,
       freckle,
       ghostty,
     }:
@@ -56,6 +58,7 @@
               home-manager.users.jason.imports = [
                 ./home
                 plasma-manager.homeModules.plasma-manager
+                nix-flatpak.homeManagerModules.nix-flatpak
               ];
               home-manager.extraSpecialArgs = {
                 inherit

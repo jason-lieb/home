@@ -30,6 +30,12 @@ in
     ./plasma.nix
   ];
 
+  services.flatpak = {
+    packages = [
+      "io.github.am2r_community_developers.AM2RLauncher"
+    ];
+  };
+
   home.packages =
     (with pkgs; [
       # Nix
