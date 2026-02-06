@@ -2,6 +2,8 @@
   pkgs,
   pkgs-unstable,
   hostname,
+  claude-code,
+  system,
   ...
 }:
 
@@ -68,7 +70,6 @@ in
       vivaldi
 
       # Programs
-      claude-code
       github-desktop
       mgba
       obsidian
@@ -76,7 +77,10 @@ in
     ])
     ++ (with pkgs-unstable; [
       code-cursor
-    ]);
+    ])
+    ++ [
+      claude-code.packages.${system}.default
+    ];
 
   xdg.mimeApps =
     let
@@ -208,13 +212,13 @@ in
               "AWS_REGION": "us-east-1",
               "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "64000",
               "MAX_THINKING_TOKENS": "4096",
-              "ANTHROPIC_MODEL": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+              "ANTHROPIC_MODEL": "us.anthropic.claude-opus-4-5-20251101-v1:0",
               "ANTHROPIC_DEFAULT_HAIKU_MODEL": "us.anthropic.claude-3-5-haiku-20241022-v1:0",
-              "ANTHROPIC_DEFAULT_SONNET_MODEL": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
               "AWS_PROFILE": "freckle-dev"
             },
             "model": "us.anthropic.claude-sonnet-4-20250514-v1:0",
-            "alwaysThinkingEnabled": false
+            "alwaysThinkingEnabled": false,
+            "statusLine": {"type": "command", "command": "npx ccstatusline@latest"}
           }
         '';
       };

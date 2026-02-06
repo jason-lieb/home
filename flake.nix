@@ -17,6 +17,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     freckle.url = "github:freckle/flakes?dir=main";
     ghostty.url = "github:ghostty-org/ghostty";
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs =
@@ -30,6 +31,7 @@
       nix-flatpak,
       freckle,
       ghostty,
+      claude-code,
     }:
     let
       system = "x86_64-linux";
@@ -67,6 +69,7 @@
                   pkgs-unstable
                   vscode-extensions
                   freckle
+                  claude-code
                   ;
               };
             }
