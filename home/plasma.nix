@@ -81,7 +81,6 @@ in
     panels = [
       {
         location = "bottom";
-        screen = 0;
         floating = true;
         lengthMode = "fit";
         hiding = "autohide";
@@ -99,7 +98,6 @@ in
       }
       {
         location = "top";
-        screen = 0;
         floating = false;
         lengthMode = "fit";
         hiding = "autohide";
@@ -129,11 +127,11 @@ in
 
       "kwinrc"."NightColor" = {
         Active = true;
-        Mode = "Times";
-        EveningBeginFixed = 2000;
-        MorningBeginFixed = 700;
         NightTemperature = 2800;
       };
+      "knighttimerc"."General"."Source" = "Times";
+      "knighttimerc"."Times"."SunriseStart" = "07:00:00";
+      "knighttimerc"."Times"."SunsetStart" = "20:00:00";
 
       "kwinrc"."Plugins"."movewindownoswitchEnabled" = true;
     };
