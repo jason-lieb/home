@@ -33,8 +33,20 @@ in
   ];
 
   services.flatpak = {
+    remotes = [{
+      name = "flathub";
+      location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+    }];
     packages = [
       "io.github.am2r_community_developers.AM2RLauncher"
+      "com.usebottles.bottles"
+    ];
+    overrides."io.github.am2r_community_developers.AM2RLauncher".Context.filesystems = [
+      "/run/udev:ro"
+    ];
+    overrides."com.usebottles.bottles".Context.filesystems = [
+      "/run/udev:ro"
+      "~/Documents/am2r"
     ];
   };
 
