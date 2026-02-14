@@ -1,5 +1,6 @@
+{ homeDir ? "/home/jason" }:
 let
-  envFile = builtins.readFile "/home/jason/home/.env";
+  envFile = builtins.readFile "${homeDir}/home/.env";
   envLines = builtins.filter (line: line != "" && line != [ ]) (builtins.split "\n" envFile);
 in
 builtins.listToAttrs (
