@@ -259,6 +259,27 @@
         "type": "github"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771520882,
+        "narHash": "sha256-9SeTZ4Pwr730YfT7V8Azb8GFbwk1ZwiQDAwft3qAD+o=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "6a7fdcd5839ec8b135821179eea3b58092171bcf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1768656715,
@@ -567,6 +588,7 @@
         "freckle": "freckle",
         "ghostty": "ghostty",
         "home-manager": "home-manager_2",
+        "nix-darwin": "nix-darwin",
         "nix-flatpak": "nix-flatpak",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs-stable": "nixpkgs-stable",
