@@ -36,18 +36,18 @@ in
 
     window-rules =
       maximize [
-        "vivaldi"
-        "Cursor"
-        "Code"
+        "vivaldi-stable"
+        "cursor"
+        "code"
         "obsidian"
-        "github-desktop"
+        "GitHub Desktop"
       ]
       ++ (
         if isDesktop then
           defaultSize
           ++ moveToSidewaysScreen [
             "obsidian"
-            "vivaldi"
+            "vivaldi-stable"
           ]
         else
           [ ]

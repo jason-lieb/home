@@ -37,8 +37,8 @@ rec {
   moveToSidewaysScreen = map (
     windowClass:
     let
-      title = if windowClass == "vivaldi" then "Notion Home - Vivaldi" else null;
-      apply = if windowClass == "vivaldi" then applyForce else applyInitial;
+      title = if windowClass == "vivaldi-stable" then "Notion Home | Notion - Vivaldi" else null;
+      apply = if windowClass == "vivaldi-stable" then applyForce else applyInitial;
     in
     {
       description = "Move ${windowClass}${
@@ -68,3 +68,8 @@ rec {
       1600
       1000;
 }
+
+# Helpers
+# kdotool --shortcut Alt+Shift+W --name windowclass getactivewindow getwindowclassname
+# kdotool --shortcut Alt+Shift+E --name windowtitle getactivewindow getwindowname
+# journalctl --user -f -b
