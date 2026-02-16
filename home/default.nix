@@ -38,11 +38,10 @@ in
       location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
     }];
     packages = [
-      "com.usebottles.bottles"
+      "io.github.am2r_community_developers.AM2RLauncher"
     ];
-    overrides."com.usebottles.bottles".Context.filesystems = [
+    overrides."io.github.am2r_community_developers.AM2RLauncher".Context.filesystems = [
       "/run/udev:ro"
-      "~/Documents/am2r"
     ];
   };
 
