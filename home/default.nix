@@ -33,10 +33,12 @@ in
   ];
 
   services.flatpak = {
-    remotes = [{
-      name = "flathub";
-      location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-    }];
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
     packages = [
       "io.github.am2r_community_developers.AM2RLauncher"
     ];
@@ -81,6 +83,11 @@ in
       mgba
       obsidian
       opencode
+      (retroarch.withCores (
+        cores: with cores; [
+          bsnes-hd
+        ]
+      ))
     ])
     ++ (with pkgs-unstable; [
       code-cursor

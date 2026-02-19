@@ -242,6 +242,10 @@ in
           path = "/home/jason/Documents/am2r";
           inherit devices;
         };
+        "snes" = {
+          path = "/home/jason/Documents/snes";
+          inherit devices;
+        };
       };
     };
   };
