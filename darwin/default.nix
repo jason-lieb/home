@@ -1,15 +1,6 @@
 { username, ... }:
 {
-
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    trusted-users = [ "@admin" ];
-  };
-
-  nix.optimise.automatic = true;
+  nix.enable = false;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
