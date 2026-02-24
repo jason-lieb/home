@@ -28,7 +28,6 @@
     casks = [
       "visual-studio-code"
       "ghostty"
-      "google-chrome"
       "helium-browser"
       "raycast"
       "vivaldi"
