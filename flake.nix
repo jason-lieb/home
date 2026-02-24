@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     nix-darwin = {
-      url = "github:lnl7/nix-darwin/master";
+      url = "github:lnl7/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     plasma-manager = {
