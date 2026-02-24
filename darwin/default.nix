@@ -21,8 +21,6 @@
 
   system.primaryUser = username;
   programs.fish.enable = true;
-  services.nix-daemon.enable = true;
-
   system.stateVersion = 6;
 
   homebrew = {
