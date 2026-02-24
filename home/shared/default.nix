@@ -1,20 +1,28 @@
 {
+  config,
+  lib,
   pkgs,
   pkgs-unstable,
-  hostname,
   claude-code,
   system,
+  username,
+  isDarwin,
   ...
 }:
-
 let
-  env = import ./env.nix;
-  isMini = hostname == "mini";
+  env = import ../env.nix { homeDir = config.home.homeDirectory; };
 in
 {
+  imports = [
+    ./shells.nix
+  ]
+  ++ lib.optionals (!isDarwin) [
+    ./vscode.nix
+  ];
+
   home = {
-    username = "jason";
-    homeDirectory = "/home/jason";
+    inherit username;
+    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
     stateVersion = "25.05";
   };
 
@@ -26,107 +34,39 @@ in
     silent = true;
   };
 
-  imports = [
-    ./shells.nix
-    ./vscode.nix
-    ./plasma.nix
-  ];
-
-  services.flatpak = {
-    remotes = [
-      {
-        name = "flathub";
-        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-      }
-    ];
-    packages = [
-      "io.github.am2r_community_developers.AM2RLauncher"
-    ];
-    overrides."io.github.am2r_community_developers.AM2RLauncher".Context.filesystems = [
-      "/run/udev:ro"
-    ];
-  };
-
   home.packages =
     (with pkgs; [
-      # Nix
       nixd
       nixfmt-rfc-style
-
-      # Utilities
       awscli2
       bat
-      eyedropper
       ffmpeg
       gnumake
-      gparted
       htop
       just
       jq
       lazygit
       lf
       lsof
-      neofetch
       tokei
       wget
-      wl-clipboard
       zoxide
-
-      # Browsers
-      brave
-      firefox
-      google-chrome
-      vivaldi
-
-      # Programs
-      github-desktop
-      mgba
-      obsidian
       opencode
-      (retroarch.withCores (
-        cores: with cores; [
-          bsnes-hd
-        ]
-      ))
-    ])
-    ++ (with pkgs-unstable; [
-      code-cursor
     ])
     ++ [
       claude-code.packages.${system}.default
-    ];
-
-  xdg.mimeApps =
-    let
-      defaultBrowser = if isMini then "brave-browser.desktop" else "vivaldi-stable.desktop";
-    in
-    {
-      enable = true;
-      defaultApplications = {
-        "application/zip" = "org.kde.dolphin.desktop";
-        "application/pdf" = "org.kde.okular.desktop";
-        "text/html" = defaultBrowser;
-        "video/mp4" = defaultBrowser;
-        "x-scheme-handler/http" = defaultBrowser;
-        "x-scheme-handler/https" = defaultBrowser;
-        "image/jpeg" = "org.kde.gwenview.desktop";
-        "image/png" = "org.kde.gwenview.desktop";
-      };
-    };
-
-  xdg.configFile =
-    if isMini then
-      {
-        "autostart/brave-browser.desktop".source = "${pkgs.brave}/share/applications/brave-browser.desktop";
-      }
-    else
-      {
-        "autostart/vivaldi-stable.desktop".source =
-          "${pkgs.vivaldi}/share/applications/vivaldi-stable.desktop";
-        "autostart/obsidian.desktop".source = "${pkgs.obsidian}/share/applications/obsidian.desktop";
-        "autostart/cursor.desktop".source =
-          "${pkgs-unstable.code-cursor}/share/applications/cursor.desktop";
-      };
+    ]
+    ++ lib.optionals (!isDarwin) (
+      with pkgs;
+      [
+        (retroarch.withCores (
+          cores: with cores; [
+            bsnes-hd
+          ]
+        ))
+      ]
+    )
+    ++ lib.optionals (!isDarwin) (with pkgs-unstable; [ code-cursor ]);
 
   programs.git = {
     enable = true;
@@ -139,7 +79,6 @@ in
       core.excludesFile = "~/.gitignore";
       fetch.prune = true;
       merge.ff = "only";
-      #merge.tool = "nvimdiff";
       pull.ff = "only";
       pull.autostash = true;
       push.default = "current";
@@ -159,21 +98,6 @@ in
       prompt = "enabled";
     };
   };
-
-  # Sync Cursor settings with VSCode settings using a simple activation script
-  home.activation.syncCursorSettings = ''
-    # Ensure Cursor User directory exists
-    mkdir -p ~/.config/Cursor/User
-
-    # Create symlinks for settings and keybindings if VSCode config exists
-    if [ -f ~/.config/Code/User/settings.json ] && [ ! -e ~/.config/Cursor/User/settings.json ]; then
-      ln -sf ~/.config/Code/User/settings.json ~/.config/Cursor/User/settings.json
-    fi
-
-    if [ -f ~/.config/Code/User/keybindings.json ] && [ ! -e ~/.config/Cursor/User/keybindings.json ]; then
-      ln -sf ~/.config/Code/User/keybindings.json ~/.config/Cursor/User/keybindings.json
-    fi
-  '';
 
   home.file =
     let
@@ -274,7 +198,7 @@ in
       };
 
       npmConfig = {
-        ".npmrc".text = "prefix=/home/jason/.npm-packages";
+        ".npmrc".text = "prefix=${config.home.homeDirectory}/.npm-packages";
       };
 
       stackConfig = {
@@ -298,16 +222,21 @@ in
         }
       '';
 
-      vscodeSnippets = {
-        ".config/Cursor/User/snippets/typescript.json".text = snippets;
-        ".config/Cursor/User/snippets/typescriptreact.json".text = snippets;
-        ".config/Cursor/User/snippets/javascript.json".text = snippets;
-        ".config/Cursor/User/snippets/javascriptreact.json".text = snippets;
+      cursorConfigDir =
+        if isDarwin then "Library/Application Support/Cursor" else ".config/Cursor";
+      codeConfigDir =
+        if isDarwin then "Library/Application Support/Code" else ".config/Code";
 
-        ".config/Code/User/snippets/typescript.json".text = snippets;
-        ".config/Code/User/snippets/typescriptreact.json".text = snippets;
-        ".config/Code/User/snippets/javascript.json".text = snippets;
-        ".config/Code/User/snippets/javascriptreact.json".text = snippets;
+      vscodeSnippets = {
+        "${cursorConfigDir}/User/snippets/typescript.json".text = snippets;
+        "${cursorConfigDir}/User/snippets/typescriptreact.json".text = snippets;
+        "${cursorConfigDir}/User/snippets/javascript.json".text = snippets;
+        "${cursorConfigDir}/User/snippets/javascriptreact.json".text = snippets;
+
+        "${codeConfigDir}/User/snippets/typescript.json".text = snippets;
+        "${codeConfigDir}/User/snippets/typescriptreact.json".text = snippets;
+        "${codeConfigDir}/User/snippets/javascript.json".text = snippets;
+        "${codeConfigDir}/User/snippets/javascriptreact.json".text = snippets;
       };
     in
     awsConfig

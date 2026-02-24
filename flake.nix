@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin/nix-darwin-25.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -27,6 +31,7 @@
       nixpkgs-unstable,
       nix-vscode-extensions,
       home-manager,
+      nix-darwin,
       plasma-manager,
       nix-flatpak,
       freckle,
@@ -34,45 +39,84 @@
       claude-code,
     }:
     let
-      system = "x86_64-linux";
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      vscode-extensions = nix-vscode-extensions.extensions.${system};
+      mkHomeManagerConfig =
+        {
+          system,
+          hostname,
+          username,
+          isDarwin,
+          hmImports,
+        }:
+        let
+          pkgs-unstable = import nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          vscode-extensions = nix-vscode-extensions.extensions.${system};
+        in
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.backupFileExtension = "bak";
+          home-manager.users.${username}.imports = hmImports;
+          home-manager.extraSpecialArgs = {
+            inherit
+              system
+              hostname
+              username
+              pkgs-unstable
+              vscode-extensions
+              freckle
+              claude-code
+              isDarwin
+              ;
+          };
+        };
+
       mkNixos =
         hostname:
         nixpkgs-stable.lib.nixosSystem {
-          inherit system;
+          system = "x86_64-linux";
           specialArgs = {
-            inherit
-              self
-              hostname
-              ghostty
-              ;
+            inherit self hostname ghostty;
           };
           modules = [
             ./nixos
             home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.backupFileExtension = "bak";
-              home-manager.users.jason.imports = [
-                ./home
+            (mkHomeManagerConfig {
+              system = "x86_64-linux";
+              inherit hostname;
+              username = "jason";
+              isDarwin = false;
+              hmImports = [
+                ./home/linux
                 plasma-manager.homeModules.plasma-manager
                 nix-flatpak.homeManagerModules.nix-flatpak
               ];
-              home-manager.extraSpecialArgs = {
-                inherit
-                  system
-                  hostname
-                  pkgs-unstable
-                  vscode-extensions
-                  freckle
-                  claude-code
-                  ;
-              };
-            }
+            })
+          ];
+        };
+
+      mkDarwin =
+        hostname:
+        let
+          username = "jason.lieb";
+        in
+        nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = {
+            inherit self hostname ghostty username;
+          };
+          modules = [
+            ./darwin
+            home-manager.darwinModules.home-manager
+            (mkHomeManagerConfig {
+              system = "aarch64-darwin";
+              inherit hostname username;
+              isDarwin = true;
+              hmImports = [
+                ./home/darwin
+              ];
+            })
           ];
         };
     in
@@ -82,6 +126,9 @@
         laptop = mkNixos "laptop";
         mini = mkNixos "mini";
         z560 = mkNixos "z560";
+      };
+      darwinConfigurations = {
+        work = mkDarwin "work";
       };
 
       nixConfig = {

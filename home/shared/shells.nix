@@ -1,25 +1,39 @@
-{ ... }:
-
+{
+  config,
+  isDarwin,
+  hostname,
+  ...
+}:
 let
+  homeDir = config.home.homeDirectory;
+  nixAliases =
+    if isDarwin then
+      {
+        drs = "sudo darwin-rebuild switch --flake ${homeDir}/home#${hostname} --impure";
+        drb = "sudo darwin-rebuild switch --flake ${homeDir}/home#${hostname} --impure --rollback";
+      }
+    else
+      {
+        rs = "sudo nixos-rebuild switch --impure --flake ${homeDir}/home#${hostname}";
+        rsp = "sudo nixos-rebuild switch --impure --flake ${homeDir}/home#${hostname} --profile-name";
+        rb = "sudo nixos-rebuild boot --impure --flake ${homeDir}/home#${hostname}";
+        rbp = "sudo nixos-rebuild boot --impure --flake ${homeDir}/home#${hostname} --profile-name";
+        nix-clean = "sudo nix-collect-garbage --delete-older-than 7d && sudo /run/current-system/bin/switch-to-configuration boot";
+        bluetooth = "bluetoothctl power on";
+      };
+
   shellAliases = {
-    # General
     c = "clear";
     la = "ls -A";
     ll = "ls -l";
-    lr = "ls -R"; # recursive ls
+    lr = "ls -R";
     cat = "bat";
-
-    # Navigation
     ".." = "cd ..";
     "..." = "cd ../..";
     "...." = "cd ../../..";
     "....." = "cd ../../../..";
     "......" = "cd ../../../../..";
-
-    # Shells
     f = "fish";
-
-    # Git Basics
     g = "git";
     ga = "git add";
     gaa = "git add -A";
@@ -30,7 +44,7 @@ let
     gafh = "git add -A; git commit --fixup HEAD";
     gc = "git commit -m";
     gac = "git add -A; git commit -m";
-    gd = "git checkout -- ."; # Drops current uncommitted changes
+    gd = "git checkout -- .";
     gdiff = "git diff";
     gdiffs = "git diff --staged";
     gr = "git reset HEAD^";
@@ -41,15 +55,11 @@ let
     push = "git push origin";
     fpush = "git push origin --force-with-lease";
     fetch = "git fetch origin";
-
-    # Git Stash
     gs = "git stash push -u";
     gsm = "git stash push -u -m";
     gsd = "git stash drop";
     gsl = "git stash list";
     gsp = "git stash pop";
-
-    # Git Branch
     b = "git branch";
     db = "git branch -D";
     nb = "git checkout -b";
@@ -58,18 +68,12 @@ let
     re = "git rebase origin/main";
     rei = "git rebase -i origin/main";
     sq = "git rebase -i origin/main";
-
-    # Github Cli
     pr = "gh pr create -t";
     prd = "gh pr create --draft -t";
-
-    # Trigger Github Actions
     run-qa = "git commit --allow-empty -m '[qa]'";
     run-cy = "git commit --allow-empty -m '[cy]'";
     run-eph = "git commit --allow-empty -m '[ephemeral]'";
     run-dev = "git commit --allow-empty -m '[dev]'";
-
-    # Misc
     code = "cursor";
     enter-db = ''docker exec -it freckle-megarepo-postgres bash -c "psql -U postgres -d classroom_dev"'';
     docker-clean = "docker system prune -a";
@@ -94,49 +98,31 @@ let
     p = "pnpm";
     y = "yarn";
     home = "cd ~/home";
-    format-backend = "stack exec -- fourmolu -i ."; # Format entire backend
-    bluetooth = "bluetoothctl power on";
-
-    # Nix
+    format-backend = "stack exec -- fourmolu -i .";
     shell = "nix-shell -p";
     dev = "nix develop -c fish";
-    rs = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
-    rsp = "sudo nixos-rebuild switch --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"} --profile-name";
-    rb = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"}";
-    rbp = "sudo nixos-rebuild boot --impure --flake /home/jason/home#${builtins.getEnv "HOSTNAME"} --profile-name";
-    nix-clean = "sudo nix-collect-garbage --delete-older-than 7d && sudo /run/current-system/bin/switch-to-configuration boot";
-  };
+  }
+  // nixAliases;
 
   fishPrompt = ''
     set fish_greeting
     source (zoxide init fish | psub)
 
     function fish_prompt
-      # jason
       set_color $fish_color_cwd
       echo -n (whoami)
-
-      # @hostname
       set_color normal
       echo -n "@"(hostname)" "
-
-      # ~/home
       set_color $fish_color_cwd
       echo -n (prompt_pwd)
-
-      # (main)
       set_color normal
       if type -q __fish_git_prompt
         __fish_git_prompt
       end
-
-      # (docker)
       set_color $fish_color_cwd
       if docker ps -q | grep -q .
         echo -n " (docker)"
       end
-
-      # (nix: flake-name)
       if test -n "$IN_NIX_SHELL"
         if test -n "$DIRENV_DIR"
           set -gx FLAKE_DIR (basename (string sub -s 2 -- "$DIRENV_DIR"))
@@ -145,7 +131,6 @@ let
         end
         echo -n " (nix: $FLAKE_DIR)"
       end
-
       set_color normal
       echo -n "> "
     end
@@ -171,21 +156,19 @@ let
 
   bashPrompt = ''
     eval "$(zoxide init bash)"
+    shopt -s checkwinsize
 
-    shopt -s checkwinsize   # Update LINES and COLUMNS after each command
-
-    # Only set bind options in interactive mode
     if [[ $- == *i* ]]; then
-      bind "set enable-bracketed-paste on"  # Better paste handling
-      bind "set horizontal-scroll-mode off" # Wrap lines instead of scrolling
-      bind "set show-all-if-ambiguous on"  # Better completion
+      bind "set enable-bracketed-paste on"
+      bind "set horizontal-scroll-mode off"
+      bind "set show-all-if-ambiguous on"
     fi
 
-    PS1_DIR='\[\033[1;34m\]'    # blue directory
-    PS1_GIT='\[\033[0;36m\]'    # cyan git
-    PS1_DOCKER='\[\033[0;32m\]' # green docker
-    PS1_NIX='\[\033[0;33m\]'    # yellow nix
-    PS1_RESET='\[\033[0m\]'     # reset color
+    PS1_DIR='\[\033[1;34m\]'
+    PS1_GIT='\[\033[0;36m\]'
+    PS1_DOCKER='\[\033[0;32m\]'
+    PS1_NIX='\[\033[0;33m\]'
+    PS1_RESET='\[\033[0m\]'
 
     git_branch() {
       git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
@@ -231,7 +214,7 @@ in
     enable = true;
     interactiveShellInit = fishPrompt;
     shellInit = ''
-      set fish_user_paths /home/jason/bin /home/jason/.local/bin /home/jason/.nix-profile/bin /nix/var/nix/profiles/default/bin
+      set fish_user_paths ${homeDir}/bin ${homeDir}/.local/bin ${homeDir}/.nix-profile/bin /nix/var/nix/profiles/default/bin
     '';
     inherit shellAliases;
   };
@@ -241,5 +224,4 @@ in
     bashrcExtra = bashPrompt;
     inherit shellAliases;
   };
-
 }

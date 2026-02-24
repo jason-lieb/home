@@ -4,7 +4,6 @@
   vscode-extensions,
   ...
 }:
-
 {
   programs.vscode = {
     enable = true;
@@ -16,8 +15,6 @@
       extensions = (
         with vscode-extensions.vscode-marketplace;
         [
-          # asvetliakov.vscode-neovim
-          # effectful-tech.effect-vscode
           esbenp.prettier-vscode
           github.vscode-github-actions
           github.vscode-pull-request-github
@@ -28,22 +25,16 @@
           jnoortheen.nix-ide
           justusadam.language-haskell
           mechatroner.rainbow-csv
-          # mhutchie.git-graph
           oderwat.indent-rainbow
           pkief.material-icon-theme
           ritwickdey.liveserver
           stylelint.vscode-stylelint
-          # vscodevim.vim
           yoavbls.pretty-ts-errors
         ]
         ++ (with pkgs.vscode-extensions; [
           jkillian.custom-local-formatters
         ])
       );
-      # ++ (with vscode-extensions.vscode-marketplace-release; [
-      # github.copilot
-      # github.copilot-chat
-      # ]);
 
       userSettings = {
         "diffEditor.maxComputationTime" = 0;
@@ -144,6 +135,7 @@
         "window.menuBarVisibility" = "toggle";
         "extensions.ignoreRecommendations" = true;
       };
+
       keybindings = [
         {
           key = "shift+alt+down";
