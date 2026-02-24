@@ -1,4 +1,4 @@
-{ ... }:
+{ username, ... }:
 {
 
   nix.settings = {
@@ -14,24 +14,22 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
 
-  users.users.jason = {
-    name = "jason";
-    home = "/Users/jason";
+  users.users.${username} = {
+    name = username;
+    home = "/Users/${username}";
   };
 
-  system.primaryUser = "jason";
+  system.primaryUser = username;
   programs.fish.enable = true;
   services.nix-daemon.enable = true;
 
   system.stateVersion = 6;
 
-  networking.hostName = "work";
-
   homebrew = {
     enable = true;
     onActivation = {
       autoUpdate = false;
-      cleanup = "zap";
+      cleanup = "none";
       upgrade = true;
     };
 

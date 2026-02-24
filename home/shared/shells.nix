@@ -1,10 +1,11 @@
 {
-  homeDir,
+  config,
   isDarwin,
   hostname,
   ...
 }:
 let
+  homeDir = config.home.homeDirectory;
   nixAliases =
     if isDarwin then
       {

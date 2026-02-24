@@ -1,15 +1,16 @@
 {
+  config,
   lib,
   pkgs,
   pkgs-unstable,
   claude-code,
   system,
-  homeDir,
+  username,
   isDarwin,
   ...
 }:
 let
-  env = import ../env.nix { inherit homeDir; };
+  env = import ../env.nix { homeDir = config.home.homeDirectory; };
 in
 {
   imports = [
@@ -20,8 +21,8 @@ in
   ];
 
   home = {
-    username = "jason";
-    homeDirectory = homeDir;
+    inherit username;
+    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
     stateVersion = "25.05";
   };
 
@@ -197,7 +198,7 @@ in
       };
 
       npmConfig = {
-        ".npmrc".text = "prefix=${homeDir}/.npm-packages";
+        ".npmrc".text = "prefix=${config.home.homeDirectory}/.npm-packages";
       };
 
       stackConfig = {

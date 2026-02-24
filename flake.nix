@@ -43,7 +43,7 @@
         {
           system,
           hostname,
-          homeDir,
+          username,
           isDarwin,
           hmImports,
         }:
@@ -57,41 +57,35 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.backupFileExtension = "bak";
-          home-manager.users.jason.imports = hmImports;
+          home-manager.users.${username}.imports = hmImports;
           home-manager.extraSpecialArgs = {
             inherit
               system
               hostname
+              username
               pkgs-unstable
               vscode-extensions
               freckle
               claude-code
-              homeDir
               isDarwin
               ;
           };
         };
 
-      specialArgs = hostname: {
-        inherit
-          self
-          hostname
-          ghostty
-          ;
-      };
-
       mkNixos =
         hostname:
         nixpkgs-stable.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = specialArgs hostname;
+          specialArgs = {
+            inherit self hostname ghostty;
+          };
           modules = [
             ./nixos
             home-manager.nixosModules.home-manager
             (mkHomeManagerConfig {
               system = "x86_64-linux";
               inherit hostname;
-              homeDir = "/home/jason";
+              username = "jason";
               isDarwin = false;
               hmImports = [
                 ./home/linux
@@ -104,16 +98,20 @@
 
       mkDarwin =
         hostname:
+        let
+          username = "jason.lieb";
+        in
         nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          specialArgs = specialArgs hostname;
+          specialArgs = {
+            inherit self hostname ghostty username;
+          };
           modules = [
             ./darwin
             home-manager.darwinModules.home-manager
             (mkHomeManagerConfig {
               system = "aarch64-darwin";
-              inherit hostname;
-              homeDir = "/Users/jason";
+              inherit hostname username;
               isDarwin = true;
               hmImports = [
                 ./home/darwin
