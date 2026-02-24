@@ -9,8 +9,8 @@ let
   nixAliases =
     if isDarwin then
       {
-        drs = "sudo darwin-rebuild switch --flake ${homeDir}/home#${hostname}";
-        drb = "sudo darwin-rebuild switch --flake ${homeDir}/home#${hostname} --rollback";
+        drs = "sudo darwin-rebuild switch --flake ${homeDir}/home#${hostname} --impure";
+        drb = "sudo darwin-rebuild switch --flake ${homeDir}/home#${hostname} --impure --rollback";
       }
     else
       {
