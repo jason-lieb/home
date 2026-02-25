@@ -22,6 +22,7 @@
     freckle.url = "github:freckle/flakes?dir=main";
     ghostty.url = "github:ghostty-org/ghostty";
     claude-code.url = "github:sadjow/claude-code-nix";
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
@@ -37,6 +38,7 @@
       freckle,
       ghostty,
       claude-code,
+      llm-agents,
     }:
     let
       mkHomeManagerConfig =
@@ -53,6 +55,7 @@
             config.allowUnfree = true;
           };
           vscode-extensions = nix-vscode-extensions.extensions.${system};
+          llm-agents-pkgs = llm-agents.packages.${system};
         in
         {
           home-manager.useGlobalPkgs = true;
@@ -67,6 +70,7 @@
               vscode-extensions
               freckle
               claude-code
+              llm-agents-pkgs
               isDarwin
               ;
           };
@@ -132,8 +136,14 @@
       };
 
       nixConfig = {
-        extra-substituters = [ "https://ghostty.cachix.org" ];
-        extra-trusted-public-keys = [ "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns=" ];
+        extra-substituters = [
+          "https://ghostty.cachix.org"
+          "https://cache.numtide.com"
+        ];
+        extra-trusted-public-keys = [
+          "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+          "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        ];
       };
     };
 }

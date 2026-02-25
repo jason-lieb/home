@@ -4,6 +4,7 @@
   pkgs,
   pkgs-unstable,
   claude-code,
+  llm-agents-pkgs,
   system,
   username,
   isDarwin,
@@ -52,7 +53,7 @@ in
       opencode
     ])
     ++ [
-      claude-code.packages.${system}.default
+      (if isDarwin then llm-agents-pkgs.claude-code else claude-code.packages.${system}.default)
     ]
     ++ lib.optionals (!isDarwin) (
       with pkgs;
