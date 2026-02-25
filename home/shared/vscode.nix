@@ -1,7 +1,9 @@
 {
+  lib,
   pkgs,
   pkgs-unstable,
   vscode-extensions,
+  isDarwin,
   ...
 }:
 {
@@ -136,7 +138,7 @@
         "extensions.ignoreRecommendations" = true;
       };
 
-      keybindings = [
+      keybindings = lib.optionals (!isDarwin) [
         {
           key = "shift+alt+down";
           command = "-editor.action.insertCursorBelow";

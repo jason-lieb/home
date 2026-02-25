@@ -77,7 +77,6 @@
 
     # GUI apps on macOS are installed exclusively through casks.
     casks = [
-      "visual-studio-code"
       "ghostty"
       "helium-browser"
       "raycast"

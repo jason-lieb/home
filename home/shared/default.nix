@@ -15,8 +15,6 @@ in
 {
   imports = [
     ./shells.nix
-  ]
-  ++ lib.optionals (!isDarwin) [
     ./vscode.nix
   ];
 
