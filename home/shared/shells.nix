@@ -121,7 +121,7 @@ let
         __fish_git_prompt
       end
       set_color $fish_color_cwd
-      if docker ps -q | grep -q .
+      if type -q docker; and docker ps -q 2>/dev/null | grep -q .
         echo -n " (docker)"
       end
       if test -n "$IN_NIX_SHELL"
@@ -176,7 +176,7 @@ let
     }
 
     docker_status() {
-      if docker ps -q | grep -q .; then
+      if command -v docker &>/dev/null && docker ps -q 2>/dev/null | grep -q .; then
         echo " (docker)"
       fi
     }
@@ -220,7 +220,7 @@ let
     }
 
     docker_status() {
-      if docker ps -q | grep -q .; then
+      if command -v docker &>/dev/null && docker ps -q 2>/dev/null | grep -q .; then
         echo " (docker)"
       fi
     }
