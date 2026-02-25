@@ -272,7 +272,7 @@ in
 
   programs.zsh = lib.mkIf isDarwin {
     enable = true;
-    initExtra = zshPrompt;
+    initContent = zshPrompt;
     inherit shellAliases;
   };
 }
