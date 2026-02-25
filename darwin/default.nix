@@ -82,6 +82,7 @@
       "helium-browser"
       "raycast"
       "vivaldi"
+      "zen-browser"
     ];
   };
 }
