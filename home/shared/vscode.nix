@@ -36,6 +36,9 @@
         ++ (with pkgs.vscode-extensions; [
           jkillian.custom-local-formatters
         ])
+        ++ lib.optionals isDarwin [
+          anthropic.claude-code
+        ]
       );
 
       userSettings = {
