@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   isDarwin,
   hostname,
   ...
@@ -208,6 +209,50 @@ let
       git fetch origin main && git rebase origin/main
     }
   '';
+
+  zshPrompt = ''
+    eval "$(zoxide init zsh)"
+
+    setopt PROMPT_SUBST
+
+    git_branch() {
+      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+    }
+
+    docker_status() {
+      if docker ps -q | grep -q .; then
+        echo " (docker)"
+      fi
+    }
+
+    nix_shell_info() {
+      if [ -n "$IN_NIX_SHELL" ]; then
+        if [ -z "$FLAKE_DIR" ]; then
+          export FLAKE_DIR=$(basename $(pwd))
+        fi
+        echo " (nix: $FLAKE_DIR)"
+      fi
+    }
+
+    PS1='%F{blue}%n@%m %~%f%F{cyan}$(git_branch)%f%F{green}$(docker_status)%f%F{yellow}$(nix_shell_info)%f> '
+
+    grf() {
+      if [ $# -eq 1 ]; then
+        git branch -D $1
+        git fetch origin $1
+        git checkout $1
+      else
+        echo "Invalid number of arguments"
+      fi
+    }
+
+    fr() {
+      if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
+        git checkout main
+      fi
+      git fetch origin main && git rebase origin/main
+    }
+  '';
 in
 {
   programs.fish = {
@@ -222,6 +267,12 @@ in
   programs.bash = {
     enable = true;
     bashrcExtra = bashPrompt;
+    inherit shellAliases;
+  };
+
+  programs.zsh = lib.mkIf isDarwin {
+    enable = true;
+    initExtra = zshPrompt;
     inherit shellAliases;
   };
 }
