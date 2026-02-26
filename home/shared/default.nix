@@ -51,6 +51,10 @@ in
       wget
       zoxide
       opencode
+
+      nodejs
+      pnpm
+      bun
     ])
     ++ [
       (if isDarwin then llm-agents-pkgs.claude-code else claude-code.packages.${system}.default)
@@ -221,17 +225,17 @@ in
         }
       '';
 
-      cursorConfigDir =
-        if isDarwin then "Library/Application Support/Cursor" else ".config/Cursor";
-      codeConfigDir =
-        if isDarwin then "Library/Application Support/Code" else ".config/Code";
+      cursorConfigDir = ".config/Cursor";
+      codeConfigDir = if isDarwin then "Library/Application Support/Code" else ".config/Code";
 
-      vscodeSnippets = {
+      cursorSnippets = lib.optionalAttrs (!isDarwin) {
         "${cursorConfigDir}/User/snippets/typescript.json".text = snippets;
         "${cursorConfigDir}/User/snippets/typescriptreact.json".text = snippets;
         "${cursorConfigDir}/User/snippets/javascript.json".text = snippets;
         "${cursorConfigDir}/User/snippets/javascriptreact.json".text = snippets;
+      };
 
+      vscodeSnippets = {
         "${codeConfigDir}/User/snippets/typescript.json".text = snippets;
         "${codeConfigDir}/User/snippets/typescriptreact.json".text = snippets;
         "${codeConfigDir}/User/snippets/javascript.json".text = snippets;
@@ -245,5 +249,6 @@ in
     // nixConfig
     // npmConfig
     // stackConfig
+    // cursorSnippets
     // vscodeSnippets;
 }
