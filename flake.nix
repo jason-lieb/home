@@ -19,7 +19,6 @@
       inputs.home-manager.follows = "home-manager";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    freckle.url = "github:freckle/flakes?dir=main";
     ghostty.url = "github:ghostty-org/ghostty";
     claude-code.url = "github:sadjow/claude-code-nix";
     llm-agents.url = "github:numtide/llm-agents.nix";
@@ -35,7 +34,6 @@
       nix-darwin,
       plasma-manager,
       nix-flatpak,
-      freckle,
       ghostty,
       claude-code,
       llm-agents,
@@ -68,7 +66,6 @@
               username
               pkgs-unstable
               vscode-extensions
-              freckle
               claude-code
               llm-agents-pkgs
               isDarwin

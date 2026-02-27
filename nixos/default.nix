@@ -129,9 +129,7 @@ in
     3000
     5432 # PostgreSQL
     5434 # PostgreSQL
-    8081
     8384 # Syncthing web UI
-    9094
     19000 # React Native Metro bundler
     19001 # React Native packager
     22000 # Syncthing
@@ -144,15 +142,6 @@ in
 
   networking.extraHosts = ''
     127.0.0.1 localhost.com
-    127.0.0.1 api.localhost.com
-    127.0.0.1 assets.localhost.com
-    127.0.0.1 classroom.localhost.com
-    127.0.0.1 school.localhost.com
-    127.0.0.1 student.localhost.com
-    127.0.0.1 console.localhost.com
-    127.0.0.1 faktory.localhost.com
-    127.0.0.1 tts.localhost.com
-    127.0.0.1 sso.localhost.com
   '';
 
   virtualisation.docker = {
@@ -162,7 +151,6 @@ in
 
   environment.systemPackages = with pkgs; [
     home-manager
-    cachix
     ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
     nodejs
     dolphin-emu
