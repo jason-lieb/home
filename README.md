@@ -28,6 +28,10 @@ claude plugin add code-reviewer@marketplace
 claude plugin add superpowers@marketplace
 ```
 
+## Arch Setup
+
+See [arch/README.md](arch/README.md)
+
 ## NixOS Setup
 
 ```bash

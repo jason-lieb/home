@@ -110,30 +110,6 @@ manage all boot entries.
 - Arch/KDE/system behavior remains script-generated in `modules/03-services.sh`, `modules/04-plasma.sh`, and `modules/06-session-defaults.sh`
 - Existing local files are backed up as `<path>.backup` before replacement
 
-## Running Individual Modules
-
-Each module can be run independently:
-
-```bash
-# Install packages only
-./modules/01-packages.sh
-
-# Configure dotfiles only
-./modules/02-dotfiles.sh
-
-# Setup services only
-./modules/03-services.sh
-
-# Configure KDE Plasma only
-./modules/04-plasma.sh
-
-# Setup gaming/emulators only
-./modules/05-gaming.sh
-
-# Setup MIME defaults/autostart only
-./modules/06-session-defaults.sh
-```
-
 ## Module Descriptions
 
 | Module | Description |
@@ -144,10 +120,6 @@ Each module can be run independently:
 | `04-plasma.sh` | Sets up KDE Plasma theme, shortcuts, virtual desktops, window rules |
 | `05-gaming.sh` | Configures emulators (Dolphin, PrimeHack, AM2R), gaming peripherals |
 | `06-session-defaults.sh` | Applies host-based MIME defaults and autostart behavior (`mini` vs others) |
-
-## Package Manifests
-
-- `modules/01-packages.sh` contains in-script package arrays for official repos and AUR
 
 ## Directory Structure
 
@@ -181,15 +153,6 @@ home/                           # Repository root
         ├── 04-plasma.sh
         ├── 05-gaming.sh
         └── 06-session-defaults.sh
-```
-
-## Install Script Options
-
-```bash
-./install --user jason --host desktop
-./install --user jason --host mini
-./install --from 03-services.sh
-./install --to 04-plasma.sh
 ```
 
 ## Nix (Optional, Dev Tooling Only)
@@ -258,15 +221,6 @@ sudo ufw status
 
 # Verify hosts file
 grep localhost.com /etc/hosts
-```
-
-### Idempotent Re-Run Check
-```bash
-# Run module once
-./install --from 02-dotfiles.sh --to 06-session-defaults.sh
-
-# Run the same slice again (should not duplicate config entries)
-./install --from 02-dotfiles.sh --to 06-session-defaults.sh
 ```
 
 ### KDE Plasma
