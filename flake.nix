@@ -53,7 +53,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.backupFileExtension = "bak";
               home-manager.users.jason.imports = [
-                ./home/linux
+                ./home
                 plasma-manager.homeModules.plasma-manager
                 nix-flatpak.homeManagerModules.nix-flatpak
               ];

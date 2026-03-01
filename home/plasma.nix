@@ -4,7 +4,7 @@ let
   isDesktop = hostname == "desktop";
   isMini = hostname == "mini";
 
-  inherit (import ../utils/window-rules.nix)
+  inherit (import ./utils/window-rules.nix)
     maximize
     moveToSidewaysScreen
     defaultSize
@@ -23,7 +23,7 @@ in
         theme = "breeze_cursors";
         size = 24;
       };
-      wallpaper = ../../wallpaper.png;
+      wallpaper = ../wallpaper.png;
     };
 
     kwin = {
