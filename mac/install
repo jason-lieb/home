@@ -25,6 +25,9 @@ fi
 echo "Installing packages from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 
+echo "Installing Node.js LTS via pnpm..."
+pnpm env use --global lts
+
 # ============================================
 # Touch ID for sudo
 # ============================================
