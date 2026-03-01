@@ -1,0 +1,118 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TARGET_USER="${TARGET_USER:-$USER}"
+TARGET_HOST="${TARGET_HOST:-desktop}"
+
+usage() {
+  cat <<'EOF'
+Usage:
+  ./install [--user USER] [--host desktop|laptop|mini|z560] [--from MODULE] [--to MODULE]
+
+Examples:
+  ./install
+  ./install --user jason --host mini
+  ./install --from 03-services.sh
+EOF
+}
+
+FROM_MODULE=""
+TO_MODULE=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --user)
+      TARGET_USER="$2"
+      shift 2
+      ;;
+    --host)
+      TARGET_HOST="$2"
+      shift 2
+      ;;
+    --from)
+      FROM_MODULE="$2"
+      shift 2
+      ;;
+    --to)
+      TO_MODULE="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+export TARGET_USER TARGET_HOST
+
+echo "=== Arch Linux Post-Install Setup ==="
+echo "Target user: ${TARGET_USER}"
+echo "Target host: ${TARGET_HOST}"
+echo ""
+
+echo "=== Preflight Checks ==="
+if [[ "$EUID" -eq 0 ]]; then
+  echo "ERROR: Run install as your normal user, not root."
+  echo "The scripts will use sudo when needed."
+  exit 1
+fi
+
+if ! command -v sudo >/dev/null 2>&1; then
+  echo "ERROR: sudo is required."
+  exit 1
+fi
+
+if ! sudo -n true 2>/dev/null; then
+  echo "sudo access required; you may be prompted for password..."
+  sudo -v
+fi
+
+if ! id "$TARGET_USER" >/dev/null 2>&1; then
+  echo "ERROR: target user '$TARGET_USER' does not exist."
+  exit 1
+fi
+
+for cmd in git curl; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "ERROR: missing required command '$cmd'."
+    exit 1
+  fi
+done
+
+echo "Target user: $TARGET_USER"
+echo "Current shell: $SHELL"
+echo "Preflight checks passed."
+echo ""
+
+run_module=true
+if [[ -n "$FROM_MODULE" ]]; then
+  run_module=false
+fi
+
+for module in "$SCRIPT_DIR"/modules/*.sh; do
+  module_name="$(basename "$module")"
+
+  if [[ -n "$FROM_MODULE" && "$module_name" == "$FROM_MODULE" ]]; then
+    run_module=true
+  elif [[ -n "$FROM_MODULE" && "$run_module" == false ]]; then
+    continue
+  fi
+
+  echo "Running ${module_name}..."
+  bash "$module"
+  echo ""
+
+  if [[ -n "$TO_MODULE" && "$module_name" == "$TO_MODULE" ]]; then
+    break
+  fi
+done
+
+echo "=== Setup Complete ==="
+echo "Please reboot to apply all changes."

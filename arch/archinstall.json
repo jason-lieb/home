@@ -1,0 +1,34 @@
+{
+  "audio_config": {
+    "audio": "pipewire"
+  },
+  "hostname": "desktop",
+  "kernels": ["linux"],
+  "locale_config": {
+    "kb_layout": "us",
+    "sys_enc": "UTF-8",
+    "sys_lang": "en_US"
+  },
+  "network_config": {
+    "type": "nm"
+  },
+  "ntp": true,
+  "packages": ["base-devel", "btrfs-progs", "git", "networkmanager", "intel-ucode", "openssh", "snapper"],
+  "profile_config": {
+    "gfx_driver": "All open-source",
+    "greeter": "sddm",
+    "profile": {
+      "details": ["KDE Plasma"],
+      "main": "Desktop"
+    }
+  },
+  "swap": true,
+  "timezone": "America/New_York",
+  "!users": [
+    {
+      "username": "jason",
+      "!password": null,
+      "sudo": true
+    }
+  ]
+}
