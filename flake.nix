@@ -9,10 +9,6 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    nix-darwin = {
-      url = "github:lnl7/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -21,7 +17,6 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     ghostty.url = "github:ghostty-org/ghostty";
     claude-code.url = "github:sadjow/claude-code-nix";
-    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
@@ -31,93 +26,46 @@
       nixpkgs-unstable,
       nix-vscode-extensions,
       home-manager,
-      nix-darwin,
       plasma-manager,
       nix-flatpak,
       ghostty,
       claude-code,
-      llm-agents,
     }:
     let
-      mkHomeManagerConfig =
-        {
-          system,
-          hostname,
-          username,
-          isDarwin,
-          hmImports,
-        }:
-        let
-          pkgs-unstable = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-          vscode-extensions = nix-vscode-extensions.extensions.${system};
-          llm-agents-pkgs = llm-agents.packages.${system};
-        in
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.backupFileExtension = "bak";
-          home-manager.users.${username}.imports = hmImports;
-          home-manager.extraSpecialArgs = {
-            inherit
-              system
-              hostname
-              username
-              pkgs-unstable
-              vscode-extensions
-              claude-code
-              llm-agents-pkgs
-              isDarwin
-              ;
-          };
-        };
+      system = "x86_64-linux";
+
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
       mkNixos =
         hostname:
         nixpkgs-stable.lib.nixosSystem {
-          system = "x86_64-linux";
+          inherit system;
           specialArgs = {
             inherit self hostname ghostty;
           };
           modules = [
             ./nixos
             home-manager.nixosModules.home-manager
-            (mkHomeManagerConfig {
-              system = "x86_64-linux";
-              inherit hostname;
-              username = "jason";
-              isDarwin = false;
-              hmImports = [
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.backupFileExtension = "bak";
+              home-manager.users.jason.imports = [
                 ./home/linux
                 plasma-manager.homeModules.plasma-manager
                 nix-flatpak.homeManagerModules.nix-flatpak
               ];
-            })
-          ];
-        };
-
-      mkDarwin =
-        hostname:
-        let
-          username = "jason.lieb";
-        in
-        nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = {
-            inherit self hostname ghostty username;
-          };
-          modules = [
-            ./darwin
-            home-manager.darwinModules.home-manager
-            (mkHomeManagerConfig {
-              system = "aarch64-darwin";
-              inherit hostname username;
-              isDarwin = true;
-              hmImports = [
-                ./home/darwin
-              ];
-            })
+              home-manager.extraSpecialArgs = {
+                inherit
+                  hostname
+                  pkgs-unstable
+                  ;
+                vscode-extensions = nix-vscode-extensions.extensions.${system};
+                claude-code-pkg = claude-code.packages.${system}.default;
+              };
+            }
           ];
         };
     in
@@ -128,18 +76,13 @@
         mini = mkNixos "mini";
         z560 = mkNixos "z560";
       };
-      darwinConfigurations = {
-        work = mkDarwin "work";
-      };
 
       nixConfig = {
         extra-substituters = [
           "https://ghostty.cachix.org"
-          "https://cache.numtide.com"
         ];
         extra-trusted-public-keys = [
           "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
-          "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         ];
       };
     };

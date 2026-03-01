@@ -1,27 +1,10 @@
 {
   config,
-  lib,
-  isDarwin,
   hostname,
   ...
 }:
 let
   homeDir = config.home.homeDirectory;
-  nixAliases =
-    if isDarwin then
-      {
-        drs = "sudo darwin-rebuild switch --flake ${homeDir}/home#${hostname} --impure";
-        drb = "sudo darwin-rebuild switch --flake ${homeDir}/home#${hostname} --impure --rollback";
-      }
-    else
-      {
-        rs = "sudo nixos-rebuild switch --impure --flake ${homeDir}/home#${hostname}";
-        rsp = "sudo nixos-rebuild switch --impure --flake ${homeDir}/home#${hostname} --profile-name";
-        rb = "sudo nixos-rebuild boot --impure --flake ${homeDir}/home#${hostname}";
-        rbp = "sudo nixos-rebuild boot --impure --flake ${homeDir}/home#${hostname} --profile-name";
-        nix-clean = "sudo nix-collect-garbage --delete-older-than 7d && sudo /run/current-system/bin/switch-to-configuration boot";
-        bluetooth = "bluetoothctl power on";
-      };
 
   shellAliases = {
     c = "clear";
@@ -76,8 +59,13 @@ let
     home = "cd ~/home";
     shell = "nix-shell -p";
     dev = "nix develop -c fish";
-  }
-  // nixAliases;
+    rs = "sudo nixos-rebuild switch --impure --flake ${homeDir}/home#${hostname}";
+    rsp = "sudo nixos-rebuild switch --impure --flake ${homeDir}/home#${hostname} --profile-name";
+    rb = "sudo nixos-rebuild boot --impure --flake ${homeDir}/home#${hostname}";
+    rbp = "sudo nixos-rebuild boot --impure --flake ${homeDir}/home#${hostname} --profile-name";
+    nix-clean = "sudo nix-collect-garbage --delete-older-than 7d && sudo /run/current-system/bin/switch-to-configuration boot";
+    bluetooth = "bluetoothctl power on";
+  };
 
   fishPrompt = ''
     set fish_greeting
@@ -184,49 +172,6 @@ let
     }
   '';
 
-  zshPrompt = ''
-    eval "$(zoxide init zsh)"
-
-    setopt PROMPT_SUBST
-
-    git_branch() {
-      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-    }
-
-    docker_status() {
-      if command -v docker &>/dev/null && docker ps -q 2>/dev/null | grep -q .; then
-        echo " (docker)"
-      fi
-    }
-
-    nix_shell_info() {
-      if [ -n "$IN_NIX_SHELL" ]; then
-        if [ -z "$FLAKE_DIR" ]; then
-          export FLAKE_DIR=$(basename $(pwd))
-        fi
-        echo " (nix: $FLAKE_DIR)"
-      fi
-    }
-
-    PS1='%F{blue}%n@%m %~%f%F{cyan}$(git_branch)%f%F{green}$(docker_status)%f%F{yellow}$(nix_shell_info)%f> '
-
-    grf() {
-      if [ $# -eq 1 ]; then
-        git branch -D $1
-        git fetch origin $1
-        git checkout $1
-      else
-        echo "Invalid number of arguments"
-      fi
-    }
-
-    fr() {
-      if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
-        git checkout main
-      fi
-      git fetch origin main && git rebase origin/main
-    }
-  '';
 in
 {
   programs.fish = {
@@ -244,9 +189,4 @@ in
     inherit shellAliases;
   };
 
-  programs.zsh = lib.mkIf isDarwin {
-    enable = true;
-    initContent = zshPrompt;
-    inherit shellAliases;
-  };
 }

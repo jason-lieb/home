@@ -6,12 +6,6 @@
 bash -c "$(curl -fsSl https://raw.githubusercontent.com/jason-lieb/home/main/setup-nixos.sh)"
 ```
 
-## Darwin Setup
-```
-nix build .#darwinConfigurations.work.system --impure
-sudo ./result/sw/bin/darwin-rebuild switch --flake .#work --impure
-```
-
 ## Nix Profiles Use
 
 ### Install

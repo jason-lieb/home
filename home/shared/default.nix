@@ -1,13 +1,8 @@
 {
   config,
-  lib,
   pkgs,
   pkgs-unstable,
-  claude-code,
-  llm-agents-pkgs,
-  system,
-  username,
-  isDarwin,
+  claude-code-pkg,
   ...
 }:
 {
@@ -16,11 +11,7 @@
     ./vscode.nix
   ];
 
-  home = {
-    inherit username;
-    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
-    stateVersion = "25.05";
-  };
+  home.stateVersion = "25.05";
 
   home.sessionVariables.EDITOR = "code";
 
@@ -54,19 +45,16 @@
       bun
     ])
     ++ [
-      (if isDarwin then llm-agents-pkgs.claude-code else claude-code.packages.${system}.default)
+      claude-code-pkg
     ]
-    ++ lib.optionals (!isDarwin) (
-      with pkgs;
-      [
-        (retroarch.withCores (
-          cores: with cores; [
-            bsnes-hd
-          ]
-        ))
-      ]
-    )
-    ++ lib.optionals (!isDarwin) (with pkgs-unstable; [ code-cursor ]);
+    ++ (with pkgs; [
+      (retroarch.withCores (
+        cores: with cores; [
+          bsnes-hd
+        ]
+      ))
+    ])
+    ++ (with pkgs-unstable; [ code-cursor ]);
 
   programs.git = {
     enable = true;
@@ -156,7 +144,8 @@
         '';
       };
 
-      snippets = ''
+
+      snippetText = ''
         {
           "console.log": {
             "prefix": "cl",
@@ -166,22 +155,19 @@
         }
       '';
 
-      cursorConfigDir = ".config/Cursor";
-      codeConfigDir = if isDarwin then "Library/Application Support/Code" else ".config/Code";
-
-      cursorSnippets = lib.optionalAttrs (!isDarwin) {
-        "${cursorConfigDir}/User/snippets/typescript.json".text = snippets;
-        "${cursorConfigDir}/User/snippets/typescriptreact.json".text = snippets;
-        "${cursorConfigDir}/User/snippets/javascript.json".text = snippets;
-        "${cursorConfigDir}/User/snippets/javascriptreact.json".text = snippets;
-      };
-
-      vscodeSnippets = {
-        "${codeConfigDir}/User/snippets/typescript.json".text = snippets;
-        "${codeConfigDir}/User/snippets/typescriptreact.json".text = snippets;
-        "${codeConfigDir}/User/snippets/javascript.json".text = snippets;
-        "${codeConfigDir}/User/snippets/javascriptreact.json".text = snippets;
-      };
+      mkSnippets =
+        dir:
+        builtins.listToAttrs (
+          map (lang: {
+            name = "${dir}/User/snippets/${lang}.json";
+            value.text = snippetText;
+          }) [
+            "typescript"
+            "typescriptreact"
+            "javascript"
+            "javascriptreact"
+          ]
+        );
     in
     awsConfig
     // ghosttyConfig
@@ -189,6 +175,6 @@
     // nixConfig
     // npmConfig
     // stackConfig
-    // cursorSnippets
-    // vscodeSnippets;
+    // mkSnippets ".config/Cursor"
+    // mkSnippets ".config/Code";
 }

@@ -1,9 +1,7 @@
 {
-  lib,
   pkgs,
   pkgs-unstable,
   vscode-extensions,
-  isDarwin,
   ...
 }:
 {
@@ -33,9 +31,6 @@
         ]
         ++ (with pkgs.vscode-extensions; [
           jkillian.custom-local-formatters
-        ])
-        ++ lib.optionals isDarwin (with pkgs.vscode-extensions; [
-          anthropic.claude-code
         ])
       );
 
@@ -127,7 +122,7 @@
         "extensions.ignoreRecommendations" = true;
       };
 
-      keybindings = lib.optionals (!isDarwin) [
+      keybindings = [
         {
           key = "shift+alt+down";
           command = "-editor.action.insertCursorBelow";
