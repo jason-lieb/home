@@ -18,7 +18,7 @@ nix-shell -p gh --run "gh auth login -p ssh -w"
 printf "\nCloning home repo... (Make sure to type out \"yes\" when prompted)\n"
 nix-shell -p git --run "git clone git@github.com:jason-lieb/home.git"
 
-HOST_DIR="$HOME/home/nixos/$hostname"
+HOST_DIR="$HOME/home/nixos/system/$hostname"
 mkdir -p "$HOST_DIR"
 sudo cp /etc/nixos/hardware-configuration.nix "$HOST_DIR/hardware.nix"
 sed -i "/nixosConfigurations = {/a\\        $hostname = mkNixos \"$hostname\";" "$HOME/home/flake.nix"

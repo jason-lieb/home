@@ -47,13 +47,13 @@
             inherit self hostname ghostty;
           };
           modules = [
-            ./nixos
+            ./nixos/system
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.backupFileExtension = "bak";
               home-manager.users.jason.imports = [
-                ./home
+                ./nixos/home
                 plasma-manager.homeModules.plasma-manager
                 nix-flatpak.homeManagerModules.nix-flatpak
               ];
