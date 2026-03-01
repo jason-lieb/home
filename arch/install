@@ -7,27 +7,19 @@ TARGET_USER="jason"
 usage() {
   cat <<'EOF'
 Usage:
-  ./install [--from MODULE] [--to MODULE]
+  ./install          Run core modules
+  ./install --all    Run core + optional modules
 
-Examples:
-  ./install
-  ./install --from 03-services.sh
-  ./install --from 02-dotfiles.sh --to 06-session-defaults.sh
 EOF
 }
 
-FROM_MODULE=""
-TO_MODULE=""
+RUN_ALL=false
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --from)
-      FROM_MODULE="$2"
-      shift 2
-      ;;
-    --to)
-      TO_MODULE="$2"
-      shift 2
+    --all)
+      RUN_ALL=true
+      shift
       ;;
     -h|--help)
       usage
@@ -77,28 +69,32 @@ done
 echo "Preflight checks passed."
 echo ""
 
-run_module=true
-if [[ -n "$FROM_MODULE" ]]; then
-  run_module=false
-fi
+CORE_MODULES=(
+  packages
+  dotfiles
+  services
+  plasma
+  session-defaults
+)
 
-for module in "$SCRIPT_DIR"/modules/*.sh; do
-  module_name="$(basename "$module")"
+OPTIONAL_MODULES=(
+  syncthing
+  gaming
+)
 
-  if [[ -n "$FROM_MODULE" && "$module_name" == "$FROM_MODULE" ]]; then
-    run_module=true
-  elif [[ -n "$FROM_MODULE" && "$run_module" == false ]]; then
-    continue
-  fi
-
-  echo "Running ${module_name}..."
-  bash "$module"
+for name in "${CORE_MODULES[@]}"; do
+  echo "Running ${name}..."
+  bash "$SCRIPT_DIR/modules/${name}.sh"
   echo ""
-
-  if [[ -n "$TO_MODULE" && "$module_name" == "$TO_MODULE" ]]; then
-    break
-  fi
 done
+
+if [[ "$RUN_ALL" == true ]]; then
+  for name in "${OPTIONAL_MODULES[@]}"; do
+    echo "Running optional/${name}..."
+    bash "$SCRIPT_DIR/modules/optional/${name}.sh"
+    echo ""
+  done
+fi
 
 echo "=== Setup Complete ==="
 echo "Please reboot to apply all changes."

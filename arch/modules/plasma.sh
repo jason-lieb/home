@@ -150,6 +150,17 @@ kwriteconfig6 --file dolphinrc --group General --key ShowHiddenFiles true
 kwriteconfig6 --file ksplashrc --group KSplash --key Engine "none"
 kwriteconfig6 --file ksplashrc --group KSplash --key Theme "none"
 
+# Disable busy cursor on app launch
+kwriteconfig6 --file klaunchrc --group FeedbackStyle --key BusyCursor false
+
+# Disable visible bell
+kwriteconfig6 --file kdeglobals --group General --key BellVisible false
+
+# Night time schedule
+kwriteconfig6 --file knighttimerc --group General --key Source "Times"
+kwriteconfig6 --file knighttimerc --group Times --key SunriseStart "07:00:00"
+kwriteconfig6 --file knighttimerc --group Times --key SunsetStart "20:00:00"
+
 # Empty session restore (don't restore previous session)
 kwriteconfig6 --file ksmserverrc --group General --key loginMode "emptySession"
 
@@ -224,9 +235,9 @@ wmclassmatch=1
 [7]
 Description=Move vivaldi-stable (Notion Home | Notion - Vivaldi) to sideways screen
 desktops=
-desktopsrule=2
+desktopsrule=4
 screen=1
-screenrule=2
+screenrule=4
 title=Notion Home | Notion - Vivaldi
 titlematch=1
 wmclass=vivaldi-stable
@@ -282,41 +293,68 @@ rules=1,2,3,4
 WINDOWRULES
 fi
 
+# Touchpad (laptop only)
+if [[ "$(hostname)" == "laptop" ]]; then
+    echo "Configuring touchpad..."
+    kwriteconfig6 --file touchpadrc --group "SYNA2BA6:00 06CB:CEF5 Touchpad" --key TapToClick true
+    kwriteconfig6 --file touchpadrc --group "SYNA2BA6:00 06CB:CEF5 Touchpad" --key NaturalScroll true
+    kwriteconfig6 --file touchpadrc --group "SYNA2BA6:00 06CB:CEF5 Touchpad" --key PointerAcceleration "0.5"
+fi
+
 # Power profile policies by host
 if [[ "$(hostname)" == "laptop" ]]; then
+    # AC
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DimDisplay --key idleTime 600000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key idleTime 900000
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key lockBeforeTurnOff 60000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key suspendType 1
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key idleTime 3600000
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group Performance --key PowerProfile "performance"
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group KeyboardBrightness --key value 100
+    # Battery
     kwriteconfig6 --file powermanagementprofilesrc --group Battery --group DimDisplay --key idleTime 300000
     kwriteconfig6 --file powermanagementprofilesrc --group Battery --group DPMSControl --key idleTime 600000
+    kwriteconfig6 --file powermanagementprofilesrc --group Battery --group DPMSControl --key lockBeforeTurnOff 60000
     kwriteconfig6 --file powermanagementprofilesrc --group Battery --group SuspendSession --key suspendType 1
     kwriteconfig6 --file powermanagementprofilesrc --group Battery --group SuspendSession --key idleTime 1200000
+    kwriteconfig6 --file powermanagementprofilesrc --group Battery --group Performance --key PowerProfile "balanced"
+    kwriteconfig6 --file powermanagementprofilesrc --group Battery --group KeyboardBrightness --key value 100
+    # Low Battery
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group DPMSControl --key idleTime 180000
+    kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group DPMSControl --key lockBeforeTurnOff 30000
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group SuspendSession --key suspendType 1
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group SuspendSession --key idleTime 300000
+    kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group Performance --key PowerProfile "powerSaving"
+    kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group KeyboardBrightness --key value 25
 elif [[ "$(hostname)" == "mini" ]]; then
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group DimDisplay --key idleTime 600000
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key idleTime 1200000
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key lockBeforeTurnOff 180000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key suspendType 0
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key idleTime 0
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group Performance --key PowerProfile "performance"
 else
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DimDisplay --key idleTime 600000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key idleTime 1200000
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key lockBeforeTurnOff 180000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key suspendType 1
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key idleTime 3600000
+    kwriteconfig6 --file powermanagementprofilesrc --group AC --group Performance --key PowerProfile "performance"
 fi
 
 # ============================================
-# Wallpaper Directory
+# Wallpaper
 # ============================================
-echo "Creating wallpaper directory..."
-mkdir -p "$HOME/.local/share/wallpapers"
-echo "NOTE: Copy your wallpaper.png to ~/.local/share/wallpapers/"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WALLPAPER_SRC="$SCRIPT_DIR/../../wallpaper.png"
+WALLPAPER_DEST="$HOME/.local/share/wallpapers/wallpaper.png"
 
-# Apply wallpaper if present.
-if [[ -f "$HOME/.local/share/wallpapers/wallpaper.png" ]]; then
-    if command -v plasma-apply-wallpaperimage >/dev/null 2>&1; then
-        plasma-apply-wallpaperimage "$HOME/.local/share/wallpapers/wallpaper.png" || true
-    fi
+echo "Installing wallpaper..."
+mkdir -p "$HOME/.local/share/wallpapers"
+cp "$WALLPAPER_SRC" "$WALLPAPER_DEST"
+
+if command -v plasma-apply-wallpaperimage >/dev/null 2>&1; then
+    plasma-apply-wallpaperimage "$WALLPAPER_DEST" || true
 fi
 
 # ============================================
@@ -406,6 +444,50 @@ Categories=System;
 SHUTDOWNDESKTOP
 
 update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
+
+# ============================================
+# Vivaldi KDE Browser Integration
+# ============================================
+echo "Configuring Vivaldi KDE browser integration..."
+VIVALDI_NMH_DIR="$HOME/.config/vivaldi/NativeMessagingHosts"
+mkdir -p "$VIVALDI_NMH_DIR"
+PLASMA_BROWSER_HOST="$(command -v plasma-browser-integration-host 2>/dev/null || echo "/usr/bin/plasma-browser-integration-host")"
+cat > "$VIVALDI_NMH_DIR/org.kde.plasma.browser_integration.json" << VIVALDI_NMH
+{
+  "name": "org.kde.plasma.browser_integration",
+  "description": "Native connector for KDE Plasma Browser Integration",
+  "path": "$PLASMA_BROWSER_HOST",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://cimiefiiaegbelhefglklhhakcgmhkai/"]
+}
+VIVALDI_NMH
+
+# ============================================
+# Monitor Layout (kscreen-doctor)
+# ============================================
+if command -v kscreen-doctor >/dev/null 2>&1; then
+    echo "Configuring monitor layout..."
+    if [[ "$(hostname)" == "desktop" ]]; then
+        # Primary 2560x1440@165Hz centered, secondary 2560x1440@60Hz to the right in portrait
+        kscreen-doctor \
+            output.DP-1.enable \
+            output.DP-1.mode.2560x1440@165 \
+            output.DP-1.position.0,0 \
+            output.DP-1.primary \
+            output.DP-2.enable \
+            output.DP-2.mode.2560x1440@60 \
+            output.DP-2.position.2560,0 \
+            output.DP-2.rotation.left \
+            2>/dev/null || echo "NOTE: Monitor layout failed — adjust output names with 'kscreen-doctor -o'"
+    elif [[ "$(hostname)" == "laptop" ]]; then
+        kscreen-doctor \
+            output.eDP-1.enable \
+            output.eDP-1.mode.2256x1504@60 \
+            output.eDP-1.position.0,0 \
+            output.eDP-1.primary \
+            2>/dev/null || echo "NOTE: Monitor layout failed — adjust output names with 'kscreen-doctor -o'"
+    fi
+fi
 
 # ============================================
 # Reload KWin

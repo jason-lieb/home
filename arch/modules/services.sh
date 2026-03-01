@@ -138,7 +138,7 @@ awk -v start="$HOSTS_BLOCK_START" -v end="$HOSTS_BLOCK_END" '
   $0 == end { in_block=0; next }
   !in_block { print }
 ' /etc/hosts > "$tmp_hosts"
-printf "\n%s\n" "$HOSTS_MANAGED_BLOCK" >> "$tmp_hosts"
+printf "%s\n" "$HOSTS_MANAGED_BLOCK" >> "$tmp_hosts"
 
 if ! cmp -s "$tmp_hosts" /etc/hosts; then
     sudo install -m 0644 "$tmp_hosts" /etc/hosts

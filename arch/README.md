@@ -96,30 +96,33 @@ manage all boot entries.
    ```
 2. Run the install script:
    ```bash
-   ./install
+   ./install        # Core modules only
+   ./install --all  # Core + optional modules (syncthing, gaming)
    ```
-3. Re-run safely at any time (idempotent):
-   ```bash
-   ./install --from 02-dotfiles.sh --to 06-session-defaults.sh
-   ```
-4. Reboot to apply all changes
+3. Reboot to apply all changes
 
 ### Dotfiles Model (Hybrid)
 
-- `modules/02-dotfiles.sh` links repository-managed files from `dotfiles/` (at the repo root) into `$HOME`
-- Arch/KDE/system behavior remains script-generated in `modules/03-services.sh`, `modules/04-plasma.sh`, and `modules/06-session-defaults.sh`
+- `modules/dotfiles.sh` links repository-managed files from `dotfiles/` (at the repo root) into `$HOME`
+- Arch/KDE/system behavior remains script-generated in `modules/services.sh`, `modules/plasma.sh`, and `modules/session-defaults.sh`
 - Existing local files are backed up as `<path>.backup` before replacement
 
 ## Module Descriptions
 
 | Module | Description |
 |--------|-------------|
-| `01-packages.sh` | Installs yay (AUR helper) and all packages from official repos and AUR |
-| `02-dotfiles.sh` | Symlinks dotfiles, installs VS Code extensions, generates SSH key, sets fish as default shell |
-| `03-services.sh` | Enables systemd services (docker, syncthing, bluetooth), configures firewall |
-| `04-plasma.sh` | Sets up KDE Plasma theme, shortcuts, virtual desktops, window rules |
-| `05-gaming.sh` | Configures emulators (Dolphin, PrimeHack, AM2R), gaming peripherals |
-| `06-session-defaults.sh` | Applies host-based MIME defaults and autostart behavior (`mini` vs others) |
+| `packages.sh` | Installs yay (AUR helper) and all packages from official repos and AUR |
+| `dotfiles.sh` | Symlinks dotfiles, installs VS Code extensions, generates SSH key, sets fish as default shell |
+| `services.sh` | Enables systemd services (docker, bluetooth), configures firewall |
+| `plasma.sh` | Sets up KDE Plasma theme, shortcuts, virtual desktops, window rules |
+| `session-defaults.sh` | Applies host-based MIME defaults and autostart behavior (`mini` vs others) |
+
+Optional modules (in `modules/optional/`, not run by default):
+
+| Module | Description |
+|--------|-------------|
+| `syncthing.sh` | Configures Syncthing sync folders, devices, firewall rules, and systemd service |
+| `gaming.sh` | Configures emulators (Dolphin, PrimeHack, AM2R), gaming peripherals |
 
 ## Directory Structure
 
@@ -147,12 +150,14 @@ home/                           # Repository root
     ├── install                 # Main orchestrator script
     ├── archinstall.json # archinstall preset
     └── modules/
-        ├── 01-packages.sh
-        ├── 02-dotfiles.sh
-        ├── 03-services.sh
-        ├── 04-plasma.sh
-        ├── 05-gaming.sh
-        └── 06-session-defaults.sh
+        ├── packages.sh
+        ├── dotfiles.sh
+        ├── services.sh
+        ├── plasma.sh
+        ├── session-defaults.sh
+        └── optional/
+            ├── syncthing.sh
+            └── gaming.sh
 ```
 
 ## Nix (Optional, Dev Tooling Only)
