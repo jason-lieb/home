@@ -1,0 +1,6 @@
+.direnv
+.DS_Store
+.ssh/id_*
+.ssh/known_hosts
+.ssh/authorized_keys
+.ssh/*.pem

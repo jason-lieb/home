@@ -1,0 +1,29 @@
+# Taps
+tap "oven-sh/bun"
+
+# CLI Tools
+brew "awscli"
+brew "bat"
+brew "oven-sh/bun/bun"
+# brew "colima"
+brew "direnv"
+# brew "docker"
+brew "fish"
+brew "gh"
+brew "make"
+brew "htop"
+brew "jq"
+brew "lazygit"
+brew "lf"
+brew "lsof"
+brew "pnpm"
+brew "tokei"
+brew "wget"
+brew "zoxide"
+
+# Casks (GUI Applications)
+cask "ghostty"
+cask "helium"
+cask "raycast"
+cask "visual-studio-code"
+cask "zen"

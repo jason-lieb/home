@@ -1,0 +1,26 @@
+[user]
+    name = Jason Lieb
+    email = Jason.lieb@outlook.com
+[init]
+    defaultBranch = main
+[core]
+    editor = code --wait
+    excludesFile = ~/.gitignore
+[fetch]
+    prune = true
+[merge]
+    ff = only
+[pull]
+    ff = only
+    autostash = true
+[push]
+    default = current
+    autoSetupRemote = true
+[rebase]
+    autoSquash = true
+    autoStash = true
+    stat = true
+[rerere]
+    enabled = true
+[advice]
+    skippedCherryPicks = false
