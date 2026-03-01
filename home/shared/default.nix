@@ -10,9 +10,6 @@
   isDarwin,
   ...
 }:
-let
-  env = import ../env.nix { homeDir = config.home.homeDirectory; };
-in
 {
   imports = [
     ./shells.nix
@@ -105,64 +102,9 @@ in
   home.file =
     let
       awsConfig = {
-        ".aws/config".text = ''
-          [profile freckle]
-          sso_start_url = ${env.AWS_SSO_URL}
-          sso_region = us-east-1
-          sso_account_id = ${env.AWS_ACCOUNT_ID_PROD}
-          sso_role_name = ${env.AWS_SSO_ROLE_NAME_PROD}
-          region = us-east-1
-
-          [profile freckle-dev]
-          sso_start_url = ${env.AWS_SSO_URL}
-          sso_region = us-east-1
-          sso_account_id = ${env.AWS_ACCOUNT_ID_DEV}
-          sso_role_name = ${env.AWS_SSO_ROLE_NAME_DEV}
-          region = us-east-1
-
-          [profile student-journey-dev-01]
-          sso_start_url = ${env.REN_SWISS_AWS_SSO_URL}
-          sso_region = us-west-2
-          sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_DEV}
-          sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
-          region = us-west-2
-
-          [profile student-journey-prod-01]
-          sso_start_url = ${env.REN_SWISS_AWS_SSO_URL}
-          sso_region = us-west-2
-          sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_PROD}
-          sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
-          region = us-west-2
-
-          [profile student-journey-stage-01]
-          sso_start_url = ${env.REN_SWISS_AWS_SSO_URL}
-          sso_region = us-west-2
-          sso_account_id = ${env.STUDENT_JOURNEY_AWS_ACCOUNT_ID_STAGE}
-          sso_role_name = ${env.STUDENT_JOURNEY_AWS_SSO_ROLE_NAME}
-          region = us-west-2
-        '';
+        ".aws/config".text = "";
         ".aws/credentials".text = "";
       };
-
-      # claudeConfig = {
-      #   ".claude/settings.json".text = ''
-      #     {
-      #       "awsAuthRefresh": "aws sso login --profile freckle-dev",
-      #       "env": {
-      #         "CLAUDE_CODE_USE_BEDROCK": "1",
-      #         "AWS_REGION": "us-east-1",
-      #         "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "64000",
-      #         "MAX_THINKING_TOKENS": "4096",
-      #         "ANTHROPIC_MODEL": "us.anthropic.claude-opus-4-5-20251101-v1:0",
-      #         "ANTHROPIC_DEFAULT_HAIKU_MODEL": "us.anthropic.claude-3-5-haiku-20241022-v1:0",
-      #         "AWS_PROFILE": "freckle-dev"
-      #       },
-      #       "model": "us.anthropic.claude-sonnet-4-20250514-v1:0",
-      #       "alwaysThinkingEnabled": false,
-      #       "statusLine": {"type": "command", "command": "npx ccstatusline@latest"}
-      #     }
-      #   '';
-      # };
 
       ghosttyConfig = {
         ".config/ghostty/config".text = ''
@@ -196,7 +138,6 @@ in
       };
 
       nixConfig = {
-        ".config/nix/netrc".text = "machine freckle-private.cachix.org password ${env.TOKEN}";
         ".config/nix/nix.conf".text = "download-buffer-size = 2048M";
       };
 
@@ -243,7 +184,6 @@ in
       };
     in
     awsConfig
-    # // claudeConfig
     // ghosttyConfig
     // gitConfig
     // nixConfig

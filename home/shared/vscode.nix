@@ -21,11 +21,9 @@
           github.vscode-github-actions
           github.vscode-pull-request-github
           golang.go
-          haskell.haskell
           hashicorp.hcl
           hashicorp.terraform
           jnoortheen.nix-ide
-          justusadam.language-haskell
           mechatroner.rainbow-csv
           oderwat.indent-rainbow
           pkief.material-icon-theme
@@ -45,9 +43,6 @@
         "diffEditor.maxComputationTime" = 0;
         "editor.accessibilitySupport" = "off";
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        "[haskell]" = {
-          "editor.defaultFormatter" = "jkillian.custom-local-formatters";
-        };
         "[nix]" = {
           "editor.defaultFormatter" = "jkillian.custom-local-formatters";
         };
@@ -78,10 +73,6 @@
         "explorer.confirmDragAndDrop" = false;
         "customLocalFormatters.formatters" = [
           {
-            command = "fourmolu --stdin-input-file \${file}";
-            languages = [ "haskell" ];
-          }
-          {
             command = "nixfmt";
             languages = [ "nix" ];
           }
@@ -107,11 +98,6 @@
         "[go]" = {
           "editor.defaultFormatter" = "golang.go";
         };
-        "haskell.checkProject" = false;
-        "haskell.plugin.hlint.diagnosticsOn" = true;
-        "haskell.trace.client" = "debug";
-        "haskell.trace.server" = "messages";
-        "haskell.manageHLS" = "PATH";
         "indentRainbow.indicatorStyle" = "light";
         "indentRainbow.lightIndicatorStyleLineWidth" = 4;
         "javascript.updateImportsOnFileMove.enabled" = "always";
