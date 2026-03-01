@@ -96,7 +96,7 @@ manage all boot entries.
    ```
 2. Run the install script:
    ```bash
-   ./install --user jason --host desktop
+   ./install
    ```
 3. Re-run safely at any time (idempotent):
    ```bash

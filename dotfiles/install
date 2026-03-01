@@ -1,0 +1,162 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$SCRIPT_DIR"
+REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+echo "=== Dotfiles Configuration ==="
+
+OS="$(uname -s)"
+case "$OS" in
+    Linux)
+        VSCODE_USER_DIR="$HOME/.config/Code/User"
+        FISH_PATH="/usr/bin/fish"
+        get_hostname() { hostname -s; }
+        get_current_shell() { echo "$SHELL"; }
+        ;;
+    Darwin)
+        VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
+        FISH_PATH="/opt/homebrew/bin/fish"
+        get_hostname() { scutil --get ComputerName 2>/dev/null || hostname -s; }
+        get_current_shell() { dscl . -read ~/ UserShell 2>/dev/null | awk '{print $2}'; }
+        ;;
+    *)
+        echo "ERROR: Unsupported OS: $OS" >&2
+        exit 1
+        ;;
+esac
+
+backup_existing() {
+    local path="$1"
+    if [[ -e "$path" && ! -L "$path" ]]; then
+        local backup_path="${path}.backup"
+        if [[ -e "$backup_path" ]]; then
+            backup_path="${path}.backup.$(date +%s)"
+        fi
+        echo "Backing up existing $path to $backup_path"
+        mv "$path" "$backup_path"
+    fi
+}
+
+link_file() {
+    local src="$1"
+    local dest="$2"
+
+    if [[ ! -e "$src" ]]; then
+        echo "ERROR: Missing source file: $src" >&2
+        return 1
+    fi
+
+    if [[ -L "$dest" && "$(readlink "$dest")" == "$src" ]]; then
+        return 0
+    fi
+
+    backup_existing "$dest"
+
+    if [[ -L "$dest" ]]; then
+        rm "$dest"
+    fi
+
+    echo "Linking $src -> $dest"
+    ln -s "$src" "$dest"
+}
+
+echo "Creating config directories..."
+mkdir -p "$HOME/.config/fish"
+mkdir -p "$HOME/.config/ghostty"
+mkdir -p "$HOME/.config/direnv"
+mkdir -p "$HOME/.config/gh"
+mkdir -p "$HOME/.npm-packages"
+mkdir -p "$HOME/.aws"
+mkdir -p "$HOME/.ssh"
+mkdir -p "$HOME/.claude"
+mkdir -p "$VSCODE_USER_DIR/snippets"
+
+echo "Linking dotfiles..."
+link_file "$DOTFILES_DIR/.config/fish/config.fish" "$HOME/.config/fish/config.fish"
+link_file "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
+link_file "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+link_file "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
+link_file "$DOTFILES_DIR/.gitignore" "$HOME/.gitignore"
+link_file "$DOTFILES_DIR/.config/ghostty/config" "$HOME/.config/ghostty/config"
+link_file "$DOTFILES_DIR/.ssh/config" "$HOME/.ssh/config"
+link_file "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
+link_file "$DOTFILES_DIR/.config/direnv/direnvrc" "$HOME/.config/direnv/direnvrc"
+link_file "$DOTFILES_DIR/.config/gh/config.yml" "$HOME/.config/gh/config.yml"
+link_file "$DOTFILES_DIR/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
+for lang in typescript typescriptreact javascript javascriptreact; do
+    link_file "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
+done
+link_file "$DOTFILES_DIR/.aws/config" "$HOME/.aws/config"
+
+# ============================================
+# VS Code Extensions
+# ============================================
+EXTENSIONS_FILE="$DOTFILES_DIR/vscode/extensions.txt"
+if [[ -f "$EXTENSIONS_FILE" ]] && command -v code &>/dev/null; then
+    echo "Installing VS Code extensions..."
+    INSTALLED_EXTENSIONS="$(code --list-extensions 2>/dev/null || true)"
+    while IFS= read -r ext; do
+        [[ -z "$ext" || "$ext" == \#* ]] && continue
+        if ! echo "$INSTALLED_EXTENSIONS" | grep -qi "^${ext}$"; then
+            code --install-extension "$ext" 2>/dev/null || true
+        fi
+    done < "$EXTENSIONS_FILE"
+fi
+
+# ============================================
+# SSH Key Setup
+# ============================================
+SSH_KEY="$HOME/.ssh/id_ed25519"
+if [[ ! -f "$SSH_KEY" ]]; then
+    echo ""
+    printf "No SSH key found. Enter your email for the SSH key: "
+    read -r email_address
+    HOSTNAME="$(get_hostname)"
+    echo "Generating SSH key..."
+    ssh-keygen -t ed25519 -C "$email_address" -N "" -f "$SSH_KEY"
+    echo "SSH key generated at $SSH_KEY"
+
+    if command -v gh &>/dev/null && gh auth status &>/dev/null; then
+        echo "Adding SSH key to GitHub..."
+        gh ssh-key add "$SSH_KEY.pub" --title "$HOSTNAME"
+        echo "SSH key added to GitHub as '$HOSTNAME'"
+    else
+        echo ""
+        echo "To add your SSH key to GitHub, run:"
+        echo "  gh auth login"
+        echo "  gh ssh-key add $SSH_KEY.pub --title \"$HOSTNAME\""
+    fi
+else
+    echo "SSH key already exists at $SSH_KEY"
+fi
+
+# ============================================
+# Switch Repo Remote to SSH
+# ============================================
+CURRENT_REMOTE="$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || echo "")"
+if [[ "$CURRENT_REMOTE" == https://github.com/* ]]; then
+    SSH_REMOTE="${CURRENT_REMOTE/https:\/\/github.com\//git@github.com:}"
+    echo "Switching repo remote to SSH..."
+    git -C "$REPO_DIR" remote set-url origin "$SSH_REMOTE"
+    echo "Remote updated: $SSH_REMOTE"
+fi
+
+# ============================================
+# Set Fish as Default Shell
+# ============================================
+if [[ -x "$FISH_PATH" ]]; then
+    CURRENT_SHELL="$(get_current_shell)"
+    if [[ "$CURRENT_SHELL" != *"fish"* ]]; then
+        if ! grep -q "$FISH_PATH" /etc/shells 2>/dev/null; then
+            echo "Adding fish to /etc/shells..."
+            echo "$FISH_PATH" | sudo tee -a /etc/shells > /dev/null
+        fi
+        echo "Setting fish as default shell..."
+        chsh -s "$FISH_PATH"
+    fi
+fi
+
+echo ""
+echo "=== Dotfiles Configuration Complete ==="

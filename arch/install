@@ -2,18 +2,17 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TARGET_USER="${TARGET_USER:-$USER}"
-TARGET_HOST="${TARGET_HOST:-desktop}"
+TARGET_USER="jason"
 
 usage() {
   cat <<'EOF'
 Usage:
-  ./install [--user USER] [--host desktop|laptop|mini|z560] [--from MODULE] [--to MODULE]
+  ./install [--from MODULE] [--to MODULE]
 
 Examples:
   ./install
-  ./install --user jason --host mini
   ./install --from 03-services.sh
+  ./install --from 02-dotfiles.sh --to 06-session-defaults.sh
 EOF
 }
 
@@ -22,14 +21,6 @@ TO_MODULE=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --user)
-      TARGET_USER="$2"
-      shift 2
-      ;;
-    --host)
-      TARGET_HOST="$2"
-      shift 2
-      ;;
     --from)
       FROM_MODULE="$2"
       shift 2
@@ -50,12 +41,9 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-export TARGET_USER TARGET_HOST
+export TARGET_USER
 
 echo "=== Arch Linux Post-Install Setup ==="
-echo "Target user: ${TARGET_USER}"
-echo "Target host: ${TARGET_HOST}"
-echo ""
 
 echo "=== Preflight Checks ==="
 if [[ "$EUID" -eq 0 ]]; then
@@ -86,8 +74,6 @@ for cmd in git curl; do
   fi
 done
 
-echo "Target user: $TARGET_USER"
-echo "Current shell: $SHELL"
 echo "Preflight checks passed."
 echo ""
 

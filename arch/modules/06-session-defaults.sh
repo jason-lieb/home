@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-TARGET_HOST="${TARGET_HOST:-desktop}" # desktop|laptop|mini|z560
-
 echo "=== Session Defaults Configuration ==="
 
 write_if_changed() {
@@ -43,7 +41,7 @@ ensure_symlink() {
 }
 
 BROWSER_DESKTOP="vivaldi-stable.desktop"
-if [[ "$TARGET_HOST" == "mini" ]]; then
+if [[ "$(hostname)" == "mini" ]]; then
   BROWSER_DESKTOP="brave-browser.desktop"
 fi
 
@@ -63,7 +61,7 @@ EOF
 )"
 write_if_changed "$HOME/.config/mimeapps.list" "$MIMEAPPS_CONTENT"
 
-if [[ "$TARGET_HOST" == "mini" ]]; then
+if [[ "$(hostname)" == "mini" ]]; then
   ensure_symlink /usr/share/applications/brave-browser.desktop "$HOME/.config/autostart/brave-browser.desktop"
   rm -f "$HOME/.config/autostart/vivaldi-stable.desktop" "$HOME/.config/autostart/obsidian.desktop" "$HOME/.config/autostart/code.desktop"
 else
@@ -73,5 +71,5 @@ else
   rm -f "$HOME/.config/autostart/brave-browser.desktop"
 fi
 
-echo "Configured MIME defaults and autostart for host=${TARGET_HOST}"
+echo "Configured MIME defaults and autostart for host=$(hostname)"
 echo "=== Session Defaults Configuration Complete ==="

@@ -1,9 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-TARGET_USER="${TARGET_USER:-jason}"
+TARGET_USER="jason"
 TARGET_HOME="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
-TARGET_HOST="${TARGET_HOST:-desktop}"
 SYNCTHING_HOME="${TARGET_HOME}/.local/share/syncthing/.config/syncthing"
 
 echo "=== Services Configuration ==="

@@ -1,22 +1,18 @@
 #!/bin/bash
-# Setup script for dotfiles
-# Run this script to set up a new Mac with all dotfiles and packages
-
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-DOTFILES_DIR="$REPO_DIR/dotfiles"
-HOME_DIR="$HOME"
 
-echo "Setting up from $REPO_DIR"
+echo "=== Mac Setup ==="
 
-# Install Homebrew if not present
-if ! command -v brew &> /dev/null; then
+# ============================================
+# Homebrew
+# ============================================
+if ! command -v brew &>/dev/null; then
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    # Add Homebrew to PATH for this session
     if [[ -f /opt/homebrew/bin/brew ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
     elif [[ -f /usr/local/bin/brew ]]; then
@@ -26,138 +22,22 @@ else
     echo "Homebrew already installed"
 fi
 
-# Install packages from Brewfile
 echo "Installing packages from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 
-# Create necessary directories
-mkdir -p "$HOME_DIR/.ssh"
-mkdir -p "$HOME_DIR/.config/fish"
-mkdir -p "$HOME_DIR/.config/ghostty"
-mkdir -p "$HOME_DIR/.config/gh"
-mkdir -p "$HOME_DIR/.config/direnv"
-mkdir -p "$HOME_DIR/.aws"
-mkdir -p "$HOME_DIR/.claude"
-mkdir -p "$HOME_DIR/.npm-packages"
-mkdir -p "$HOME_DIR/Library/Application Support/Code/User/snippets"
-
-# Function to create symlink with backup
-link_file() {
-    local src="$1"
-    local dest="$2"
-
-    # Skip if symlink already points to correct target
-    if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-        return
-    fi
-
-    if [ -e "$dest" ] && [ ! -L "$dest" ]; then
-        echo "Backing up existing $dest to ${dest}.backup"
-        mv "$dest" "${dest}.backup"
-    fi
-
-    if [ -L "$dest" ]; then
-        rm "$dest"
-    fi
-
-    echo "Linking $src -> $dest"
-    ln -s "$src" "$dest"
-}
-
-# Link shell configs
-link_file "$DOTFILES_DIR/.config/fish/config.fish" "$HOME_DIR/.config/fish/config.fish"
-link_file "$DOTFILES_DIR/.bashrc" "$HOME_DIR/.bashrc"
-link_file "$DOTFILES_DIR/.zshrc" "$HOME_DIR/.zshrc"
-
-# Link git configs
-link_file "$DOTFILES_DIR/.gitconfig" "$HOME_DIR/.gitconfig"
-link_file "$DOTFILES_DIR/.gitignore" "$HOME_DIR/.gitignore"
-
-# Link app configs
-link_file "$DOTFILES_DIR/.config/ghostty/config" "$HOME_DIR/.config/ghostty/config"
-link_file "$DOTFILES_DIR/.config/gh/config.yml" "$HOME_DIR/.config/gh/config.yml"
-link_file "$DOTFILES_DIR/.config/direnv/direnvrc" "$HOME_DIR/.config/direnv/direnvrc"
-
-# Link SSH config
-link_file "$DOTFILES_DIR/.ssh/config" "$HOME_DIR/.ssh/config"
-
-# Link other configs
-link_file "$DOTFILES_DIR/.aws/config" "$HOME_DIR/.aws/config"
-link_file "$DOTFILES_DIR/.claude/settings.json" "$HOME_DIR/.claude/settings.json"
-
-# Link VSCode settings (macOS path)
-VSCODE_USER_DIR="$HOME_DIR/Library/Application Support/Code/User"
-link_file "$DOTFILES_DIR/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
-
-# Link VSCode snippets
-for lang in typescript typescriptreact javascript javascriptreact; do
-    link_file "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
-done
-
-# Install VSCode extensions (skip already installed)
-echo "Installing VSCode extensions..."
-INSTALLED_EXTENSIONS=$(code --list-extensions)
-while IFS= read -r line || [[ -n "$line" ]]; do
-    [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
-    if ! echo "$INSTALLED_EXTENSIONS" | grep -qi "^${line}$"; then
-        code --install-extension "$line"
-    fi
-done < "$DOTFILES_DIR/vscode/extensions.txt"
-
-# Enable Touch ID for sudo
+# ============================================
+# Touch ID for sudo
+# ============================================
 SUDO_LOCAL="/etc/pam.d/sudo_local"
 if ! grep -q "pam_tid.so" "$SUDO_LOCAL" 2>/dev/null; then
     echo "Enabling Touch ID for sudo (requires sudo)..."
     echo "auth       sufficient     pam_tid.so" | sudo tee -a "$SUDO_LOCAL" > /dev/null
 fi
 
-# SSH key setup
-SSH_KEY="$HOME_DIR/.ssh/id_ed25519"
-if [ ! -f "$SSH_KEY" ]; then
-    echo ""
-    printf "No SSH key found. Enter your email for the SSH key: "
-    read -r email_address
-    HOSTNAME=$(scutil --get ComputerName 2>/dev/null || hostname -s)
-    echo "Generating SSH key..."
-    ssh-keygen -t ed25519 -C "$email_address" -N "" -f "$SSH_KEY"
-    echo "SSH key generated at $SSH_KEY"
-
-    # Add key to GitHub if gh is authenticated
-    if gh auth status &>/dev/null; then
-        echo "Adding SSH key to GitHub..."
-        gh ssh-key add "$SSH_KEY.pub" --title "$HOSTNAME"
-        echo "SSH key added to GitHub as '$HOSTNAME'"
-    else
-        echo ""
-        echo "To add your SSH key to GitHub, run:"
-        echo "  gh auth login"
-        echo "  gh ssh-key add $SSH_KEY.pub --title \"$HOSTNAME\""
-    fi
-else
-    echo "SSH key already exists at $SSH_KEY"
-fi
-
-# Switch dotfiles repo from HTTPS to SSH
-CURRENT_REMOTE=$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || echo "")
-if [[ "$CURRENT_REMOTE" == https://github.com/* ]]; then
-    SSH_REMOTE=$(echo "$CURRENT_REMOTE" | sed 's|https://github.com/|git@github.com:|')
-    echo "Switching repo remote to SSH..."
-    git -C "$REPO_DIR" remote set-url origin "$SSH_REMOTE"
-    echo "Remote updated: $SSH_REMOTE"
-fi
-
-# Set fish as default shell if not already
-FISH_PATH="/opt/homebrew/bin/fish"
-CURRENT_SHELL=$(dscl . -read ~/ UserShell | awk '{print $2}')
-if [[ "$CURRENT_SHELL" != "$FISH_PATH" ]]; then
-    if ! grep -q "$FISH_PATH" /etc/shells; then
-        echo "Adding fish to /etc/shells (requires sudo)..."
-        echo "$FISH_PATH" | sudo tee -a /etc/shells > /dev/null
-    fi
-    echo "Setting fish as default shell..."
-    chsh -s "$FISH_PATH"
-fi
+# ============================================
+# Dotfiles (shared)
+# ============================================
+"$REPO_DIR/dotfiles/install"
 
 echo ""
-echo "Setup complete!"
-echo ""
+echo "=== Mac Setup Complete ==="

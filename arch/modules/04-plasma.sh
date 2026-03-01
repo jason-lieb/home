@@ -1,8 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-TARGET_HOST="${TARGET_HOST:-desktop}" # desktop|laptop|mini|z560
-
 echo "=== KDE Plasma Configuration ==="
 
 # ============================================
@@ -167,7 +165,7 @@ echo "Configuring window rules..."
 RULES_FILE="$HOME/.config/kwinrulesrc"
 
 # Configure rules for commonly used apps
-if [[ "$TARGET_HOST" == "desktop" ]]; then
+if [[ "$(hostname)" == "desktop" ]]; then
 cat > "$RULES_FILE" << 'WINDOWRULES'
 [1]
 Description=Maximize Vivaldi
@@ -285,7 +283,7 @@ WINDOWRULES
 fi
 
 # Power profile policies by host
-if [[ "$TARGET_HOST" == "laptop" ]]; then
+if [[ "$(hostname)" == "laptop" ]]; then
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DimDisplay --key idleTime 600000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key idleTime 900000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key suspendType 1
@@ -297,7 +295,7 @@ if [[ "$TARGET_HOST" == "laptop" ]]; then
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group DPMSControl --key idleTime 180000
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group SuspendSession --key suspendType 1
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group SuspendSession --key idleTime 300000
-elif [[ "$TARGET_HOST" == "mini" ]]; then
+elif [[ "$(hostname)" == "mini" ]]; then
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key suspendType 0
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group SuspendSession --key idleTime 0
 else
