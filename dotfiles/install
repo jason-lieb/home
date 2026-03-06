@@ -68,7 +68,6 @@ mkdir -p "$HOME/.config/direnv"
 mkdir -p "$HOME/.config/gh"
 mkdir -p "$HOME/.config/posix"
 mkdir -p "$HOME/.ssh"
-mkdir -p "$HOME/.claude"
 mkdir -p "$VSCODE_USER_DIR/snippets"
 
 echo "Linking dotfiles..."
@@ -93,9 +92,6 @@ if [[ "$OS" == "Darwin" ]]; then
     link "$DOTFILES_DIR/git/.gitconfig.mac" "$HOME/.gitconfig.local"
 else
     link "$DOTFILES_DIR/.ssh/arch" "$HOME/.ssh/config"
-
-    link "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
-    link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 fi
 
 # ============================================
