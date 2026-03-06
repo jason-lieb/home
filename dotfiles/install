@@ -67,7 +67,6 @@ mkdir -p "$HOME/.config/ghostty"
 mkdir -p "$HOME/.config/direnv"
 mkdir -p "$HOME/.config/gh"
 mkdir -p "$HOME/.npm-packages"
-mkdir -p "$HOME/.aws"
 mkdir -p "$HOME/.ssh"
 mkdir -p "$HOME/.claude"
 mkdir -p "$VSCODE_USER_DIR/snippets"
@@ -92,9 +91,6 @@ done
 if [[ "$OS" != "Darwin" ]]; then
     link "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
     link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
-    link "$DOTFILES_DIR/.aws/config" "$HOME/.aws/config"
-else
-    echo "Skipping AWS and Claude links on macOS"
 fi
 
 # ============================================
