@@ -19,6 +19,7 @@ if [[ $- == *i* ]]; then
 fi
 
 # Environment variables
+export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR="code"
 if [[ "$(uname)" == "Darwin" ]]; then
     export PATH="$HOME/bin:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
@@ -31,6 +32,7 @@ fi
 # Prompt
 PS1_DIR='\[\033[1;34m\]'
 PS1_GIT='\[\033[0;36m\]'
+PS1_AWS='\[\033[0;35m\]'
 PS1_DOCKER='\[\033[0;32m\]'
 PS1_RESET='\[\033[0m\]'
 
@@ -44,7 +46,13 @@ docker_status() {
     fi
 }
 
-PS1="$PS1_DIR\u@\h \w$PS1_GIT\$(git_branch)$PS1_DOCKER\$(docker_status)$PS1_RESET> "
+aws_profile() {
+    if [[ -n "${AWS_PROFILE:-}" ]]; then
+        echo " (aws:$AWS_PROFILE)"
+    fi
+}
+
+PS1="$PS1_DIR\u@\h \w$PS1_GIT\$(git_branch)$PS1_AWS\$(aws_profile)$PS1_DOCKER\$(docker_status)$PS1_RESET> "
 
 # Functions
 grf() {
@@ -118,6 +126,7 @@ alias prd="gh pr create --draft -t"
 # Development
 alias p="pnpm"
 alias docker-clean="docker system prune -a"
+alias awsp='source "$(brew --prefix awsp)/_source-awsp.sh"'
 
 # Platform-specific
 if [[ "$(uname)" != "Darwin" ]]; then
@@ -128,3 +137,18 @@ fi
 if command -v direnv &>/dev/null; then
     eval "$(direnv hook bash)"
 fi
+
+# fnm
+if command -v fnm &>/dev/null; then
+    eval "$(fnm env --use-on-cd)"
+fi
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init.bash 2>/dev/null || :

@@ -9,6 +9,7 @@ if type -q zoxide
 end
 
 # Environment variables
+set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx EDITOR "code"
 
 if test (uname) = "Darwin"
@@ -30,6 +31,10 @@ function fish_prompt
     set_color normal
     if type -q __fish_git_prompt
         __fish_git_prompt
+    end
+    if set -q AWS_PROFILE; and test -n "$AWS_PROFILE"
+        set_color magenta
+        echo -n " (aws:$AWS_PROFILE)"
     end
     set_color $fish_color_cwd
     if type -q docker; and docker ps -q 2>/dev/null | grep -q .
@@ -121,3 +126,17 @@ end
 if type -q direnv
     direnv hook fish | source
 end
+
+# fnm
+if type -q fnm
+    fnm env --use-on-cd | source
+end
+
+# pnpm
+set -gx PNPM_HOME "/Users/jason.lieb/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+
+# OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :

@@ -25,8 +25,52 @@ fi
 echo "Installing packages from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 
-echo "Installing Node.js LTS via pnpm..."
-pnpm env use --global lts
+# ============================================
+# macOS preferences
+# ============================================
+echo "Configuring macOS appearance and Dock..."
+
+# Dark mode
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+
+# Automatically hide Dock
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.15
+
+# Screenshot format
+defaults write com.apple.screencapture type -string "jpg"
+
+# Dock apps: Finder, Chrome, Outlook, VS Code, Ghostty
+if command -v dockutil &>/dev/null; then
+    dockutil --remove all --no-restart
+
+    DOCK_APPS=(
+        "/Applications/Google Chrome.app"
+        "/Applications/Microsoft Outlook.app"
+        "/Applications/Visual Studio Code.app"
+        "/Applications/Ghostty.app"
+    )
+
+    for app_path in "${DOCK_APPS[@]}"; do
+        if [[ -d "$app_path" ]]; then
+            dockutil --add "$app_path" --no-restart
+        else
+            echo "Skipping missing app for Dock: $app_path"
+        fi
+    done
+
+    killall Dock || true
+fi
+
+# Set default browser to Chrome
+if command -v defaultbrowser &>/dev/null; then
+    if [[ -d "/Applications/Google Chrome.app" ]]; then
+        defaultbrowser chrome
+    else
+        echo "Skipping default browser config: Chrome is not installed"
+    fi
+fi
 
 # ============================================
 # Touch ID for sudo

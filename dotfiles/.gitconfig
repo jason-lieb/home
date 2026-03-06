@@ -24,3 +24,5 @@
     enabled = true
 [advice]
     skippedCherryPicks = false
+[credential]
+    helper = osxkeychain
