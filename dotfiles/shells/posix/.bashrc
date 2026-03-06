@@ -12,15 +12,7 @@ if [[ $- == *i* ]]; then
 fi
 
 # Environment variables
-export XDG_CONFIG_HOME="$HOME/.config"
-export EDITOR="code"
-export PATH="$HOME/.local/bin:$PATH"
-if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH="$HOME/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
-else
-    export SSH_ASKPASS=/usr/bin/ksshaskpass
-    export SSH_ASKPASS_REQUIRE=prefer
-fi
+source "$HOME/.config/posix/env.sh"
 
 # Prompt
 PS1_DIR='\[\033[1;34m\]'
@@ -53,12 +45,6 @@ fi
 if command -v fnm &>/dev/null; then
     eval "$(fnm env --use-on-cd)"
 fi
-
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
 
 if [[ -f ~/.orbstack/shell/init.bash ]]; then
     source ~/.orbstack/shell/init.bash

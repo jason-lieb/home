@@ -1,6 +1,6 @@
 # Home
 
-Configuration for macOS and NixOS.
+Configuration for arch, macOS, and NixOS.
 
 ## Mac Setup
 
