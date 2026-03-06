@@ -39,7 +39,7 @@ backup_existing() {
     fi
 }
 
-link_file() {
+link() {
     local src="$1"
     local dest="$2"
 
@@ -63,7 +63,6 @@ link_file() {
 }
 
 echo "Creating config directories..."
-mkdir -p "$HOME/.config/fish/functions"
 mkdir -p "$HOME/.config/ghostty"
 mkdir -p "$HOME/.config/direnv"
 mkdir -p "$HOME/.config/gh"
@@ -74,25 +73,26 @@ mkdir -p "$HOME/.claude"
 mkdir -p "$VSCODE_USER_DIR/snippets"
 
 echo "Linking dotfiles..."
-link_file "$DOTFILES_DIR/.config/fish/config.fish" "$HOME/.config/fish/config.fish"
-link_file "$DOTFILES_DIR/.config/fish/functions/awsp.fish" "$HOME/.config/fish/functions/awsp.fish"
-link_file "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
-link_file "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-link_file "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
-link_file "$DOTFILES_DIR/.gitignore" "$HOME/.gitignore"
-link_file "$DOTFILES_DIR/.config/ghostty/config" "$HOME/.config/ghostty/config"
-link_file "$DOTFILES_DIR/.ssh/config" "$HOME/.ssh/config"
-link_file "$DOTFILES_DIR/.config/direnv/direnvrc" "$HOME/.config/direnv/direnvrc"
-link_file "$DOTFILES_DIR/.config/gh/config.yml" "$HOME/.config/gh/config.yml"
-link_file "$DOTFILES_DIR/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
+link "$DOTFILES_DIR/.config/fish/config.fish" "$HOME/.config/fish/config.fish"
+link "$DOTFILES_DIR/.config/fish/functions" "$HOME/.config/fish/functions"
+link "$DOTFILES_DIR/.config/posix" "$HOME/.config/posix"
+link "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
+link "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+link "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
+link "$DOTFILES_DIR/.gitignore" "$HOME/.gitignore"
+link "$DOTFILES_DIR/.config/ghostty/config" "$HOME/.config/ghostty/config"
+link "$DOTFILES_DIR/.ssh/config" "$HOME/.ssh/config"
+link "$DOTFILES_DIR/.config/direnv/direnvrc" "$HOME/.config/direnv/direnvrc"
+link "$DOTFILES_DIR/.config/gh/config.yml" "$HOME/.config/gh/config.yml"
+link "$DOTFILES_DIR/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
 for lang in typescript typescriptreact javascript javascriptreact; do
-    link_file "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
+    link "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
 done
 
 if [[ "$OS" != "Darwin" ]]; then
-    link_file "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
-    link_file "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
-    link_file "$DOTFILES_DIR/.aws/config" "$HOME/.aws/config"
+    link "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
+    link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+    link "$DOTFILES_DIR/.aws/config" "$HOME/.aws/config"
 else
     echo "Skipping AWS and Claude links on macOS"
 fi
