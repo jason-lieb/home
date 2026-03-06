@@ -1,26 +1,18 @@
-# Fish configuration
-
 # Disable greeting
 set fish_greeting
-
-# Initialize zoxide
-if type -q zoxide
-    zoxide init fish | source
-end
 
 # Environment variables
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx EDITOR "code"
 
+fish_add_path $HOME/.local/bin
 if test (uname) = "Darwin"
-    fish_add_path --prepend $HOME/bin $HOME/.local/bin /opt/homebrew/bin /usr/local/bin
+    fish_add_path --prepend $HOME/bin /opt/homebrew/bin /usr/local/bin
 else
     set -gx SSH_ASKPASS /usr/bin/ksshaskpass
     set -gx SSH_ASKPASS_REQUIRE prefer
-    fish_add_path $HOME/.local/bin
 end
 
-# Prompt
 function fish_prompt
     set_color $fish_color_cwd
     echo -n (whoami)
@@ -46,27 +38,28 @@ end
 
 # Aliases
 source "$HOME/.config/posix/aliases.sh"
-
-# Platform-specific
 if test (uname) != "Darwin"
     alias arch-clean='sudo pacman -Rns (pacman -Qdtq); sudo pacman -Sc'
 end
 
-# Initialize direnv
+# Sources
+if type -q zoxide
+    zoxide init fish | source
+end
+
 if type -q direnv
     direnv hook fish | source
 end
 
-# fnm
 if type -q fnm
     fnm env --use-on-cd | source
 end
 
-# pnpm
 set -gx PNPM_HOME "/Users/jason.lieb/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 
-# OrbStack: command-line tools and integration
-source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+if test -f ~/.orbstack/shell/init2.fish
+    source ~/.orbstack/shell/init2.fish
+end

@@ -3,26 +3,26 @@
   "editor.accessibilitySupport": "off",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[nix]": {
-    "editor.defaultFormatter": "jkillian.custom-local-formatters",
+    "editor.defaultFormatter": "jkillian.custom-local-formatters"
   },
   "[terraform]": {
     "editor.defaultFormatter": "jkillian.custom-local-formatters",
-    "prettier.enable": false,
+    "prettier.enable": false
   },
   "[hcl]": {
     "editor.defaultFormatter": "jkillian.custom-local-formatters",
-    "prettier.enable": false,
+    "prettier.enable": false
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "[markdown]": {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": false
   },
   "[yaml]": {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": false
   },
   "[yml]": {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": false
   },
   "editor.minimap.enabled": false,
   "editor.parameterHints.enabled": false,
@@ -33,23 +33,23 @@
   "customLocalFormatters.formatters": [
     {
       "command": "nixfmt",
-      "languages": ["nix"],
+      "languages": ["nix"]
     },
     {
       "command": "terraform fmt -",
-      "languages": ["terraform", "hcl"],
-    },
+      "languages": ["terraform", "hcl"]
+    }
   ],
   "files.associations": {
     "*.tf": "terraform",
     "*.tfvars": "hcl",
     "*.tfvars.*": "hcl",
-    "*.hcl": "hcl",
+    "*.hcl": "hcl"
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "[go]": {
-    "editor.defaultFormatter": "golang.go",
+    "editor.defaultFormatter": "golang.go"
   },
   "indentRainbow.indicatorStyle": "light",
   "indentRainbow.lightIndicatorStyleLineWidth": 4,
@@ -65,7 +65,7 @@
     "**/node_modules": true,
     "**/dist": true,
     "**/.direnv": true,
-    "**/*.tsbuildinfo": true,
+    "**/*.tsbuildinfo": true
   },
   "window.openFoldersInNewWindow": "off",
   "workbench.colorTheme": "Default Dark+",
@@ -81,13 +81,7 @@
   "terminal.integrated.defaultProfile.osx": "fish",
   "terminal.integrated.profiles.osx": {
     "fish": {
-      "path": "/opt/homebrew/bin/fish",
-    },
-  },
-  "chat.tools.urls.autoApprove": {
-    "https://raw.githubusercontent.com": {
-      "approveRequest": false,
-      "approveResponse": true,
-    },
-  },
+      "path": "/opt/homebrew/bin/fish"
+    }
+  }
 }
