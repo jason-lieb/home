@@ -75,8 +75,8 @@ link "$DOTFILES_DIR/fish" "$HOME/.config/fish"
 link "$DOTFILES_DIR/posix" "$HOME/.config/posix"
 link "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
 link "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-link "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
-link "$DOTFILES_DIR/.gitignore" "$HOME/.gitignore"
+link "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+link "$DOTFILES_DIR/git/.gitignore" "$HOME/.gitignore"
 link "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty/config"
 link "$DOTFILES_DIR/direnv/direnvrc" "$HOME/.config/direnv/direnvrc"
 link "$DOTFILES_DIR/gh/config.yml" "$HOME/.config/gh/config.yml"
@@ -87,6 +87,7 @@ done
 
 if [[ "$OS" == "Darwin" ]]; then
     link "$DOTFILES_DIR/.ssh/mac" "$HOME/.ssh/config"
+    link "$DOTFILES_DIR/git/.gitconfig.mac" "$HOME/.gitconfig.local"
 else
     link "$DOTFILES_DIR/.ssh/arch" "$HOME/.ssh/config"
 
