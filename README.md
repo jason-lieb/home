@@ -20,6 +20,22 @@ This will:
 - Set fish as the default shell
 - Back up any existing configs to `<config>.backup`
 
+**After running `./mac/install`, complete these steps manually:**
+
+- Check that these are applied correctly:
+  - Dark mode
+  - Automatically hide dock
+  - Remove everything from dock
+  - Default browser to Chrome
+  - Faster dock response
+  - Screenshot defaults to JPEG
+- Install Ghostty
+- Add fingerprint
+- Add Bluetooth mouse, adjust sensitivity, and turn natural scrolling off
+- `witctl config generate`
+- `witctl aws auth login`
+- `witctl completions`
+
 **Claude Code Plugins:** After setup, install plugins manually:
 ```bash
 claude plugin add code-reviewer@marketplace

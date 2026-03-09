@@ -55,6 +55,8 @@ if type -q fnm
     fnm env --use-on-cd | source
 end
 
+set -gx VAULT_ADDR "https://vault.rg-infra.com"
+
 set -gx PNPM_HOME "/Users/jason.lieb/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH

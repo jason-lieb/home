@@ -49,6 +49,9 @@ abbr rei 'git rebase -i origin/main'
 abbr pr 'gh pr create -t'
 abbr prd 'gh pr create --draft -t'
 
+# Vault
+abbr vault-login 'vault login -method=github -path=github/cincpro token=$GITHUB_TOKEN'
+
 # Development
 abbr p pnpm
 abbr docker-clean 'docker system prune -a'

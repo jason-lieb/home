@@ -49,6 +49,9 @@ alias rei="git rebase -i origin/main"
 alias pr="gh pr create -t"
 alias prd="gh pr create --draft -t"
 
+# Vault
+alias vault-login='vault login -method=github -path=github/cincpro token=$GITHUB_TOKEN'
+
 # Development
 alias p="pnpm"
 alias docker-clean="docker system prune -a"

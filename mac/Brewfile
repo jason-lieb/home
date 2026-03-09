@@ -1,5 +1,7 @@
 # Taps
+tap "hashicorp/tap"
 tap "oven-sh/bun"
+tap "witco/witco", "https://github.com/witco-oss/homebrew-witco.git"
 
 # CLI Tools
 brew "awscli"
@@ -24,40 +26,12 @@ brew "jq"
 brew "lazygit"
 brew "lf"
 brew "tokei"
-brew "vault-cli"
+brew "hashicorp/tap/vault"
 brew "wget"
+brew "witco-cli"
 brew "zoxide"
 
 # Casks (GUI Applications)
 cask "helium"
 cask "orbstack"
 cask "visual-studio-code"
-
-### Post ./mac/install
-
-## Check that these are applied correctly
-# Dark mode
-# Automatically hide dock
-# Remove everything from dock
-# Default browser to chrome
-# Faster dock response
-# Screenshot defaults to jpeg
-
-# Install ghostty
-# Add fingerprint
-# Install pnpm manually `curl -fsSL https://get.pnpm.io/install.sh | sh -`
-# Add bluetooth mouse, adjust sensitivity, and turn natural scrolling off
-
-# brew tap witco/witco https://github.com/witco-oss/homebrew-witco.git
-# brew install witco-cli
-# witctl config generate
-# witctl aws auth login
-# witctl completions
-
-
-
-### TODO
-
-# Add github pat to shells for vault cli or command to grab github pat
-# Set up .env secrets
-# Claude setup

@@ -82,6 +82,16 @@ if ! grep -q "pam_tid.so" "$SUDO_LOCAL" 2>/dev/null; then
 fi
 
 # ============================================
+# pnpm
+# ============================================
+if ! command -v pnpm &>/dev/null; then
+    echo "Installing pnpm..."
+    curl -fsSL https://get.pnpm.io/install.sh | sh -
+else
+    echo "pnpm already installed"
+fi
+
+# ============================================
 # Dotfiles (shared)
 # ============================================
 "$REPO_DIR/dotfiles/install"

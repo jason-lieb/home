@@ -9,6 +9,8 @@ else
     export SSH_ASKPASS_REQUIRE=prefer
 fi
 
+export VAULT_ADDR=https://vault.rg-infra.com
+
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
     *":$PNPM_HOME:"*) ;;
