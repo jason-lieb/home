@@ -36,10 +36,10 @@ function fish_prompt
     echo -n "> "
 end
 
-# Aliases
-source "$HOME/.config/posix/aliases.sh"
+# Abbreviations
+source "$HOME/.config/fish/abbr.fish"
 if test (uname) != "Darwin"
-    alias arch-clean='sudo pacman -Rns (pacman -Qdtq); sudo pacman -Sc'
+    abbr arch-clean 'sudo pacman -Rns (pacman -Qdtq); sudo pacman -Sc'
 end
 
 # Sources
