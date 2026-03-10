@@ -1,3 +1,7 @@
+if [[ "$(uname)" == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+fi
+
 # Enable prompt substitution
 setopt PROMPT_SUBST
 
