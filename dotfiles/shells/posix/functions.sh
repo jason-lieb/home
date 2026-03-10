@@ -14,21 +14,23 @@ aws_profile() {
     fi
 }
 
-ghpat() {
-    export GITHUB_TOKEN=$(security find-generic-password -a "$USER" -s "github-pat" -w)
-    echo "GITHUB_TOKEN set"
-}
+if [[ "$(uname)" == "Darwin" ]]; then
+    ghpat() {
+        export GITHUB_TOKEN=$(security find-generic-password -a "$USER" -s "github-pat" -w)
+        echo "GITHUB_TOKEN set"
+    }
 
-ghpat-copy() {
-    security find-generic-password -a "$USER" -s "github-pat" -w | pbcopy
-    echo "GitHub PAT copied to clipboard"
-}
+    ghpat-copy() {
+        security find-generic-password -a "$USER" -s "github-pat" -w | pbcopy
+        echo "GitHub PAT copied to clipboard"
+    }
 
-ghpat-set() {
-    security add-generic-password -a "$USER" -s "github-pat" -w "$1" 2>/dev/null \
-        || security add-generic-password -U -a "$USER" -s "github-pat" -w "$1"
-    echo "GitHub PAT saved to Keychain"
-}
+    ghpat-set() {
+        security add-generic-password -a "$USER" -s "github-pat" -w "$1" 2>/dev/null \
+            || security add-generic-password -U -a "$USER" -s "github-pat" -w "$1"
+        echo "GitHub PAT saved to Keychain"
+    }
+fi
 
 grf() {
     if [ $# -eq 1 ]; then

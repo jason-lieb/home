@@ -10,7 +10,7 @@ abbr .... 'cd ../../..'
 abbr ..... 'cd ../../../..'
 abbr ...... 'cd ../../../../..'
 abbr f fish
-abbr home 'cd ~/home'
+abbr home 'cd ~/code/home'
 
 # Git
 abbr g git

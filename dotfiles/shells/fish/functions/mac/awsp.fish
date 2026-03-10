@@ -1,7 +1,7 @@
 function awsp
     # Run the interactive picker if no profile was supplied
     if test (count $argv) -eq 0
-        go-awsp         # provided by the same Homebrew formula
+        go-awsp
     end
 
     # Pick the profile (either from argument or from the file the picker wrote)

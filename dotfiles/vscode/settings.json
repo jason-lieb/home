@@ -89,5 +89,6 @@
     "fish": {
       "path": "/usr/bin/fish"
     }
-  }
+  },
+  "workbench.startupEditor": "none"
 }

@@ -36,6 +36,11 @@ function fish_prompt
     echo -n "> "
 end
 
+# Mac-only functions
+if test (uname) = "Darwin"
+    set fish_function_path "$HOME/.config/fish/functions/mac" $fish_function_path
+end
+
 # Abbreviations
 source "$HOME/.config/fish/abbr.fish"
 if test (uname) != "Darwin"
@@ -57,9 +62,13 @@ end
 
 set -gx VAULT_ADDR "https://vault.rg-infra.com"
 
-set -gx PNPM_HOME "/Users/jason.lieb/Library/pnpm"
+if test (uname) = "Darwin"
+    set -gx PNPM_HOME "$HOME/Library/pnpm"
+else
+    set -gx PNPM_HOME "$HOME/.local/share/pnpm"
+end
 if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
 end
 
 if test -f ~/.orbstack/shell/init2.fish

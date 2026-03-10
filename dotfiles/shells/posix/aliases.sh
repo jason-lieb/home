@@ -10,7 +10,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias f="fish"
-alias home="cd ~/home"
+alias home="cd ~/code/home"
 
 # Git aliases
 alias g="git"
