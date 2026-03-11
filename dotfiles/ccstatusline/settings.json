@@ -3,18 +3,18 @@
   "lines": [
     [
       {
-        "id": "3",
-        "type": "context-percentage",
-        "color": "brightBlack"
+        "id": "5",
+        "type": "git-branch",
+        "color": "brightMagenta"
       },
       {
         "id": "4",
         "type": "separator"
       },
       {
-        "id": "5",
-        "type": "git-branch",
-        "color": "magenta"
+        "id": "3",
+        "type": "context-percentage",
+        "color": "brightBlack"
       },
       {
         "id": "6",
@@ -22,8 +22,17 @@
       },
       {
         "id": "7",
-        "type": "git-changes",
+        "type": "tokens-total",
         "color": "yellow"
+      },
+      {
+        "id": "3c45acbc-ee05-49af-9731-2cf25a06fe54",
+        "type": "separator"
+      },
+      {
+        "id": "796369a5-ab34-4f34-a7d6-5b36c23d54b4",
+        "type": "session-cost",
+        "color": "green"
       }
     ],
     [],
