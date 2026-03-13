@@ -1,4 +1,13 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(make test-unit:*)",
+      "Bash(git add:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm tsc:*)"
+    ]
+  },
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "HTTPS_PROXY": "http://127.0.0.1:9009",
