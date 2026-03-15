@@ -116,6 +116,7 @@ in
       "networkmanager"
       "wheel"
       "docker"
+      "input"
     ];
   };
 
@@ -243,6 +244,11 @@ in
     dolphin-emu
     dolphin-emu-primehack
   ];
+
+  # 8BitDo controllers: hidraw access for DInput mode (extra buttons, gyro, rumble)
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", ATTRS{idVendor}=="2dc8", MODE="0660", TAG+="uaccess"
+  '';
   boot.extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
   boot.kernelModules = [ "gcadapter_oc" ];
 
