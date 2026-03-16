@@ -1,6 +1,15 @@
 {
   description = "Jason's NixOS and Home Manager configurations";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://ghostty.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+    ];
+  };
+
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -74,15 +83,6 @@
         desktop = mkNixos "desktop";
         laptop = mkNixos "laptop";
         mini = mkNixos "mini";
-      };
-
-      nixConfig = {
-        extra-substituters = [
-          "https://ghostty.cachix.org"
-        ];
-        extra-trusted-public-keys = [
-          "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
-        ];
       };
     };
 }
