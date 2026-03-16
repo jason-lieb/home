@@ -34,27 +34,6 @@ rec {
     };
   });
 
-  moveToSidewaysScreen = map (
-    windowClass:
-    let
-      title = if windowClass == "vivaldi-stable" then "Notion Home | Notion - Vivaldi" else null;
-      apply = if windowClass == "vivaldi-stable" then applyForce else applyInitial;
-    in
-    {
-      description = "Move ${windowClass}${
-        if title != null then " (${title})" else ""
-      } to sideways screen";
-      match = {
-        window-class = matchWindowClass windowClass;
-      }
-      // (if title != null then { title = matchWindowTitle title; } else { });
-      apply = {
-        screen = apply 1;
-        desktops = apply ""; # All desktops
-      };
-    }
-  );
-
   defaultSize =
     (width: height: [
       {

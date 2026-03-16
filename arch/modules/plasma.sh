@@ -223,29 +223,9 @@ sizerule=2
 types=1
 typesrule=2
 
-[6]
-Description=Move obsidian to sideways screen
-desktops=
-desktopsrule=2
-screen=1
-screenrule=2
-wmclass=obsidian
-wmclassmatch=1
-
-[7]
-Description=Move vivaldi-stable (Notion Home | Notion - Vivaldi) to sideways screen
-desktops=
-desktopsrule=4
-screen=1
-screenrule=4
-title=Notion Home | Notion - Vivaldi
-titlematch=1
-wmclass=vivaldi-stable
-wmclassmatch=1
-
 [General]
-count=7
-rules=1,2,3,4,5,6,7
+count=5
+rules=1,2,3,4,5
 WINDOWRULES
 else
 cat > "$RULES_FILE" << 'WINDOWRULES'
@@ -468,16 +448,11 @@ VIVALDI_NMH
 if command -v kscreen-doctor >/dev/null 2>&1; then
     echo "Configuring monitor layout..."
     if [[ "$(hostname)" == "desktop" ]]; then
-        # Primary 2560x1440@165Hz centered, secondary 2560x1440@60Hz to the right in portrait
         kscreen-doctor \
             output.DP-1.enable \
             output.DP-1.mode.2560x1440@165 \
             output.DP-1.position.0,0 \
             output.DP-1.primary \
-            output.DP-2.enable \
-            output.DP-2.mode.2560x1440@60 \
-            output.DP-2.position.2560,0 \
-            output.DP-2.rotation.left \
             2>/dev/null || echo "NOTE: Monitor layout failed — adjust output names with 'kscreen-doctor -o'"
     elif [[ "$(hostname)" == "laptop" ]]; then
         kscreen-doctor \

@@ -6,7 +6,6 @@ let
 
   inherit (import ./utils/window-rules.nix)
     maximize
-    moveToSidewaysScreen
     defaultSize
     ;
 in
@@ -41,16 +40,7 @@ in
         "obsidian"
         "GitHub Desktop"
       ]
-      ++ (
-        if isDesktop then
-          defaultSize
-          ++ moveToSidewaysScreen [
-            "obsidian"
-            "vivaldi-stable"
-          ]
-        else
-          [ ]
-      );
+      ++ (if isDesktop then defaultSize else [ ]);
 
     kscreenlocker = {
       autoLock = false;
