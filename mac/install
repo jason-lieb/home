@@ -87,13 +87,15 @@ if ! grep -q "pam_tid.so" "$SUDO_LOCAL" 2>/dev/null; then
 fi
 
 # ============================================
-# pnpm
+# Node.js + pnpm (via corepack)
 # ============================================
-if ! command -v pnpm &>/dev/null; then
-    echo "Installing pnpm..."
-    curl -fsSL https://get.pnpm.io/install.sh | sh -
+if ! command -v node &>/dev/null; then
+    echo "Installing Node.js LTS via fnm..."
+    eval "$(fnm env --shell bash)"
+    fnm install --lts --corepack-enabled
+    fnm use lts-latest
 else
-    echo "pnpm already installed"
+    echo "Node.js already installed"
 fi
 
 # ============================================
