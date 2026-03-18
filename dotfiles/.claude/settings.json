@@ -1,11 +1,32 @@
 {
   "permissions": {
     "allow": [
-      "Bash(make test-unit:*)",
       "Bash(git add:*)",
+      "Bash(git branch:*)",
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git stash:*)",
+      "Bash(git status:*)",
+      "Bash(ls:*)",
+      "Bash(make:*)",
+      "Bash(pnpm:*)",
+      "Bash(which:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(pnpm build:*)",
-      "Bash(pnpm tsc:*)"
+      "Skill(update-config)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(git checkout .:*)",
+      "Bash(git restore .:*)",
+      "Bash(chmod:*)",
+      "Bash(chown:*)",
+      "Bash(pnpm publish:*)"
     ]
   },
   "env": {
@@ -17,6 +38,5 @@
   "statusLine": {
     "type": "command",
     "command": "npx ccstatusline@latest"
-  },
-  "enabledPlugins": {}
+  }
 }
