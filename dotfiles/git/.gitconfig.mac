@@ -1,2 +1,4 @@
 [credential]
     helper = osxkeychain
+[includeIf "gitdir:~/code/cincpro/"]
+    path = ~/.gitconfig.cinc
