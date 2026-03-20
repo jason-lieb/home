@@ -40,6 +40,8 @@
       "languages": ["terraform", "hcl"]
     }
   ],
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 5000,
   "files.associations": {
     "*.tf": "terraform",
     "*.tfvars": "hcl",
