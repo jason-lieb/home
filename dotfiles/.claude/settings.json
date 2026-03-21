@@ -35,6 +35,20 @@
     "HTTP_PROXY": "http://127.0.0.1:9009",
     "NODE_TLS_REJECT_UNAUTHORIZED": "0"
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; sleep 0.1 && touch \"$f\"; } 2>/dev/null || true",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "npx ccstatusline@latest"
