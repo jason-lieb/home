@@ -26,6 +26,10 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     ghostty.url = "github:ghostty-org/ghostty";
     claude-code.url = "github:sadjow/claude-code-nix";
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs =
@@ -39,6 +43,7 @@
       nix-flatpak,
       ghostty,
       claude-code,
+      zen-browser,
     }:
     let
       system = "x86_64-linux";
@@ -73,6 +78,7 @@
                   ;
                 vscode-extensions = nix-vscode-extensions.extensions.${system};
                 claude-code-pkg = claude-code.packages.${system}.default;
+                zen-browser-pkg = zen-browser.packages.${system}.default;
               };
             }
           ];

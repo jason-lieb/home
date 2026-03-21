@@ -3,6 +3,7 @@
   pkgs,
   pkgs-unstable,
   claude-code-pkg,
+  zen-browser-pkg,
   hostname,
   ...
 }:
@@ -62,6 +63,7 @@ in
     ])
     ++ [
       claude-code-pkg
+      zen-browser-pkg
     ]
     ++ (with pkgs; [
       (retroarch.withCores (
