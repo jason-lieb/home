@@ -70,7 +70,7 @@
     "**/*.tsbuildinfo": true
   },
   "window.openFoldersInNewWindow": "off",
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "Dark+",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.panel.defaultLocation": "right",
   "git.openRepositoryInParentFolders": "never",
