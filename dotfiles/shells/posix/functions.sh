@@ -25,6 +25,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
         echo "GitHub PAT copied to clipboard"
     }
 
+    ghpat-get() {
+        gh auth login -s read:packages
+        gh auth token
+    }
+
     ghpat-set() {
         security add-generic-password -a "$USER" -s "github-pat" -w "$1" 2>/dev/null \
             || security add-generic-password -U -a "$USER" -s "github-pat" -w "$1"
