@@ -41,13 +41,15 @@ defaults write com.apple.dock autohide-time-modifier -float 0.15
 # Screenshot format
 defaults write com.apple.screencapture type -string "jpg"
 
-# Dock apps: Finder, Chrome, Outlook, VS Code, Ghostty
+# Dock apps: Finder, Zen, Chrome, Outlook, Slack, VS Code, Ghostty
 if command -v dockutil &>/dev/null; then
     dockutil --remove all --no-restart
 
     DOCK_APPS=(
+        "/Applications/Zen.app"
         "/Applications/Google Chrome.app"
         "/Applications/Microsoft Outlook.app"
+        "/Applications/Slack.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Ghostty.app"
     )
@@ -63,12 +65,12 @@ if command -v dockutil &>/dev/null; then
     killall Dock || true
 fi
 
-# Set default browser to Chrome
+# Set default browser to Zen
 if command -v defaultbrowser &>/dev/null; then
-    if [[ -d "/Applications/Google Chrome.app" ]]; then
-        defaultbrowser chrome
+    if [[ -d "/Applications/Zen.app" ]]; then
+        defaultbrowser zen
     else
-        echo "Skipping default browser config: Chrome is not installed"
+        echo "Skipping default browser config: Zen is not installed"
     fi
 fi
 
