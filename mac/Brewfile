@@ -16,10 +16,6 @@ brew "fish"
 brew "fnm"
 brew "git" # Easier to update git with homebrew
 brew "gh"
-# Kubernetes tools handled by witco-cli
-# brew "kubectl"
-# brew "k9s"
-# brew "kubectx"
 brew "make"
 brew "htop"
 brew "jq"
