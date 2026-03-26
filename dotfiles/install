@@ -87,6 +87,7 @@ link "$DOTFILES_DIR/direnv/direnvrc" "$HOME/.config/direnv/direnvrc"
 link "$DOTFILES_DIR/gh/config.yml" "$HOME/.config/gh/config.yml"
 link "$DOTFILES_DIR/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
 link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+link "$DOTFILES_DIR/.claude/skills" "$HOME/.claude/skills"
 link "$DOTFILES_DIR/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
 for lang in typescript typescriptreact javascript javascriptreact; do
     link "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
