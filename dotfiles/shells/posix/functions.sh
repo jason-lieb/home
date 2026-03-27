@@ -51,5 +51,5 @@ fr() {
     if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
         git checkout main
     fi
-    git fetch origin main && git rebase origin/main
+    git fetch origin main && git remote prune origin && git rebase origin/main
 }
