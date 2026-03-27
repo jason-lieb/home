@@ -8,6 +8,10 @@ Shell configs live in `dotfiles/shells/`. When updating any shell config, ensure
 
 When making changes that affect file structure, paths, or conventions referenced in this file, update CLAUDE.md to reflect the new state.
 
+## Claude Settings
+
+The source of truth for `~/.claude/settings.json` is `dotfiles/.claude/settings.json`. Always edit the dotfiles version, never `~/.claude/settings.json` directly.
+
 ## Install Scripts
 
 All install scripts must be idempotent — running them multiple times should produce the same result without errors or unintended side effects.
