@@ -130,6 +130,7 @@ in
     3000
     5432 # PostgreSQL
     5434 # PostgreSQL
+    8081 # React Native Dev Server
     8384 # Syncthing web UI
     19000 # React Native Metro bundler
     19001 # React Native packager
