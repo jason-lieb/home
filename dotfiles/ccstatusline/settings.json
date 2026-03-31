@@ -33,6 +33,15 @@
         "id": "796369a5-ab34-4f34-a7d6-5b36c23d54b4",
         "type": "session-cost",
         "color": "green"
+      },
+      {
+        "id": "30ae46a6-d51a-4874-b7f0-d806bdf4f40f",
+        "type": "separator"
+      },
+      {
+        "id": "9ccfeb8b-1323-441e-a8bf-48ba029e52a3",
+        "type": "custom-command",
+        "commandPath": "/Users/jason.lieb/code/home/dotfiles/ccstatusline/model-name.sh"
       }
     ],
     [],
