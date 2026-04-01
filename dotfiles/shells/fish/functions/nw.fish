@@ -5,6 +5,10 @@ function nw
     end
     set branch $argv[1]
     set root (git rev-parse --show-toplevel)
-    git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+    if git show-ref --verify --quiet "refs/heads/jl/$branch"
+        git worktree add "$root/.worktrees/$branch" "jl/$branch"
+    else
+        git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+    end
     cd "$root/.worktrees/$branch"
 end

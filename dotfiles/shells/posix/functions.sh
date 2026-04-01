@@ -69,7 +69,11 @@ nw() {
     local branch="$1"
     local root
     root=$(git rev-parse --show-toplevel)
-    git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+    if git show-ref --verify --quiet "refs/heads/jl/$branch"; then
+        git worktree add "$root/.worktrees/$branch" "jl/$branch"
+    else
+        git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+    fi
     cd "$root/.worktrees/$branch"
 }
 
@@ -103,7 +107,6 @@ dw() {
         return 1
     fi
     git worktree remove "$worktree"
-    git branch -D "jl/$branch"
 }
 
 fr() {

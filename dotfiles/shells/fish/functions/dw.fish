@@ -15,5 +15,4 @@ function dw
         return 1
     end
     git worktree remove $worktree
-    git branch -D "jl/$branch"
 end
