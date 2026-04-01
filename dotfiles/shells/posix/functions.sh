@@ -47,6 +47,65 @@ grf() {
     fi
 }
 
+main() {
+    local main_worktree
+    main_worktree=$(git worktree list --porcelain 2>/dev/null | grep "^worktree " | head -1 | awk '{print $2}')
+    if [ -z "$main_worktree" ]; then
+        echo "Not in a git repository"
+        return 1
+    fi
+    if [ "$PWD" != "$main_worktree" ]; then
+        cd "$main_worktree"
+    else
+        git checkout main
+    fi
+}
+
+nw() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: nw <branch-name>"
+        return 1
+    fi
+    local branch="$1"
+    local root
+    root=$(git rev-parse --show-toplevel)
+    git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+    cd "$root/.worktrees/$branch"
+}
+
+sw() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: sw <branch-name>"
+        return 1
+    fi
+    local branch="$1"
+    local root
+    root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repository"; return 1; }
+    local worktree="$root/.worktrees/$branch"
+    if [ ! -d "$worktree" ]; then
+        echo "No worktree found for '$branch'"
+        return 1
+    fi
+    cd "$worktree"
+}
+
+dw() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: dw <branch-name>"
+        return 1
+    fi
+    local branch="$1"
+    local root
+    root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repository"; return 1; }
+    local worktree="$root/.worktrees/$branch"
+    if [ ! -d "$worktree" ]; then
+        echo "No worktree found for '$branch'"
+        return 1
+    fi
+    git worktree remove "$worktree"
+    git branch -D "jl/$branch"
+}
+
 fr() {
     if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
         git checkout main
