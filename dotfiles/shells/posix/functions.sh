@@ -110,11 +110,13 @@ dw() {
 }
 
 fr() {
-    local main_repo
+    local main_repo current_branch
     main_repo=$(git rev-parse --git-common-dir | sed 's|/\.git$||')
-    git -C "$main_repo" fetch origin main:main && git -C "$main_repo" remote prune origin || return 1
+    current_branch=$(git -C "$main_repo" rev-parse --abbrev-ref HEAD)
 
-    if [ "$(git -C "$main_repo" rev-parse --abbrev-ref HEAD)" = "main" ]; then
-        git -C "$main_repo" merge --ff-only origin/main
-    fi
+    if [ "$current_branch" = "main" ]; then
+        git -C "$main_repo" pull --ff-only origin main && git -C "$main_repo" remote prune origin
+    else
+        git -C "$main_repo" fetch origin main:main && git -C "$main_repo" remote prune origin
+    fi || return 1
 }
