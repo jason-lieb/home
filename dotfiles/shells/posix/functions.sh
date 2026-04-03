@@ -110,8 +110,11 @@ dw() {
 }
 
 fr() {
-    if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
-        git checkout main
+    local main_repo
+    main_repo=$(git rev-parse --git-common-dir | sed 's|/\.git$||')
+    git -C "$main_repo" fetch origin main:main && git -C "$main_repo" remote prune origin || return 1
+
+    if [ "$(git -C "$main_repo" rev-parse --abbrev-ref HEAD)" = "main" ]; then
+        git -C "$main_repo" merge --ff-only origin/main
     fi
-    git fetch origin main && git remote prune origin && git rebase origin/main
 }
