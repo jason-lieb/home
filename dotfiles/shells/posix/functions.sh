@@ -111,11 +111,11 @@ dw() {
 
 fr() {
     local main_repo current_branch
-    main_repo=$(git rev-parse --git-common-dir | sed 's|/\.git$||')
+    main_repo=$(git worktree list --porcelain | grep '^worktree ' | head -1 | sed 's/^worktree //')
     current_branch=$(git -C "$main_repo" rev-parse --abbrev-ref HEAD)
 
     if [ "$current_branch" = "main" ]; then
-        git -C "$main_repo" pull --ff-only origin main && git -C "$main_repo" remote prune origin
+        git -C "$main_repo" fetch origin && git -C "$main_repo" rebase origin/main && git -C "$main_repo" remote prune origin
     else
         git -C "$main_repo" fetch origin main:main && git -C "$main_repo" remote prune origin
     fi || return 1
