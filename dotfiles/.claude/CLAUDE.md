@@ -16,3 +16,7 @@
 
 - Prefer `const` over `let`. Never use `var`.
 - Use strict TypeScript — avoid `any`.
+
+## Markdown Files
+
+- Include a tl;dr at the top of every markdown file you create
