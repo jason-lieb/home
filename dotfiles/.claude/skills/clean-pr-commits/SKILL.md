@@ -55,12 +55,21 @@ Wait for user approval or adjustments before proceeding.
 
 ### Step 5 — Create the Clean Branch
 
+Default approach — reset to `main` and rebuild all commits from scratch:
 ```bash
 git checkout -b {target-branch}
 git reset main
 ```
 
-This puts you on the new branch with all changes from the PR unstaged. The working tree matches the original branch tip, but there are zero commits ahead of `main`.
+This puts you on the new branch with all changes unstaged, ready to be re-committed in clean groups.
+
+**If the user says not to reset main** (e.g., "don't reset main", "keep the first N commits"), it means they want to preserve some existing commits and only reorganize the work after them. In that case, identify the last commit they want to keep, then:
+```bash
+git checkout -b {target-branch}
+git reset {last-commit-to-keep}
+```
+
+This preserves the commits up to and including `{last-commit-to-keep}` and unstages everything after it, ready to be re-committed in clean groups.
 
 ### Step 6 — Make the Commits
 
@@ -82,13 +91,15 @@ For each planned commit group:
 - If needed, add a blank line then a body explaining the "why"
 - Match the style of existing commits in the repo
 
+**Exclude noise-only changes:** When staging hunks, skip any hunk that consists only of blank line additions/removals or trivial whitespace tweaks with no meaningful content change. These are artifacts of code that was transiently added and removed during development and should not appear in the final commits. If a file's only remaining unstaged changes are such noise, leave it unstaged entirely.
+
 After all commits are made, verify:
 
 ```bash
 git diff {original-branch}..{target-branch}
 ```
 
-This diff should be **empty** — the final state must be identical to the original branch.
+This diff should be **empty** — the final state must be identical to the original branch. If noise-only changes were excluded, this diff will show those trivial differences; that is acceptable and expected.
 
 ### Step 7 — Present Results
 
