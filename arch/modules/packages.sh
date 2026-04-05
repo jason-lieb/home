@@ -11,13 +11,13 @@ OFFICIAL_PACKAGES=(
     plasma-meta sddm dolphin okular gwenview bluedevil kcalc krdc kdeconnect
     plasma-browser-integration ksshaskpass kcolorchooser filelight
     firefox vivaldi
-    pnpm bun direnv
+    bun direnv
     aws-cli-v2 gparted
 )
 
 AUR_PACKAGES=(
     brave-bin google-chrome ghostty obsidian github-desktop-bin
-    visual-studio-code-bin vivaldi-ffmpeg-codecs wl-clipboard
+    visual-studio-code-bin vivaldi-ffmpeg-codecs wl-clipboard fnm-bin
 )
 
 # Install yay if not present
@@ -78,10 +78,16 @@ echo ""
 echo "Installing AUR packages..."
 install_package_group "AUR" "${AUR_PACKAGES[@]}"
 
-# Install Node.js via pnpm
+# Install Node.js + pnpm (via corepack)
 echo ""
-echo "Installing Node.js LTS via pnpm..."
-pnpm env use --global lts
+if ! command -v node &>/dev/null; then
+    echo "Installing Node.js LTS via fnm..."
+    eval "$(fnm env --shell bash)"
+    fnm install --lts --corepack-enabled
+    fnm use lts-latest
+else
+    echo "Node.js already installed"
+fi
 
 echo ""
 echo "=== Package Installation Complete ==="
