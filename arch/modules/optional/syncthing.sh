@@ -1,13 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
 TARGET_USER="jason"
 TARGET_HOME="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
 SYNCTHING_HOME="${TARGET_HOME}/.local/share/syncthing/.config/syncthing"
 
-echo "=== Syncthing Configuration ==="
+msg "=== Syncthing Configuration ==="
 
-echo "Installing syncthing..."
+msg "Installing syncthing..."
 yay -S --needed --noconfirm syncthing
 
 # Keep Syncthing running for user sessions even when logged out
@@ -16,7 +20,7 @@ sudo loginctl enable-linger "$TARGET_USER" || true
 # ============================================
 # Sync Directories
 # ============================================
-echo "Creating sync directories..."
+msg "Creating sync directories..."
 mkdir -p "$TARGET_HOME/.local/share/syncthing"
 mkdir -p "$TARGET_HOME/.local/share/dolphin-emu/GC"
 mkdir -p "$TARGET_HOME/.local/share/dolphin-emu/Wii"
@@ -33,7 +37,7 @@ sudo chown -R "${TARGET_USER}:${TARGET_USER}" "$TARGET_HOME/.local/share/syncthi
 # ============================================
 # Systemd User Service
 # ============================================
-echo "Configuring syncthing systemd service..."
+msg "Configuring syncthing systemd service..."
 
 # Use user-level syncthing with the same data/config layout as Nix.
 sudo systemctl disable --now "syncthing@${TARGET_USER}" 2>/dev/null || true
@@ -150,7 +154,7 @@ SYNCINFO
 # ============================================
 # Firewall Rules
 # ============================================
-echo "Configuring syncthing firewall rules..."
+msg "Configuring syncthing firewall rules..."
 
 if command -v ufw >/dev/null 2>&1; then
     sudo ufw allow 8384/tcp comment 'Syncthing web UI'
@@ -159,5 +163,5 @@ if command -v ufw >/dev/null 2>&1; then
     sudo ufw allow 21027/udp comment 'Syncthing discovery'
 fi
 
-echo ""
-echo "=== Syncthing Configuration Complete ==="
+msg ""
+msg "=== Syncthing Configuration Complete ==="

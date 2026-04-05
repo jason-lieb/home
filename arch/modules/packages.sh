@@ -1,7 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "=== Package Installation ==="
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
+msg "=== Package Installation ==="
 
 OFFICIAL_PACKAGES=(
     fish bash git base-devel openssh
@@ -23,11 +27,11 @@ AUR_PACKAGES=(
 # Install yay if not present
 install_yay() {
     if command -v yay &> /dev/null; then
-        echo "yay is already installed"
+        msg "yay is already installed"
         return 0
     fi
 
-    echo "Installing yay..."
+    msg "Installing yay..."
     local temp_dir
     temp_dir=$(mktemp -d)
     cd "$temp_dir"
@@ -38,7 +42,7 @@ install_yay() {
 
     cd /
     rm -rf "$temp_dir"
-    echo "yay installed successfully"
+    msg "yay installed successfully"
 }
 
 install_package_group() {
@@ -47,47 +51,47 @@ install_package_group() {
     local packages=("$@")
 
     if [[ ${#packages[@]} -eq 0 ]]; then
-        echo "No packages defined for ${label}"
+        msg "No packages defined for ${label}"
         return 0
     fi
 
-    echo "Installing ${#packages[@]} packages for ${label}..."
+    msg "Installing ${#packages[@]} packages for ${label}..."
     yay -S --needed --noconfirm "${packages[@]}"
 }
 
 # Enable multilib repository
 if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
-    echo "Enabling multilib repository..."
+    msg "Enabling multilib repository..."
     sudo sed -i '/\[multilib\]/,/Include/ s/^#//' /etc/pacman.conf
 fi
 
 # Update system first
-echo "Updating system packages..."
+msg "Updating system packages..."
 sudo pacman -Syu --noconfirm
 
 # Install yay
 install_yay
 
 # Install official packages
-echo ""
-echo "Installing official repository packages..."
+msg ""
+msg "Installing official repository packages..."
 install_package_group "official repositories" "${OFFICIAL_PACKAGES[@]}"
 
 # Install AUR packages
-echo ""
-echo "Installing AUR packages..."
+msg ""
+msg "Installing AUR packages..."
 install_package_group "AUR" "${AUR_PACKAGES[@]}"
 
 # Install Node.js + pnpm (via corepack)
-echo ""
+msg ""
 if ! command -v node &>/dev/null; then
-    echo "Installing Node.js LTS via fnm..."
+    msg "Installing Node.js LTS via fnm..."
     eval "$(fnm env --shell bash)"
     fnm install --lts --corepack-enabled
     fnm use lts-latest
 else
-    echo "Node.js already installed"
+    msg "Node.js already installed"
 fi
 
-echo ""
-echo "=== Package Installation Complete ==="
+msg ""
+msg "=== Package Installation Complete ==="

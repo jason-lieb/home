@@ -1,6 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_USER="jason"
 
@@ -26,7 +30,7 @@ while [[ $# -gt 0 ]]; do
       exit 0
       ;;
     *)
-      echo "Unknown argument: $1" >&2
+      msg "Unknown argument: $1" >&2
       usage
       exit 1
       ;;
@@ -35,39 +39,39 @@ done
 
 export TARGET_USER
 
-echo "=== Arch Linux Post-Install Setup ==="
+msg "=== Arch Linux Post-Install Setup ==="
 
-echo "=== Preflight Checks ==="
+msg "=== Preflight Checks ==="
 if [[ "$EUID" -eq 0 ]]; then
-  echo "ERROR: Run install as your normal user, not root."
-  echo "The scripts will use sudo when needed."
+  msg "ERROR: Run install as your normal user, not root."
+  msg "The scripts will use sudo when needed."
   exit 1
 fi
 
 if ! command -v sudo >/dev/null 2>&1; then
-  echo "ERROR: sudo is required."
+  msg "ERROR: sudo is required."
   exit 1
 fi
 
 if ! sudo -n true 2>/dev/null; then
-  echo "sudo access required; you may be prompted for password..."
+  msg "sudo access required; you may be prompted for password..."
   sudo -v
 fi
 
 if ! id "$TARGET_USER" >/dev/null 2>&1; then
-  echo "ERROR: target user '$TARGET_USER' does not exist."
+  msg "ERROR: target user '$TARGET_USER' does not exist."
   exit 1
 fi
 
 for cmd in git curl; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
-    echo "ERROR: missing required command '$cmd'."
+    msg "ERROR: missing required command '$cmd'."
     exit 1
   fi
 done
 
-echo "Preflight checks passed."
-echo ""
+msg "Preflight checks passed."
+msg ""
 
 CORE_MODULES=(
   packages
@@ -83,18 +87,18 @@ OPTIONAL_MODULES=(
 )
 
 for name in "${CORE_MODULES[@]}"; do
-  echo "Running ${name}..."
+  msg "Running ${name}..."
   bash "$SCRIPT_DIR/modules/${name}.sh"
-  echo ""
+  msg ""
 done
 
 if [[ "$RUN_ALL" == true ]]; then
   for name in "${OPTIONAL_MODULES[@]}"; do
-    echo "Running optional/${name}..."
+    msg "Running optional/${name}..."
     bash "$SCRIPT_DIR/modules/optional/${name}.sh"
-    echo ""
+    msg ""
   done
 fi
 
-echo "=== Setup Complete ==="
-echo "Please reboot to apply all changes."
+msg "=== Setup Complete ==="
+msg "Please reboot to apply all changes."

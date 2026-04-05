@@ -1,7 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "=== Session Defaults Configuration ==="
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
+msg "=== Session Defaults Configuration ==="
 
 write_if_changed() {
   local target="$1"
@@ -71,5 +75,5 @@ else
   rm -f "$HOME/.config/autostart/brave-browser.desktop"
 fi
 
-echo "Configured MIME defaults and autostart for host=$(hostname)"
-echo "=== Session Defaults Configuration Complete ==="
+msg "Configured MIME defaults and autostart for host=$(hostname)"
+msg "=== Session Defaults Configuration Complete ==="

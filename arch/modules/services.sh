@@ -1,15 +1,19 @@
 #!/bin/bash
 set -euo pipefail
 
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
 TARGET_USER="jason"
 TARGET_HOME="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
 
-echo "=== Services Configuration ==="
+msg "=== Services Configuration ==="
 
 # ============================================
 # Systemd Services
 # ============================================
-echo "Enabling systemd services..."
+msg "Enabling systemd services..."
 
 # Display manager
 sudo systemctl enable sddm
@@ -34,18 +38,18 @@ done
 # ============================================
 # Docker Configuration
 # ============================================
-echo "Configuring docker..."
+msg "Configuring docker..."
 
 # Add user to docker group
 if ! groups "$TARGET_USER" | grep -q docker; then
     sudo usermod -aG docker "$TARGET_USER"
-    echo "Added ${TARGET_USER} to docker group (logout/login required)"
+    msg "Added ${TARGET_USER} to docker group (logout/login required)"
 fi
 
 # ============================================
 # User Session Environment
 # ============================================
-echo "Configuring user session environment..."
+msg "Configuring user session environment..."
 
 sudo install -d -m 0755 -o "$TARGET_USER" -g "$TARGET_USER" "$TARGET_HOME/.config/environment.d"
 cat > "$TARGET_HOME/.config/environment.d/10-local.conf" << EOF
@@ -57,7 +61,7 @@ sudo chown "$TARGET_USER:$TARGET_USER" "$TARGET_HOME/.config/environment.d/10-lo
 # ============================================
 # SSH Agent
 # ============================================
-echo "Configuring ssh-agent user service..."
+msg "Configuring ssh-agent user service..."
 
 mkdir -p "$TARGET_HOME/.config/systemd/user"
 cat > "$TARGET_HOME/.config/systemd/user/ssh-agent.service" << 'SSHAGENT'
@@ -102,7 +106,7 @@ sudo -u "$TARGET_USER" systemctl --user enable --now ssh-agent.service || true
 # ============================================
 # Firewall Configuration
 # ============================================
-echo "Configuring firewall..."
+msg "Configuring firewall..."
 
 if ! sudo ufw status | grep -q "Status: active"; then
     sudo ufw default deny incoming
@@ -110,12 +114,12 @@ if ! sudo ufw status | grep -q "Status: active"; then
     sudo ufw --force enable
 fi
 
-echo "Firewall enabled (default deny incoming)"
+msg "Firewall enabled (default deny incoming)"
 
 # ============================================
 # Passwordless Sudo
 # ============================================
-echo "Configuring passwordless sudo..."
+msg "Configuring passwordless sudo..."
 
 if getent group wheel >/dev/null; then
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/99-wheel-nopasswd > /dev/null
@@ -125,5 +129,5 @@ elif getent group sudo >/dev/null; then
     sudo chmod 0440 /etc/sudoers.d/99-sudo-nopasswd
 fi
 
-echo ""
-echo "=== Services Configuration Complete ==="
+msg ""
+msg "=== Services Configuration Complete ==="

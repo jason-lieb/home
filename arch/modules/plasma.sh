@@ -1,12 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "=== KDE Plasma Configuration ==="
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
+msg "=== KDE Plasma Configuration ==="
 
 # ============================================
 # Appearance
 # ============================================
-echo "Configuring appearance..."
+msg "Configuring appearance..."
 
 # Look and Feel
 kwriteconfig6 --file kdeglobals --group KDE --key LookAndFeelPackage "org.kde.breezedark.desktop"
@@ -21,7 +25,7 @@ kwriteconfig6 --file kcminputrc --group Mouse --key cursorSize 24
 # ============================================
 # Virtual Desktops
 # ============================================
-echo "Configuring virtual desktops..."
+msg "Configuring virtual desktops..."
 
 kwriteconfig6 --file kwinrc --group Desktops --key Number 4
 kwriteconfig6 --file kwinrc --group Desktops --key Rows 1
@@ -29,7 +33,7 @@ kwriteconfig6 --file kwinrc --group Desktops --key Rows 1
 # ============================================
 # Keyboard Shortcuts
 # ============================================
-echo "Configuring keyboard shortcuts..."
+msg "Configuring keyboard shortcuts..."
 
 # KRunner - Meta key to launch
 kwriteconfig6 --file kglobalshortcutsrc --group "org.kde.krunner.desktop" --key "_launch" "Meta,Meta,KRunner"
@@ -48,7 +52,7 @@ kwriteconfig6 --file kglobalshortcutsrc --group kwin --key "Overview" "Ctrl+Meta
 # ============================================
 # KWin Script: Move Window Without Switching
 # ============================================
-echo "Installing KWin script for window movement..."
+msg "Installing KWin script for window movement..."
 
 KWIN_SCRIPT_DIR="$HOME/.local/share/kwin/scripts/movewindownoswitch"
 mkdir -p "$KWIN_SCRIPT_DIR/contents/code"
@@ -127,7 +131,7 @@ kwriteconfig6 --file kwinrc --group Plugins --key movewindownoswitchEnabled true
 # ============================================
 # Other Plasma Settings
 # ============================================
-echo "Configuring other Plasma settings..."
+msg "Configuring other Plasma settings..."
 
 # Disable animations
 kwriteconfig6 --file kdeglobals --group KDE --key AnimationDurationFactor 0
@@ -170,7 +174,7 @@ kwriteconfig6 --file krunnerrc --group General --key FreeFloating true
 # ============================================
 # Window Rules
 # ============================================
-echo "Configuring window rules..."
+msg "Configuring window rules..."
 
 # Create window rules for maximizing apps on start
 RULES_FILE="$HOME/.config/kwinrulesrc"
@@ -275,7 +279,7 @@ fi
 
 # Touchpad (laptop only)
 if [[ "$(hostname)" == "laptop" ]]; then
-    echo "Configuring touchpad..."
+    msg "Configuring touchpad..."
     kwriteconfig6 --file touchpadrc --group "SYNA2BA6:00 06CB:CEF5 Touchpad" --key TapToClick true
     kwriteconfig6 --file touchpadrc --group "SYNA2BA6:00 06CB:CEF5 Touchpad" --key NaturalScroll true
     kwriteconfig6 --file touchpadrc --group "SYNA2BA6:00 06CB:CEF5 Touchpad" --key PointerAcceleration "0.5"
@@ -329,7 +333,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WALLPAPER_SRC="$SCRIPT_DIR/../../wallpaper.png"
 WALLPAPER_DEST="$HOME/.local/share/wallpapers/wallpaper.png"
 
-echo "Installing wallpaper..."
+msg "Installing wallpaper..."
 mkdir -p "$HOME/.local/share/wallpapers"
 cp "$WALLPAPER_SRC" "$WALLPAPER_DEST"
 
@@ -340,7 +344,7 @@ fi
 # ============================================
 # Panels Layout
 # ============================================
-echo "Configuring Plasma panels..."
+msg "Configuring Plasma panels..."
 if command -v qdbus >/dev/null 2>&1 && pgrep -x plasmashell >/dev/null; then
     qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat <<'PLASMASCRIPT'
 function writeLaunchers(widget, launchers) {
@@ -397,7 +401,7 @@ fi
 # ============================================
 # Desktop Entries
 # ============================================
-echo "Creating desktop entries..."
+msg "Creating desktop entries..."
 
 mkdir -p "$HOME/.local/share/applications"
 
@@ -428,7 +432,7 @@ update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
 # ============================================
 # Vivaldi KDE Browser Integration
 # ============================================
-echo "Configuring Vivaldi KDE browser integration..."
+msg "Configuring Vivaldi KDE browser integration..."
 VIVALDI_NMH_DIR="$HOME/.config/vivaldi/NativeMessagingHosts"
 mkdir -p "$VIVALDI_NMH_DIR"
 PLASMA_BROWSER_HOST="$(command -v plasma-browser-integration-host 2>/dev/null || echo "/usr/bin/plasma-browser-integration-host")"
@@ -446,7 +450,7 @@ VIVALDI_NMH
 # Monitor Layout (kscreen-doctor)
 # ============================================
 if command -v kscreen-doctor >/dev/null 2>&1; then
-    echo "Configuring monitor layout..."
+    msg "Configuring monitor layout..."
     if [[ "$(hostname)" == "desktop" ]]; then
         kscreen-doctor \
             output.DP-1.enable \
@@ -467,11 +471,11 @@ fi
 # ============================================
 # Reload KWin
 # ============================================
-echo "Reloading KWin configuration..."
+msg "Reloading KWin configuration..."
 if pgrep -x "kwin_wayland" > /dev/null || pgrep -x "kwin_x11" > /dev/null; then
     qdbus org.kde.KWin /KWin reconfigure 2>/dev/null || true
 fi
 
-echo ""
-echo "=== KDE Plasma Configuration Complete ==="
-echo "NOTE: Log out and back in for all changes to take effect."
+msg ""
+msg "=== KDE Plasma Configuration Complete ==="
+msg "NOTE: Log out and back in for all changes to take effect."

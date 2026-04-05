@@ -1,12 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "=== Gaming Configuration ==="
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
+msg "=== Gaming Configuration ==="
 
 # ============================================
 # Gaming Packages
 # ============================================
-echo "Installing gaming packages..."
+msg "Installing gaming packages..."
 
 GAMING_OFFICIAL=(
     steam dolphin-emu mgba-qt retroarch lib32-gperftools
@@ -28,22 +32,22 @@ fi
 # ============================================
 # Dolphin Emulator udev Rules
 # ============================================
-echo "Configuring Dolphin udev rules..."
+msg "Configuring Dolphin udev rules..."
 
 # Copy udev rules for GameCube controller adapter
 if [[ -f /usr/lib/udev/rules.d/51-dolphin-emu.rules ]]; then
     sudo cp /usr/lib/udev/rules.d/51-dolphin-emu.rules /etc/udev/rules.d/
     sudo udevadm control --reload-rules
     sudo udevadm trigger
-    echo "Dolphin udev rules installed"
+    msg "Dolphin udev rules installed"
 else
-    echo "WARNING: Dolphin udev rules not found. Install dolphin-emu first."
+    msg "WARNING: Dolphin udev rules not found. Install dolphin-emu first."
 fi
 
 # ============================================
 # GCC Adapter Overclocking
 # ============================================
-echo "Configuring GCC adapter overclocking..."
+msg "Configuring GCC adapter overclocking..."
 
 # Load kernel module if available
 if modinfo gcadapter_oc &> /dev/null; then
@@ -51,15 +55,15 @@ if modinfo gcadapter_oc &> /dev/null; then
 
     # Add to modules-load.d for boot
     echo "gcadapter_oc" | sudo tee /etc/modules-load.d/gcadapter-oc.conf > /dev/null
-    echo "GCC adapter overclock module configured"
+    msg "GCC adapter overclock module configured"
 else
-    echo "WARNING: gcadapter_oc module not found. Install gcadapter-oc-kmod-dkms from AUR."
+    msg "WARNING: gcadapter_oc module not found. Install gcadapter-oc-kmod-dkms from AUR."
 fi
 
 # ============================================
 # PrimeHack Wrapper Script
 # ============================================
-echo "Creating PrimeHack wrapper script..."
+msg "Creating PrimeHack wrapper script..."
 
 sudo tee /usr/local/bin/primehack > /dev/null << 'PRIMEHACK'
 #!/bin/bash
@@ -74,15 +78,15 @@ fi
 PRIMEHACK
 
 sudo chmod +x /usr/local/bin/primehack
-echo "PrimeHack wrapper installed at /usr/local/bin/primehack"
+msg "PrimeHack wrapper installed at /usr/local/bin/primehack"
 if [[ -z "$PRIMEHACK_BIN" ]]; then
-    echo "WARNING: PrimeHack package not currently installed."
+    msg "WARNING: PrimeHack package not currently installed."
 fi
 
 # ============================================
 # Desktop Entries
 # ============================================
-echo "Creating desktop entries..."
+msg "Creating desktop entries..."
 
 mkdir -p "$HOME/.local/share/applications"
 
@@ -103,29 +107,29 @@ update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
 # ============================================
 # AM2R Flatpak Installation
 # ============================================
-echo "Setting up AM2R via Flatpak..."
+msg "Setting up AM2R via Flatpak..."
 
 # Add Flathub remote if not present
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Install AM2R Launcher
 flatpak install -y flathub io.github.am2r_community_developers.AM2RLauncher || {
-    echo "AM2R Launcher installation failed or already installed"
+    msg "AM2R Launcher installation failed or already installed"
 }
 
 # Grant udev access for controller support
 flatpak override --user --filesystem=/run/udev:ro io.github.am2r_community_developers.AM2RLauncher
 
-echo "AM2R Launcher configured"
+msg "AM2R Launcher configured"
 
 # ============================================
 # RetroArch Configuration Notes
 # ============================================
-echo ""
-echo "RetroArch Notes:"
-echo "- BSNES HD core should be available via libretro-bsnes-hd-git"
-echo "- Configure RetroArch through the application GUI"
-echo "- Saves sync via Syncthing at ~/Documents/snes"
+msg ""
+msg "RetroArch Notes:"
+msg "- BSNES HD core should be available via libretro-bsnes-hd-git"
+msg "- Configure RetroArch through the application GUI"
+msg "- Saves sync via Syncthing at ~/Documents/snes"
 
-echo ""
-echo "=== Gaming Configuration Complete ==="
+msg ""
+msg "=== Gaming Configuration Complete ==="
