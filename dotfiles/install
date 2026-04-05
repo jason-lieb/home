@@ -140,12 +140,21 @@ if [[ ! -f "$SSH_KEY" ]]; then
     ssh-keygen -t ed25519 -C "$email_address" -N "" -f "$SSH_KEY"
     msg "SSH key generated at $SSH_KEY"
 
-    if command -v gh &>/dev/null && gh auth status &>/dev/null; then
-        msg "Adding SSH key to GitHub..."
-        gh ssh-key add "$SSH_KEY.pub" --title "$HOSTNAME"
-        msg "SSH key added to GitHub as '$HOSTNAME'"
+    if command -v gh &>/dev/null; then
+        if ! gh auth status &>/dev/null; then
+            msg "GitHub CLI not authenticated. Logging in..."
+            gh auth login -p https || true
+        fi
+        if gh auth status &>/dev/null; then
+            msg "Adding SSH key to GitHub..."
+            gh ssh-key add "$SSH_KEY.pub" --title "$HOSTNAME"
+            msg "SSH key added to GitHub as '$HOSTNAME'"
+        else
+            msg "gh auth failed. To add your SSH key to GitHub later, run:"
+            msg "  gh auth login"
+            msg "  gh ssh-key add $SSH_KEY.pub --title \"$HOSTNAME\""
+        fi
     else
-        msg ""
         msg "To add your SSH key to GitHub, run:"
         msg "  gh auth login"
         msg "  gh ssh-key add $SSH_KEY.pub --title \"$HOSTNAME\""
@@ -159,10 +168,16 @@ fi
 # ============================================
 CURRENT_REMOTE="$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || echo "")"
 if [[ "$CURRENT_REMOTE" == https://github.com/* ]]; then
-    SSH_REMOTE="${CURRENT_REMOTE/https:\/\/github.com\//git@github.com:}"
-    msg "Switching repo remote to SSH..."
-    git -C "$REPO_DIR" remote set-url origin "$SSH_REMOTE"
-    msg "Remote updated: $SSH_REMOTE"
+    if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+        SSH_REMOTE="${CURRENT_REMOTE/https:\/\/github.com\//git@github.com:}"
+        msg "Switching repo remote to SSH..."
+        git -C "$REPO_DIR" remote set-url origin "$SSH_REMOTE"
+        msg "Remote updated: $SSH_REMOTE"
+    else
+        msg "SSH authentication to GitHub not working yet. Keeping HTTPS remote."
+        msg "After adding your SSH key to GitHub, run:"
+        msg "  git -C $REPO_DIR remote set-url origin ${CURRENT_REMOTE/https:\/\/github.com\//git@github.com:}"
+    fi
 fi
 
 # ============================================
