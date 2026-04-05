@@ -55,6 +55,12 @@ install_package_group() {
     yay -S --needed --noconfirm "${packages[@]}"
 }
 
+# Enable multilib repository
+if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
+    echo "Enabling multilib repository..."
+    sudo sed -i '/\[multilib\]/,/Include/ s/^#//' /etc/pacman.conf
+fi
+
 # Update system first
 echo "Updating system packages..."
 sudo pacman -Syu --noconfirm
