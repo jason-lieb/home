@@ -150,7 +150,11 @@ if command -v gh &>/dev/null; then
         gh auth login -p https || true
     fi
     if gh auth status &>/dev/null; then
-        gh auth refresh -s admin:public_key,admin:ssh_signing_key 2>/dev/null || true
+        AUTH_SCOPES="$(gh auth status 2>&1 || true)"
+        if ! echo "$AUTH_SCOPES" | grep -q "admin:public_key" || ! echo "$AUTH_SCOPES" | grep -q "admin:ssh_signing_key"; then
+            msg "Requesting additional GitHub token scopes..."
+            gh auth refresh -s admin:public_key,admin:ssh_signing_key || true
+        fi
         if gh ssh-key list 2>/dev/null | grep -qF "$(cut -d' ' -f2 "$SSH_KEY.pub")"; then
             msg "SSH key already registered on GitHub"
         else
