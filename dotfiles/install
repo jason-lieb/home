@@ -16,7 +16,7 @@ case "$OS" in
     Linux)
         VSCODE_USER_DIR="$HOME/.config/Code/User"
         FISH_PATH="/usr/bin/fish"
-        get_hostname() { hostname -s; }
+        get_hostname() { hostnamectl hostname 2>/dev/null || cat /etc/hostname; }
         get_current_shell() { echo "$SHELL"; }
         ;;
     Darwin)
