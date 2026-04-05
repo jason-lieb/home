@@ -131,36 +131,32 @@ fi
 # SSH Key Setup
 # ============================================
 SSH_KEY="$HOME/.ssh/id_ed25519"
+HOST="$(get_hostname)"
+
 if [[ ! -f "$SSH_KEY" ]]; then
     msg ""
     printf "No SSH key found. Enter your email for the SSH key: "
     read -r email_address
-    HOSTNAME="$(get_hostname)"
     msg "Generating SSH key..."
     ssh-keygen -t ed25519 -C "$email_address" -N "" -f "$SSH_KEY"
     msg "SSH key generated at $SSH_KEY"
-
-    if command -v gh &>/dev/null; then
-        if ! gh auth status &>/dev/null; then
-            msg "GitHub CLI not authenticated. Logging in..."
-            gh auth login -p https || true
-        fi
-        if gh auth status &>/dev/null; then
-            msg "Adding SSH key to GitHub..."
-            gh ssh-key add "$SSH_KEY.pub" --title "$HOSTNAME"
-            msg "SSH key added to GitHub as '$HOSTNAME'"
-        else
-            msg "gh auth failed. To add your SSH key to GitHub later, run:"
-            msg "  gh auth login"
-            msg "  gh ssh-key add $SSH_KEY.pub --title \"$HOSTNAME\""
-        fi
-    else
-        msg "To add your SSH key to GitHub, run:"
-        msg "  gh auth login"
-        msg "  gh ssh-key add $SSH_KEY.pub --title \"$HOSTNAME\""
-    fi
 else
     msg "SSH key already exists at $SSH_KEY"
+fi
+
+if command -v gh &>/dev/null; then
+    if ! gh auth status &>/dev/null; then
+        msg "GitHub CLI not authenticated. Logging in..."
+        gh auth login -p https || true
+    fi
+    if gh auth status &>/dev/null; then
+        if gh ssh-key list 2>/dev/null | grep -qF "$(cut -d' ' -f2 "$SSH_KEY.pub")"; then
+            msg "SSH key already registered on GitHub"
+        else
+            msg "Adding SSH key to GitHub..."
+            gh ssh-key add "$SSH_KEY.pub" --title "$HOST"
+            msg "SSH key added to GitHub as '$HOST'"
+    fi
 fi
 
 # ============================================
