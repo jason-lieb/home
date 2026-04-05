@@ -150,6 +150,7 @@ if command -v gh &>/dev/null; then
         gh auth login -p https || true
     fi
     if gh auth status &>/dev/null; then
+        gh auth refresh -s admin:public_key,admin:ssh_signing_key 2>/dev/null || true
         if gh ssh-key list 2>/dev/null | grep -qF "$(cut -d' ' -f2 "$SSH_KEY.pub")"; then
             msg "SSH key already registered on GitHub"
         else
