@@ -59,7 +59,9 @@ This repository provides a two-phase approach to setting up Arch Linux:
    # Dual-boot (shared ESP) — mount without formatting:
    mount /dev/<your-existing-esp> /mnt/archinstall/boot
    ```
-6. Run archinstall:
+6. The JSON config includes `intel-ucode`. For AMD systems, edit
+   `archinstall.json` and replace `intel-ucode` with `amd-ucode` before running archinstall.
+7. Run archinstall:
    ```bash
    archinstall --config archinstall.json
    ```
@@ -68,8 +70,8 @@ This repository provides a two-phase approach to setting up Arch Linux:
    `/mnt/archinstall` without performing any disk operations. If dual-booting
    with a shared ESP, skip the bootloader prompt — your existing systemd-boot
    will manage all boot entries.
-7. Follow prompts to set user password
-8. Reboot into the new system
+8. Follow prompts to set user password
+9. Reboot into the new system
 
 ## Phase 2: Post-Install Configuration
 

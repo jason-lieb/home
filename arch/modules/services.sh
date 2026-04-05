@@ -119,10 +119,11 @@ echo "Configuring passwordless sudo..."
 
 if getent group wheel >/dev/null; then
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/99-wheel-nopasswd > /dev/null
+    sudo chmod 0440 /etc/sudoers.d/99-wheel-nopasswd
 elif getent group sudo >/dev/null; then
     echo '%sudo ALL=(ALL:ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/99-sudo-nopasswd > /dev/null
+    sudo chmod 0440 /etc/sudoers.d/99-sudo-nopasswd
 fi
-sudo chmod 0440 /etc/sudoers.d/99-wheel-nopasswd /etc/sudoers.d/99-sudo-nopasswd 2>/dev/null || true
 
 echo ""
 echo "=== Services Configuration Complete ==="

@@ -3,6 +3,21 @@ set -euo pipefail
 
 echo "=== Gaming Configuration ==="
 
+# ============================================
+# Gaming Packages
+# ============================================
+echo "Installing gaming packages..."
+
+GAMING_OFFICIAL=(
+    steam dolphin-emu mgba-qt retroarch lib32-gperftools
+)
+
+GAMING_AUR=(
+    primehack-dolphin-emu gcadapter-oc-kmod-dkms libretro-bsnes-hd-git
+)
+
+yay -S --needed --noconfirm "${GAMING_OFFICIAL[@]}" "${GAMING_AUR[@]}"
+
 PRIMEHACK_BIN=""
 if command -v dolphin-emu-primehack >/dev/null 2>&1; then
     PRIMEHACK_BIN="dolphin-emu-primehack"

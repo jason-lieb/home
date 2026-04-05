@@ -7,6 +7,9 @@ SYNCTHING_HOME="${TARGET_HOME}/.local/share/syncthing/.config/syncthing"
 
 echo "=== Syncthing Configuration ==="
 
+echo "Installing syncthing..."
+yay -S --needed --noconfirm syncthing
+
 # Keep Syncthing running for user sessions even when logged out
 sudo loginctl enable-linger "$TARGET_USER" || true
 

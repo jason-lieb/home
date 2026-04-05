@@ -12,14 +12,12 @@ OFFICIAL_PACKAGES=(
     plasma-browser-integration ksshaskpass kcolorchooser filelight
     firefox vivaldi
     pnpm bun direnv
-    steam dolphin-emu mgba-qt retroarch lib32-gperftools
     aws-cli-v2 gparted
 )
 
 AUR_PACKAGES=(
     brave-bin google-chrome ghostty obsidian github-desktop-bin
-    visual-studio-code-bin vivaldi-ffmpeg-codecs syncthing primehack-dolphin-emu
-    gcadapter-oc-kmod-dkms wl-clipboard libretro-bsnes-hd-git
+    visual-studio-code-bin vivaldi-ffmpeg-codecs wl-clipboard
 )
 
 # Install yay if not present
