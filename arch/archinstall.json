@@ -2,6 +2,15 @@
   "audio_config": {
     "audio": "pipewire"
   },
+  "bootloader_config": {
+    "bootloader": "Systemd-boot",
+    "uki": false,
+    "removable": false
+  },
+  "disk_config": {
+    "config_type": "pre_mounted_config",
+    "mountpoint": "/mnt/archinstall"
+  },
   "hostname": "desktop",
   "kernels": ["linux"],
   "locale_config": {

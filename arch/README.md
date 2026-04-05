@@ -23,13 +23,15 @@ This repository provides a two-phase approach to setting up Arch Linux:
    ```
 3. Copy the configuration to the live environment:
    ```bash
+   # -O (capital letter O)
    curl -fO https://raw.githubusercontent.com/jason-lieb/home/main/arch/archinstall.json
    ```
 4. Prepare the disk:
    ```bash
-   # Create/select the Arch partition
+   # Create/select the Arch partition (and boot partition if not dual-booting)
    cfdisk /dev/<your-disk>
-   # Select the free space → New → accept the size → Write → Quit
+   # If you need a boot partition: New → 512M → Type → EFI System
+   # Then create the root partition: New → accept remaining size → Write → Quit
 
    # Format as btrfs
    mkfs.btrfs /dev/<your-new-partition>
@@ -48,24 +50,24 @@ This repository provides a two-phase approach to setting up Arch Linux:
    mount -o subvol=@home,compress=zstd,noatime /dev/<your-new-partition> /mnt/archinstall/home
    mount -o subvol=@snapshots,compress=zstd,noatime /dev/<your-new-partition> /mnt/archinstall/.snapshots
    ```
-5. Mount the boot partition:
+5. Format and mount the boot partition:
    ```bash
-   # New install — create and format a new ESP:
+   # New install — format the ESP created in step 4:
    mkfs.fat -F32 /dev/<your-esp-partition>
-
-   # Dual-boot — mount existing ESP without formatting:
-   # (skip mkfs.fat above)
-
    mount /dev/<your-esp-partition> /mnt/archinstall/boot
+
+   # Dual-boot (shared ESP) — mount without formatting:
+   mount /dev/<your-existing-esp> /mnt/archinstall/boot
    ```
 6. Run archinstall:
    ```bash
    archinstall --config archinstall.json
    ```
-   Since `archinstall.json` has no `disk_config`, archinstall will use whatever is
-   mounted at `/mnt/archinstall` without performing any disk operations. If
-   dual-booting, skip the bootloader prompt — your existing systemd-boot will
-   manage all boot entries.
+   The JSON config includes `disk_config` (pre-mounted) and `bootloader_config`
+   (systemd-boot), so archinstall will use whatever is already mounted at
+   `/mnt/archinstall` without performing any disk operations. If dual-booting
+   with a shared ESP, skip the bootloader prompt — your existing systemd-boot
+   will manage all boot entries.
 7. Follow prompts to set user password
 8. Reboot into the new system
 
