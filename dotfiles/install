@@ -156,6 +156,7 @@ if command -v gh &>/dev/null; then
             msg "Adding SSH key to GitHub..."
             gh ssh-key add "$SSH_KEY.pub" --title "$HOST"
             msg "SSH key added to GitHub as '$HOST'"
+        fi
     fi
 fi
 
