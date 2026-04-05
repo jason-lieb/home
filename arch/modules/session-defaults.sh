@@ -5,7 +5,7 @@ GREEN='\033[1;32m'
 NC='\033[0m'
 msg() { echo -e "${GREEN}$*${NC}"; }
 
-HOST="$(hostname)"
+HOST="$(cat /etc/hostname)"
 
 msg "=== Session Defaults Configuration ==="
 
