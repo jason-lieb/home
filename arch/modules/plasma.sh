@@ -5,6 +5,8 @@ GREEN='\033[1;32m'
 NC='\033[0m'
 msg() { echo -e "${GREEN}$*${NC}"; }
 
+HOST="$(hostname)"
+
 msg "=== KDE Plasma Configuration ==="
 
 # ============================================
@@ -180,7 +182,7 @@ msg "Configuring window rules..."
 RULES_FILE="$HOME/.config/kwinrulesrc"
 
 # Configure rules for commonly used apps
-if [[ "$(hostname)" == "desktop" ]]; then
+if [[ "$HOST" == "desktop" ]]; then
 cat > "$RULES_FILE" << 'WINDOWRULES'
 [1]
 Description=Maximize Vivaldi
@@ -278,7 +280,7 @@ WINDOWRULES
 fi
 
 # Touchpad (laptop only)
-if [[ "$(hostname)" == "laptop" ]]; then
+if [[ "$HOST" == "laptop" ]]; then
     msg "Configuring touchpad..."
     kwriteconfig6 --file touchpadrc --group "SYNA2BA6:00 06CB:CEF5 Touchpad" --key TapToClick true
     kwriteconfig6 --file touchpadrc --group "SYNA2BA6:00 06CB:CEF5 Touchpad" --key NaturalScroll true
@@ -286,7 +288,7 @@ if [[ "$(hostname)" == "laptop" ]]; then
 fi
 
 # Power profile policies by host
-if [[ "$(hostname)" == "laptop" ]]; then
+if [[ "$HOST" == "laptop" ]]; then
     # AC
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DimDisplay --key idleTime 600000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key idleTime 900000
@@ -310,7 +312,7 @@ if [[ "$(hostname)" == "laptop" ]]; then
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group SuspendSession --key idleTime 300000
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group Performance --key PowerProfile "powerSaving"
     kwriteconfig6 --file powermanagementprofilesrc --group LowBattery --group KeyboardBrightness --key value 25
-elif [[ "$(hostname)" == "mini" ]]; then
+elif [[ "$HOST" == "mini" ]]; then
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DimDisplay --key idleTime 600000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key idleTime 1200000
     kwriteconfig6 --file powermanagementprofilesrc --group AC --group DPMSControl --key lockBeforeTurnOff 180000
@@ -451,14 +453,14 @@ VIVALDI_NMH
 # ============================================
 if command -v kscreen-doctor >/dev/null 2>&1; then
     msg "Configuring monitor layout..."
-    if [[ "$(hostname)" == "desktop" ]]; then
+    if [[ "$HOST" == "desktop" ]]; then
         kscreen-doctor \
             output.DP-1.enable \
             output.DP-1.mode.2560x1440@165 \
             output.DP-1.position.0,0 \
             output.DP-1.primary \
             2>/dev/null || echo "NOTE: Monitor layout failed — adjust output names with 'kscreen-doctor -o'"
-    elif [[ "$(hostname)" == "laptop" ]]; then
+    elif [[ "$HOST" == "laptop" ]]; then
         kscreen-doctor \
             output.eDP-1.enable \
             output.eDP-1.mode.2256x1504@60 \

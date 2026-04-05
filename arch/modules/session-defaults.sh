@@ -5,6 +5,8 @@ GREEN='\033[1;32m'
 NC='\033[0m'
 msg() { echo -e "${GREEN}$*${NC}"; }
 
+HOST="$(hostname)"
+
 msg "=== Session Defaults Configuration ==="
 
 write_if_changed() {
@@ -45,7 +47,7 @@ ensure_symlink() {
 }
 
 BROWSER_DESKTOP="vivaldi-stable.desktop"
-if [[ "$(hostname)" == "mini" ]]; then
+if [[ "$HOST" == "mini" ]]; then
   BROWSER_DESKTOP="brave-browser.desktop"
 fi
 
@@ -65,7 +67,7 @@ EOF
 )"
 write_if_changed "$HOME/.config/mimeapps.list" "$MIMEAPPS_CONTENT"
 
-if [[ "$(hostname)" == "mini" ]]; then
+if [[ "$HOST" == "mini" ]]; then
   ensure_symlink /usr/share/applications/brave-browser.desktop "$HOME/.config/autostart/brave-browser.desktop"
   rm -f "$HOME/.config/autostart/vivaldi-stable.desktop" "$HOME/.config/autostart/obsidian.desktop" "$HOME/.config/autostart/code.desktop"
 else
@@ -75,5 +77,5 @@ else
   rm -f "$HOME/.config/autostart/brave-browser.desktop"
 fi
 
-msg "Configured MIME defaults and autostart for host=$(hostname)"
+msg "Configured MIME defaults and autostart for host=$HOST"
 msg "=== Session Defaults Configuration Complete ==="

@@ -77,8 +77,8 @@ ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
 WantedBy=default.target
 SSHAGENT
 sudo chown -R "$TARGET_USER:$TARGET_USER" "$TARGET_HOME/.config/systemd"
-sudo -u "$TARGET_USER" systemctl --user daemon-reload || true
-sudo -u "$TARGET_USER" systemctl --user enable --now ssh-agent.service || true
+systemctl --user daemon-reload || true
+systemctl --user enable --now ssh-agent.service || true
 
 # ============================================
 # Bluetooth Power-On Workaround
