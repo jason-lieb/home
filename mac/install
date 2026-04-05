@@ -1,16 +1,20 @@
 #!/bin/bash
 set -euo pipefail
 
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-echo "=== Mac Setup ==="
+msg "=== Mac Setup ==="
 
 # ============================================
 # Homebrew
 # ============================================
 if ! command -v brew &>/dev/null; then
-    echo "Installing Homebrew..."
+    msg "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     if [[ -f /opt/homebrew/bin/brew ]]; then
@@ -19,16 +23,16 @@ if ! command -v brew &>/dev/null; then
         eval "$(/usr/local/bin/brew shellenv)"
     fi
 else
-    echo "Homebrew already installed"
+    msg "Homebrew already installed"
 fi
 
-echo "Installing packages from Brewfile..."
+msg "Installing packages from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 
 # ============================================
 # macOS preferences
 # ============================================
-echo "Configuring macOS appearance and Dock..."
+msg "Configuring macOS appearance and Dock..."
 
 # Dark mode
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
@@ -60,7 +64,7 @@ if command -v dockutil &>/dev/null; then
         if [[ -d "$app_path" ]]; then
             dockutil --add "$app_path" --no-restart
         else
-            echo "Skipping missing app for Dock: $app_path"
+            msg "Skipping missing app for Dock: $app_path"
         fi
     done
 
@@ -72,7 +76,7 @@ if command -v defaultbrowser &>/dev/null; then
     if [[ -d "/Applications/Zen.app" ]]; then
         defaultbrowser zen
     else
-        echo "Skipping default browser config: Zen is not installed"
+        msg "Skipping default browser config: Zen is not installed"
     fi
 fi
 
@@ -86,7 +90,7 @@ touch ~/.hushlogin
 # ============================================
 SUDO_LOCAL="/etc/pam.d/sudo_local"
 if ! grep -q "pam_tid.so" "$SUDO_LOCAL" 2>/dev/null; then
-    echo "Enabling Touch ID for sudo (requires sudo)..."
+    msg "Enabling Touch ID for sudo (requires sudo)..."
     echo "auth       sufficient     pam_tid.so" | sudo tee -a "$SUDO_LOCAL" > /dev/null
 fi
 
@@ -94,12 +98,12 @@ fi
 # Node.js + pnpm (via corepack)
 # ============================================
 if ! command -v node &>/dev/null; then
-    echo "Installing Node.js LTS via fnm..."
+    msg "Installing Node.js LTS via fnm..."
     eval "$(fnm env --shell bash)"
     fnm install --lts --corepack-enabled
     fnm use lts-latest
 else
-    echo "Node.js already installed"
+    msg "Node.js already installed"
 fi
 
 # ============================================
@@ -107,5 +111,5 @@ fi
 # ============================================
 "$REPO_DIR/dotfiles/install"
 
-echo ""
-echo "=== Mac Setup Complete ==="
+msg ""
+msg "=== Mac Setup Complete ==="
