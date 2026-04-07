@@ -6,7 +6,7 @@
 let
   homeDir = config.home.homeDirectory;
 
-  shellAliases = {
+  shellAbbrs = {
     c = "clear";
     la = "ls -A";
     ll = "ls -l";
@@ -317,13 +317,13 @@ in
     shellInit = ''
       set fish_user_paths ${homeDir}/bin ${homeDir}/.local/bin ${homeDir}/.nix-profile/bin /nix/var/nix/profiles/default/bin
     '';
-    inherit shellAliases;
+    inherit shellAbbrs;
   };
 
   programs.bash = {
     enable = true;
     bashrcExtra = bashPrompt;
-    inherit shellAliases;
+    shellAliases = shellAbbrs;
   };
 
 }
