@@ -34,7 +34,6 @@ let
     gr = "git reset HEAD^";
     gl = "git log --oneline --ancestry-path origin/main^..HEAD";
     gcp = "git cherry-pick";
-    main = "git checkout main";
     pull = "git pull --rebase origin";
     push = "git push origin";
     fpush = "git push origin --force-with-lease";
@@ -49,9 +48,10 @@ let
     nb = "git checkout -b";
     sb = "git checkout";
     fe = "git fetch origin main";
-    re = "git rebase origin/main";
-    rei = "git rebase -i origin/main";
-    sq = "git rebase -i origin/main";
+    re = "git rebase main";
+    rei = "git rebase -i main";
+    sq = "GIT_SEQUENCE_EDITOR=true git rebase -i main";
+    abort = "git rebase --abort";
     pr = "gh pr create -t";
     prd = "gh pr create --draft -t";
     docker-clean = "docker system prune -a";
@@ -100,20 +100,90 @@ let
 
     function grf
       if test (count $argv) -eq 1
-        git branch -D $argv
-        git fetch origin $argv
-        git checkout $argv
+        git branch -D "$argv"
+        git fetch origin "$argv"
+        git checkout "$argv"
       else
         echo "Invalid number of arguments"
       end
     end
 
-    function fr
-      if test (git rev-parse --abbrev-ref HEAD) != "main"
+    function main
+      set main_worktree (git worktree list --porcelain 2>/dev/null | grep "^worktree " | head -1 | awk '{print $2}')
+      if test -z "$main_worktree"
+        echo "Not in a git repository"
+        return 1
+      end
+      if test $PWD != $main_worktree
+        cd $main_worktree
+      else
         git checkout main
       end
+    end
 
-      git fetch origin main && git rebase origin/main
+    function nw
+      if test (count $argv) -ne 1
+        echo "Usage: nw <branch-name>"
+        return 1
+      end
+      set branch $argv[1]
+      set root (git rev-parse --show-toplevel)
+      if git show-ref --verify --quiet "refs/heads/jl/$branch"
+        git worktree add "$root/.worktrees/$branch" "jl/$branch"
+      else
+        git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+      end
+      cd "$root/.worktrees/$branch"
+    end
+
+    function sw
+      if test (count $argv) -ne 1
+        echo "Usage: sw <branch-name>"
+        return 1
+      end
+      set branch $argv[1]
+      set root (git rev-parse --show-toplevel 2>/dev/null)
+      if test $status -ne 0
+        echo "Not in a git repository"
+        return 1
+      end
+      set worktree "$root/.worktrees/$branch"
+      if not test -d $worktree
+        echo "No worktree found for '$branch'"
+        return 1
+      end
+      cd $worktree
+    end
+
+    function dw
+      if test (count $argv) -ne 1
+        echo "Usage: dw <branch-name>"
+        return 1
+      end
+      set branch $argv[1]
+      set root (git rev-parse --show-toplevel 2>/dev/null)
+      if test $status -ne 0
+        echo "Not in a git repository"
+        return 1
+      end
+      set worktree "$root/.worktrees/$branch"
+      if not test -d $worktree
+        echo "No worktree found for '$branch'"
+        return 1
+      end
+      git worktree remove $worktree
+    end
+
+    function fr
+      set main_repo (git worktree list --porcelain | grep '^worktree ' | head -1 | string replace 'worktree ' '''')
+      set current_branch (git -C $main_repo rev-parse --abbrev-ref HEAD)
+
+      if test $current_branch = "main"
+        git -C $main_repo fetch origin && git -C $main_repo rebase origin/main && git -C $main_repo remote prune origin
+      else
+        git -C $main_repo fetch origin main:main && git -C $main_repo remote prune origin
+      end
+      or return 1
     end
   '';
 
@@ -156,19 +226,86 @@ let
 
     grf() {
       if [ $# -eq 1 ]; then
-        git branch -D $1
-        git fetch origin $1
-        git checkout $1
+        git branch -D "$1"
+        git fetch origin "$1"
+        git checkout "$1"
       else
         echo "Invalid number of arguments"
       fi
     }
 
-    fr() {
-      if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
+    main() {
+      local main_worktree
+      main_worktree=$(git worktree list --porcelain 2>/dev/null | grep "^worktree " | head -1 | awk '{print $2}')
+      if [ -z "$main_worktree" ]; then
+        echo "Not in a git repository"
+        return 1
+      fi
+      if [ "$PWD" != "$main_worktree" ]; then
+        cd "$main_worktree"
+      else
         git checkout main
       fi
-      git fetch origin main && git rebase origin/main
+    }
+
+    nw() {
+      if [ $# -ne 1 ]; then
+        echo "Usage: nw <branch-name>"
+        return 1
+      fi
+      local branch="$1"
+      local root
+      root=$(git rev-parse --show-toplevel)
+      if git show-ref --verify --quiet "refs/heads/jl/$branch"; then
+        git worktree add "$root/.worktrees/$branch" "jl/$branch"
+      else
+        git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+      fi
+      cd "$root/.worktrees/$branch"
+    }
+
+    sw() {
+      if [ $# -ne 1 ]; then
+        echo "Usage: sw <branch-name>"
+        return 1
+      fi
+      local branch="$1"
+      local root
+      root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repository"; return 1; }
+      local worktree="$root/.worktrees/$branch"
+      if [ ! -d "$worktree" ]; then
+        echo "No worktree found for '$branch'"
+        return 1
+      fi
+      cd "$worktree"
+    }
+
+    dw() {
+      if [ $# -ne 1 ]; then
+        echo "Usage: dw <branch-name>"
+        return 1
+      fi
+      local branch="$1"
+      local root
+      root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repository"; return 1; }
+      local worktree="$root/.worktrees/$branch"
+      if [ ! -d "$worktree" ]; then
+        echo "No worktree found for '$branch'"
+        return 1
+      fi
+      git worktree remove "$worktree"
+    }
+
+    fr() {
+      local main_repo current_branch
+      main_repo=$(git worktree list --porcelain | grep '^worktree ' | head -1 | sed 's/^worktree //')
+      current_branch=$(git -C "$main_repo" rev-parse --abbrev-ref HEAD)
+
+      if [ "$current_branch" = "main" ]; then
+        git -C "$main_repo" fetch origin && git -C "$main_repo" rebase origin/main && git -C "$main_repo" remote prune origin
+      else
+        git -C "$main_repo" fetch origin main:main && git -C "$main_repo" remote prune origin
+      fi || return 1
     }
   '';
 
