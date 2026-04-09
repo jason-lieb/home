@@ -11,5 +11,4 @@ function nw
     else
         git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
     end
-    cd "$root/.worktrees/$dir"
 end

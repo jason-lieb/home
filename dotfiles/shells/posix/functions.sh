@@ -75,7 +75,6 @@ nw() {
     else
         git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
     fi
-    cd "$root/.worktrees/$dir"
 }
 
 sw() {
@@ -83,12 +82,12 @@ sw() {
         echo "Usage: sw <branch-name>"
         return 1
     fi
-    local branch="$1"
+    local dir="${1#jl/}"
     local root
-    root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repository"; return 1; }
-    local worktree="$root/.worktrees/$branch"
+    root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
+    local worktree="$root/.worktrees/$dir"
     if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$branch'"
+        echo "No worktree found for '$dir'"
         return 1
     fi
     cd "$worktree"
@@ -99,12 +98,12 @@ dw() {
         echo "Usage: dw <branch-name>"
         return 1
     fi
-    local branch="$1"
+    local dir="${1#jl/}"
     local root
-    root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repository"; return 1; }
-    local worktree="$root/.worktrees/$branch"
+    root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
+    local worktree="$root/.worktrees/$dir"
     if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$branch'"
+        echo "No worktree found for '$dir'"
         return 1
     fi
     git worktree remove "$worktree"
