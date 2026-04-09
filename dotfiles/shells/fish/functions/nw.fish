@@ -3,12 +3,13 @@ function nw
         echo "Usage: nw <branch-name>"
         return 1
     end
-    set branch $argv[1]
-    set root (git rev-parse --show-toplevel)
-    if git show-ref --verify --quiet "refs/heads/jl/$branch"
-        git worktree add "$root/.worktrees/$branch" "jl/$branch"
+    set full_branch $argv[1]
+    set dir (string replace --regex '^jl/' '' $full_branch)
+    set root (git worktree list --porcelain | head -1 | string replace --regex '^worktree ' '')
+    if git show-ref --verify --quiet "refs/heads/$full_branch"
+        git worktree add "$root/.worktrees/$dir" "$full_branch"
     else
-        git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
     end
-    cd "$root/.worktrees/$branch"
+    cd "$root/.worktrees/$dir"
 end

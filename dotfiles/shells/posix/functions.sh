@@ -66,15 +66,16 @@ nw() {
         echo "Usage: nw <branch-name>"
         return 1
     fi
-    local branch="$1"
+    local full_branch="$1"
+    local dir="${full_branch#jl/}"
     local root
-    root=$(git rev-parse --show-toplevel)
-    if git show-ref --verify --quiet "refs/heads/jl/$branch"; then
-        git worktree add "$root/.worktrees/$branch" "jl/$branch"
+    root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+    if git show-ref --verify --quiet "refs/heads/$full_branch"; then
+        git worktree add "$root/.worktrees/$dir" "$full_branch"
     else
-        git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
     fi
-    cd "$root/.worktrees/$branch"
+    cd "$root/.worktrees/$dir"
 }
 
 sw() {
