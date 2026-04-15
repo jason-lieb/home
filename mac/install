@@ -42,6 +42,15 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.15
 
+# Minimize windows using scale effect
+defaults write com.apple.dock mineffect -string "scale"
+
+# Minimize windows into application icon
+defaults write com.apple.dock minimize-to-application -bool true
+
+# Click wallpaper to reveal desktop only in Stage Manager
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+
 # Screenshots
 mkdir -p "$HOME/Documents/Screenshots"
 defaults write com.apple.screencapture location -string "$HOME/Documents/Screenshots"
