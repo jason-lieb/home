@@ -28,7 +28,6 @@ brew "witco-cli"
 brew "zoxide"
 
 # Casks (GUI Applications)
-cask "helium"
 cask "orbstack"
 cask "github"
 cask "visual-studio-code"
