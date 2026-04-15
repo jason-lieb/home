@@ -1,4 +1,4 @@
 function ghpat
-    set -gx GITHUB_TOKEN (security find-generic-password -a $USER -s "github-pat" -w)
+    set -gx GITHUB_TOKEN (gh auth token)
     echo "GITHUB_TOKEN set"
 end
