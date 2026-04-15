@@ -90,6 +90,10 @@ if command -v defaultbrowser &>/dev/null; then
 fi
 
 # ============================================
+# Show hidden files in Finder
+defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# ============================================
 # Suppress last login message
 # ============================================
 touch ~/.hushlogin
