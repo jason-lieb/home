@@ -1,4 +1,13 @@
 {
+  "model": "sonnet",
+  "env": {
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000",
+    "HTTPS_PROXY": "http://127.0.0.1:9009",
+    "HTTP_PROXY": "http://127.0.0.1:9009",
+    "NO_PROXY": "localhost,127.0.0.1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+  },
   "permissions": {
     "allow": [
       "Bash(git add:*)",
@@ -20,9 +29,49 @@
       "Bash(gh pr diff:*)",
       "Bash(gh api:*)",
       "mcp__ide__getDiagnostics",
-      "Skill(update-config)"
+      "Skill(update-config)",
+      "Read(~/.claude/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -r /*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~*)",
+      "Bash(dd if=*)",
+      "Bash(mkfs*)",
+      "Bash(shred*)",
+      "Bash(chmod -R 777 *)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(curl * | bash*)",
+      "Bash(curl * | sh*)",
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(nmap*)",
+      "Bash(nc -l*)",
+      "Read(~/.aws/credentials)",
+      "Read(~/.ssh/*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(./.env)"
     ],
     "ask": [
+      "Bash(git push * --force*)",
+      "Bash(git push * -f *)",
+      "Bash(git push origin main*)",
+      "Bash(git push origin master*)",
+      "Bash(rm *)",
+      "Read(~/.aws/credentials)",
+      "Read(~/.aws/config)",
+      "Read(~/.ssh)",
+      "Read(~/.docker/config.json)",
+      "Edit(~/.aws)",
+      "Edit(~/.ssh)",
+      "Edit(~/.gnupg)",
+      "Edit(~/.bashrc)",
+      "Edit(~/.zshrc)",
+      "Edit(~/.bash_profile)",
+      "Edit(~/.zprofile)",
       "Bash(gh pr create:*)",
       "Bash(gh pr merge:*)",
       "Bash(gh pr close:*)",
@@ -38,23 +87,74 @@
       "Bash(gh api --method PUT:*)",
       "Bash(gh api --method PATCH:*)",
       "Bash(gh api --method DELETE:*)",
-      "Bash(rm -rf:*)",
       "Bash(git push --force:*)",
       "Bash(git push -f:*)",
-      "Bash(git reset --hard:*)",
-      "Bash(git clean:*)",
       "Bash(git checkout .:*)",
       "Bash(git restore .:*)",
       "Bash(chmod:*)",
       "Bash(chown:*)",
       "Bash(pnpm publish:*)"
-    ]
+    ],
+    "defaultMode": "acceptEdits",
+    "disableBypassPermissionsMode": "disable"
   },
-  "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "HTTPS_PROXY": "http://127.0.0.1:9009",
-    "HTTP_PROXY": "http://127.0.0.1:9009",
-    "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+  "allowManagedHooksOnly": false,
+  "allowManagedMcpServersOnly": true,
+  "sandbox": {
+    "enabled": true,
+    "enableWeakerNetworkIsolation": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "excludedCommands": [
+      "git",
+      "gh",
+      "npm",
+      "npx",
+      "yarn",
+      "pnpm",
+      "pip",
+      "pip3",
+      "poetry",
+      "uv",
+      "cargo",
+      "go",
+      "node",
+      "python",
+      "python3",
+      "java",
+      "make",
+      "cmake",
+      "gcc",
+      "g++",
+      "mvn",
+      "gradle",
+      "dotnet",
+      "docker",
+      "docker-compose",
+      "aws",
+      "terraform",
+      "jq",
+      "curl",
+      "brew",
+      "code",
+      "open"
+    ],
+    "network": {
+      "allowLocalBinding": true,
+      "httpProxyPort": 9009
+    },
+    "filesystem": {
+      "allowManagedReadPathsOnly": false,
+      "denyWrite": ["/etc", "/usr", "/System", "/Library"],
+      "denyRead": [
+        "~/.gnupg",
+        "~/.config/gcloud",
+        "~/.azure",
+        "~/.npmrc",
+        "~/.pypirc",
+        "/etc/shadow"
+      ]
+    }
   },
   "hooks": {
     "PostToolUse": [
@@ -72,6 +172,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "npx ccstatusline@latest"
+    "command": "npx ccstatusline@latest",
+    "padding": 0
   }
 }
