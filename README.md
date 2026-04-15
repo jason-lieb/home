@@ -26,14 +26,14 @@ This will:
   - Dark mode
   - Automatically hide dock
   - Remove everything from dock
-  - Default browser to Chrome
+  - Default browser to Zen
   - Faster dock response
   - Screenshot defaults to JPEG
-- Install Ghostty
+- Install Ghostty, Chrome, Zen, Slack, Helium, Claude Code
 - Add fingerprint
 - Add Bluetooth mouse, adjust sensitivity, and turn natural scrolling off
 - `witctl config generate`
-- `witctl aws auth login`
+- `witctl auth aws login`
 - `witctl completions`
 
 **Claude Code Plugins:** After setup, install plugins manually:
