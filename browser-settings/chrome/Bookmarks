@@ -1,0 +1,221 @@
+{
+   "checksum": "f451c2252a81de565b0e56b088590e65",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13416950764701747",
+            "date_last_used": "13418762623377179",
+            "guid": "ec740725-f814-4452-89b8-5131461a8ad2",
+            "id": "5",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "My Apps",
+            "type": "url",
+            "url": "https://myapps.microsoft.com/"
+         }, {
+            "children": [ {
+               "date_added": "13417716566888898",
+               "date_last_used": "13417723398232643",
+               "guid": "0c5d7a8c-ea24-4eca-9525-7ad2c604f5eb",
+               "id": "17",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "euphony",
+               "type": "url",
+               "url": "https://github.com/cincpro/euphony-js"
+            }, {
+               "date_added": "13417716392752604",
+               "date_last_used": "0",
+               "guid": "94abf449-329f-4fe1-ad6f-c037c814ee23",
+               "id": "12",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "nagash",
+               "type": "url",
+               "url": "https://github.com/cincpro/nagash"
+            }, {
+               "date_added": "13417716417806076",
+               "date_last_used": "0",
+               "guid": "b22d99cf-7172-4ede-8f22-c93ac948356c",
+               "id": "14",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "witco-presents",
+               "type": "url",
+               "url": "https://github.com/cincpro/witco-presents"
+            }, {
+               "date_added": "13417716428544022",
+               "date_last_used": "0",
+               "guid": "ce97e9cf-4872-4f12-8e07-9ddc46d0a467",
+               "id": "15",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "event-schemas",
+               "type": "url",
+               "url": "https://github.com/cincpro/event-schemas"
+            }, {
+               "date_added": "13417716555697847",
+               "date_last_used": "0",
+               "guid": "4998e55b-b774-48a8-9e9a-3c460af8a80c",
+               "id": "16",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "radiant",
+               "type": "url",
+               "url": "https://github.com/cincpro/radiant-js"
+            }, {
+               "date_added": "13417723334026913",
+               "date_last_used": "0",
+               "guid": "c7fc57f1-5ba8-4120-92b8-18995edfa1a6",
+               "id": "18",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "witco-cli",
+               "type": "url",
+               "url": "https://github.com/cincpro/witco-cli"
+            }, {
+               "date_added": "13417723346405805",
+               "date_last_used": "0",
+               "guid": "22c0b557-2c16-4898-a984-51824a582336",
+               "id": "19",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "seldon",
+               "type": "url",
+               "url": "https://github.com/cincpro/seldon-idp"
+            }, {
+               "date_added": "13417723353068956",
+               "date_last_used": "0",
+               "guid": "f9ec5a9a-f43c-40b1-b7f8-9175dc859aab",
+               "id": "20",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "homebrew-witco",
+               "type": "url",
+               "url": "https://github.com/cincpro/homebrew-witco"
+            }, {
+               "date_added": "13417723362847903",
+               "date_last_used": "0",
+               "guid": "910cb0e7-f79e-492e-9c96-7edeb2bcac98",
+               "id": "21",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "actions",
+               "type": "url",
+               "url": "https://github.com/cincpro/actions"
+            }, {
+               "date_added": "13417723367281348",
+               "date_last_used": "13417897261485276",
+               "guid": "b0b28fe1-41f9-44c9-9d48-038d176df004",
+               "id": "22",
+               "meta_info": {
+                  "power_bookmark_meta": ""
+               },
+               "name": "CincMain",
+               "type": "url",
+               "url": "https://github.com/cincpro/CincMain"
+            } ],
+            "date_added": "13417716414302549",
+            "date_last_used": "0",
+            "date_modified": "13417889937251225",
+            "guid": "3884af1a-0771-4c19-b0ff-1657c610ecb7",
+            "id": "13",
+            "name": "Repos",
+            "type": "folder"
+         }, {
+            "date_added": "13417107460595967",
+            "date_last_used": "13419454740770945",
+            "guid": "4eadd8f9-79c5-45a0-8c7f-98ff2bc6f5e9",
+            "id": "7",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "firebird",
+            "type": "url",
+            "url": "https://github.com/cincpro/firebird#"
+         }, {
+            "date_added": "13417889937251225",
+            "date_last_used": "13418248623330287",
+            "guid": "16dd206d-62e3-4d6f-b888-0ff24cd0308e",
+            "id": "24",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Pull requests",
+            "type": "url",
+            "url": "https://github.com/cincpro/firebird/pulls"
+         }, {
+            "date_added": "13418234362157138",
+            "date_last_used": "13419457140075678",
+            "guid": "a7bf8a1a-8a18-45bf-b755-38e0295ad282",
+            "id": "25",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Firebird Local",
+            "type": "url",
+            "url": "https://firebird.firebird.orb.local/"
+         }, {
+            "date_added": "13417134108445989",
+            "date_last_used": "13418236365474986",
+            "guid": "e4aca625-252c-41c1-b4fe-6da6f03e123b",
+            "id": "9",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Cinc Consumer",
+            "type": "url",
+            "url": "https://www.cincconsumer.one/"
+         }, {
+            "date_added": "13417134168013908",
+            "date_last_used": "0",
+            "guid": "962fc30f-087c-47ba-9849-93ad47903ddc",
+            "id": "10",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Cinc Consumer Admin",
+            "type": "url",
+            "url": "javascript:%20CINC.Core.Okta();"
+         } ],
+         "date_added": "13416948435030923",
+         "date_last_used": "0",
+         "date_modified": "13418236363858963",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Bookmarks Bar",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13416948435030923",
+         "date_last_used": "0",
+         "date_modified": "13416950764701747",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other Bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13416948435030923",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile Bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
