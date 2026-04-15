@@ -2,4 +2,4 @@
     email = jason.lieb@cincpro.com
 
 [credential]
-    helper = !/opt/homebrew/bin/gh auth git-credential
+    helper = !GH_ACCOUNT=Jason-Lieb_fnf /opt/homebrew/bin/gh auth git-credential
