@@ -53,7 +53,7 @@ if command -v dockutil &>/dev/null; then
 
     DOCK_APPS=(
         "/Applications/Zen.app"
-        "/Applications/Google Chrome.app"
+        "/Applications/Helium.app"
         "/Applications/Microsoft Outlook.app"
         "/Applications/Slack.app"
         "/Applications/Visual Studio Code.app"
