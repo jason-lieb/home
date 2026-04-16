@@ -68,6 +68,7 @@ link() {
 
 msg "Creating config directories..."
 mkdir -p "$HOME/.claude"
+mkdir -p "$HOME/.claude/hooks"
 mkdir -p "$HOME/.config/ghostty"
 mkdir -p "$HOME/.config/direnv"
 mkdir -p "$HOME/.config/gh"
@@ -92,6 +93,9 @@ link "$DOTFILES_DIR/gh/config.yml" "$HOME/.config/gh/config.yml"
 link "$DOTFILES_DIR/vscode/settings.json" "$VSCODE_USER_DIR/settings.json"
 link "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 link "$DOTFILES_DIR/.claude/skills" "$HOME/.claude/skills"
+link "$DOTFILES_DIR/.claude/agents" "$HOME/.claude/agents"
+link "$DOTFILES_DIR/.claude/hooks/session-start" "$HOME/.claude/hooks/session-start"
+chmod +x "$DOTFILES_DIR/.claude/hooks/session-start"
 link "$DOTFILES_DIR/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
 for lang in typescript typescriptreact javascript javascriptreact; do
     link "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
