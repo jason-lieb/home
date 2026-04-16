@@ -2,17 +2,6 @@
   "diffEditor.maxComputationTime": 0,
   "editor.accessibilitySupport": "off",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[nix]": {
-    "editor.defaultFormatter": "jkillian.custom-local-formatters"
-  },
-  "[terraform]": {
-    "editor.defaultFormatter": "jkillian.custom-local-formatters",
-    "prettier.enable": false
-  },
-  "[hcl]": {
-    "editor.defaultFormatter": "jkillian.custom-local-formatters",
-    "prettier.enable": false
-  },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "[markdown]": {
@@ -30,29 +19,10 @@
   "editor.largeFileOptimizations": false,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
-  "customLocalFormatters.formatters": [
-    {
-      "command": "nixfmt",
-      "languages": ["nix"]
-    },
-    {
-      "command": "terraform fmt -",
-      "languages": ["terraform", "hcl"]
-    }
-  ],
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 5000,
-  "files.associations": {
-    "*.tf": "terraform",
-    "*.tfvars": "hcl",
-    "*.tfvars.*": "hcl",
-    "*.hcl": "hcl"
-  },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-  "[go]": {
-    "editor.defaultFormatter": "golang.go"
-  },
   "indentRainbow.indicatorStyle": "light",
   "indentRainbow.lightIndicatorStyleLineWidth": 4,
   "javascript.updateImportsOnFileMove.enabled": "always",

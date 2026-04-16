@@ -4,9 +4,6 @@
 esbenp.prettier-vscode
 github.vscode-github-actions
 github.vscode-pull-request-github
-golang.go
-hashicorp.hcl
-hashicorp.terraform
 jnoortheen.nix-ide
 mechatroner.rainbow-csv
 oderwat.indent-rainbow
@@ -14,5 +11,4 @@ pkief.material-icon-theme
 ritwickdey.liveserver
 stylelint.vscode-stylelint
 yoavbls.pretty-ts-errors
-jkillian.custom-local-formatters
 anthropic.claude-code
