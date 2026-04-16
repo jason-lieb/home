@@ -62,5 +62,19 @@
       "path": "/usr/bin/fish"
     }
   },
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
+  "githubPullRequests.queries": [
+    {
+      "label": "All Open",
+      "query": "default"
+    },
+    {
+      "label": "Created By Me",
+      "query": "repo:${owner}/${repository} is:open author:${user}"
+    },
+    {
+      "label": "Waiting For My Review",
+      "query": "repo:${owner}/${repository} is:open assignee:${user}"
+    }
+  ]
 }
