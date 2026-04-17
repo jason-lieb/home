@@ -90,6 +90,12 @@ if command -v defaultbrowser &>/dev/null; then
 fi
 
 # ============================================
+# Power settings
+# ============================================
+msg "Configuring power settings..."
+sudo pmset -a displaysleep 30
+
+# ============================================
 # Show hidden files in Finder
 defaults write com.apple.finder AppleShowAllFiles -bool true
 
