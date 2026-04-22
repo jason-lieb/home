@@ -114,7 +114,10 @@ let
         echo "Not in a git repository"
         return 1
       end
-      if test $PWD != $main_worktree
+      set current_toplevel (git rev-parse --show-toplevel 2>/dev/null)
+      if test "$current_toplevel" = "$main_worktree"
+        git checkout main
+      else if test "$PWD" != "$main_worktree"
         cd $main_worktree
       else
         git checkout main
@@ -175,7 +178,7 @@ let
     end
 
     function fr
-      set main_repo (git worktree list --porcelain | grep '^worktree ' | head -1 | string replace 'worktree ' '''')
+      set main_repo (git worktree list --porcelain | grep '^worktree ' | head -1 | string replace 'worktree ' "")
       set current_branch (git -C $main_repo rev-parse --abbrev-ref HEAD)
 
       if test $current_branch = "main"
@@ -241,7 +244,11 @@ let
         echo "Not in a git repository"
         return 1
       fi
-      if [ "$PWD" != "$main_worktree" ]; then
+      local current_toplevel
+      current_toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+      if [ "$current_toplevel" = "$main_worktree" ]; then
+        git checkout main
+      elif [ "$PWD" != "$main_worktree" ]; then
         cd "$main_worktree"
       else
         git checkout main

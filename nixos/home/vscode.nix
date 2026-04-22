@@ -50,7 +50,7 @@
           "prettier.enable" = false;
         };
         "editor.formatOnPaste" = true;
-        "editor.formatOnSave" = true;
+        "editor.formatOnSave" = false;
         "[markdown]" = {
           "editor.formatOnSave" = false;
         };
