@@ -1,6 +1,7 @@
 # Taps
 tap "hashicorp/tap"
 tap "oven-sh/bun"
+tap "sst/tap"
 tap "witco/witco", "https://github.com/witco-oss/homebrew-witco.git"
 
 # CLI Tools
@@ -25,9 +26,11 @@ brew "tokei"
 brew "hashicorp/tap/vault"
 brew "wget"
 brew "witco-cli"
+brew "sst/tap/opencode"
 brew "zoxide"
 
 # Casks (GUI Applications)
+cask "opencode-desktop"
 cask "orbstack"
 cask "github"
 cask "visual-studio-code"
