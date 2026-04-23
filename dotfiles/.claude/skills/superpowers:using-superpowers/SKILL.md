@@ -8,11 +8,9 @@ If you were dispatched as a subagent to execute a specific task, skip this skill
 </SUBAGENT-STOP>
 
 <EXTREMELY-IMPORTANT>
-If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
+If the user explicitly requests a skill (by name or by describing its purpose), invoke it immediately.
 
-IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
-
-This is not negotiable. This is not optional. You cannot rationalize your way out of this.
+If you think a skill might apply but the user has NOT explicitly requested it, you MUST ask the user first before invoking it. Do not invoke skills proactively without user confirmation.
 </EXTREMELY-IMPORTANT>
 
 ## Instruction Priority
@@ -33,30 +31,30 @@ Use the `Skill` tool. When you invoke a skill, its content is loaded and present
 
 ## The Rule
 
-**Invoke relevant or requested skills BEFORE any response or action.** Even a 1% chance a skill might apply means that you should invoke the skill to check. If an invoked skill turns out to be wrong for the situation, you don't need to use it.
+**If the user explicitly requests a skill, invoke it BEFORE any response or action.** If a skill seems relevant but was not requested, ask the user whether to use it before proceeding.
 
 ```dot
 digraph skill_flow {
     "User message received" [shape=doublecircle];
-    "About to EnterPlanMode?" [shape=doublecircle];
-    "Already brainstormed?" [shape=diamond];
-    "Invoke brainstorming skill" [shape=box];
-    "Might any skill apply?" [shape=diamond];
+    "Skill explicitly requested?" [shape=diamond];
     "Invoke Skill tool" [shape=box];
+    "Skill might apply?" [shape=diamond];
+    "Ask user: use [skill]?" [shape=box];
+    "User says yes?" [shape=diamond];
     "Announce: 'Using [skill] to [purpose]'" [shape=box];
     "Has checklist?" [shape=diamond];
     "Create TodoWrite todo per item" [shape=box];
     "Follow skill exactly" [shape=box];
     "Respond (including clarifications)" [shape=doublecircle];
 
-    "About to EnterPlanMode?" -> "Already brainstormed?";
-    "Already brainstormed?" -> "Invoke brainstorming skill" [label="no"];
-    "Already brainstormed?" -> "Might any skill apply?" [label="yes"];
-    "Invoke brainstorming skill" -> "Might any skill apply?";
-
-    "User message received" -> "Might any skill apply?";
-    "Might any skill apply?" -> "Invoke Skill tool" [label="yes, even 1%"];
-    "Might any skill apply?" -> "Respond (including clarifications)" [label="definitely not"];
+    "User message received" -> "Skill explicitly requested?";
+    "Skill explicitly requested?" -> "Invoke Skill tool" [label="yes"];
+    "Skill explicitly requested?" -> "Skill might apply?" [label="no"];
+    "Skill might apply?" -> "Ask user: use [skill]?" [label="yes"];
+    "Skill might apply?" -> "Respond (including clarifications)" [label="no"];
+    "Ask user: use [skill]?" -> "User says yes?";
+    "User says yes?" -> "Invoke Skill tool" [label="yes"];
+    "User says yes?" -> "Respond (including clarifications)" [label="no"];
     "Invoke Skill tool" -> "Announce: 'Using [skill] to [purpose]'";
     "Announce: 'Using [skill] to [purpose]'" -> "Has checklist?";
     "Has checklist?" -> "Create TodoWrite todo per item" [label="yes"];
@@ -64,25 +62,6 @@ digraph skill_flow {
     "Create TodoWrite todo per item" -> "Follow skill exactly";
 }
 ```
-
-## Red Flags
-
-These thoughts mean STOP—you're rationalizing:
-
-| Thought | Reality |
-|---------|---------|
-| "This is just a simple question" | Questions are tasks. Check for skills. |
-| "I need more context first" | Skill check comes BEFORE clarifying questions. |
-| "Let me explore the codebase first" | Skills tell you HOW to explore. Check first. |
-| "I can check git/files quickly" | Files lack conversation context. Check for skills. |
-| "Let me gather information first" | Skills tell you HOW to gather information. |
-| "This doesn't need a formal skill" | If a skill exists, use it. |
-| "I remember this skill" | Skills evolve. Read current version. |
-| "This doesn't count as a task" | Action = task. Check for skills. |
-| "The skill is overkill" | Simple things become complex. Use it. |
-| "I'll just do this one thing first" | Check BEFORE doing anything. |
-| "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
-| "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
 
 ## Skill Priority
 
