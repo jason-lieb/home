@@ -13,3 +13,4 @@ stylelint.vscode-stylelint
 yoavbls.pretty-ts-errors
 anthropic.claude-code
 cweijan.vscode-database-client2
+sst-dev.opencode
