@@ -56,6 +56,7 @@ let
     prd = "gh pr create --draft -t";
     docker-clean = "docker system prune -a";
     p = "pnpm";
+    oc = "opencode";
     home = "cd ~/home";
     shell = "nix-shell -p";
     dev = "nix develop -c fish";
