@@ -17,11 +17,13 @@ OFFICIAL_PACKAGES=(
     firefox vivaldi
     bun direnv
     aws-cli-v2 gparted
+    opencode
 )
 
 AUR_PACKAGES=(
     brave-bin google-chrome ghostty obsidian github-desktop-bin
     visual-studio-code-bin vivaldi-ffmpeg-codecs wl-clipboard fnm-bin
+    opencode-desktop-bin
 )
 
 # Install yay if not present
