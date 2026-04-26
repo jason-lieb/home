@@ -1,5 +1,8 @@
 # Claude Code Instructions
 
+## IMPORTANT
+This is a multi-machine multi-os setup. When working on any machine, always be aware of which machine and OS you are on.
+
 ## Shell Configs
 
 Shell configs live in `dotfiles/shells/`. When updating any shell config, ensure the change is applied to all relevant shells.
