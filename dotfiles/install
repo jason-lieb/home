@@ -75,7 +75,7 @@ mkdir -p "$HOME/.config/gh"
 mkdir -p "$HOME/.config/posix"
 mkdir -p "$HOME/.config/ccstatusline"
 mkdir -p "$HOME/.ssh"
-mkdir -p "$VSCODE_USER_DIR/snippets"
+mkdir -p "$HOME/.config/opencode"
 
 msg "Linking dotfiles..."
 link "$DOTFILES_DIR/shells/fish" "$HOME/.config/fish"
@@ -97,6 +97,7 @@ link "$DOTFILES_DIR/.claude/agents" "$HOME/.claude/agents"
 link "$DOTFILES_DIR/.claude/hooks/session-start" "$HOME/.claude/hooks/session-start"
 chmod +x "$DOTFILES_DIR/.claude/hooks/session-start"
 link "$DOTFILES_DIR/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
+link "$DOTFILES_DIR/opencode/config.json" "$HOME/.config/opencode/config.json"
 for lang in typescript typescriptreact javascript javascriptreact; do
     link "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
 done
@@ -114,6 +115,15 @@ if [[ "$OS" == "Darwin" ]]; then
     link "$DOTFILES_DIR/git/.gitconfig.mac" "$HOME/.gitconfig.local"
 else
     link "$DOTFILES_DIR/.ssh/arch" "$HOME/.ssh/config"
+fi
+
+msg "Installing OpenCode Claude hooks plugin..."
+if command -v pnpm &>/dev/null; then
+    pnpm add -g opencode-claude-hooks 2>/dev/null || true
+elif command -v npm &>/dev/null; then
+    npm install -g opencode-claude-hooks 2>/dev/null || true
+elif command -v bun &>/dev/null; then
+    bun add -g opencode-claude-hooks 2>/dev/null || true
 fi
 
 # ============================================
