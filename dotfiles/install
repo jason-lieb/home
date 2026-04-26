@@ -2,8 +2,20 @@
 set -euo pipefail
 
 GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
 NC='\033[0m'
 msg() { echo -e "${GREEN}$*${NC}"; }
+warn() { echo -e "${YELLOW}$*${NC}"; }
+ask() {
+    local prompt="$1"
+    local result
+    warn "$prompt [y/N] "
+    read -r result
+    case "$result" in
+        [yY]|[yY][eE][sS]) return 0 ;;
+        *) return 1 ;;
+    esac
+}
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="$SCRIPT_DIR"
@@ -134,75 +146,84 @@ fi
 # ============================================
 # SSH Key Setup
 # ============================================
-SSH_KEY="$HOME/.ssh/id_ed25519"
-HOST="$(get_hostname)"
+if ask "Set up SSH key and GitHub authentication?"; then
+    SSH_KEY="$HOME/.ssh/id_ed25519"
+    HOST="$(get_hostname)"
 
-if [[ ! -f "$SSH_KEY" ]]; then
-    msg ""
-    printf "No SSH key found. Enter your email for the SSH key: "
-    read -r email_address
-    msg "Generating SSH key..."
-    ssh-keygen -t ed25519 -C "$email_address" -N "" -f "$SSH_KEY"
-    msg "SSH key generated at $SSH_KEY"
-else
-    msg "SSH key already exists at $SSH_KEY"
-fi
-
-if command -v gh &>/dev/null; then
-    # ---- Personal GitHub account (SSH key management) ----
-    PERSONAL_LOGGED_IN=false
-    if gh auth status --hostname github.com 2>&1 | grep -q "jason-lieb"; then
-        PERSONAL_LOGGED_IN=true
-        gh auth switch --user jason-lieb 2>/dev/null || true
-        PERSONAL_SCOPES="$(gh auth status --hostname github.com 2>&1 | grep "Token scopes" | head -1 || true)"
-        if ! echo "$PERSONAL_SCOPES" | grep -q "admin:public_key" || ! echo "$PERSONAL_SCOPES" | grep -q "admin:ssh_signing_key"; then
-            msg "Refreshing personal GitHub token scopes..."
-            gh auth refresh -s admin:public_key,admin:ssh_signing_key || true
-        fi
+    if [[ ! -f "$SSH_KEY" ]]; then
+        msg ""
+        printf "Enter your email for the SSH key: "
+        read -r email_address
+        msg "Generating SSH key..."
+        ssh-keygen -t ed25519 -C "$email_address" -N "" -f "$SSH_KEY"
+        msg "SSH key generated at $SSH_KEY"
     else
-        msg "Logging into personal GitHub account (jason-lieb)..."
-        gh auth login -p https -s admin:public_key,admin:ssh_signing_key || true
-        if gh auth status 2>&1 | grep -q "jason-lieb"; then
+        msg "SSH key already exists at $SSH_KEY"
+    fi
+
+    if command -v gh &>/dev/null; then
+        PERSONAL_LOGGED_IN=false
+        if gh auth status --hostname github.com 2>&1 | grep -q "jason-lieb"; then
             PERSONAL_LOGGED_IN=true
-        fi
-    fi
-
-    if [[ "$PERSONAL_LOGGED_IN" == true ]]; then
-        gh auth switch --user jason-lieb 2>/dev/null || true
-        if gh ssh-key list 2>/dev/null | grep -qF "$(cut -d' ' -f2 "$SSH_KEY.pub")"; then
-            msg "SSH key already registered on GitHub"
+            gh auth switch --user jason-lieb 2>/dev/null || true
+            PERSONAL_SCOPES="$(gh auth status --hostname github.com 2>&1 | grep "Token scopes" | head -1 || true)"
+            if ! echo "$PERSONAL_SCOPES" | grep -q "admin:public_key" || ! echo "$PERSONAL_SCOPES" | grep -q "admin:ssh_signing_key"; then
+                if ask "Refresh personal GitHub token scopes?"; then
+                    msg "Refreshing personal GitHub token scopes..."
+                    gh auth refresh -s admin:public_key,admin:ssh_signing_key || true
+                fi
+            fi
         else
-            msg "Adding SSH key to GitHub..."
-            gh ssh-key add "$SSH_KEY.pub" --title "$HOST"
-            msg "SSH key added to GitHub as '$HOST'"
+            if ask "Log into personal GitHub (jason-lieb)?"; then
+                msg "Logging into personal GitHub account (jason-lieb)..."
+                gh auth login -p https -s admin:public_key,admin:ssh_signing_key || true
+                if gh auth status 2>&1 | grep -q "jason-lieb"; then
+                    PERSONAL_LOGGED_IN=true
+                fi
+            fi
+        fi
+
+        if [[ "$PERSONAL_LOGGED_IN" == true ]]; then
+            gh auth switch --user jason-lieb 2>/dev/null || true
+            if gh ssh-key list 2>/dev/null | grep -qF "$(cut -d' ' -f2 "$SSH_KEY.pub")"; then
+                msg "SSH key already registered on GitHub"
+            else
+                if ask "Add SSH key to personal GitHub?"; then
+                    msg "Adding SSH key to GitHub..."
+                    gh ssh-key add "$SSH_KEY.pub" --title "$HOST"
+                    msg "SSH key added to GitHub as '$HOST'"
+                fi
+            fi
+        fi
+
+        if ask "Log into work GitHub (Jason-Lieb_fnf)?"; then
+            if gh auth status --hostname github.com 2>&1 | grep "account" | grep -v "jason-lieb" | grep -q "Logged in"; then
+                msg "Work GitHub account (Jason-Lieb_fnf) already logged in"
+                gh auth switch --user Jason-Lieb_fnf 2>/dev/null || true
+            else
+                msg "Logging into work GitHub account — sign in as Jason-Lieb_fnf (cincpro)..."
+                gh auth login -p https -s read:packages || true
+            fi
         fi
     fi
 
-    # ---- Work GitHub account (HTTPS credential helper) ----
-    if gh auth status --hostname github.com 2>&1 | grep "account" | grep -v "jason-lieb" | grep -q "Logged in"; then
-        msg "Work GitHub account (Jason-Lieb_fnf) already logged in"
-        gh auth switch --user Jason-Lieb_fnf 2>/dev/null || true
-    else
-        msg "Logging into work GitHub account — sign in as Jason-Lieb_fnf (cincpro)..."
-        gh auth login -p https -s read:packages || true
+    CURRENT_REMOTE="$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || echo "")"
+    if [[ "$CURRENT_REMOTE" == https://github.com/* ]]; then
+        if ask "Switch repo remote to SSH?"; then
+            if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+                SSH_REMOTE="${CURRENT_REMOTE/https:\/\/github.com\//git@github.com:}"
+                msg "Switching repo remote to SSH..."
+                git -C "$REPO_DIR" remote set-url origin "$SSH_REMOTE"
+                msg "Remote updated: $SSH_REMOTE"
+            else
+                msg "SSH authentication to GitHub not working yet. Keeping HTTPS remote."
+                msg "After adding your SSH key to GitHub, run:"
+                msg "  git -C $REPO_DIR remote set-url origin ${CURRENT_REMOTE/https:\/\/github.com\//git@github.com:}"
+            fi
+        fi
     fi
-fi
-
-# ============================================
-# Switch Repo Remote to SSH
-# ============================================
-CURRENT_REMOTE="$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || echo "")"
-if [[ "$CURRENT_REMOTE" == https://github.com/* ]]; then
-    if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
-        SSH_REMOTE="${CURRENT_REMOTE/https:\/\/github.com\//git@github.com:}"
-        msg "Switching repo remote to SSH..."
-        git -C "$REPO_DIR" remote set-url origin "$SSH_REMOTE"
-        msg "Remote updated: $SSH_REMOTE"
-    else
-        msg "SSH authentication to GitHub not working yet. Keeping HTTPS remote."
-        msg "After adding your SSH key to GitHub, run:"
-        msg "  git -C $REPO_DIR remote set-url origin ${CURRENT_REMOTE/https:\/\/github.com\//git@github.com:}"
-    fi
+else
+    warn "Skipping SSH key and GitHub authentication setup."
 fi
 
 # ============================================
