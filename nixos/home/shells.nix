@@ -7,6 +7,7 @@ let
   homeDir = config.home.homeDirectory;
 
   shellAbbrs = {
+    eit = "exit";
     c = "clear";
     la = "ls -A";
     ll = "ls -l";

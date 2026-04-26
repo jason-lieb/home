@@ -1,4 +1,5 @@
 # Navigation
+alias eit="exit"
 alias c="clear"
 alias la="ls -A"
 alias ll="ls -l"

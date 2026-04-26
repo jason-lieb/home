@@ -1,4 +1,5 @@
 # Navigation
+abbr eit exit
 abbr c clear
 abbr la 'ls -A'
 abbr ll 'ls -l'
