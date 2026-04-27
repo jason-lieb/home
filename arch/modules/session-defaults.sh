@@ -69,12 +69,11 @@ write_if_changed "$HOME/.config/mimeapps.list" "$MIMEAPPS_CONTENT"
 
 if [[ "$HOST" == "mini" ]]; then
   ensure_symlink /usr/share/applications/brave-browser.desktop "$HOME/.config/autostart/brave-browser.desktop"
-  rm -f "$HOME/.config/autostart/vivaldi-stable.desktop" "$HOME/.config/autostart/obsidian.desktop" "$HOME/.config/autostart/code.desktop"
 else
-  ensure_symlink /usr/share/applications/vivaldi-stable.desktop "$HOME/.config/autostart/vivaldi-stable.desktop"
-  ensure_symlink /usr/share/applications/obsidian.desktop "$HOME/.config/autostart/obsidian.desktop"
-  ensure_symlink /usr/share/applications/code.desktop "$HOME/.config/autostart/code.desktop"
-  rm -f "$HOME/.config/autostart/brave-browser.desktop"
+  # ensure_symlink /usr/share/applications/vivaldi-stable.desktop "$HOME/.config/autostart/vivaldi-stable.desktop"
+  # ensure_symlink /usr/share/applications/obsidian.desktop "$HOME/.config/autostart/obsidian.desktop"
+  # ensure_symlink /usr/share/applications/code.desktop "$HOME/.config/autostart/code.desktop"
+  # rm -f "$HOME/.config/autostart/brave-browser.desktop"
 fi
 
 msg "Configured MIME defaults and autostart for host=$HOST"
