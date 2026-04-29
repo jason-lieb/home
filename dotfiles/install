@@ -86,6 +86,7 @@ mkdir -p "$HOME/.config/direnv"
 mkdir -p "$HOME/.config/gh"
 mkdir -p "$HOME/.config/posix"
 mkdir -p "$HOME/.config/ccstatusline"
+mkdir -p "$HOME/.config/opencode"
 mkdir -p "$HOME/.ssh"
 mkdir -p "$VSCODE_USER_DIR/snippets"
 
@@ -109,6 +110,7 @@ link "$DOTFILES_DIR/.claude/agents" "$HOME/.claude/agents"
 link "$DOTFILES_DIR/.claude/hooks/session-start" "$HOME/.claude/hooks/session-start"
 chmod +x "$DOTFILES_DIR/.claude/hooks/session-start"
 link "$DOTFILES_DIR/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
+link "$DOTFILES_DIR/opencode/commands" "$HOME/.config/opencode/commands"
 for lang in typescript typescriptreact javascript javascriptreact; do
     link "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
 done
