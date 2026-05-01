@@ -57,4 +57,5 @@ abbr vault-login 'vault login -method=github -path=github/cincpro token=$GITHUB_
 # Development
 abbr p pnpm
 abbr docker-clean 'docker system prune -a'
+abbr down 'docker compose down'
 abbr oc opencode

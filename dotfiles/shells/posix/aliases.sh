@@ -57,4 +57,5 @@ alias vault-login='vault login -method=github -path=github/cincpro token=$GITHUB
 # Development
 alias p="pnpm"
 alias docker-clean="docker system prune -a"
+alias down="docker compose down"
 alias oc="opencode"
