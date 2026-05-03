@@ -131,14 +131,30 @@ let
         echo "Usage: nw <branch-name>"
         return 1
       end
-      set branch $argv[1]
-      set root (git rev-parse --show-toplevel)
-      if git show-ref --verify --quiet "refs/heads/jl/$branch"
-        git worktree add "$root/.worktrees/$branch" "jl/$branch"
+      set full_branch $argv[1]
+      set dir (string replace --regex '^jl/' "" $full_branch)
+      set root (git worktree list --porcelain | head -1 | string replace --regex '^worktree ' "")
+      if git show-ref --verify --quiet "refs/heads/$full_branch"
+        git worktree add "$root/.worktrees/$dir" "$full_branch"
       else
-        git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
       end
-      cd "$root/.worktrees/$branch"
+    end
+
+    function nwe
+      if test (count $argv) -ne 1
+        echo "Usage: nwe <branch-name>"
+        return 1
+      end
+      set full_branch $argv[1]
+      set dir (string replace --regex '^jl/' "" $full_branch)
+      set root (git worktree list --porcelain | head -1 | string replace --regex '^worktree ' "")
+      if git show-ref --verify --quiet "refs/heads/$full_branch"
+        git worktree add "$root/.worktrees/$dir" "$full_branch"
+      else
+        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
+      end
+      and cd "$root/.worktrees/$dir"
     end
 
     function sw
@@ -146,15 +162,15 @@ let
         echo "Usage: sw <branch-name>"
         return 1
       end
-      set branch $argv[1]
-      set root (git rev-parse --show-toplevel 2>/dev/null)
+      set dir (string replace --regex '^jl/' "" $argv[1])
+      set root (git worktree list --porcelain 2>/dev/null | head -1 | string replace --regex '^worktree ' "")
       if test $status -ne 0
         echo "Not in a git repository"
         return 1
       end
-      set worktree "$root/.worktrees/$branch"
+      set worktree "$root/.worktrees/$dir"
       if not test -d $worktree
-        echo "No worktree found for '$branch'"
+        echo "No worktree found for '$dir'"
         return 1
       end
       cd $worktree
@@ -165,15 +181,15 @@ let
         echo "Usage: dw <branch-name>"
         return 1
       end
-      set branch $argv[1]
-      set root (git rev-parse --show-toplevel 2>/dev/null)
+      set dir (string replace --regex '^jl/' "" $argv[1])
+      set root (git worktree list --porcelain 2>/dev/null | head -1 | string replace --regex '^worktree ' "")
       if test $status -ne 0
         echo "Not in a git repository"
         return 1
       end
-      set worktree "$root/.worktrees/$branch"
+      set worktree "$root/.worktrees/$dir"
       if not test -d $worktree
-        echo "No worktree found for '$branch'"
+        echo "No worktree found for '$dir'"
         return 1
       end
       git worktree remove $worktree
@@ -262,15 +278,31 @@ let
         echo "Usage: nw <branch-name>"
         return 1
       fi
-      local branch="$1"
+      local full_branch="$1"
+      local dir="''${full_branch#jl/}"
       local root
-      root=$(git rev-parse --show-toplevel)
-      if git show-ref --verify --quiet "refs/heads/jl/$branch"; then
-        git worktree add "$root/.worktrees/$branch" "jl/$branch"
+      root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+      if git show-ref --verify --quiet "refs/heads/$full_branch"; then
+        git worktree add "$root/.worktrees/$dir" "$full_branch"
       else
-        git worktree add "$root/.worktrees/$branch" -b "jl/$branch"
+        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
       fi
-      cd "$root/.worktrees/$branch"
+    }
+
+    nwe() {
+      if [ $# -ne 1 ]; then
+        echo "Usage: nwe <branch-name>"
+        return 1
+      fi
+      local full_branch="$1"
+      local dir="''${full_branch#jl/}"
+      local root
+      root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+      if git show-ref --verify --quiet "refs/heads/$full_branch"; then
+        git worktree add "$root/.worktrees/$dir" "$full_branch"
+      else
+        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
+      fi && cd "$root/.worktrees/$dir"
     }
 
     sw() {
@@ -278,12 +310,12 @@ let
         echo "Usage: sw <branch-name>"
         return 1
       fi
-      local branch="$1"
+      local dir="''${1#jl/}"
       local root
-      root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repository"; return 1; }
-      local worktree="$root/.worktrees/$branch"
+      root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
+      local worktree="$root/.worktrees/$dir"
       if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$branch'"
+        echo "No worktree found for '$dir'"
         return 1
       fi
       cd "$worktree"
@@ -294,12 +326,12 @@ let
         echo "Usage: dw <branch-name>"
         return 1
       fi
-      local branch="$1"
+      local dir="''${1#jl/}"
       local root
-      root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repository"; return 1; }
-      local worktree="$root/.worktrees/$branch"
+      root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
+      local worktree="$root/.worktrees/$dir"
       if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$branch'"
+        echo "No worktree found for '$dir'"
         return 1
       fi
       git worktree remove "$worktree"
