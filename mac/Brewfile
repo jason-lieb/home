@@ -2,6 +2,7 @@
 tap "hashicorp/tap"
 tap "oven-sh/bun"
 tap "sst/tap"
+tap "manaflow-ai/cmux"
 tap "witco/witco", "https://github.com/witco-oss/homebrew-witco.git"
 
 # CLI Tools
@@ -34,3 +35,4 @@ cask "opencode-desktop"
 cask "orbstack"
 cask "github"
 cask "visual-studio-code"
+cask "cmux"
