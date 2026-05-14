@@ -14,6 +14,7 @@ abbr f fish
 abbr home 'cd ~/code/home'
 
 # Git
+abbr lg lazygit
 abbr g git
 abbr ga 'git add'
 abbr gaa 'git add -A'

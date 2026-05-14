@@ -14,6 +14,7 @@ alias f="fish"
 alias home="cd ~/code/home"
 
 # Git aliases
+alias lg="lazygit"
 alias g="git"
 alias ga="git add"
 alias gaa="git add -A"
