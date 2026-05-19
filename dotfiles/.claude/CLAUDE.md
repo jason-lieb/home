@@ -4,7 +4,8 @@
 
 - Be concise. Avoid unnecessary commentary.
 - Don't explain changes unless asked.
-- Don't add comments that merely narrate what the code does.
+- DO NOT add comments unless explicitly asked. Never remove existing comments.
+- When moving a file, always update all imports to point to the new location. Never leave the original file as a re-export shim.
 
 ## Code Style
 
