@@ -1,3 +1,4 @@
 .env
 dotfiles/shells/fish/fish_variables
 dotfiles/shells/fish/completions/witctl.fish
+__pycache__
