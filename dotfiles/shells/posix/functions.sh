@@ -114,6 +114,22 @@ dw() {
     git worktree remove "$worktree"
 }
 
+ghd() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: ghd <branch-name>"
+        return 1
+    fi
+    local dir="${1#jl/}"
+    local root
+    root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
+    local worktree="$root/.worktrees/$dir"
+    if [ ! -d "$worktree" ]; then
+        echo "No worktree found for '$dir'"
+        return 1
+    fi
+    open -a "GitHub Desktop" "$worktree"
+}
+
 fr() {
     local main_repo current_branch
     main_repo=$(git worktree list --porcelain | grep '^worktree ' | head -1 | sed 's/^worktree //')
