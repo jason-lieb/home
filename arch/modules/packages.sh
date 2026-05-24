@@ -14,6 +14,7 @@ OFFICIAL_PACKAGES=(
     pipewire-alsa pipewire-pulse wireplumber lib32-mesa
     plasma-meta sddm dolphin okular gwenview bluedevil kcalc krdc kdeconnect
     plasma-browser-integration ksshaskpass kcolorchooser filelight
+    qt6-tools
     firefox vivaldi zen
     bun direnv
     aws-cli-v2 gparted
