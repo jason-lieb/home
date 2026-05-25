@@ -69,7 +69,7 @@ write_if_changed "$HOME/.config/mimeapps.list" "$MIMEAPPS_CONTENT"
 
 if [[ "$HOST" == "mini" ]]; then
   ensure_symlink /usr/share/applications/brave-browser.desktop "$HOME/.config/autostart/brave-browser.desktop"
-else
+# else
   # ensure_symlink /usr/share/applications/vivaldi-stable.desktop "$HOME/.config/autostart/vivaldi-stable.desktop"
   # ensure_symlink /usr/share/applications/obsidian.desktop "$HOME/.config/autostart/obsidian.desktop"
   # ensure_symlink /usr/share/applications/code.desktop "$HOME/.config/autostart/code.desktop"
