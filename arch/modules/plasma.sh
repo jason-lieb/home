@@ -348,56 +348,46 @@ fi
 # ============================================
 msg "Configuring Plasma panels..."
 if command -v qdbus >/dev/null 2>&1 && pgrep -x plasmashell >/dev/null; then
-    qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat <<'PLASMASCRIPT'
-function writeLaunchers(widget, launchers) {
-    widget.currentConfigGroup = ["General"];
-    widget.writeConfig("launchers", launchers.join(","));
-}
-
-try {
-    var existingPanels = panels();
-    for (var i = existingPanels.length - 1; i >= 0; --i) {
-        existingPanels[i].remove();
+    qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript '
+(function() {
+    function writeLaunchers(widget, launchers) {
+        widget.currentConfigGroup = ["General"];
+        widget.writeConfig("launchers", launchers.join(","));
     }
-
-    var bottomPanel = new Panel();
-    bottomPanel.location = "bottom";
-    bottomPanel.floating = true;
-    bottomPanel.hiding = "autohide";
-    bottomPanel.lengthMode = "fit";
-
-    bottomPanel.addWidget("org.kde.plasma.kickoff");
-    var tasks = bottomPanel.addWidget("org.kde.plasma.icontasks");
-    writeLaunchers(tasks, [
-        "applications:org.kde.dolphin.desktop",
-        "applications:vivaldi-stable.desktop",
-        "applications:obsidian.desktop",
-        "applications:com.mitchellh.ghostty.desktop",
-        "applications:code.desktop"
-    ]);
-    bottomPanel.addWidget("org.kde.plasma.marginsseparator");
-    bottomPanel.addWidget("org.kde.plasma.pager");
-    bottomPanel.addWidget("org.kde.plasma.showdesktop");
-
-    var topPanel = new Panel();
-    topPanel.location = "top";
-    topPanel.floating = false;
-    topPanel.hiding = "autohide";
-    topPanel.lengthMode = "fit";
-
-    topPanel.addWidget("org.kde.plasma.appmenu");
-    topPanel.addWidget("org.kde.plasma.panelspacer");
-    var tray = topPanel.addWidget("org.kde.plasma.systemtray");
-    tray.currentConfigGroup = ["General"];
-    tray.writeConfig("hiddenItems", "");
-    var clock = topPanel.addWidget("org.kde.plasma.digitalclock");
-    clock.currentConfigGroup = ["Appearance"];
-    clock.writeConfig("showSeconds", "Never");
-} catch (e) {
-    // Best effort: keep script idempotent while avoiding hard failure.
-}
-PLASMASCRIPT
-)" || true
+try {
+        var p = panels();
+        for (var i = p.length - 1; i >= 0; i--) { p[i].remove(); }
+        var bottom = new Panel();
+        bottom.location = "bottom";
+        bottom.floating = true;
+        bottom.hiding = "autohide";
+        bottom.lengthMode = "fit";
+        var tasks = bottom.addWidget("org.kde.plasma.icontasks");
+        writeLaunchers(tasks, [
+            "applications:org.kde.dolphin.desktop",
+            "applications:vivaldi-stable.desktop",
+            "applications:com.mitchellh.ghostty.desktop",
+            "applications:code.desktop"
+        ]);
+        bottom.currentConfigGroup = ["General"];
+        bottom.writeConfig("thickness", 72);
+        bottom.writeConfig("maxThickness", 72);
+        var top = new Panel();
+        top.location = "top";
+        top.floating = false;
+        top.hiding = "autohide";
+        top.lengthMode = "fit";
+        var tray = top.addWidget("org.kde.plasma.systemtray");
+        tray.currentConfigGroup = ["General"];
+        tray.writeConfig("hiddenItems", "cursor");
+        var clock = top.addWidget("org.kde.plasma.digitalclock");
+        clock.currentConfigGroup = ["Appearance"];
+        clock.writeConfig("showSeconds", "Never");
+        top.currentConfigGroup = ["General"];
+        top.writeConfig("thickness", 72);
+        top.writeConfig("maxThickness", 72);
+    } catch (e) { }
+})()' || msg "Panel config skipped (Plasma not running)"
 fi
 
 # ============================================
