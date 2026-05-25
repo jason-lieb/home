@@ -136,7 +136,7 @@ kwriteconfig6 --file kwinrc --group Plugins --key movewindownoswitchEnabled true
 msg "Configuring other Plasma settings..."
 
 # Disable animations
-kwriteconfig6 --file kdeglobals --group KDE --key AnimationDurationFactor 0
+kwriteconfig6 --file kdeglobals --group KDE --key AnimationDurationFactor 1
 
 # Night Color
 kwriteconfig6 --file kwinrc --group NightColor --key Active true
@@ -185,97 +185,20 @@ RULES_FILE="$HOME/.config/kwinrulesrc"
 if [[ "$HOST" == "desktop" ]]; then
 cat > "$RULES_FILE" << 'WINDOWRULES'
 [1]
-Description=Maximize Vivaldi
-maximizehoriz=true
-maximizehorizrule=2
-maximizevert=true
-maximizevertrule=2
-wmclass=vivaldi-stable
-wmclassmatch=1
-title=^(?!Bitwarden - Vivaldi$).*
-titlematch=3
-
-[2]
-Description=Maximize VS Code
-maximizehoriz=true
-maximizehorizrule=2
-maximizevert=true
-maximizevertrule=2
-wmclass=code
-wmclassmatch=1
-
-[3]
-Description=Maximize Obsidian
-maximizehoriz=true
-maximizehorizrule=2
-maximizevert=true
-maximizevertrule=2
-wmclass=obsidian
-wmclassmatch=1
-
-[4]
-Description=Maximize GitHub Desktop
-maximizehoriz=true
-maximizehorizrule=2
-maximizevert=true
-maximizevertrule=2
-wmclass=github desktop
-wmclassmatch=1
-
-[5]
 Description=Default window size 1600x1000
 size=1600,1000
-sizerule=2
+sizerule=1
 types=1
 typesrule=2
 
 [General]
-count=5
-rules=1,2,3,4,5
+count=1
+rules=1
 WINDOWRULES
 else
 cat > "$RULES_FILE" << 'WINDOWRULES'
-[1]
-Description=Maximize Vivaldi
-maximizehoriz=true
-maximizehorizrule=2
-maximizevert=true
-maximizevertrule=2
-wmclass=vivaldi-stable
-wmclassmatch=1
-title=^(?!Bitwarden - Vivaldi$).*
-titlematch=3
-
-[2]
-Description=Maximize VS Code
-maximizehoriz=true
-maximizehorizrule=2
-maximizevert=true
-maximizevertrule=2
-wmclass=code
-wmclassmatch=1
-
-[3]
-Description=Maximize Obsidian
-maximizehoriz=true
-maximizehorizrule=2
-maximizevert=true
-maximizevertrule=2
-wmclass=obsidian
-wmclassmatch=1
-
-[4]
-Description=Maximize GitHub Desktop
-maximizehoriz=true
-maximizehorizrule=2
-maximizevert=true
-maximizevertrule=2
-wmclass=github desktop
-wmclassmatch=1
-
 [General]
-count=4
-rules=1,2,3,4
+count=0
 WINDOWRULES
 fi
 
