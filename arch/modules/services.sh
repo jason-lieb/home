@@ -1,9 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-GREEN='\033[1;32m'
-NC='\033[0m'
-msg() { echo -e "${GREEN}$*${NC}"; }
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../lib/common.sh"
 
 TARGET_USER="jason"
 TARGET_HOME="$(getent passwd "$TARGET_USER" | cut -d: -f6)"

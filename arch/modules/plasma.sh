@@ -1,9 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-GREEN='\033[1;32m'
-NC='\033[0m'
-msg() { echo -e "${GREEN}$*${NC}"; }
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../lib/common.sh"
 
 HOST="$(cat /etc/hostname)"
 
@@ -260,7 +259,9 @@ WALLPAPER_DEST="$HOME/.local/share/wallpapers/wallpaper.png"
 
 msg "Installing wallpaper..."
 mkdir -p "$HOME/.local/share/wallpapers"
-cp "$WALLPAPER_SRC" "$WALLPAPER_DEST"
+if [[ ! -f "$WALLPAPER_DEST" ]] || ! cmp -s "$WALLPAPER_SRC" "$WALLPAPER_DEST"; then
+    cp "$WALLPAPER_SRC" "$WALLPAPER_DEST"
+fi
 
 if command -v plasma-apply-wallpaperimage >/dev/null 2>&1; then
     plasma-apply-wallpaperimage "$WALLPAPER_DEST" || true

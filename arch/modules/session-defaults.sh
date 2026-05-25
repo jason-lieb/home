@@ -1,50 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
-GREEN='\033[1;32m'
-NC='\033[0m'
-msg() { echo -e "${GREEN}$*${NC}"; }
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../lib/common.sh"
 
 HOST="$(cat /etc/hostname)"
 
 msg "=== Session Defaults Configuration ==="
-
-write_if_changed() {
-  local target="$1"
-  local content="$2"
-  local tmp_file
-  tmp_file="$(mktemp)"
-  printf "%s" "$content" > "$tmp_file"
-  if [[ ! -f "$target" ]] || ! cmp -s "$tmp_file" "$target"; then
-    cp "$tmp_file" "$target"
-  fi
-  rm -f "$tmp_file"
-}
-
-ensure_symlink() {
-  local src="$1"
-  local dest="$2"
-
-  if [[ ! -f "$src" ]]; then
-    rm -f "$dest"
-    return 0
-  fi
-
-  if [[ -L "$dest" && "$(readlink "$dest")" == "$src" ]]; then
-    return 0
-  fi
-
-  if [[ -e "$dest" && ! -L "$dest" ]]; then
-    local backup_path="${dest}.backup"
-    if [[ -e "$backup_path" ]]; then
-      backup_path="${dest}.backup.$(date +%s)"
-    fi
-    mv "$dest" "$backup_path"
-  fi
-
-  rm -f "$dest"
-  ln -s "$src" "$dest"
-}
 
 BROWSER_DESKTOP="vivaldi-stable.desktop"
 if [[ "$HOST" == "mini" ]]; then
