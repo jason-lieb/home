@@ -24,6 +24,7 @@ OFFICIAL_PACKAGES=(
 AUR_PACKAGES=(
     brave-bin google-chrome ghostty obsidian github-desktop-bin
     visual-studio-code-bin vivaldi-ffmpeg-codecs wl-clipboard fnm-bin
+    cmux-gtk
 )
 
 # Install yay if not present
