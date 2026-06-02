@@ -14,7 +14,7 @@ OFFICIAL_PACKAGES=(
     plasma-meta sddm dolphin okular gwenview bluedevil kcalc krdc kdeconnect
     plasma-browser-integration ksshaskpass kcolorchooser filelight
     qt6-tools
-    firefox vivaldi zen
+    firefox vivaldi zen-browser-bin
     bun direnv
     aws-cli-v2 gparted
     opencode
