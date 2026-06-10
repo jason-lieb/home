@@ -26,6 +26,9 @@ else
     msg "Homebrew already installed"
 fi
 
+msg "Upgrading Homebrew packages..."
+brew upgrade
+
 msg "Installing packages from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 
