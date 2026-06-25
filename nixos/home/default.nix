@@ -30,7 +30,7 @@ in
   home.packages =
     (with pkgs; [
       nixd
-      nixfmt-rfc-style
+      nixfmt
       awscli2
       bat
       ffmpeg
