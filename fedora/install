@@ -102,6 +102,7 @@ PACKAGES=(
     fish bash git bat htop jq wget ffmpeg make lsof
     zoxide lazygit lf tokei just gh
     code ghostty
+    wl-clipboard gparted steam
 )
 
 msg "Installing packages..."
@@ -123,6 +124,12 @@ fi
 msg "Installing Zen Browser..."
 flatpak install -y flathub app.zen_browser.zen
 
+msg "Installing Obsidian..."
+flatpak install -y flathub md.obsidian.Obsidian
+
+msg "Installing GitHub Desktop..."
+flatpak install -y flathub io.github.shiftey.Desktop
+
 # ============================================
 # SSH server
 # ============================================
@@ -131,6 +138,16 @@ if ! systemctl is-enabled sshd &>/dev/null; then
     sudo systemctl enable --now sshd
 else
     msg "sshd already enabled"
+fi
+
+# ============================================
+# Opencode
+# ============================================
+if ! command -v opencode &>/dev/null; then
+    msg "Installing opencode..."
+    curl -fsSL https://opencode.ai/install | bash
+else
+    msg "opencode already installed"
 fi
 
 # ============================================
@@ -147,6 +164,32 @@ if ! command -v node &>/dev/null; then
     fnm use lts-latest
 else
     msg "Node.js already installed"
+fi
+
+# ============================================
+# SSH Agent
+# ============================================
+SSH_AGENT_STATUS=0
+ssh-add -l &>/dev/null || SSH_AGENT_STATUS=$?
+if [[ "$SSH_AGENT_STATUS" -eq 2 ]]; then
+    msg "No ssh-agent detected; installing a systemd user service..."
+    mkdir -p "$HOME/.config/systemd/user"
+    cat > "$HOME/.config/systemd/user/ssh-agent.service" << 'SSHAGENT'
+[Unit]
+Description=SSH key agent
+
+[Service]
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+
+[Install]
+WantedBy=default.target
+SSHAGENT
+    systemctl --user daemon-reload || true
+    systemctl --user enable --now ssh-agent.service || true
+else
+    msg "ssh-agent already available, skipping setup"
 fi
 
 # ============================================
