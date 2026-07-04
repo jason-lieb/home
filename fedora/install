@@ -90,6 +90,28 @@ else
 fi
 
 # ============================================
+# lazygit (COPR)
+# ============================================
+if ! ls /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:dejan:lazygit.repo &>/dev/null; then
+    msg "Enabling lazygit COPR..."
+    sudo dnf install -y dnf5-plugins
+    sudo dnf copr enable -y dejan/lazygit
+else
+    msg "lazygit COPR already enabled"
+fi
+
+# ============================================
+# lf (COPR)
+# ============================================
+if ! ls /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:lsevcik:lf.repo &>/dev/null; then
+    msg "Enabling lf COPR..."
+    sudo dnf install -y dnf5-plugins
+    sudo dnf copr enable -y lsevcik/lf
+else
+    msg "lf COPR already enabled"
+fi
+
+# ============================================
 # System update
 # ============================================
 msg "Updating system packages..."
