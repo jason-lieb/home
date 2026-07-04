@@ -49,6 +49,7 @@ See [arch/README.md](arch/README.md)
 ## Fedora Setup
 
 ```bash
+sudo dnf install -y git
 git clone https://github.com/jason-lieb/home.git
 cd home
 ./fedora/install
