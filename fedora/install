@@ -2,13 +2,37 @@
 set -euo pipefail
 
 GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
 NC='\033[0m'
 msg() { echo -e "${GREEN}$*${NC}"; }
+warn() { echo -e "${YELLOW}$*${NC}"; }
+ask() {
+    local prompt="$1"
+    local result
+    warn "$prompt [y/N] "
+    read -r result
+    case "$result" in
+        [yY]|[yY][eE][sS]) return 0 ;;
+        *) return 1 ;;
+    esac
+}
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 msg "=== Fedora Setup ==="
+
+# ============================================
+# Hostname
+# ============================================
+CURRENT_HOSTNAME="$(hostnamectl hostname)"
+if ask "Set a new hostname? (current: $CURRENT_HOSTNAME)"; then
+    read -rp "New hostname: " NEW_HOSTNAME
+    if [[ -n "$NEW_HOSTNAME" && "$NEW_HOSTNAME" != "$CURRENT_HOSTNAME" ]]; then
+        msg "Setting hostname to $NEW_HOSTNAME..."
+        sudo hostnamectl set-hostname "$NEW_HOSTNAME"
+    fi
+fi
 
 # ============================================
 # RPM Fusion
