@@ -1,11 +1,11 @@
 # Home
 
-Configuration for arch, macOS, and NixOS.
+Configuration for arch, macOS, Fedora, and NixOS.
 
 ## Mac Setup
 
 ```bash
-git clone <https-repo-url>
+git clone https://github.com/jason-lieb/home.git
 cd home
 ./mac/install
 ```
@@ -45,6 +45,15 @@ claude plugin add superpowers@marketplace
 ## Arch Setup
 
 See [arch/README.md](arch/README.md)
+
+## Fedora Setup
+
+```bash
+git clone https://github.com/jason-lieb/home.git
+cd home
+./fedora/install
+```
+
 
 ## NixOS Setup
 

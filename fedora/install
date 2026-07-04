@@ -1,0 +1,124 @@
+#!/bin/bash
+set -euo pipefail
+
+GREEN='\033[1;32m'
+NC='\033[0m'
+msg() { echo -e "${GREEN}$*${NC}"; }
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+msg "=== Fedora Setup ==="
+
+# ============================================
+# RPM Fusion
+# ============================================
+FEDORA_VERSION="$(rpm -E %fedora)"
+if ! dnf repolist --enabled 2>/dev/null | grep -q rpmfusion-free; then
+    msg "Enabling RPM Fusion (free + nonfree)..."
+    sudo dnf install -y \
+        "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm" \
+        "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VERSION}.noarch.rpm"
+else
+    msg "RPM Fusion already enabled"
+fi
+
+# ============================================
+# VS Code repo
+# ============================================
+if [[ ! -f /etc/yum.repos.d/vscode.repo ]]; then
+    msg "Adding VS Code repository..."
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo tee /etc/yum.repos.d/vscode.repo > /dev/null <<'EOF'
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+autorefresh=1
+type=rpm-md
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+EOF
+else
+    msg "VS Code repository already configured"
+fi
+
+# ============================================
+# GitHub CLI repo
+# ============================================
+if [[ ! -f /etc/yum.repos.d/gh-cli.repo ]]; then
+    msg "Adding GitHub CLI repository..."
+    sudo dnf install -y dnf5-plugins
+    sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
+else
+    msg "GitHub CLI repository already configured"
+fi
+
+# ============================================
+# Ghostty (COPR)
+# ============================================
+if ! ls /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo &>/dev/null; then
+    msg "Enabling Ghostty COPR..."
+    sudo dnf install -y dnf5-plugins
+    sudo dnf copr enable -y scottames/ghostty
+else
+    msg "Ghostty COPR already enabled"
+fi
+
+# ============================================
+# System update
+# ============================================
+msg "Updating system packages..."
+sudo dnf upgrade -y --refresh
+
+# ============================================
+# Packages
+# ============================================
+PACKAGES=(
+    fish bash git bat htop jq wget ffmpeg make lsof
+    zoxide lazygit lf tokei just gh
+    code ghostty
+)
+
+msg "Installing packages..."
+sudo dnf install -y --allowerasing "${PACKAGES[@]}"
+
+# ============================================
+# Flatpak / Flathub
+# ============================================
+if ! command -v flatpak &>/dev/null; then
+    msg "Installing flatpak..."
+    sudo dnf install -y flatpak
+fi
+
+if ! flatpak remote-list | grep -q flathub; then
+    msg "Adding Flathub remote..."
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
+
+msg "Installing Zen Browser..."
+flatpak install -y flathub app.zen_browser.zen
+
+# ============================================
+# Node.js (via fnm)
+# ============================================
+if ! command -v node &>/dev/null; then
+    msg "Installing Node.js LTS via fnm..."
+    if ! command -v fnm &>/dev/null; then
+        curl -fsSL https://fnm.vercel.app/install | bash
+        export PATH="$HOME/.local/share/fnm:$PATH"
+    fi
+    eval "$(fnm env --shell bash)"
+    fnm install --lts --corepack-enabled
+    fnm use lts-latest
+else
+    msg "Node.js already installed"
+fi
+
+# ============================================
+# Dotfiles (shared)
+# ============================================
+"$REPO_DIR/dotfiles/install"
+
+msg ""
+msg "=== Fedora Setup Complete ==="
