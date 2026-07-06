@@ -1,6 +1,6 @@
 # Home
 
-Configuration for arch, macOS, Fedora, and NixOS.
+Configuration for macOS, Fedora, and NixOS.
 
 ## Mac Setup
 

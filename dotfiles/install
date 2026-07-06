@@ -123,19 +123,11 @@ else
     cp "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 fi
 
-msg "Configuring opencode settings..."
-if [[ -f "$HOME/.config/opencode/opencode.json" ]]; then
-    jq -s '.[0] * .[1]' "$HOME/.config/opencode/opencode.json" "$DOTFILES_DIR/opencode/opencode.json" > /tmp/opencode-settings.json
-    mv /tmp/opencode-settings.json "$HOME/.config/opencode/opencode.json"
-else
-    cp "$DOTFILES_DIR/opencode/opencode.json" "$HOME/.config/opencode/opencode.json"
-fi
-
 if [[ "$OS" == "Darwin" ]]; then
     link "$DOTFILES_DIR/.ssh/mac" "$HOME/.ssh/config"
     link "$DOTFILES_DIR/git/.gitconfig.mac" "$HOME/.gitconfig.local"
 else
-    link "$DOTFILES_DIR/.ssh/arch" "$HOME/.ssh/config"
+    link "$DOTFILES_DIR/.ssh/fedora" "$HOME/.ssh/config"
 fi
 
 # ============================================
