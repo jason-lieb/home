@@ -8,9 +8,6 @@ set -gx EDITOR "code"
 fish_add_path $HOME/.local/bin
 if test (uname) = "Darwin"
     fish_add_path --prepend $HOME/bin /opt/homebrew/bin /usr/local/bin
-else
-    set -gx SSH_ASKPASS /usr/bin/ksshaskpass
-    set -gx SSH_ASKPASS_REQUIRE prefer
 end
 
 function fish_prompt
@@ -61,7 +58,6 @@ if type -q fnm
 end
 
 set -gx VAULT_ADDR "https://vault.rg-infra.com"
-
 
 if test -f ~/.orbstack/shell/init2.fish
     source ~/.orbstack/shell/init2.fish

@@ -18,8 +18,6 @@ source "$HOME/.config/posix/functions.sh"
 source "$HOME/.config/posix/aliases.sh"
 if [[ "$(uname)" == "Darwin" ]]; then
     alias awsp='source "$(brew --prefix awsp)/_source-awsp.sh"'
-else
-    alias arch-clean='sudo pacman -Rns $(pacman -Qdtq); sudo pacman -Sc'
 fi
 
 # Sources
