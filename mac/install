@@ -1,12 +1,9 @@
 #!/bin/bash
-set -euo pipefail
-
-GREEN='\033[1;32m'
-NC='\033[0m'
-msg() { echo -e "${GREEN}$*${NC}"; }
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+source "$REPO_DIR/shared/lib.sh"
 
 msg "=== Mac Setup ==="
 

@@ -1,24 +1,9 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
-msg() { echo -e "${GREEN}$*${NC}"; }
-warn() { echo -e "${YELLOW}$*${NC}"; }
-ask() {
-    local prompt="$1"
-    local result
-    warn "$prompt [y/N] "
-    read -r result
-    case "$result" in
-        [yY]|[yY][eE][sS]) return 0 ;;
-        *) return 1 ;;
-    esac
-}
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+source "$REPO_DIR/shared/lib.sh"
 
 msg "=== Fedora Setup ==="
 
@@ -213,6 +198,29 @@ SSHAGENT
 else
     msg "ssh-agent already available, skipping setup"
 fi
+
+# ============================================
+# COSMIC Desktop Config
+# ============================================
+COSMIC_FILES=(
+    "com.system76.CosmicPanel.Panel/v1/autohide"
+    "com.system76.CosmicPanel.Panel/v1/autohover_delay_ms"
+    "com.system76.CosmicPanel.Panel/v1/plugin_wings"
+    "com.system76.CosmicPanel.Panel/v1/size"
+    "com.system76.CosmicPanel.Dock/v1/autohide"
+    "com.system76.CosmicPanel.Dock/v1/autohover_delay_ms"
+    "com.system76.CosmicPanel.Dock/v1/plugin_center"
+    "com.system76.CosmicAppList/v1/favorites"
+    "com.system76.CosmicTheme.Dark.Builder/v1/accent"
+)
+
+msg "Linking COSMIC desktop config..."
+for rel_path in "${COSMIC_FILES[@]}"; do
+    src="$REPO_DIR/fedora/cosmic/$rel_path"
+    dest="$HOME/.config/cosmic/$rel_path"
+    mkdir -p "$(dirname "$dest")"
+    link "$src" "$dest"
+done
 
 # ============================================
 # Dotfiles (shared)

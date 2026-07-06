@@ -1,9 +1,0 @@
-.config/cosmic/com.system76.CosmicPanel.Panel/v1/autohide
-.config/cosmic/com.system76.CosmicPanel.Panel/v1/autohover_delay_ms
-.config/cosmic/com.system76.CosmicPanel.Panel/v1/plugin_wings
-.config/cosmic/com.system76.CosmicPanel.Panel/v1/size
-.config/cosmic/com.system76.CosmicPanel.Dock/v1/autohide
-.config/cosmic/com.system76.CosmicPanel.Dock/v1/autohover_delay_ms
-.config/cosmic/com.system76.CosmicPanel.Dock/v1/plugin_center
-.config/cosmic/com.system76.CosmicAppList/v1/favorites
-.config/cosmic/com.system76.CosmicTheme.Dark.Builder/v1/accent
