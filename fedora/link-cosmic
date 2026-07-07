@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+COSMIC_CONFIG_DIR="$HOME/.config/cosmic"
+
+source "$REPO_DIR/shared/lib.sh"
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 <cosmic-config-file>" >&2
+    echo "Example: $0 com.system76.CosmicAppList/v1/favorites" >&2
+    echo "Example: $0 ~/.config/cosmic/com.system76.CosmicAppList/v1/favorites" >&2
+    exit 1
+fi
+
+INPUT="$1"
+
+if [[ "$INPUT" == "$COSMIC_CONFIG_DIR"/* ]]; then
+    REL_PATH="${INPUT#"$COSMIC_CONFIG_DIR"/}"
+elif [[ -e "$COSMIC_CONFIG_DIR/$INPUT" ]]; then
+    REL_PATH="$INPUT"
+else
+    echo "ERROR: Could not resolve '$INPUT' under $COSMIC_CONFIG_DIR" >&2
+    exit 1
+fi
+
+LIVE_FILE="$COSMIC_CONFIG_DIR/$REL_PATH"
+REPO_FILE="$SCRIPT_DIR/cosmic/$REL_PATH"
+
+if [[ ! -e "$LIVE_FILE" ]]; then
+    echo "ERROR: $LIVE_FILE does not exist" >&2
+    exit 1
+fi
+
+if [[ -d "$LIVE_FILE" && ! -L "$LIVE_FILE" ]]; then
+    echo "ERROR: $LIVE_FILE is a directory, not a file. Pass a specific config file inside it." >&2
+    exit 1
+fi
+
+if [[ -L "$LIVE_FILE" ]]; then
+    msg "$LIVE_FILE is already a symlink, nothing to move"
+else
+    msg "Moving $LIVE_FILE -> $REPO_FILE"
+    mkdir -p "$(dirname "$REPO_FILE")"
+    mv "$LIVE_FILE" "$REPO_FILE"
+fi
+
+link "$REPO_FILE" "$LIVE_FILE"
+
+register_cosmic_file() {
+    local rel_path="$1"
+    local install_file="$SCRIPT_DIR/install"
+
+    if grep -qF "\"$rel_path\"" "$install_file"; then
+        return 0
+    fi
+
+    awk -v entry="    \"$rel_path\"" '
+        /^COSMIC_FILES=\(/ { print; in_array=1; next }
+        in_array && /^\)/ { print entry; print; in_array=0; next }
+        { print }
+    ' "$install_file" > "$install_file.tmp"
+    mv "$install_file.tmp" "$install_file"
+    msg "Registered $rel_path in fedora/install"
+}
+
+register_cosmic_file "$REL_PATH"
+
+msg "Done: $LIVE_FILE -> $REPO_FILE"
