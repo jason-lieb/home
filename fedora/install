@@ -205,11 +205,11 @@ fi
 COSMIC_FILES=(
     "com.system76.CosmicPanel.Panel/v1/autohide"
     "com.system76.CosmicPanel.Panel/v1/autohover_delay_ms"
-    "com.system76.CosmicPanel.Panel/v1/plugin_wings"
+    "com.system76.CosmicPanel.Panel/v1/plugins_wings"
     "com.system76.CosmicPanel.Panel/v1/size"
     "com.system76.CosmicPanel.Dock/v1/autohide"
     "com.system76.CosmicPanel.Dock/v1/autohover_delay_ms"
-    "com.system76.CosmicPanel.Dock/v1/plugin_center"
+    "com.system76.CosmicPanel.Dock/v1/plugins_center"
     "com.system76.CosmicAppList/v1/favorites"
     "com.system76.CosmicTheme.Dark.Builder/v1/accent"
 )
