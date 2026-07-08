@@ -5,3 +5,5 @@
 .ssh/known_hosts
 .ssh/authorized_keys
 .ssh/*.pem
+
+**/.claude/settings.local.json
