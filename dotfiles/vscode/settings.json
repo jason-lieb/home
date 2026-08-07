@@ -76,5 +76,6 @@
       "label": "Waiting For My Review",
       "query": "repo:${owner}/${repository} is:open assignee:${user}"
     }
-  ]
+  ],
+  "scm.repositories.selectionMode": "single"
 }
