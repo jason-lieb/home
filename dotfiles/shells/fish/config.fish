@@ -8,7 +8,10 @@ set -gx EDITOR "code"
 fish_add_path $HOME/.local/bin
 if test (uname) = "Darwin"
     fish_add_path --prepend $HOME/bin /opt/homebrew/bin /usr/local/bin
+    fish_add_path (brew --prefix rustup)/bin
 end
+
+fish_add_path $HOME/.cargo/bin
 
 function fish_prompt
     set_color $fish_color_cwd
