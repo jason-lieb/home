@@ -1,2 +1,7 @@
 [includeIf "gitdir:~/code/cincpro/"]
     path = ~/.gitconfig.cinc
+[url "https://github.com/cincpro/"]
+    insteadOf = git@github.com:cincpro/
+[credential "https://github.com/cincpro"]
+    helper =
+    helper = !GH_ACCOUNT=Jason-Lieb_fnf /opt/homebrew/bin/gh auth git-credential

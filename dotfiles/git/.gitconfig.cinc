@@ -3,3 +3,9 @@
 
 [credential]
     helper = !GH_ACCOUNT=Jason-Lieb_fnf /opt/homebrew/bin/gh auth git-credential
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
