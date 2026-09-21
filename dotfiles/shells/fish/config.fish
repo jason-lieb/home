@@ -4,6 +4,7 @@ set fish_greeting
 # Environment variables
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx EDITOR "code"
+set -gx NODE_USE_SYSTEM_CA 1
 
 fish_add_path $HOME/.local/bin
 if test (uname) = "Darwin"
