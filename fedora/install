@@ -163,7 +163,7 @@ fi
 # ============================================
 # Opencode
 # ============================================
-if ! command -v opencode &>/dev/null; then
+if ! command -v opencode &>/dev/null && [ ! -x "$HOME/.opencode/bin/opencode" ]; then
     msg "Installing opencode..."
     curl -fsSL https://opencode.ai/install | bash
 else
