@@ -48,3 +48,11 @@ fi
 if [[ -f ~/.orbstack/shell/init.bash ]]; then
     source ~/.orbstack/shell/init.bash
 fi
+
+export PATH=/home/jason/.opencode/bin:$PATH
+
+FNM_PATH="/home/jason/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --shell bash)"
+fi

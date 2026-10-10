@@ -8,6 +8,19 @@ source "$REPO_DIR/shared/lib.sh"
 msg "=== Fedora Setup ==="
 
 # ============================================
+# Metro (App Local Dev)
+# ============================================
+PORT="8081/tcp"
+
+if ! sudo firewall-cmd --permanent --query-port="$PORT" &>/dev/null; then
+    echo "Adding port $PORT to firewall..."
+    sudo firewall-cmd --permanent --add-port="$PORT"
+    sudo firewall-cmd --reload
+else
+    echo "Port $PORT already configured, no changes needed."
+fi
+
+# ============================================
 # Hostname
 # ============================================
 CURRENT_HOSTNAME="$(hostnamectl hostname)"

@@ -62,3 +62,5 @@ set -gx VAULT_ADDR "https://vault.rg-infra.com"
 if test -f ~/.orbstack/shell/init2.fish
     source ~/.orbstack/shell/init2.fish
 end
+
+fish_add_path /home/jason/.opencode/bin
