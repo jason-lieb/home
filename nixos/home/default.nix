@@ -61,6 +61,7 @@ in
       mgba
       obsidian
     ])
+    # sm64coopdx
     ++ [
       claude-code-pkg
       zen-browser-pkg
