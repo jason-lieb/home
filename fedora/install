@@ -110,6 +110,27 @@ else
 fi
 
 # ============================================
+# Brave Browser (optional)
+# ============================================
+if ask "Install Brave browser?"; then
+    if [[ ! -f /etc/yum.repos.d/brave-browser.repo ]]; then
+        msg "Adding Brave repository..."
+        sudo dnf install -y dnf5-plugins
+        sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    else
+        msg "Brave repository already configured"
+    fi
+    if ! command -v brave-browser &>/dev/null; then
+        msg "Installing Brave..."
+        sudo dnf install -y brave-browser
+    else
+        msg "Brave already installed"
+    fi
+else
+    msg "Skipping Brave"
+fi
+
+# ============================================
 # System update
 # ============================================
 msg "Updating system packages..."
