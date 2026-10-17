@@ -140,7 +140,7 @@ sudo dnf upgrade -y --refresh
 # Packages
 # ============================================
 PACKAGES=(
-    fish bash git bat htop jq wget ffmpeg make lsof
+    fish bash git bat htop jq wget ffmpeg make lsof fuse-libs
     zoxide lazygit lf tokei just gh
     code ghostty
     wl-clipboard gparted steam
@@ -170,6 +170,9 @@ flatpak install -y flathub md.obsidian.Obsidian
 
 msg "Installing GitHub Desktop..."
 flatpak install -y flathub io.github.shiftey.Desktop
+
+msg "Installing GearLever..."
+flatpak install -y flathub it.mijorus.gearlever
 
 # ============================================
 # SSH server
