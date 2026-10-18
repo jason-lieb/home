@@ -37,6 +37,7 @@ mkdir -p "$HOME/.config/posix"
 mkdir -p "$HOME/.config/ccstatusline"
 mkdir -p "$HOME/.config/opencode"
 mkdir -p "$HOME/.codex"
+mkdir -p "$HOME/.paseo"
 mkdir -p "$HOME/.ssh"
 mkdir -p "$VSCODE_USER_DIR/snippets"
 
@@ -61,6 +62,7 @@ chmod +x "$DOTFILES_DIR/.claude/hooks/session-start"
 link "$DOTFILES_DIR/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
 link "$DOTFILES_DIR/opencode/commands" "$HOME/.config/opencode/commands"
 link "$DOTFILES_DIR/codex/config.toml" "$HOME/.codex/config.toml"
+link "$DOTFILES_DIR/paseo/config.json" "$HOME/.paseo/config.json"
 for lang in typescript typescriptreact javascript javascriptreact; do
     link "$DOTFILES_DIR/vscode/snippets/typescript.json" "$VSCODE_USER_DIR/snippets/${lang}.json"
 done
