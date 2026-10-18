@@ -46,8 +46,9 @@ claude plugin add superpowers@marketplace
 
 ```bash
 sudo dnf install -y git
-git clone https://github.com/jason-lieb/home.git
-cd home
+mkdir -p ~/code
+git clone https://github.com/jason-lieb/home.git ~/code/home
+cd ~/code/home
 ./fedora/install
 ```
 
