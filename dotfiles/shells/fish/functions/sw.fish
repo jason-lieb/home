@@ -3,15 +3,9 @@ function sw
         echo "Usage: sw <branch-name>"
         return 1
     end
-    set dir (string replace --regex '^jl/' '' $argv[1])
-    set root (git worktree list --porcelain 2>/dev/null | head -1 | string replace --regex '^worktree ' '')
-    if test $status -ne 0
-        echo "Not in a git repository"
-        return 1
-    end
-    set worktree "$root/.worktrees/$dir"
-    if not test -d $worktree
-        echo "No worktree found for '$dir'"
+    set -l worktree (wt_find $argv[1])
+    if test -z "$worktree"
+        echo "No worktree found for '$argv[1]'"
         return 1
     end
     cd $worktree

@@ -126,18 +126,55 @@ let
       end
     end
 
+    function wt_root
+      if set -q WORKTREE_ROOT
+        echo "$WORKTREE_ROOT"
+      else
+        echo "$HOME/code/.worktrees"
+      end
+    end
+
+    function wt_repo
+      set -l common_dir (git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+      if test -n "$common_dir"
+        basename (dirname "$common_dir")
+      else
+        git worktree list --porcelain 2>/dev/null | grep '^worktree ' | head -1 | string replace --regex '^worktree ' "" | basename
+      end
+    end
+
+    function wt_find
+      set -l dir (string replace --regex '^jl/' "" $argv[1])
+      git worktree list --porcelain 2>/dev/null | awk -v d="$dir" '
+        /^worktree / { wt = substr($0, 10) }
+        /^branch /   { br = substr($0, 8); sub(/^refs\/heads\//, "", br); sub(/^jl\//, "", br) }
+        NF == 0      { if (br == d && wt) print wt; wt = ""; br = "" }
+        END          { if (br == d && wt) print wt }
+      '
+    end
+
     function nw
       if test (count $argv) -ne 1
         echo "Usage: nw <branch-name>"
         return 1
       end
+      if not git rev-parse --is-inside-work-tree >/dev/null 2>&1
+        echo "Not in a git repository"
+        return 1
+      end
       set full_branch $argv[1]
       set dir (string replace --regex '^jl/' "" $full_branch)
-      set root (git worktree list --porcelain | head -1 | string replace --regex '^worktree ' "")
+      set existing (wt_find $full_branch)
+      if test -n "$existing"
+        echo "Worktree already exists: $existing"
+        return 0
+      end
+      set worktree_path (wt_root)/(wt_repo)/$dir
+      mkdir -p (dirname $worktree_path)
       if git show-ref --verify --quiet "refs/heads/$full_branch"
-        git worktree add "$root/.worktrees/$dir" "$full_branch"
+        git worktree add "$worktree_path" "$full_branch"
       else
-        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
+        git worktree add "$worktree_path" -b "$full_branch" main
       end
     end
 
@@ -146,15 +183,25 @@ let
         echo "Usage: nwe <branch-name>"
         return 1
       end
+      if not git rev-parse --is-inside-work-tree >/dev/null 2>&1
+        echo "Not in a git repository"
+        return 1
+      end
       set full_branch $argv[1]
       set dir (string replace --regex '^jl/' "" $full_branch)
-      set root (git worktree list --porcelain | head -1 | string replace --regex '^worktree ' "")
-      if git show-ref --verify --quiet "refs/heads/$full_branch"
-        git worktree add "$root/.worktrees/$dir" "$full_branch"
-      else
-        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
+      set existing (wt_find $full_branch)
+      if test -n "$existing"
+        cd "$existing"
+        return 0
       end
-      and cd "$root/.worktrees/$dir"
+      set worktree_path (wt_root)/(wt_repo)/$dir
+      mkdir -p (dirname $worktree_path)
+      if git show-ref --verify --quiet "refs/heads/$full_branch"
+        git worktree add "$worktree_path" "$full_branch"
+      else
+        git worktree add "$worktree_path" -b "$full_branch" main
+      end
+      and cd "$worktree_path"
     end
 
     function sw
@@ -162,15 +209,9 @@ let
         echo "Usage: sw <branch-name>"
         return 1
       end
-      set dir (string replace --regex '^jl/' "" $argv[1])
-      set root (git worktree list --porcelain 2>/dev/null | head -1 | string replace --regex '^worktree ' "")
-      if test $status -ne 0
-        echo "Not in a git repository"
-        return 1
-      end
-      set worktree "$root/.worktrees/$dir"
-      if not test -d $worktree
-        echo "No worktree found for '$dir'"
+      set worktree (wt_find $argv[1])
+      if test -z "$worktree"
+        echo "No worktree found for '$argv[1]'"
         return 1
       end
       cd $worktree
@@ -181,18 +222,17 @@ let
         echo "Usage: dw <branch-name>"
         return 1
       end
-      set dir (string replace --regex '^jl/' "" $argv[1])
-      set root (git worktree list --porcelain 2>/dev/null | head -1 | string replace --regex '^worktree ' "")
-      if test $status -ne 0
+      if not git rev-parse --is-inside-work-tree >/dev/null 2>&1
         echo "Not in a git repository"
         return 1
       end
-      set worktree "$root/.worktrees/$dir"
-      if not test -d $worktree
-        echo "No worktree found for '$dir'"
+      set worktree (wt_find $argv[1])
+      if test -z "$worktree"
+        echo "No worktree found for '$argv[1]'"
         return 1
       end
       git worktree remove $worktree
+      and rmdir (dirname $worktree) 2>/dev/null
     end
 
     function fr
@@ -273,19 +313,57 @@ let
       fi
     }
 
+    worktree_root() {
+      if [ -n "''${WORKTREE_ROOT:-}" ]; then
+        echo "''${WORKTREE_ROOT}"
+      else
+        echo "''${HOME}/code/.worktrees"
+      fi
+    }
+
+    worktree_repo() {
+      local common_dir
+      common_dir=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+      if [ -n "''${common_dir}" ]; then
+        basename "$(dirname "''${common_dir}")"
+      else
+        git worktree list --porcelain 2>/dev/null | sed -n 's/^worktree //p' | head -1 | xargs basename
+      fi
+    }
+
+    worktree_find() {
+      local dir="''${1#jl/}"
+      git worktree list --porcelain 2>/dev/null | awk -v d="''${dir}" '
+        /^worktree / { wt = substr($0, 10) }
+        /^branch /   { br = substr($0, 8); sub(/^refs\/heads\//, "", br); sub(/^jl\//, "", br) }
+        NF == 0      { if (br == d && wt) print wt; wt = ""; br = "" }
+        END          { if (br == d && wt) print wt }
+      '
+    }
+
     nw() {
       if [ $# -ne 1 ]; then
         echo "Usage: nw <branch-name>"
         return 1
       fi
+      if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        echo "Not in a git repository"
+        return 1
+      fi
       local full_branch="$1"
       local dir="''${full_branch#jl/}"
-      local root
-      root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
-      if git show-ref --verify --quiet "refs/heads/$full_branch"; then
-        git worktree add "$root/.worktrees/$dir" "$full_branch"
+      local existing worktree_path
+      existing=$(worktree_find "$full_branch")
+      if [ -n "''${existing}" ]; then
+        echo "Worktree already exists: ''${existing}"
+        return 0
+      fi
+      worktree_path="$(worktree_root)/$(worktree_repo)/''${dir}"
+      mkdir -p "$(dirname "''${worktree_path}")"
+      if git show-ref --verify --quiet "refs/heads/''${full_branch}"; then
+        git worktree add "''${worktree_path}" "''${full_branch}"
       else
-        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
+        git worktree add "''${worktree_path}" -b "''${full_branch}" main
       fi
     }
 
@@ -294,15 +372,25 @@ let
         echo "Usage: nwe <branch-name>"
         return 1
       fi
+      if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        echo "Not in a git repository"
+        return 1
+      fi
       local full_branch="$1"
       local dir="''${full_branch#jl/}"
-      local root
-      root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
-      if git show-ref --verify --quiet "refs/heads/$full_branch"; then
-        git worktree add "$root/.worktrees/$dir" "$full_branch"
+      local existing worktree_path
+      existing=$(worktree_find "$full_branch")
+      if [ -n "''${existing}" ]; then
+        cd "''${existing}"
+        return 0
+      fi
+      worktree_path="$(worktree_root)/$(worktree_repo)/''${dir}"
+      mkdir -p "$(dirname "''${worktree_path}")"
+      if git show-ref --verify --quiet "refs/heads/''${full_branch}"; then
+        git worktree add "''${worktree_path}" "''${full_branch}"
       else
-        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
-      fi && cd "$root/.worktrees/$dir"
+        git worktree add "''${worktree_path}" -b "''${full_branch}" main
+      fi && cd "''${worktree_path}"
     }
 
     sw() {
@@ -310,15 +398,13 @@ let
         echo "Usage: sw <branch-name>"
         return 1
       fi
-      local dir="''${1#jl/}"
-      local root
-      root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
-      local worktree="$root/.worktrees/$dir"
-      if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$dir'"
+      local worktree
+      worktree=$(worktree_find "$1")
+      if [ -z "''${worktree}" ]; then
+        echo "No worktree found for '$1'"
         return 1
       fi
-      cd "$worktree"
+      cd "''${worktree}"
     }
 
     dw() {
@@ -326,15 +412,18 @@ let
         echo "Usage: dw <branch-name>"
         return 1
       fi
-      local dir="''${1#jl/}"
-      local root
-      root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
-      local worktree="$root/.worktrees/$dir"
-      if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$dir'"
+      if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        echo "Not in a git repository"
         return 1
       fi
-      git worktree remove "$worktree"
+      local worktree
+      worktree=$(worktree_find "$1")
+      if [ -z "''${worktree}" ]; then
+        echo "No worktree found for '$1'"
+        return 1
+      fi
+      git worktree remove "''${worktree}"
+      rmdir "$(dirname "''${worktree}")" 2>/dev/null || true
     }
 
     fr() {

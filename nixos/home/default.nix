@@ -199,7 +199,6 @@ in
 
       gitConfig = {
         ".gitignore".text = ''
-          .worktrees
           .direnv
         '';
       };
