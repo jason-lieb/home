@@ -1,0 +1,19 @@
+[
+  {
+    "id": "event-schemas",
+    "repo": "cincpro/event-schemas",
+    "tagPattern": "^node-v(\\d+\\.\\d+\\.\\d+)$",
+    "packages": ["@cincpro/event-schemas"],
+    "verified": "14.22.0",
+    "verifiedOn": "2026-10-15"
+  },
+  {
+    "id": "motif",
+    "repo": "cincpro/motif",
+    "tagPattern": "^v(\\d+\\.\\d+\\.\\d+)$",
+    "packages": ["@cincpro/motif-devkit", "@cincpro/motif"],
+    "verified": "0.22.0",
+    "verifiedOn": "2026-10-15",
+    "notify": "minor"
+  }
+]

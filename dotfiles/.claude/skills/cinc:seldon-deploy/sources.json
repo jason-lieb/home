@@ -1,0 +1,10 @@
+[
+  {
+    "id": "seldon-deploy",
+    "repo": "cincpro/actions",
+    "tagPattern": "^seldon-deploy-v(\\d+\\.\\d+\\.\\d+)$",
+    "packages": [],
+    "verified": "0.0.0",
+    "verifiedOn": "2026-10-15"
+  }
+]

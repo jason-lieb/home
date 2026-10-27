@@ -1,0 +1,16 @@
+[
+  {
+    "id": "galactus",
+    "repo": "cincpro/galactus",
+    "tagPattern": "^galactus-v(\\d+\\.\\d+\\.\\d+)$",
+    "packages": [],
+    "verified": "0.24.0",
+    "verifiedOn": "2026-10-15",
+    "pinFiles": [
+      {
+        "path": "deploy.yaml",
+        "pattern": "^version:\\s*[\"']?([~^]?\\d+\\.\\d+(?:\\.\\d+)?)"
+      }
+    ]
+  }
+]
