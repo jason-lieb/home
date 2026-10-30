@@ -24,6 +24,28 @@ if [[ "$(uname)" == "Darwin" ]]; then
         gh auth token | pbcopy
         echo "GitHub PAT copied to clipboard"
     }
+
+    awake() {
+        case "${1:-}" in
+            on)
+                sudo pmset -a disablesleep 1 && echo "Sleep disabled"
+                ;;
+            off)
+                sudo pmset -a disablesleep 0 && echo "Sleep enabled"
+                ;;
+            "")
+                if pmset -g | grep -Eq 'SleepDisabled[[:space:]]+1'; then
+                    echo "Sleep disabled"
+                else
+                    echo "Sleep enabled"
+                fi
+                ;;
+            *)
+                echo "Usage: awake [on|off]"
+                return 1
+                ;;
+        esac
+    }
 fi
 
 grf() {
