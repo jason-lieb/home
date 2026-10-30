@@ -197,4 +197,4 @@ git worktree remove <worktree-path>
 - **executing-plans** (Step 5) - After all batches complete
 
 **Pairs with:**
-- **using-git-worktrees** - Cleans up worktree created by that skill
+- **`wt new`** - Cleans up worktree created by `wt new` (see Git Worktrees in CLAUDE.md)

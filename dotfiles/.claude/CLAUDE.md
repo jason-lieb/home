@@ -13,7 +13,10 @@
 - Prefer functional patterns and immutability where practical.
 - Keep functions small and focused on a single responsibility.
 
+## Git Branches
+
+- Name branches `jl/<short-kebab-case-description>` (e.g. `jl/offboard`, `jl/aa-seed`), branched from `main`.
+
 ## Git Worktrees
 
-- Default worktree location: `$WORKTREE_ROOT` (falls back to `~/code/.worktrees`), organized as `<location>/<project-name>/<dir>` where `<dir>` is the branch name minus the `jl/` prefix.
-- Before creating a worktree, check `git worktree list --porcelain` for an existing registered worktree for the branch — reuse it regardless of location. Never create a location-specific duplicate.
+- Manage worktrees with `wt`, not `git worktree` directly: `wt new <branch>` creates one in `~/code/.worktrees/<repo>/<branch minus jl/>` (or reuses an existing one anywhere) and prints its path; `wt go <branch>` prints an existing one's path; `wt rm <branch>` removes it; `wt list` lists them. `cd` into the printed path yourself.
