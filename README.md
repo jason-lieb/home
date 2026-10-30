@@ -39,7 +39,6 @@ This will:
 **Claude Code Plugins:** After setup, install plugins manually:
 ```bash
 claude plugin add code-reviewer@marketplace
-claude plugin add superpowers@marketplace
 ```
 
 ## Fedora Setup
