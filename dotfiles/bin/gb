@@ -1,0 +1,60 @@
+#!/usr/bin/env sh
+set -eu
+
+usage() {
+    cat >&2 <<'EOF'
+Usage: gb
+
+List local branches across every git repo under $GB_ROOT (default ~/code/cincpro),
+grouped by repo. Each repo's default branch, main, and master are hidden.
+Branches checked out in a worktree show the worktree path.
+EOF
+    exit 1
+}
+
+[ $# -eq 0 ] || usage
+
+root="${GB_ROOT:-$HOME/code/cincpro}"
+[ -d "$root" ] || { echo "Directory not found: $root" >&2; exit 1; }
+
+default_branch() {
+    if remote_head=$(git -C "$1" symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null); then
+        echo "${remote_head#origin/}"
+    elif git -C "$1" show-ref --verify --quiet refs/heads/main; then
+        echo main
+    else
+        echo master
+    fi
+}
+
+list_repo() {
+    repo="$1"
+    {
+        git -C "$repo" worktree list --porcelain
+        git -C "$repo" for-each-ref --format='head %(refname:short)' refs/heads
+    } | awk -v home="$HOME" -v repo="$repo" -v default="$(default_branch "$repo")" '
+        /^worktree / { path = substr($0, 10) }
+        /^branch /   {
+            branch = substr($0, 8); sub(/^refs\/heads\//, "", branch)
+            if (path != repo) {
+                if (index(path, home "/") == 1) path = "~" substr(path, length(home) + 1)
+                worktree[branch] = path
+            }
+        }
+        /^head / {
+            branch = substr($0, 6)
+            if (branch == default || branch == "main" || branch == "master") next
+            if (branch in worktree) printf "  %-40s %s\n", branch, worktree[branch]
+            else printf "  %s\n", branch
+        }
+    '
+}
+
+find "$root" -maxdepth 3 -name node_modules -prune -o -name .git -type d -print -prune |
+    sed 's|/\.git$||' |
+    sort -f |
+    while IFS= read -r repo; do
+        branches=$(list_repo "$repo")
+        [ -n "$branches" ] || continue
+        printf '%s\n%s\n\n' "${repo#"$root"/}" "$branches"
+    done
