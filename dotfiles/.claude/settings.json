@@ -94,7 +94,6 @@
       "Bash(chown:*)",
       "Bash(pnpm publish:*)"
     ],
-    "defaultMode": "acceptEdits",
     "disableBypassPermissionsMode": "disable"
   },
   "allowManagedHooksOnly": false,
