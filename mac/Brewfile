@@ -33,7 +33,6 @@ brew "sst/tap/opencode"
 brew "zoxide"
 
 # Casks (GUI Applications)
-cask "opencode-desktop"
 cask "orbstack"
 cask "github"
 cask "cmux"
