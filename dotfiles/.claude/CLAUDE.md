@@ -16,6 +16,7 @@
 ## Git Branches
 
 - Name branches `jl/<short-kebab-case-description>` (e.g. `jl/offboard`, `jl/aa-seed`), branched from `main`.
+- Prefer short branch names that are easy to type: ideally one or two words that still clearly describe the change.
 
 ## Git Worktrees
 
