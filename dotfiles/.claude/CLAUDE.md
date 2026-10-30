@@ -12,3 +12,8 @@
 - Use clear, descriptive names. Avoid abbreviations except well-known ones.
 - Prefer functional patterns and immutability where practical.
 - Keep functions small and focused on a single responsibility.
+
+## Git Worktrees
+
+- Default worktree location: `$WORKTREE_ROOT` (falls back to `~/code/.worktrees`), organized as `<location>/<project-name>/<dir>` where `<dir>` is the branch name minus the `jl/` prefix.
+- Before creating a worktree, check `git worktree list --porcelain` for an existing registered worktree for the branch — reuse it regardless of location. Never create a location-specific duplicate.

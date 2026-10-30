@@ -17,12 +17,21 @@ Git worktrees create isolated workspaces sharing the same repository, allowing w
 
 Follow this priority order:
 
+### 0. Check for Existing Registered Worktree for the Branch
+
+```bash
+git worktree list --porcelain
+```
+
+**If a worktree already checks out the requested branch (at any location):** Use it — never create a duplicate (git forbids checking out the same branch in two worktrees anyway).
+
 ### 1. Check Existing Directories
 
 ```bash
 # Check in priority order
-ls -d .worktrees 2>/dev/null     # Preferred (hidden)
-ls -d worktrees 2>/dev/null      # Alternative
+echo "${WORKTREE_ROOT:-$HOME/code/.worktrees}"   # Home default (global, hidden)
+ls -d .worktrees 2>/dev/null                     # Project-local (hidden)
+ls -d worktrees 2>/dev/null                      # Project-local (visible)
 ```
 
 **If found:** Use that directory. If both exist, `.worktrees` wins.
@@ -42,8 +51,9 @@ If no directory exists and no CLAUDE.md preference:
 ```
 No worktree directory found. Where should I create worktrees?
 
-1. .worktrees/ (project-local, hidden)
-2. ~/.config/superpowers/worktrees/<project-name>/ (global location)
+1. ~/code/.worktrees/<project-name>/ (global location)
+2. .worktrees/ (project-local, hidden)
+3. ~/.config/superpowers/worktrees/<project-name>/ (global location)
 
 Which would you prefer?
 ```
@@ -68,7 +78,7 @@ Per Jesse's rule "Fix broken things immediately":
 
 **Why critical:** Prevents accidentally committing worktree contents to repository.
 
-### For Global Directory (~/.config/superpowers/worktrees)
+### For Global Directories (~/code/.worktrees, ~/.config/superpowers/worktrees)
 
 No .gitignore verification needed - outside project entirely.
 
@@ -77,7 +87,8 @@ No .gitignore verification needed - outside project entirely.
 ### 1. Detect Project Name
 
 ```bash
-project=$(basename "$(git rev-parse --show-toplevel)")
+project=$(basename "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)")")
+project=${project:-$(basename "$(git rev-parse --show-toplevel)")}
 ```
 
 ### 2. Create Worktree
@@ -85,11 +96,12 @@ project=$(basename "$(git rev-parse --show-toplevel)")
 ```bash
 # Determine full path
 case $LOCATION in
+  ~/code/.worktrees|~/.config/superpowers/worktrees/*)
+    path="$LOCATION/$project/$BRANCH_NAME"
+    mkdir -p "$(dirname "$path")"
+    ;;
   .worktrees|worktrees)
     path="$LOCATION/$BRANCH_NAME"
-    ;;
-  ~/.config/superpowers/worktrees/*)
-    path="~/.config/superpowers/worktrees/$project/$BRANCH_NAME"
     ;;
 esac
 
@@ -145,9 +157,10 @@ Ready to implement <feature-name>
 
 | Situation | Action |
 |-----------|--------|
+| Worktree for branch already registered (any location) | Use it |
+| `~/code/.worktrees/` exists | Use it (global, no ignore check needed) |
 | `.worktrees/` exists | Use it (verify ignored) |
 | `worktrees/` exists | Use it (verify ignored) |
-| Both exist | Use `.worktrees/` |
 | Neither exists | Check CLAUDE.md → Ask user |
 | Directory not ignored | Add to .gitignore + commit |
 | Tests fail during baseline | Report failures + ask |
@@ -163,7 +176,7 @@ Ready to implement <feature-name>
 ### Assuming directory location
 
 - **Problem:** Creates inconsistency, violates project conventions
-- **Fix:** Follow priority: existing > CLAUDE.md > ask
+- **Fix:** Follow priority: existing registered worktree > existing dir > CLAUDE.md > ask
 
 ### Proceeding with failing tests
 
@@ -180,13 +193,13 @@ Ready to implement <feature-name>
 ```
 You: I'm using the using-git-worktrees skill to set up an isolated workspace.
 
-[Check .worktrees/ - exists]
-[Verify ignored - git check-ignore confirms .worktrees/ is ignored]
-[Create worktree: git worktree add .worktrees/auth -b feature/auth]
+[Check registered worktrees - none for feature/auth]
+[Use ~/code/.worktrees/<project>/ (global, no ignore check needed)]
+[Create worktree: git worktree add ~/code/.worktrees/myproject/auth -b feature/auth]
 [Run npm install]
 [Run npm test - 47 passing]
 
-Worktree ready at /Users/jesse/myproject/.worktrees/auth
+Worktree ready at ~/code/.worktrees/myproject/auth
 Tests passing (47 tests, 0 failures)
 Ready to implement auth feature
 ```
@@ -201,7 +214,8 @@ Ready to implement auth feature
 - Skip CLAUDE.md check
 
 **Always:**
-- Follow directory priority: existing > CLAUDE.md > ask
+- Check `git worktree list` for an existing registered worktree before creating
+- Follow directory priority: existing registered worktree > existing dir > CLAUDE.md > ask
 - Verify directory is ignored for project-local
 - Auto-detect and run project setup
 - Verify clean test baseline

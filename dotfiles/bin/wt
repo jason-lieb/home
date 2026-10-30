@@ -1,0 +1,96 @@
+#!/usr/bin/env sh
+set -eu
+
+usage() {
+    cat >&2 <<'EOF'
+Usage: wt <command> <branch-name>
+
+Commands:
+  new <branch>   Create a worktree for the branch (or reuse an existing one) and print its path
+  go <branch>    Print the path of the branch's worktree
+  rm <branch>    Remove the branch's worktree
+  open <branch>  Open the branch's worktree in GitHub Desktop
+
+The wt shell function cds into the worktree after new and go. The jl/ prefix is optional. New worktrees go in $WORKTREE_ROOT/<repo>/<branch> (default ~/code/.worktrees).
+EOF
+    exit 1
+}
+
+fail() {
+    echo "$*" >&2
+    exit 1
+}
+
+require_repo() {
+    git rev-parse --is-inside-work-tree >/dev/null 2>&1 || fail "Not in a git repository"
+}
+
+worktree_root() {
+    echo "${WORKTREE_ROOT:-$HOME/code/.worktrees}"
+}
+
+worktree_repo() {
+    common_dir=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+    basename "$(dirname "$common_dir")"
+}
+
+worktree_find() {
+    git worktree list --porcelain 2>/dev/null | awk -v d="${1#jl/}" '
+        /^worktree / { wt = substr($0, 10) }
+        /^branch /   { br = substr($0, 8); sub(/^refs\/heads\//, "", br); sub(/^jl\//, "", br) }
+        NF == 0      { if (br == d && wt) print wt; wt = ""; br = "" }
+        END          { if (br == d && wt) print wt }
+    '
+}
+
+require_worktree() {
+    worktree=$(worktree_find "$1")
+    [ -n "$worktree" ] || fail "No worktree found for '$1'"
+    [ "$(printf '%s\n' "$worktree" | wc -l)" -eq 1 ] || fail "Multiple worktrees match '$1':
+$worktree"
+    echo "$worktree"
+}
+
+command_new() {
+    branch="$1"
+    existing=$(worktree_find "$branch")
+    if [ -n "$existing" ]; then
+        echo "Worktree already exists: $existing" >&2
+        echo "$existing"
+        return
+    fi
+    worktree_path="$(worktree_root)/$(worktree_repo)/${branch#jl/}"
+    mkdir -p "$(dirname "$worktree_path")"
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+        git worktree add "$worktree_path" "$branch" >&2
+    else
+        git worktree add "$worktree_path" -b "$branch" main >&2
+    fi
+    echo "$worktree_path"
+}
+
+command_go() {
+    require_worktree "$1"
+}
+
+command_rm() {
+    worktree=$(require_worktree "$1")
+    git worktree remove "$worktree"
+    rmdir "$(dirname "$worktree")" 2>/dev/null || true
+}
+
+command_open() {
+    worktree=$(require_worktree "$1")
+    open -a "GitHub Desktop" "$worktree"
+}
+
+[ $# -eq 2 ] || usage
+require_repo
+
+case "$1" in
+    new) command_new "$2" ;;
+    go) command_go "$2" ;;
+    rm) command_rm "$2" ;;
+    open) command_open "$2" ;;
+    *) usage ;;
+esac

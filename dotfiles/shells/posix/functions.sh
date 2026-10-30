@@ -50,84 +50,16 @@ main() {
     fi
 }
 
-nw() {
-    if [ $# -ne 1 ]; then
-        echo "Usage: nw <branch-name>"
-        return 1
-    fi
-    local full_branch="$1"
-    local dir="${full_branch#jl/}"
-    local root
-    root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
-    if git show-ref --verify --quiet "refs/heads/$full_branch"; then
-        git worktree add "$root/.worktrees/$dir" "$full_branch"
-    else
-        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
-    fi
-}
-
-nwe() {
-    if [ $# -ne 1 ]; then
-        echo "Usage: nwe <branch-name>"
-        return 1
-    fi
-    local full_branch="$1"
-    local dir="${full_branch#jl/}"
-    local root
-    root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
-    if git show-ref --verify --quiet "refs/heads/$full_branch"; then
-        git worktree add "$root/.worktrees/$dir" "$full_branch"
-    else
-        git worktree add "$root/.worktrees/$dir" -b "$full_branch" main
-    fi && cd "$root/.worktrees/$dir"
-}
-
-sw() {
-    if [ $# -ne 1 ]; then
-        echo "Usage: sw <branch-name>"
-        return 1
-    fi
-    local dir="${1#jl/}"
-    local root
-    root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
-    local worktree="$root/.worktrees/$dir"
-    if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$dir'"
-        return 1
-    fi
-    cd "$worktree"
-}
-
-dw() {
-    if [ $# -ne 1 ]; then
-        echo "Usage: dw <branch-name>"
-        return 1
-    fi
-    local dir="${1#jl/}"
-    local root
-    root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
-    local worktree="$root/.worktrees/$dir"
-    if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$dir'"
-        return 1
-    fi
-    git worktree remove "$worktree"
-}
-
-ghd() {
-    if [ $# -ne 1 ]; then
-        echo "Usage: ghd <branch-name>"
-        return 1
-    fi
-    local dir="${1#jl/}"
-    local root
-    root=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/^worktree //') || { echo "Not in a git repository"; return 1; }
-    local worktree="$root/.worktrees/$dir"
-    if [ ! -d "$worktree" ]; then
-        echo "No worktree found for '$dir'"
-        return 1
-    fi
-    open -a "GitHub Desktop" "$worktree"
+wt() {
+    case "${1:-}" in
+        new|go)
+            local worktree
+            worktree=$(command wt "$@") && cd "$worktree"
+            ;;
+        *)
+            command wt "$@"
+            ;;
+    esac
 }
 
 fr() {
