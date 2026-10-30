@@ -23,5 +23,5 @@ All install scripts must be idempotent — running them multiple times should pr
 
 - Default worktree location: `$WORKTREE_ROOT` (falls back to `~/code/.worktrees`), organized as `<location>/<project-name>/<dir>` where `<dir>` is the branch name minus the `jl/` prefix.
 - Before creating a worktree, check `git worktree list --porcelain` for an existing registered worktree for the branch — reuse it regardless of location. Never create a location-specific duplicate.
-- Worktree logic lives in one POSIX script, `dotfiles/bin/wt` (`wt new|go|rm|open <branch>`), installed to `~/.local/bin/wt` by `dotfiles/install`. It resolves worktrees via the git registry, so it works with worktrees created by any tool at any location.
+- Worktree logic lives in one POSIX script, `dotfiles/bin/wt` (`wt list`, `wt new|go|rm|open <branch>`), installed to `~/.local/bin/wt` by `dotfiles/install`. It resolves worktrees via the git registry, so it works with worktrees created by any tool at any location.
 - A `wt` shell function (`dotfiles/shells/fish/functions/wt.fish`, `dotfiles/shells/posix/functions.sh`) shadows the script only to `cd` into the printed path after `new` and `go`; everything else passes through. Don't add worktree logic to shell configs; change the script instead.

@@ -3,9 +3,10 @@ set -eu
 
 usage() {
     cat >&2 <<'EOF'
-Usage: wt <command> <branch-name>
+Usage: wt <command> [branch-name]
 
 Commands:
+  list           List worktrees with their branches
   new <branch>   Create a worktree for the branch (or reuse an existing one) and print its path
   go <branch>    Print the path of the branch's worktree
   rm <branch>    Remove the branch's worktree
@@ -51,6 +52,16 @@ $worktree"
     echo "$worktree"
 }
 
+command_list() {
+    git worktree list --porcelain | awk '
+        function flush() { if (wt) printf "%-40s %s\n", (br ? br : "(detached)"), wt; wt = ""; br = "" }
+        /^worktree / { wt = substr($0, 10) }
+        /^branch /   { br = substr($0, 8); sub(/^refs\/heads\//, "", br) }
+        NF == 0      { flush() }
+        END          { flush() }
+    '
+}
+
 command_new() {
     branch="$1"
     existing=$(worktree_find "$branch")
@@ -84,8 +95,16 @@ command_open() {
     open -a "GitHub Desktop" "$worktree"
 }
 
-[ $# -eq 2 ] || usage
+[ $# -ge 1 ] || usage
 require_repo
+
+if [ "$1" = list ]; then
+    [ $# -eq 1 ] || usage
+    command_list
+    exit
+fi
+
+[ $# -eq 2 ] || usage
 
 case "$1" in
     new) command_new "$2" ;;
