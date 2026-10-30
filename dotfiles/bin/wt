@@ -53,9 +53,9 @@ $worktree"
 }
 
 command_list() {
-    git worktree list --porcelain | awk '
-        function flush() { if (wt) printf "%-40s %s\n", (br ? br : "(detached)"), wt; wt = ""; br = "" }
-        /^worktree / { wt = substr($0, 10) }
+    git worktree list --porcelain | awk -v home="$HOME" '
+        function flush() { if (wt && br != "main") printf "%-40s %s\n", (br ? br : "(detached)"), wt; wt = ""; br = "" }
+        /^worktree / { wt = substr($0, 10); if (index(wt, home "/") == 1) wt = "~" substr(wt, length(home) + 1) }
         /^branch /   { br = substr($0, 8); sub(/^refs\/heads\//, "", br) }
         NF == 0      { flush() }
         END          { flush() }
