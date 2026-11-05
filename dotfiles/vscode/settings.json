@@ -28,8 +28,6 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "javascript.validate.enable": false,
   "liveServer.settings.donotShowInfoMsg": true,
-  "nix.enableLanguageServer": true,
-  "nix.serverPath": "nixd",
   "prettier.enable": true,
   "prettier.singleQuote": true,
   "security.workspace.trust.untrustedFiles": "open",

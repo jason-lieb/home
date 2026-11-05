@@ -1,6 +1,6 @@
 # Home
 
-Configuration for macOS, Fedora, and NixOS.
+Configuration for macOS and Fedora.
 
 ## Mac Setup
 
@@ -49,28 +49,4 @@ mkdir -p ~/code
 git clone https://github.com/jason-lieb/home.git ~/code/home
 cd ~/code/home
 ./fedora/install
-```
-
-
-## NixOS Setup
-
-```bash
-bash -c "$(curl -fsSl https://raw.githubusercontent.com/jason-lieb/home/main/nixos/install)"
-```
-
-### Nix Profiles
-
-Install:
-```bash
-nix profile install ./profiles#backend
-```
-
-Update:
-```bash
-nix profile upgrade ./profiles#backend
-```
-
-Initialize cache example:
-```bash
-nix build --no-link --print-out-paths github:ghostty-org/ghostty#default
 ```
