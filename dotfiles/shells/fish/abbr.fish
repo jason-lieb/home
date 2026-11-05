@@ -60,3 +60,4 @@ abbr p pnpm
 abbr docker-clean 'docker system prune -a'
 abbr down 'docker compose down'
 abbr cc claude
+abbr oc opencode
