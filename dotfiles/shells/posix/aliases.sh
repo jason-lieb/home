@@ -59,5 +59,5 @@ alias vault-login='vault login -method=github -path=github/cincpro token=$GITHUB
 alias p="pnpm"
 alias docker-clean="docker system prune -a"
 alias down="docker compose down"
-alias oc="HTTPS_PROXY=http://127.0.0.1:9009 HTTP_PROXY=http://127.0.0.1:9009 NO_PROXY=localhost,127.0.0.1 opencode"
+alias oc="opencode"
 alias cc="claude"
