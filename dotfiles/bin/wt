@@ -86,8 +86,13 @@ command_go() {
 
 command_rm() {
     worktree=$(require_worktree "$1")
-    git worktree remove "$worktree"
+    [ -z "$(git -C "$worktree" status --porcelain)" ] || fail "Worktree has changes: $worktree"
+    trash="$(worktree_root)/.trash/$(date +%s)-$(basename "$worktree")"
+    mkdir -p "$(dirname "$trash")"
+    mv "$worktree" "$trash"
+    git worktree prune
     rmdir "$(dirname "$worktree")" 2>/dev/null || true
+    (rm -rf "$trash" >/dev/null 2>&1 &)
 }
 
 command_open() {
